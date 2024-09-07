@@ -1,0 +1,6 @@
+.input {
+  @apply border border-ps-green rounded-lg px-2 py-2 text-gray-500 w-full h-3/4 bg-gray-100;
+}
+.input:focus {
+  @apply outline-none border-2 border-ps-orange;
+}
