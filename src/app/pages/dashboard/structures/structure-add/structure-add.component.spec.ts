@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { StructureAddComponent } from './structure-add.component';
+
+describe('StructureAddComponent', () => {
+  let component: StructureAddComponent;
+  let fixture: ComponentFixture<StructureAddComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [StructureAddComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(StructureAddComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

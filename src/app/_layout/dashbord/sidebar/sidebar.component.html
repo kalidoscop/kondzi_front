@@ -1,0 +1,11 @@
+<div class="w-[15%] left-0 h-full fixed bg-white border-r-2 border-ps-green shadow-xl">
+  <div class="w-full h-1/5"></div>
+  <ul class="w-full h-4/5 overflow-auto">
+    @for (data of navData; track $index) {
+    <li *ngIf="data.open" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="menu">
+      <a class="menu-link" [routerLink]="data.link"><samp>{{data.label}}</samp></a>
+    </li>
+
+    }
+  </ul>
+</div>

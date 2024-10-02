@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Alert } from '../model/alert';
+import { Alert } from '../_model/alert';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Injectable({
