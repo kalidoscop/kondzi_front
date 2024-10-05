@@ -1,4 +1,10 @@
-<h1 class="text-3xl m-4">Structure</h1>
+<div class="flex justify-between items-center p-4">
+  <h1 class="text-3xl">Structure</h1>
+  <a class="flex gap-1 text-ps-green hover:text-blue-600 transition-all" routerLink="/dashboard/stuctures/add"
+    ><i-feather name="plus-circle"></i-feather
+  > AJOUTER UNE STRUCTURE</a>
+</div>
+
 <table class="table-auto w-[98%] m-auto">
   <thead class="w-full h-14 bg-ps-green text-left text-white">
     <tr>
@@ -11,13 +17,22 @@
     </tr>
   </thead>
   <tbody>
+    @for (data of structure; track $index) {
     <tr class="border-2 h-14">
-      <td class="pl-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-      <td class="pl-2">Malcolm Lockyer</td>
-      <td class="pl-2">1961</td>
-      <td class="pl-2">The Sliding Mr. Bones (Next Stop, Pottersville)</td>
-      <td class="pl-2">Malcolm Lockyer</td>
-      <td class="pl-2"></td>
+      <td class="pl-2">{{ data.name }}td></td>
+      <td class="pl-2">{{ data.domaine }}</td>
+      <td class="pl-2">{{ data.manager_name }}</td>
+      <td class="pl-2">{{ data.email }}</td>
+      <td class="pl-2">{{ data.tel }}</td>
+      <td class="pl-2">
+        <a routerLink="/dashboard/stuctures/details"
+          ><i-feather
+            name="edit"
+            class="hover:text-ps-orange transition-all"
+          ></i-feather
+        ></a>
+      </td>
     </tr>
+    }
   </tbody>
 </table>

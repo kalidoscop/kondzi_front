@@ -6,12 +6,14 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { AuthGuard } from './_guard/auth.guard';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    importProvidersFrom(HttpClientModule),
+    provideHttpClient(),
+    AuthGuard
   ],
 };

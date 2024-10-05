@@ -9,21 +9,21 @@ export class TokenService {
 
   constructor(private route: Router) {}
   save(token: string) {
-    localStorage.setItem('token', token);
+    sessionStorage.setItem('token', token);
     this.route.navigate(['/']);
     // this.route.navigate(["admin"]);
   }
   isLoged(): boolean {
-    const token = localStorage.getItem('token');
+    const token = sessionStorage.getItem('token');
     return !!token;
   }
   getOption(): HttpHeaders {
     return new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${sessionStorage.getItem('token')}`,
     });
   }
   clearToken(): void {
-    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
     this.route.navigate(['/']);
   }
 }
