@@ -10,16 +10,12 @@ import { IconsModule } from '../../../../_icons/icons.module';
 import { NgFor } from '@angular/common';
 import { StructureService } from '../../../../_services/structure.service';
 import { ArrayValidators } from '../../../../_validator/array.validator';
-import { Router } from '@angular/router';
-interface adresse {
-  nadress: string;
-  eadress: string;
-  isMain: boolean;
-}
+import { Router, RouterModule } from '@angular/router';
+
 @Component({
   selector: 'app-structure-add',
   standalone: true,
-  imports: [ReactiveFormsModule, IconsModule, NgFor],
+  imports: [ReactiveFormsModule,RouterModule, IconsModule, NgFor],
   templateUrl: './structure-add.component.html',
   styleUrl: './structure-add.component.scss',
 })

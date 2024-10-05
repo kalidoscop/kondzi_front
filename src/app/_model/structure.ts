@@ -1,3 +1,6 @@
+import { Adresse } from './adresse';
+import { Network } from './network';
+
 export interface Structure {
   id: string;
   name: string;
@@ -11,4 +14,6 @@ export interface Structure {
   created_at: string;
   updated_at: string;
   type: string;
+  adresse: Adresse[];
+  network: Network[];
 }

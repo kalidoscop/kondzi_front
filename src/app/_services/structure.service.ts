@@ -31,6 +31,18 @@ export class StructureService {
         catchError((error) => this.handleError(error, [],error.error.message))
       );
   }
+  getStructur(id:string): Observable<Structure> {
+    return this.http
+      .get<Structure>(`${environment.baseUrl}structure/${id}`, {
+        headers: this.tokenService.getOption(),
+      })
+      .pipe(
+        tap((structures) => {
+          this.log(structures);
+        }),
+        catchError((error) => this.handleError(error, [],error.error.message))
+      );
+  }
   addStructure(newStrucutre:any): Observable<Structure> {
     return this.http.post<Structure>(`${environment.baseUrl}structure`, newStrucutre,{
       headers: this.tokenService.getOption(),

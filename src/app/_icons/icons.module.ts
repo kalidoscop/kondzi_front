@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FeatherModule } from 'angular-feather';
-import { Book, Edit, Home, Inbox, PlusCircle, Settings, User, Users, X } from 'angular-feather/icons';
+import { Book, CornerUpLeft, Edit, Home, Inbox, PlusCircle, Settings, User, Users, X } from 'angular-feather/icons';
 
 const icons = {
   User,
@@ -14,6 +14,7 @@ const icons = {
   Edit,
   PlusCircle,
   X,
+  CornerUpLeft,
 };
 
 @NgModule({
