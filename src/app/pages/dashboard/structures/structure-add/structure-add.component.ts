@@ -48,7 +48,7 @@ export class StructureAddComponent {
     console.log(this.structureForm.value);
     this.structureService
       .addStructure(this.structureForm.value)
-      .subscribe((res) => {
+      .subscribe(() => {
         this.router.navigate(['dashboard']);
       });
   }

@@ -6,7 +6,7 @@ export const navbarData = [
     open: true,
   },
   {
-    link: '/dashboard/doctor',
+    link: '/dashboard/doctors',
     icon: 'home',
     label: 'Médécin',
     open: true,

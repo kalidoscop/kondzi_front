@@ -24,7 +24,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class StructureDetailsComponent implements OnInit {
   structureService = inject(StructureService);
-  private router = inject(Router);
+  // private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
 
   structureId: string | null = this.activatedRoute.snapshot.paramMap.get('id');

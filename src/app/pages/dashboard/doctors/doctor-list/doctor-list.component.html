@@ -1,0 +1,39 @@
+<div class="flex justify-between items-center p-4">
+    <h1 class="text-3xl">Médécins</h1>
+    <a class="flex gap-1 text-ps-green hover:text-blue-600 transition-all" routerLink="/dashboard/doctors/add"
+      ><i-feather name="plus-circle"></i-feather
+    > AJOUTER UNE MÉDÉCIN</a>
+  </div>
+  
+  <table class="table-auto w-[98%] m-auto">
+    <thead class="w-full h-14 bg-ps-green text-left text-white">
+      <tr>
+        <th class="pl-2">Nom</th>
+        <th class="pl-2">Prenom</th>
+        <th class="pl-2">Specialité</th>
+        <th class="pl-2">Email</th>
+        <th class="pl-2">Téléphone</th>
+        <th class="pl-2">ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of doctors; track $index) {
+      <tr class="border-2 h-14">
+        <td class="pl-2">{{ data.last_name }}</td>
+        <td class="pl-2">{{ data.first_name }}</td>
+        <td class="pl-2">{{ data.speciality }}</td>
+        <td class="pl-2">{{ data.email }}</td>
+        <td class="pl-2">{{ data.tel }}</td>
+        <td class="pl-2">
+          <a [routerLink]="['/dashboard/doctors/details',data.id]"
+            ><i-feather
+              name="edit"
+              class="hover:text-ps-orange transition-all"
+            ></i-feather
+          ></a>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  

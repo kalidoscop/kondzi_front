@@ -17,6 +17,10 @@ const routes: Routes = [
             (m) => m.StructuresModule
           ),
       },
+      {
+        path:'doctors',
+        loadChildren:()=> import('./doctors/doctors.module').then((m)=>m.DoctorsModule)
+      }
     ],
   },
 ];

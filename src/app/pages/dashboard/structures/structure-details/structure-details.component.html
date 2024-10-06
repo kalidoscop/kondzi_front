@@ -155,11 +155,18 @@
               id="eadrees"
             />
           </td>
-          <td>
+          <td class="h-10 mt-2 gap-2 flex justify-center items-center">
             <a (click)="removeOldAdresse(item.id)">
               <i-feather
                 name="x"
                 class="text-red-500 transition-all"
+              ></i-feather>
+            </a>
+            <!-- docteur adresse -->
+            <a routerLink="/dashboard/stuctures/adresses">
+              <i-feather
+                name="users"
+                class="text-ps-green transition-all"
               ></i-feather>
             </a>
           </td>

@@ -1,0 +1,93 @@
+<div class="flex justify-between items-center p-4">
+  <h1 class="text-3xl">Adresse et Médécin</h1>
+  <a
+    class="text-ps-green font-bold w-1/5 text-center"
+    routerLink="/dashboard/stuctures/"
+    ><i-feather name="corner-up-left" class="h-full"></i-feather
+  ></a>
+</div>
+<div
+  class="w-full h-auto flex flex-col justify-start items-center"
+>
+<div class="row-f">
+    <!-- adresse -->
+    <table class="w-[49%]">
+      <thead class="w-full h-14 bg-ps-green text-white">
+        <tr>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>tel</th>
+            <th><a
+              class="font-bold w-1/5 text-center"
+              ><i-feather name="user-plus" class="text-white"></i-feather
+            ></a></th>
+        </tr>
+      </thead>
+      <tbody class="text-center h-10" formArrayName="adresse">
+        <!-- old adress -->
+        <tr class="h-14">
+          <td>
+           
+          </td>
+          <td>
+            
+          </td>
+          <td class="h-10 mt-2 gap-2 flex justify-center items-center">
+            <a>
+              <i-feather
+                name="x"
+                class="text-red-500 transition-all"
+              ></i-feather>
+            </a>
+            <!-- docteur adresse -->
+            <a routerLink="/dashboard/stuctures/adresses">
+              <i-feather
+                name="users"
+                class="text-ps-green transition-all"
+              ></i-feather>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--end adresse -->
+    <!-- netwok -->
+    <table class="w-[49%]">
+      <thead class="w-full h-14 bg-ps-green text-white">
+        <tr>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>tel</th>
+          <th><a
+            class="text-white font-bold w-1/5 text-center"
+            routerLink="/dashboard/stuctures/"
+            ><i-feather name="users-plus" class="h-full"></i-feather
+          ></a></th>
+        </tr>
+      </thead>
+      <tbody class="text-center h-10" formArrayName="network">
+        <!-- old network -->
+        <tr
+          class="h-14"
+          
+        >
+          <td>
+            
+          </td>
+          <td>
+            
+          </td>
+          <td>
+            <a >
+              <i-feather
+                name="x"
+                class="text-red-500 transition-all"
+              ></i-feather>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!--end netwok -->
+  </div>
+</div>
