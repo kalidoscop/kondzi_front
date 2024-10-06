@@ -16,7 +16,7 @@ export class StructureListComponent implements OnInit{
   private structureService= inject(StructureService)
 
   ngOnInit(): void {
-    this.structureService.getStructure().subscribe((res)=>{
+    this.structureService.getStructures().subscribe((res)=>{
       
       this.structure = res
     })

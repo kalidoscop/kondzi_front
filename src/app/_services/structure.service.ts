@@ -5,6 +5,7 @@ import { AlerteService } from './alerte.service';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Structure } from '../_model/structure';
 import { environment } from '../../environments/environment';
+import { Response } from '../_model/response';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,7 @@ export class StructureService {
     private http: HttpClient
   ) {}
 
-  getStructure(): Observable<Structure[]> {
+  getStructures(): Observable<Structure[]> {
     return this.http
       .get<Structure[]>(`${environment.baseUrl}structure/`, {
         headers: this.tokenService.getOption(),
@@ -31,7 +32,7 @@ export class StructureService {
         catchError((error) => this.handleError(error, [],error.error.message))
       );
   }
-  getStructur(id:string): Observable<Structure> {
+  getStructure(id:string): Observable<Structure> {
     return this.http
       .get<Structure>(`${environment.baseUrl}structure/${id}`, {
         headers: this.tokenService.getOption(),
@@ -47,11 +48,41 @@ export class StructureService {
     return this.http.post<Structure>(`${environment.baseUrl}structure`, newStrucutre,{
       headers: this.tokenService.getOption(),
     }).pipe(tap((structure)=>{
-      this.log(structure,'La structure est bien créé')
+      this.log(structure,'La structure est bien créée')
     }),catchError((error)=>this.handleError(error,[])));
   }
-
-  private log(object: Structure | Structure[], message?: string) {
+  updateStructure(newStrucutre:any,id:string): Observable<Structure> {
+    return this.http.put<Structure>(`${environment.baseUrl}structure/${id}`, newStrucutre,{
+      headers: this.tokenService.getOption(),
+    }).pipe(tap((structure)=>{
+      this.log(structure,'La structure est bien modifiée')
+    }),catchError((error)=>this.handleError(error,[])));
+  }
+  deleteStructurAdresse(id:string): Observable<Response> {
+    return this.http
+      .delete<Response>(`${environment.baseUrl}structure/adresse/${id}`, {
+        headers: this.tokenService.getOption(),
+      })
+      .pipe(
+        tap((Response) => {
+          this.log(Response);
+        }),
+        catchError((error) => this.handleError(error, [],error.error.message))
+      );
+  }
+  deleteStructurNetwork(id:string): Observable<Response> {
+    return this.http
+      .delete<Response>(`${environment.baseUrl}structure/network/${id}`, {
+        headers: this.tokenService.getOption(),
+      })
+      .pipe(
+        tap((Response) => {
+          this.log(Response);
+        }),
+        catchError((error) => this.handleError(error, [],error.error.message))
+      );
+  }
+  private log(object: Structure | Structure[] | Response, message?: string) {
     if (environment.isDevEnv) {
       if (object instanceof Array) {
         console.table(object);
