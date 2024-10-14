@@ -1,0 +1,84 @@
+<nav
+  class="w-full h-auto z-10 fixed top-0 border-b-4 border-ps-orange bg-white"
+>
+  <div class="w-full h-24 flex flex-row justify-between items-center">
+    <a
+      [routerLink]="['']"
+      routerLinkActive="router-link-active"
+      class="w-2/12 h-full flex justify-start items-center"
+    >
+      <img
+        class="ml-4 w-auto h-[180%]"
+        src="images/logo condji-04.png"
+        alt=""
+      />
+    </a>
+    <!-- recherche -->
+    <form
+      class="w-6/12 h-full flex items-center"
+      (ngSubmit)="onSubmit()"
+      [formGroup]="search"
+    >
+      <div
+        class="w-11/12 h-4/5 flex rounded-l justify-around items-center bg-white bg-opacity-[0.7]"
+      >
+        <input
+          class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+          type="text"
+          formControlName="word"
+          placeholder="Votre recherche"
+        />
+        <input
+          class="w-3/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+          type="text"
+          formControlName="zone"
+          placeholder="Votre zone"
+        />
+        <select
+          class="w-3/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+          formControlName="type"
+          type="text"
+        >
+          <option value="ch">Centre Hospitqlier</option>
+          <option value="doc">Médécins</option>
+        </select>
+      </div>
+      <button
+        type="submit"
+        [disabled]="!search.valid"
+        class="w-2/12 h-2/3 rounded-r bg-black flex justify-center items-center font-bold"
+      >
+        <i-feather name="search" class="text-white transition-all"></i-feather>
+      </button>
+    </form>
+    <div class="border-l-[1px] border-r-[1px] transition-all border-ps-green h-full w-[7%]" [ngClass]="{'bt-open': menu === true}">
+      <a type="button" class="w-full h-full flex justify-center items-center" (click)="openMenu()">
+        @if (menu) {
+          <i-feather name="x" class="text-ps-green font-bold text-center w-full h-full text-3xl transition-all"></i-feather>
+        }@else {
+          <i-feather name="menu" class="text-ps-green font-bold w-full h-full text-center transition-all"></i-feather>
+        }
+        
+      </a>
+    </div>
+    <a [routerLink]="['/login']" class="w-2/12 h-5/6 mr-6 flex justify-center items-center gap-4">
+      <i-feather name="user" class="text-ps-green font-bold text-3xl transition-all"></i-feather>
+      <samp class="text-ps-green font-bold">SE CONNECTER</samp>
+    </a>
+  </div>
+  <div
+    class="w-full h-0 transition-all bg-gray-200 flex flex-row justify-around items-center"
+    [ngClass]="{'open': menu === true}"
+  >
+    <div class="w-5/12 h-full flex justify-around items-center" [ngClass]="{'block': menu === false}">
+      <div class="w-9/12 h-5/6 flex justify-center items-center">
+        <p class="w-1/3 text-center">Qui sommes-nous ?</p>
+
+        <p class="w-1/3 text-center border-l-2 border-r-2 border-black">
+          Nos missions
+        </p>
+        <p class="w-1/3 text-center">Nos partenaires</p>
+      </div>
+    </div>
+  </div>
+</nav>

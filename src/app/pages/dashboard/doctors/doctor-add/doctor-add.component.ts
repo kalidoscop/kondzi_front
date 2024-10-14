@@ -18,7 +18,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class DoctorAddComponent {
 
-  doctorService = inject(DoctorService)
+  private doctorService = inject(DoctorService)
   private router = inject(Router);
 
   doctorForm = new FormGroup({

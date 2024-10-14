@@ -1,0 +1,36 @@
+<div class="w-full h-full bg-gray-100">
+
+  <div class="h-full gap-4 items-end flex bg-gray-100">
+    <div class="h-[88%] w-[5%] bg-ps-green"></div>
+    <div class="h-[88%] w-4/12 flex flex-col items-center gap-10 overflow-auto">
+      <h1 class="text-3xl w-11/12 mt-10 font-bold">
+        Résultat pour <<{{ word }}>>
+      </h1>
+      @for (item of structures; track $index) {
+      <div class="w-11/12 h-2/6 bg-white">
+        <div class="w-11/12 h-[98%] gap-4 m-auto flex flex-col p-4">
+          <h1 class="text-2xl font-bold text-ps-green">{{ item.name }}</h1>
+          <h1 class="text-xl">Centre hospitalier</h1>
+          <h1>{{ item.domaine }}</h1>
+          <h1>{{ item.adresse[0].nadress }}</h1>
+          <h1>{{ item.tel }}</h1>
+        </div>
+      </div>
+      }
+    </div>
+    <div class="h-[88%] w-7/12">
+      <!-- <google-map height="100%" width="100%" [options]="options">
+        @for (location of auLocations; track location) {
+        <map-advanced-marker
+          #markerElem="mapAdvancedMarker"
+          [position]="{ lat: location.lat, lng: location.lng }"
+        />
+        }</google-map
+      > -->
+      <div id="map" class="h-full w-full"></div>
+      <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
+        <gmp-advanced-marker position="6.129994869232178,1.2203582525253296" title="My location"></gmp-advanced-marker>
+      </gmp-map> -->
+    </div>
+  </div>
+</div>

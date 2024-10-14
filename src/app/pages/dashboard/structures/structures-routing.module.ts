@@ -12,7 +12,7 @@ const routes: Routes = [
       { path: '', component: StructureListComponent },
       { path: 'add', component: StructureAddComponent },
       { path: 'details/:id', component: StructureDetailsComponent },
-      { path: 'adresses', component: AdresseDoctorComponent },
+      { path: 'adresses/:id', component: AdresseDoctorComponent },
     ],
   },
 ];

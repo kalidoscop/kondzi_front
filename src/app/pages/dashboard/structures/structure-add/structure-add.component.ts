@@ -15,7 +15,7 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-structure-add',
   standalone: true,
-  imports: [ReactiveFormsModule,RouterModule, IconsModule, NgFor],
+  imports: [ReactiveFormsModule, RouterModule, IconsModule, NgFor],
   templateUrl: './structure-add.component.html',
   styleUrl: './structure-add.component.scss',
 })
@@ -56,17 +56,28 @@ export class StructureAddComponent {
     nadress: new FormControl(''),
     eadress: new FormControl(''),
     isMain: new FormControl(''),
+    lat: new FormControl(),
+    lng: new FormControl(),
   });
   networkGroup = new FormGroup({
     name: new FormControl(''),
     link: new FormControl(''),
   });
   addAdresse() {
+    const cor = this.addresseGroup.value.eadress?.split(',')
+    console.log(cor);
+    if (cor) {
+      this.addresseGroup.controls.lat.setValue(Number(cor[0].trim()))
+      this.addresseGroup.controls.lng.setValue(Number(cor[1].trim())) 
+    }
+    
     this.adresses.push(this.addresseGroup);
     this.addresseGroup = new FormGroup({
       nadress: new FormControl(''),
       eadress: new FormControl(''),
       isMain: new FormControl(''),
+      lat: new FormControl(),
+      lng: new FormControl(),
     });
     // console.log(this.structureForm.controls.adresse.value);
 

@@ -6,4 +6,6 @@ export interface Adresse {
   structure_id: string;
   created_at: string;
   updated_at: string;
+  lat: number;
+  lng: number;
 }
