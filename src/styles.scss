@@ -2,3 +2,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "ckeditor5/ckeditor5.css";
+
+* {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+// @import 'ckeditor5-premium-features/ckeditor5-premium-features.css';

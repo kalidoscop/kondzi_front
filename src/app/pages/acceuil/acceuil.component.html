@@ -1,6 +1,4 @@
 <div class="w-full h-full bg-gray-100">
-  
-
   <div class="w-full h-4/5 fixed bg-ps-green overflow-hidden">
     <!-- <div class="w-[52%] h-1/5 flex justify-center items-center">
       <h1 class="text-4xl text-white">
@@ -22,28 +20,31 @@
         </p>
       </div> -->
     <!-- </div> -->
-     <!-- <app-carousel></app-carousel> -->
-      <app-carousel [images]="images"></app-carousel>
+    <!-- <app-carousel></app-carousel> -->
+    <app-carousel [images]="images"></app-carousel>
   </div>
   <!-- body -->
-   <div class="w-full top-3/4 absolute">
+  <div class="w-full top-3/4 absolute">
+    <div class="w-full pb-9 pt-9 flex justify-center"></div>
     <div class="w-full pb-9 pt-9 flex justify-center gap-4 bg-gray-100">
       <div
-        class="w-[22%] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
+        class="w-[40%] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
       >
-        <h1 class="text-2xl mt-4 mb-9 font-bold">NOS ACTUALITÉ</h1>
-        <div
+        <h1 class="text-2xl mt-4 mb-9 font-bold">PRÉSENTATION KONDZI.COM</h1>
+        <!-- <div
           class="w-11/12 rounded mb-9 h-96 shadow-md border-[1px] border-gray-300 bg-white"
-        ></div>
+        > -->
+        <youtube-player videoId="bGxRcV7EUtg"></youtube-player>
+        <!-- </div> -->
         <!-- article -->
         <div
-          class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
           <div class="w-full h-24 bg-orange-500"></div>
           <div class="w-full p-4">
             <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de perdre
-              du poids ?
+              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
+              perdre du poids ?
             </h1>
             <p class="text-left text-sm">
               Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
@@ -61,8 +62,8 @@
           <div class="w-full h-24 bg-orange-500"></div>
           <div class="w-full p-4">
             <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de perdre
-              du poids ?
+              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
+              perdre du poids ?
             </h1>
             <p class="text-left text-sm">
               Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
@@ -79,7 +80,7 @@
       <div
         class="w-[22%] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
       >
-        <h1 class="text-2xl mt-4 mb-9 font-bold">NOS SÉLECTION</h1>
+        <h1 class="text-2xl mt-4 mb-9 font-bold">NOS SÉLECTIONS</h1>
         <!-- article -->
         <div
           class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
@@ -87,8 +88,8 @@
           <div class="w-full h-24 bg-orange-500"></div>
           <div class="w-full p-4">
             <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de perdre
-              du poids ?
+              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
+              perdre du poids ?
             </h1>
             <p class="text-left text-sm">
               Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
@@ -106,8 +107,8 @@
           <div class="w-full h-24 bg-orange-500"></div>
           <div class="w-full p-4">
             <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de perdre
-              du poids ?
+              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
+              perdre du poids ?
             </h1>
             <p class="text-left text-sm">
               Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
@@ -132,29 +133,126 @@
             Conseils & numéros utiles
           </button>
         </div>
-  
+
         <div
           class="w-full mb-9 pt-16 pb-16 rounded-tl-[23%] rounded-br-[23%] flex flex-col justify-start items-center bg-ps-green"
         >
           <h1 class="text-2xl mb-9 font-bold text-white">NOS SERVICES</h1>
           <ul class="w-full flex flex-wrap justify-center gap-4 items-center">
-            <li class="w-[35%] h-44 rounded-3xl bg-white"></li>
-            <li class="w-[35%] h-44 rounded-3xl bg-white"></li>
-            <li class="w-[35%] h-44 rounded-3xl bg-white"></li>
-            <li class="w-[35%] h-44 rounded-3xl bg-white"></li>
+            <li
+              class="w-[35%] h-44 overflow-hidden rounded-3xl bg-white flex justify-center items-center"
+            >
+              <img class="h-full" src="images/Actualités santé.jpg" alt="" />
+            </li>
+            <li
+              class="w-[35%] h-44 rounded-3xl overflow-hidden bg-white flex justify-center items-center"
+            >
+              <img
+                class="h-full"
+                src="images/Repertoire et adresses.jpg"
+                alt=""
+              />
+            </li>
+            <li
+              class="w-[35%] h-44 rounded-3xl overflow-hidden bg-white flex justify-center items-center"
+            >
+              <img class="h-full" src="images/Bien être.jpg" alt="" />
+            </li>
+            <li
+              class="w-[35%] h-44 rounded-3xl overflow-hidden bg-white flex justify-center items-center"
+            >
+              <img class="h-full" src="images/MediaSanté.jpg" alt="" />
+            </li>
           </ul>
         </div>
         <div
           class="w-full pt-16 overflow-hidden rounded-tl-3xl rounded-br-3xl flex flex-col justify-start items-center bg-ps-green"
         >
-          <h1 class="text-2xl mb-9 font-bold text-white">J'agis pour ma santé</h1>
-          <div class="w-full h-80 rounded-tl-3xl bg-white"></div>
+          <h1 class="text-2xl mb-9 font-bold text-white text-center">
+            INSTITUTIONS & PARTENAIRES EN CHARGE DE LA SANTE AU TOGO
+          </h1>
+          <div
+            class="w-full h-80 rounded-tl-3xl flex justify-center items-center bg-white"
+          >
+            <ul
+              class="w-11/12 h-5/6 flex flex-col items-center justify-start gap-4 overflow-auto"
+            >
+              <li class="w-full flex flex-col">
+                <p>
+                  Ministère de la santé, de l’Hygiène Publique et de l’Accès
+                  Universel aux soins
+                </p>
+                <a
+                  class="text-green-600 hover:text-red-500 font-bold"
+                  href="https://sante.gouv.tg/"
+                  >https://sante.gouv.tg/</a
+                >
+              </li>
+              <li class="w-full flex flex-col">
+                <p>OMS TOGO</p>
+                <a
+                  class="text-green-600 hover:text-red-500 font-bold"
+                  href="https://www.afro.who.int/fr/countries/togo"
+                  >https://www.afro.who.int/fr/countries/togo</a
+                >
+              </li>
+              <li class="w-full flex flex-col">
+                <p>
+                  Conseil National de Lutte Contre le SIDA et les Infections
+                  Sexuellement Transmissibles
+                </p>
+                <a
+                  class="text-green-600 hover:text-red-500 font-bold"
+                  href="https://cnlstogo.org/cnls/"
+                  >https://cnlstogo.org/cnls/</a
+                >
+              </li>
+              <li class="w-full flex flex-col">
+                <p>Ordre National des Médecins du Togo</p>
+                <a
+                  class="text-green-600 hover:text-red-500 font-bold"
+                  href="https://www.onmt.tg/"
+                  >https://www.onmt.tg/</a
+                >
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
-    <footer class="w-full h-96 bg-zinc-800 absolute"></footer>
-   </div>
-  
-  <!-- body -->
+    <div class="w-full h-40 flex gap-10 justify-center items-center bg-white">
+      <a
+        [routerLink]="['']"
+        routerLinkActive="router-link-active"
+        class="w-2/12 h-full flex justify-start items-center"
+      >
+        <img
+          class="ml-4 w-auto h-[120%]"
+          src="images/logo condji-04.png"
+          alt=""
+      /></a>
 
+      <div>
+        <p class="text-xl font-bold italic">
+          Plateforme réseau N°1 des acteurs <br />professionnels de santé au
+          Togo
+        </p>
+      </div>
+    </div>
+    <footer
+      class="w-full h-96 bg-zinc-800 absolute flex justify-center items-center"
+    >
+      <div class="h-full w-1/4 flex flex-col justify-start items-center">
+        <h1 class="mt-4 text-white font-bold">KONDZI.COM</h1>
+      </div>
+      <div class="h-full w-1/4 flex flex-col justify-start items-center">
+        <h1 class="mt-4 text-white font-bold">INFORMATIONS LÉGALES</h1>
+      </div>
+      <div class="h-full w-1/4 flex flex-col justify-start items-center">
+        <h1 class="mt-4 text-white font-bold">NOS SERVICES</h1>
+      </div>
+    </footer>
+  </div>
+
+  <!-- body -->
 </div>

@@ -11,4 +11,10 @@ export const navbarData = [
     label: 'Médécin',
     open: true,
   },
+  {
+    link: '/dashboard/menu',
+    icon: 'home',
+    label: 'Menu',
+    open: true,
+  },
 ];

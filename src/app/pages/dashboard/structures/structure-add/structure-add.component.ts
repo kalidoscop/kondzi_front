@@ -7,7 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IconsModule } from '../../../../_icons/icons.module';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { StructureService } from '../../../../_services/structure.service';
 import { ArrayValidators } from '../../../../_validator/array.validator';
 import { Router, RouterModule } from '@angular/router';
@@ -15,13 +15,99 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-structure-add',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, IconsModule, NgFor],
+  imports: [ReactiveFormsModule, RouterModule, IconsModule, NgFor,NgIf],
   templateUrl: './structure-add.component.html',
   styleUrl: './structure-add.component.scss',
 })
 export class StructureAddComponent {
   // adresses: adresse [] = []
-  // adresses: any = []
+  hour: string[] = [
+    '00',
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+  ];
+  minute: string[] = [
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30',
+    '31',
+    '32',
+    '33',
+    '34',
+    '35',
+    '36',
+    '37',
+    '38',
+    '39',
+    '40',
+    '41',
+    '42',
+    '43',
+    '44',
+    '45',
+    '46',
+    '47',
+    '48',
+    '49',
+    '50',
+    '51',
+    '52',
+    '53',
+    '54',
+    '55',
+    '56',
+    '57',
+    '58',
+    '59',
+  ];
   structureService = inject(StructureService);
   private router = inject(Router);
 
@@ -32,17 +118,23 @@ export class StructureAddComponent {
     managerTitle: new FormControl('', Validators.required),
     tel: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    openingHours: new FormControl('', Validators.required),
+    // openingHours: new FormControl('', Validators.required),
     activity: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
+    assurance:new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
+    hours: new FormArray([], ArrayValidators.minLength(1)),
   });
   get adresses(): FormArray {
     return this.structureForm.get('adresse') as FormArray;
   }
   get networks(): FormArray {
     return this.structureForm.get('network') as FormArray;
+  }
+
+  get hours(): FormArray {
+    return this.structureForm.get('hours') as FormArray;
   }
   onSubmit() {
     console.log(this.structureForm.value);
@@ -63,14 +155,21 @@ export class StructureAddComponent {
     name: new FormControl(''),
     link: new FormControl(''),
   });
+  hoursGroup = new FormGroup({
+    libelle: new FormControl(''),
+    hStartH: new FormControl(''),
+    hStartM: new FormControl(''),
+    hEndH: new FormControl(''),
+    hEndM: new FormControl(''),
+  });
   addAdresse() {
-    const cor = this.addresseGroup.value.eadress?.split(',')
+    const cor = this.addresseGroup.value.eadress?.split(',');
     console.log(cor);
     if (cor) {
-      this.addresseGroup.controls.lat.setValue(Number(cor[0].trim()))
-      this.addresseGroup.controls.lng.setValue(Number(cor[1].trim())) 
+      this.addresseGroup.controls.lat.setValue(Number(cor[0].trim()));
+      this.addresseGroup.controls.lng.setValue(Number(cor[1].trim()));
     }
-    
+
     this.adresses.push(this.addresseGroup);
     this.addresseGroup = new FormGroup({
       nadress: new FormControl(''),
@@ -94,12 +193,26 @@ export class StructureAddComponent {
 
     // this.adresses=
   }
+  addHours(){
+    const addingHours = new FormGroup({
+      libelle: new FormControl(this.hoursGroup.value.libelle),
+      hStart : new FormControl(this.hoursGroup.value.hStartH+'h '+this.hoursGroup.value.hStartM),
+      hEnd : new FormControl(this.hoursGroup.value.hEndH+'h '+this.hoursGroup.value.hEndM),
+    })
+    console.log('coucou');
+    this.hours.push(addingHours)
+    // console.log(this.hoursGroup.value);
+  }
   removeAdresse(index: number) {
     this.structureForm.controls.adresse.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
   }
   removeNetwork(index: number) {
     this.structureForm.controls.network.removeAt(index);
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+  removeHours(index: number) {
+    this.structureForm.controls.hours.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
   }
 }

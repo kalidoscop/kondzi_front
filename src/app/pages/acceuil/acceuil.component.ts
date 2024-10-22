@@ -1,14 +1,23 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CarouselModule } from '../component/carousel/carousel.module';
+import { Youtube } from 'angular-feather/icons';
+import {YouTubePlayer,YouTubePlayerModule  } from '@angular/youtube-player';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-acceuil',
   standalone: true,
-  imports: [CarouselModule],
+  imports: [CarouselModule,YouTubePlayer,YouTubePlayerModule,RouterLink],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
 })
-export class AcceuilComponent {
+export class AcceuilComponent implements OnInit {
+  ngOnInit(): void {
+    const scriptTag = document.createElement('script')
+    scriptTag.src = 'https://www.youtube.com/iframe_api'
+    document.body.appendChild(scriptTag)
+  }
   
 
   images = [

@@ -7,7 +7,7 @@
   />
 </div> -->
 
-<div class="w-full h-full bg-blue-500 m-auto overflow-hidden">
+<div class="w-full h-full m-auto overflow-hidden">
   @for (item of images; track $index) {
     <h1  class="absolute top-1/2 text-center w-full h-1/6 text-5xl z-10 text-white font-bold" [ngClass]="{'img-active':selectedIndex === $index}">{{item.text}}</h1>
     <img

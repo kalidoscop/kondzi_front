@@ -10,26 +10,116 @@ import {
 } from '@angular/forms';
 import { ArrayValidators } from '../../../../_validator/array.validator';
 import { IconsModule } from '../../../../_icons/icons.module';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Adresse } from '../../../../_model/adresse';
 import { Network } from '../../../../_model/network';
 import { environment } from '../../../../../environments/environment';
+import { Hour } from '../../../../_model/hour';
 
 @Component({
   selector: 'app-structure-details',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, IconsModule, NgFor],
+  imports: [ReactiveFormsModule, RouterModule, IconsModule,NgIf, NgFor],
   templateUrl: './structure-details.component.html',
   styleUrl: './structure-details.component.scss',
 })
 export class StructureDetailsComponent implements OnInit {
+  hourSlecte: string[] = [
+    '00',
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+  ];
+  minute: string[] = [
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30',
+    '31',
+    '32',
+    '33',
+    '34',
+    '35',
+    '36',
+    '37',
+    '38',
+    '39',
+    '40',
+    '41',
+    '42',
+    '43',
+    '44',
+    '45',
+    '46',
+    '47',
+    '48',
+    '49',
+    '50',
+    '51',
+    '52',
+    '53',
+    '54',
+    '55',
+    '56',
+    '57',
+    '58',
+    '59',
+  ];
   structureService = inject(StructureService);
   // private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
 
+
   structureId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
   adresse: Adresse[] = [];
   network: Network[] = [];
+  hour: Hour[] = [];
   structureForm = new FormGroup({
     name: new FormControl('', Validators.required),
     domaine: new FormControl('', Validators.required),
@@ -37,14 +127,15 @@ export class StructureDetailsComponent implements OnInit {
     managerTitle: new FormControl('', Validators.required),
     tel: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    openingHours: new FormControl('', Validators.required),
     activity: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
+    assurance: new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
+    hours: new FormArray([], ArrayValidators.minLength(1)),
   });
   ngOnInit(): void {
-    this.loadStructureInfo()
+    this.loadStructureInfo();
     // throw new Error('Method not implemented.');
   }
 
@@ -53,6 +144,9 @@ export class StructureDetailsComponent implements OnInit {
   }
   get networks(): FormArray {
     return this.structureForm.get('network') as FormArray;
+  }
+  get hours(): FormArray {
+    return this.structureForm.get('hours') as FormArray;
   }
 
   loadStructureInfo() {
@@ -75,17 +169,17 @@ export class StructureDetailsComponent implements OnInit {
             Validators.required,
             Validators.email,
           ]),
-          openingHours: new FormControl(
-            `${res.opening_hours}`,
-            Validators.required
-          ),
+          assurance: new FormControl(`${res.assurance}`, Validators.required),
+
           activity: new FormControl(`${res.activity}`, Validators.required),
           type: new FormControl(`${res.type}`, Validators.required),
           adresse: new FormArray([], ArrayValidators.minLength(0)),
           network: new FormArray([], ArrayValidators.minLength(0)),
+          hours: new FormArray([], ArrayValidators.minLength(0)),
         });
         this.adresse = res.adresse;
         this.network = res.network;
+        this.hour = res.hours;
       });
     }
   }
@@ -97,7 +191,7 @@ export class StructureDetailsComponent implements OnInit {
         .updateStructure(this.structureForm.value, this.structureId)
         .subscribe((res) => {
           if (environment.isDevEnv) console.log(res);
-          this.loadStructureInfo()
+          this.loadStructureInfo();
         });
     }
   }
@@ -109,6 +203,13 @@ export class StructureDetailsComponent implements OnInit {
   networkGroup = new FormGroup({
     name: new FormControl(''),
     link: new FormControl(''),
+  });
+  hoursGroup = new FormGroup({
+    libelle: new FormControl(''),
+    hStartH: new FormControl(''),
+    hStartM: new FormControl(''),
+    hEndH: new FormControl(''),
+    hEndM: new FormControl(''),
   });
   addAdresse() {
     this.adresses.push(this.addresseGroup);
@@ -132,6 +233,19 @@ export class StructureDetailsComponent implements OnInit {
 
     // this.adresses=
   }
+
+  addHours(){
+    const addingHours = new FormGroup({
+      libelle: new FormControl(this.hoursGroup.value.libelle),
+      hStart : new FormControl(this.hoursGroup.value.hStartH+'h '+this.hoursGroup.value.hStartM),
+      hEnd : new FormControl(this.hoursGroup.value.hEndH+'h '+this.hoursGroup.value.hEndM),
+    })
+    console.log('coucou');
+    this.hours.push(addingHours)
+    // console.log(this.hoursGroup.value);
+  }
+
+
   reloadOldAdresse() {
     if (this.structureId) {
       this.structureService.getStructure(this.structureId).subscribe((res) => {
@@ -146,6 +260,13 @@ export class StructureDetailsComponent implements OnInit {
       });
     }
   }
+  reloadOldHour() {
+    if (this.structureId) {
+      this.structureService.getStructure(this.structureId).subscribe((res) => {
+        this.hour = res.hours;
+      });
+    }
+  }
   removeOldAdresse(index: string) {
     this.structureService.deleteStructurAdresse(index).subscribe(() => {
       this.reloadOldAdresse();
@@ -156,12 +277,21 @@ export class StructureDetailsComponent implements OnInit {
       this.reloadOldNetwork();
     });
   }
+  removeOldHours(index:string){
+    this.structureService.deleteStructurHours(index).subscribe(() => {
+      this.reloadOldHour();
+    });
+  }
   removeAdresse(index: number) {
     this.structureForm.controls.adresse.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
   }
   removeNetwork(index: number) {
     this.structureForm.controls.network.removeAt(index);
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+  removeHours(index: number) {
+    this.structureForm.controls.hours.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
   }
 }

@@ -83,6 +83,20 @@ export class StructureService {
         catchError((error) => this.handleError(error, [],error.error.message))
       );
   }
+
+  deleteStructurHours(id:string): Observable<Response> {
+    return this.http
+      .delete<Response>(`${environment.baseUrl}structure/hours/${id}`, {
+        headers: this.tokenService.getOption(),
+      })
+      .pipe(
+        tap((Response) => {
+          this.log(Response);
+        }),
+        catchError((error) => this.handleError(error, [],error.error.message))
+      );
+  }
+
   getAdresseDoctor(id:string): Observable<Doctor[]> {
     return this.http
       .get<Doctor[]>(`${environment.baseUrl}structure/adresse/doctor/${id}`, {
@@ -119,11 +133,18 @@ export class StructureService {
         catchError((error) => this.handleError(error, [],error.error.message))
       );
   }
+  // https://maps.googleapis.com/maps/api/geocode/json?address=Legbassito&key=AIzaSyA3L1IdT9OeeN2GXjJGkTUVVuNFr7AEWx8
   search(newStrucutre:any): Observable<Structure[]> {
     return this.http.post<Structure[]>(`${environment.baseUrl}structure/search`, newStrucutre,{
       headers: this.tokenService.getOption(),
     }).pipe(tap((structure)=>{
       this.log(structure)
+    }),catchError((error)=>this.handleError(error,[])));
+  }
+
+  viewport(lieu:string): Observable<any> {
+    return this.http.get<any>(`https://maps.googleapis.com/maps/api/geocode/json?address=${lieu}&key=AIzaSyA3L1IdT9OeeN2GXjJGkTUVVuNFr7AEWx8`).pipe(tap((res)=>{
+      this.log(res)
     }),catchError((error)=>this.handleError(error,[])));
   }
 

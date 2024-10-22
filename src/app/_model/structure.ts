@@ -1,4 +1,5 @@
 import { Adresse } from './adresse';
+import { Hour } from './hour';
 import { Network } from './network';
 
 export interface Structure {
@@ -14,6 +15,8 @@ export interface Structure {
   created_at: string;
   updated_at: string;
   type: string;
+  assurance:string;
   adresse: Adresse[];
   network: Network[];
+  hours: Hour[]
 }
