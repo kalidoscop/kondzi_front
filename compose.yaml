@@ -1,0 +1,9 @@
+services:
+  kodzi_front:
+    container_name: kodzi_front
+    restart: always
+    build:
+      context: .
+      target: builder
+    ports:
+      - 4200:4200

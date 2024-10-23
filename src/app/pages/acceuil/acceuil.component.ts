@@ -3,12 +3,13 @@ import { CarouselModule } from '../component/carousel/carousel.module';
 import { Youtube } from 'angular-feather/icons';
 import {YouTubePlayer,YouTubePlayerModule  } from '@angular/youtube-player';
 import { RouterLink } from '@angular/router';
+import { FooterComponent } from '../component/footer/footer.component';
 
 
 @Component({
   selector: 'app-acceuil',
   standalone: true,
-  imports: [CarouselModule,YouTubePlayer,YouTubePlayerModule,RouterLink],
+  imports: [CarouselModule,YouTubePlayer,YouTubePlayerModule,RouterLink,FooterComponent],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
 })
@@ -38,6 +39,6 @@ export class AcceuilComponent implements OnInit {
       text:'KONDZI.COM, des renseignements 24h/24 partout au Togo'
     },
   ];
-
+  
   
 }

@@ -1,4 +1,4 @@
 export const environment = {
-  baseUrl: '',
+  baseUrl: 'http://127.0.0.1:3333/',
   isDevEnv: false,
 };

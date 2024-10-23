@@ -13,7 +13,8 @@ export const routes: Routes = [
     path: 'annuaire',
     component:BaseComponent,
     children: [
-      { path: ':word/:zone/:type/:slng/:nlng/:slat/:nlat', component: AnnuaireComponent },
+      { path: ':word/:type/:zone/:slng/:nlng/:slat/:nlat', component: AnnuaireComponent },
+      { path: ':word/:type', component: AnnuaireComponent },
     ],
   },
   {

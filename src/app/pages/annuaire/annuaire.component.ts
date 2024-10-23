@@ -10,12 +10,13 @@ import { StructureService } from '../../_services/structure.service';
 import { Structure } from '../../_model/structure';
 import { Loader } from '@googlemaps/js-api-loader';
 import { DataService } from '../../_services/data.service';
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor } from '@angular/common';
+import { FooterComponent } from '../component/footer/footer.component';
 
 @Component({
   selector: 'app-annuaire',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor],
+  imports: [ReactiveFormsModule, NgFor,NgClass,FooterComponent],
   templateUrl: './annuaire.component.html',
   styleUrl: './annuaire.component.scss',
 })
@@ -23,7 +24,7 @@ export class AnnuaireComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   structureService = inject(StructureService);
   dataservice = inject(DataService);
-
+  selectedIndex =''
   markers: google.maps.marker.AdvancedMarkerElement[] = [];
   geocoder = new google.maps.Geocoder();
 
@@ -175,7 +176,13 @@ export class AnnuaireComponent implements OnInit {
   nlng: string | null = this.activatedRoute.snapshot.paramMap.get('nlng');
   slat: string | null = this.activatedRoute.snapshot.paramMap.get('slat');
   nlat: string | null = this.activatedRoute.snapshot.paramMap.get('nlat');
-  search = new FormGroup({
+
+  search1 = new FormGroup({
+    word: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    zone: new FormControl(''),
+  });
+  search2 = new FormGroup({
     word: new FormControl('', Validators.required),
     type: new FormControl('', Validators.required),
     lieu: new FormGroup({
@@ -192,63 +199,13 @@ export class AnnuaireComponent implements OnInit {
     await this.loadStructure();
     // this.loadStructure()
   }
-  // async loadPlace() {
-  //   if (this.word && this.type && this.zone) {
-  //     this.dataservice.events$.subscribe(async (event) => {
-  //       console.log('Received event:', event);
-  //       this.place = event;
-  //       // console.log();
 
-  //       this.search = new FormGroup({
-  //         word: new FormControl(this.word, Validators.required),
-  //         type: new FormControl(this.type, Validators.required),
-  //         lieu: new FormGroup({
-  //           lngLo: new FormControl(
-  //             this.place.geometry?.viewport?.getSouthWest().lng()
-  //           ),
-  //           lngHi: new FormControl(
-  //             this.place.geometry?.viewport?.getNorthEast().lng()
-  //           ),
-  //           latLo: new FormControl(
-  //             this.place.geometry?.viewport?.getSouthWest().lat()
-  //           ),
-  //           latHi: new FormControl(
-  //             this.place.geometry?.viewport?.getNorthEast().lat()
-  //           ),
-  //         }),
-  //         // zone: new FormControl(this.zone, Validators.required),
-  //       });
-  //       this.structureService.search(this.search.value).subscribe((res) => {
-  //         // console.warn(res);
-  //         this.structures = res;
-  //         console.log(this.structures);
-
-  //         for (let i = 0; i < this.structures.length; i++) {
-  //           const element = this.structures[i];
-  //           for (let j = 0; j < element.adresse.length; j++) {
-  //             const ad = element.adresse[j];
-  //             const coord = {
-  //               position: { lat: ad.lat, lng: ad.lng },
-  //               title: element.name,
-  //             };
-  //             this.auLocations.push(coord);
-  //           }
-  //         }
-  //         // this.filter();
-  //         this.initMap();
-  //       });
-  //     });
-  //     // this.tourStops = this.generateRandomLocations(600);
-  //     // this.filter();
-  //     // console.log(this.tourStops);
-  //   }
-  // }
   loadStructure() {
-    if (this.word && this.type && this.zone && this.slng && this.nlng && this.slat && this.nlat) {
-      // this.structureService.viewport(this.zone).subscribe((res) => {
-        // console.log(res.results);
-        
-        this.search = new FormGroup({
+    if (this.word && this.type) {
+      if (this.zone && this.slng && this.nlng && this.slat && this.nlat) {
+        // console.log(2);
+
+        this.search2 = new FormGroup({
           word: new FormControl(this.word, Validators.required),
           type: new FormControl(this.type, Validators.required),
           lieu: new FormGroup({
@@ -259,7 +216,7 @@ export class AnnuaireComponent implements OnInit {
           }),
           // zone: new FormControl(this.zone, Validators.required),
         });
-        this.structureService.search(this.search.value).subscribe((res) => {
+        this.structureService.search(this.search2.value).subscribe((res) => {
           // console.warn(res);
           this.structures = res;
           console.log(this.structures);
@@ -271,65 +228,57 @@ export class AnnuaireComponent implements OnInit {
               const coord = {
                 position: { lat: ad.lat, lng: ad.lng },
                 title: element.name,
+                structure:element
+
               };
               this.auLocations.push(coord);
             }
           }
-          // this.filter();
           this.initMap();
         });
-      // });
+      } else {
+        // console.log(1);
+
+        this.search1 = new FormGroup({
+          word: new FormControl(this.word, Validators.required),
+          type: new FormControl(this.type, Validators.required),
+          zone: new FormControl(''),
+        });
+        this.structureService.search(this.search1.value).subscribe((res) => {
+          // console.warn(res);
+          this.structures = res;
+          console.log(this.structures);
+
+          for (let i = 0; i < this.structures.length; i++) {
+            const element = this.structures[i];
+            for (let j = 0; j < element.adresse.length; j++) {
+              const ad = element.adresse[j];
+              const coord = {
+                position: { lat: ad.lat, lng: ad.lng },
+                title: element.name,
+                structure:element
+              };
+              this.auLocations.push(coord);
+            }
+          }
+          this.initMap();
+        });
+      }
     }
   }
   onSubmit() {
     this.loadStructure();
   }
-  options: google.maps.MapOptions = {
-    mapId: 'DEMO_MAP_ID',
-    center: { lat: 6.126432, lng: 1.230597 },
-    zoom: 4,
-  };
 
   auLocations: any[] = [];
 
-  getRandomCoordinate(min: number, max: number) {
-    return Math.random() * (max - min) + min;
-  }
-
-  generateRandomLocations(numLocations: number) {
-    const locations = [];
-
-    // Limites géographiques de la région maritime (approximatif)
-    // latMin: 6.179296319708498, // Latitude minimale
-    //   latMax: 6.181994280291502, // Latitude maximale
-    //   lonMin: 1.142679419708498, // Longitude minimale
-    //   lonMax: 1.1441558
-    const latMin = 6.1135871;
-    const latMax = 6.2510563;
-    const lngMin = 1.1121082;
-    const lngMax = 1.3812733;
-
-    for (let i = 0; i < numLocations; i++) {
-      const lat = this.getRandomCoordinate(latMin, latMax);
-      const lng = this.getRandomCoordinate(lngMin, lngMax);
-      locations.push({
-        position: { lat: lat, lng: lng },
-        title: `Lieu ${i + 1}`,
-      });
-    }
-
-    return locations;
-  }
-
   async initMap() {
-    // const infoWindow = new InfoWindow();
     const { Map, InfoWindow } = (await google.maps.importLibrary(
       'maps'
     )) as google.maps.MapsLibrary;
     const { AdvancedMarkerElement } = (await google.maps.importLibrary(
       'marker'
     )) as google.maps.MarkerLibrary;
-    // const {Geocoder} = await google.maps.importLibrary("geocoding")
 
     const map = new Map(document.getElementById('map') as HTMLElement, {
       center: { lat: 8.817369, lng: 1.259029 },
@@ -340,7 +289,7 @@ export class AnnuaireComponent implements OnInit {
     console.log(this.auLocations);
 
     for (let i = 0; i < this.auLocations.length; i++) {
-      const { position, title } = this.auLocations[i];
+      const { position, title,structure } = this.auLocations[i];
       const marker = new AdvancedMarkerElement({
         map,
         position,
@@ -348,97 +297,165 @@ export class AnnuaireComponent implements OnInit {
         gmpClickable: true,
       });
       marker.addListener('click', ({}) => {
-        // const { target } = domEvent;
+        // console.log(structure);
+        
+        this.scrollToStudent(structure.id)
+        this.selectedIndex=structure.id
         infoWindow.close();
         infoWindow.setContent(marker.title);
         infoWindow.open(marker.map, marker);
       });
-      // const latlng = { lat: position.lat, lng: position.lng };
-
-      // await this.geocoder.geocode({ location: latlng }, (results, status) => {
-      //   if (status === 'OK') {
-      //     if (results && results.length > 0) {
-      //       let ville = '';
-      //       for (let j = 0; j < results.length; j++) {
-      //         // const element = array[j];
-      //         if (results[0]) {
-      //           console.log(results[i]);
-      //           const addressComponents = results[0].address_components;
-      //           // console.log(addressComponents);
-
-      //           addressComponents.forEach((component) => {
-      //             ville += ' ' + component.long_name; // Ville
-      //           });
-      //           marker.setAttribute('ville', ville);
-      //           // return marker
-      //         }
-      //       }
-      //     }
-      //   } else {
-      //     console.log('Geocoder failed due to: ' + status);
-      //   }
-      // });
-      // console.log(marker.getAttribute('ville'));
-
-      // this.markers.push(marker);
     }
-    // this.filterMarkers('Rue des Cocotiers', map);
   }
-
-  filter() {
-    // console.log(this.tourStops);
-
-    // const bounds = {
-    //   latMin: 6.2328239,  // Latitude minimale
-    //   latMax: 6.301273999999999,  // Latitude maximale
-    //   lonMin: 1.108379,  // Longitude minimale
-    //   lonMax: 1.19238   // Longitude maximale
-    // };
-    // const bounds = {
-    //   latMin: 6.179296319708498, // Latitude minimale
-    //   latMax: 6.181994280291502, // Latitude maximale
-    //   lonMin: 1.142679419708498, // Longitude minimale
-    //   lonMax: 1.1441558 // Longitude maximale
-    // };
-
-    const bounds = {
-      latMin: 6.191296299999999, // Latitude minimale
-      latMax: 6.2112314, // Latitude maximale
-      lonMin: 1.1867021, // Longitude minimale
-      lonMax: 1.206464, // Longitude maximale
-    };
-    // const bounds = {
-    //   latMin: 6.1135871,  // Latitude minimale
-    //   latMax: 6.2510563,  // Latitude maximale
-    //   lonMin: 1.1121082,  // Longitude minimale
-    //   lonMax: 1.3812733   // Longitude maximale
-    // };
-    this.auLocations = this.auLocations.filter(
-      (coord: any) =>
-        coord.position.lat >= bounds.latMin &&
-        coord.position.lat <= bounds.latMax &&
-        coord.position.lng >= bounds.lonMin &&
-        coord.position.lng <= bounds.lonMax
-    );
-    console.log(this.tourStops.length);
-  }
-
-  filterMarkers(query: string, map: any) {
-    // const paris = 'paris';
-    const lowerCaseQuery = query.toLowerCase();
-    console.log('coucou');
-
-    this.markers.forEach((marker) => {
-      // console.log('ville'+marker.ville);
-      const ville = marker.getAttribute('ville');
-      // console.log('ville 3'+ville);
-      if (ville) {
-        if (!ville.toLowerCase().includes(lowerCaseQuery)) {
-          marker.position = null; // Afficher le marqueur
-        }
-      }
-
-      // Vérifier si la ville ou le quartier contient la valeur de la recherche
-    });
+  scrollToStudent(studentId: string) {
+    const element = document.querySelector(`#structure-${studentId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   }
 }
+
+
+// async loadPlace() {
+//   if (this.word && this.type && this.zone) {
+//     this.dataservice.events$.subscribe(async (event) => {
+//       console.log('Received event:', event);
+//       this.place = event;
+//       // console.log();
+
+//       this.search = new FormGroup({
+//         word: new FormControl(this.word, Validators.required),
+//         type: new FormControl(this.type, Validators.required),
+//         lieu: new FormGroup({
+//           lngLo: new FormControl(
+//             this.place.geometry?.viewport?.getSouthWest().lng()
+//           ),
+//           lngHi: new FormControl(
+//             this.place.geometry?.viewport?.getNorthEast().lng()
+//           ),
+//           latLo: new FormControl(
+//             this.place.geometry?.viewport?.getSouthWest().lat()
+//           ),
+//           latHi: new FormControl(
+//             this.place.geometry?.viewport?.getNorthEast().lat()
+//           ),
+//         }),
+//         // zone: new FormControl(this.zone, Validators.required),
+//       });
+//       this.structureService.search(this.search.value).subscribe((res) => {
+//         // console.warn(res);
+//         this.structures = res;
+//         console.log(this.structures);
+
+//         for (let i = 0; i < this.structures.length; i++) {
+//           const element = this.structures[i];
+//           for (let j = 0; j < element.adresse.length; j++) {
+//             const ad = element.adresse[j];
+//             const coord = {
+//               position: { lat: ad.lat, lng: ad.lng },
+//               title: element.name,
+//             };
+//             this.auLocations.push(coord);
+//           }
+//         }
+//         // this.filter();
+//         this.initMap();
+//       });
+//     });
+//     // this.tourStops = this.generateRandomLocations(600);
+//     // this.filter();
+//     // console.log(this.tourStops);
+//   }
+// }
+
+// filter() {
+//   // console.log(this.tourStops);
+
+//   // const bounds = {
+//   //   latMin: 6.2328239,  // Latitude minimale
+//   //   latMax: 6.301273999999999,  // Latitude maximale
+//   //   lonMin: 1.108379,  // Longitude minimale
+//   //   lonMax: 1.19238   // Longitude maximale
+//   // };
+//   // const bounds = {
+//   //   latMin: 6.179296319708498, // Latitude minimale
+//   //   latMax: 6.181994280291502, // Latitude maximale
+//   //   lonMin: 1.142679419708498, // Longitude minimale
+//   //   lonMax: 1.1441558 // Longitude maximale
+//   // };
+
+//   const bounds = {
+//     latMin: 6.191296299999999, // Latitude minimale
+//     latMax: 6.2112314, // Latitude maximale
+//     lonMin: 1.1867021, // Longitude minimale
+//     lonMax: 1.206464, // Longitude maximale
+//   };
+//   // const bounds = {
+//   //   latMin: 6.1135871,  // Latitude minimale
+//   //   latMax: 6.2510563,  // Latitude maximale
+//   //   lonMin: 1.1121082,  // Longitude minimale
+//   //   lonMax: 1.3812733   // Longitude maximale
+//   // };
+//   this.auLocations = this.auLocations.filter(
+//     (coord: any) =>
+//       coord.position.lat >= bounds.latMin &&
+//       coord.position.lat <= bounds.latMax &&
+//       coord.position.lng >= bounds.lonMin &&
+//       coord.position.lng <= bounds.lonMax
+//   );
+//   console.log(this.tourStops.length);
+// }
+
+// filterMarkers(query: string, map: any) {
+//   // const paris = 'paris';
+//   const lowerCaseQuery = query.toLowerCase();
+//   console.log('coucou');
+
+//   this.markers.forEach((marker) => {
+//     // console.log('ville'+marker.ville);
+//     const ville = marker.getAttribute('ville');
+//     // console.log('ville 3'+ville);
+//     if (ville) {
+//       if (!ville.toLowerCase().includes(lowerCaseQuery)) {
+//         marker.position = null; // Afficher le marqueur
+//       }
+//     }
+
+//     // Vérifier si la ville ou le quartier contient la valeur de la recherche
+//   });
+// }
+
+// options: google.maps.MapOptions = {
+//   mapId: 'DEMO_MAP_ID',
+//   center: { lat: 6.126432, lng: 1.230597 },
+//   zoom: 4,
+// };
+
+// getRandomCoordinate(min: number, max: number) {
+//   return Math.random() * (max - min) + min;
+// }
+
+// generateRandomLocations(numLocations: number) {
+//   const locations = [];
+
+//   // Limites géographiques de la région maritime (approximatif)
+//   // latMin: 6.179296319708498, // Latitude minimale
+//   //   latMax: 6.181994280291502, // Latitude maximale
+//   //   lonMin: 1.142679419708498, // Longitude minimale
+//   //   lonMax: 1.1441558
+//   const latMin = 6.1135871;
+//   const latMax = 6.2510563;
+//   const lngMin = 1.1121082;
+//   const lngMax = 1.3812733;
+
+//   for (let i = 0; i < numLocations; i++) {
+//     const lat = this.getRandomCoordinate(latMin, latMax);
+//     const lng = this.getRandomCoordinate(lngMin, lngMax);
+//     locations.push({
+//       position: { lat: lat, lng: lng },
+//       title: `Lieu ${i + 1}`,
+//     });
+//   }
+
+//   return locations;
+// }

@@ -21,6 +21,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class StructureAddComponent {
   // adresses: adresse [] = []
+  
   hour: string[] = [
     '00',
     '01',
@@ -111,6 +112,9 @@ export class StructureAddComponent {
   structureService = inject(StructureService);
   private router = inject(Router);
 
+  assurances : string [] =[]
+  activity : string [] =[]
+
   structureForm = new FormGroup({
     name: new FormControl('', Validators.required),
     domaine: new FormControl('', Validators.required),
@@ -119,8 +123,8 @@ export class StructureAddComponent {
     tel: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     // openingHours: new FormControl('', Validators.required),
-    activity: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
+    activity: new FormControl(''),
+    type: new FormControl(''),
     assurance:new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
@@ -137,7 +141,20 @@ export class StructureAddComponent {
     return this.structureForm.get('hours') as FormArray;
   }
   onSubmit() {
-    console.log(this.structureForm.value);
+    // console.log(this.structureForm.value);
+    let assu = ''
+    let act = ''
+    for (let index = 0; index < this.assurances.length; index++) {
+      const element = this.assurances[index];
+      assu+=` ${element}`
+      
+    }
+    for (let index = 0; index < this.activity.length; index++) {
+      const element = this.activity[index];
+      act+=` ${element}`
+      
+    }
+    this.structureForm.controls.assurance.setValue(assu);
     this.structureService
       .addStructure(this.structureForm.value)
       .subscribe(() => {
@@ -214,5 +231,42 @@ export class StructureAddComponent {
   removeHours(index: number) {
     this.structureForm.controls.hours.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
+  }
+  removeAssurance(index: number) {
+    console.log(0);
+    
+    this.assurances.splice(index, 1);
+    // console.log(this.assurances);
+    
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+
+  removeActivity(index: number) {
+    console.log(0);
+    
+    this.activity.splice(index, 1);
+    // console.log(this.assurances);
+    
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+  onKeyUp(event: KeyboardEvent) {
+    // Vérifier si la touche appuyée est un espace
+    if (event.code === 'Space' &&  this.structureForm.value.assurance) {
+      const trimmedWord = this.structureForm.value.assurance.trim(); // Retirer les espaces au début et à la fin
+      if (trimmedWord.length > 0) {
+        this.assurances.push(trimmedWord); // Ajouter le mot à la liste
+        this.structureForm.controls.assurance.setValue(''); // Réinitialiser le champ de saisie
+      }
+    }
+  }
+  onKeyUpAc(event: KeyboardEvent) {
+    // Vérifier si la touche appuyée est un espace
+    if (event.code === 'Space' &&  this.structureForm.value.activity) {
+      const trimmedWord = this.structureForm.value.activity.trim(); // Retirer les espaces au début et à la fin
+      if (trimmedWord.length > 0) {
+        this.activity.push(trimmedWord); // Ajouter le mot à la liste
+        this.structureForm.controls.activity.setValue(''); // Réinitialiser le champ de saisie
+      }
+    }
   }
 }

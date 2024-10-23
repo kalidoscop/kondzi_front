@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
 
   dataservice = inject(DataService)
 
-  ngOnInit(): void {
+  async ngOnInit() {
     const center = { lat: 50.064192, lng: -130.605469 };
     const defaultBounds = {
       north: center.lat + 0.1,
@@ -40,7 +40,7 @@ export class NavbarComponent implements OnInit {
       fields: ['address_components', 'geometry', 'icon', 'name'],
       strictBounds: false,
     };
-    const autocomplete = new google.maps.places.Autocomplete(input, options);
+    const autocomplete = await new google.maps.places.Autocomplete(input, options);
     autocomplete.addListener('place_changed', () => {
       console.log('coucou');
       // console.log(autocomplete.)
@@ -60,44 +60,29 @@ export class NavbarComponent implements OnInit {
   });
 
   async onSubmit() {
-    // console.log(this.search.value);
-    // console.log('coucou');
-    const obj = {
-      id: 1,
-      name: 'Hôpital Central',
-      location: {
-        lat: 48.8588443,
-        lng: 2.2943506
-      }
-    };
-    // console.log(this.place);
-    
-    if (this.place) {
-      if (this.place.name) {
-        
-        this.search.controls.zone.setValue(this.place.name)
-      }
-     await this.dataservice.emitEvent(this.place)
-    }
-    else if (this.place === null) {
-      // console.log('cou');
-      
-      
-     await  this.dataservice.emitEvent(obj)
-    }
-    console.log(this.search.value);
     if (this.place) {
       this.router.navigate([
         '/annuaire',
         `${this.search.value.word?.trim()}`,
-        `${this.search.value.zone?.trim()}`,
         `${this.search.value.type}`,
+        `${this.search.value.zone?.trim()}`,
         `${this.place.geometry?.viewport?.getSouthWest().lng()}`,
         `${this.place.geometry?.viewport?.getNorthEast().lng()}`,
         `${this.place.geometry?.viewport?.getSouthWest().lat()}`,
         `${this.place.geometry?.viewport?.getNorthEast().lat()}`,
       ]);
+      // console.log(1);
+      
+    }else{
+      this.router.navigate([
+        '/annuaire',
+        `${this.search.value.word?.trim()}`,
+        `${this.search.value.type}`,
+      ]);
+      // console.log(2);
     }
+    // console.log(this.search.value);
+    
   }
   openMenu() {
     this.menu = !this.menu;

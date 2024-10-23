@@ -5,7 +5,7 @@ import { TokenService } from './token.service';
 import { catchError, Observable, of, tap } from 'rxjs';
 // import { Login } from '../model/login';
 // import { User } from '../model/user';
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
