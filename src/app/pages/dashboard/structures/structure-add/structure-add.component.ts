@@ -256,17 +256,18 @@ export class StructureAddComponent {
       const trimmedWord = this.structureForm.value.assurance.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.assurances.push(trimmedWord); // Ajouter le mot à la liste
-        this.structureForm.controls.assurance.setValue(''); // Réinitialiser le champ de saisie
+        this.structureForm.controls.assurance.setValue(' '); // Réinitialiser le champ de saisie
       }
     }
   }
   onKeyUpAc(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
     if (event.code === 'Space' &&  this.structureForm.value.activity) {
+      
       const trimmedWord = this.structureForm.value.activity.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.activity.push(trimmedWord); // Ajouter le mot à la liste
-        this.structureForm.controls.activity.setValue(''); // Réinitialiser le champ de saisie
+        this.structureForm.controls.activity.setValue(' '); // Réinitialiser le champ de saisie
       }
     }
   }
