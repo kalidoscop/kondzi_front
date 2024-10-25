@@ -19,7 +19,7 @@ import { Hour } from '../../../../_model/hour';
 @Component({
   selector: 'app-structure-details',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, IconsModule,NgIf, NgFor],
+  imports: [ReactiveFormsModule, RouterModule, IconsModule, NgIf, NgFor],
   templateUrl: './structure-details.component.html',
   styleUrl: './structure-details.component.scss',
 })
@@ -111,10 +111,13 @@ export class StructureDetailsComponent implements OnInit {
     '58',
     '59',
   ];
+
+  assurances: string[] = [];
+  activity: string[] = [];
+
   structureService = inject(StructureService);
   // private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-
 
   structureId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
   adresse: Adresse[] = [];
@@ -127,8 +130,8 @@ export class StructureDetailsComponent implements OnInit {
     managerTitle: new FormControl('', Validators.required),
     tel: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
-    activity: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
+    activity: new FormControl(''),
+    type: new FormControl(''),
     assurance: new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
@@ -169,9 +172,9 @@ export class StructureDetailsComponent implements OnInit {
             Validators.required,
             Validators.email,
           ]),
-          assurance: new FormControl(`${res.assurance}`, Validators.required),
+          assurance: new FormControl(``),
 
-          activity: new FormControl(`${res.activity}`, Validators.required),
+          activity: new FormControl(``),
           type: new FormControl(`${res.type}`, Validators.required),
           adresse: new FormArray([], ArrayValidators.minLength(0)),
           network: new FormArray([], ArrayValidators.minLength(0)),
@@ -179,6 +182,8 @@ export class StructureDetailsComponent implements OnInit {
         });
         this.adresse = res.adresse;
         this.network = res.network;
+        this.assurances = res.assurance.split(' ');
+        this.activity = res.activity.split(' ');
         this.hour = res.hours;
       });
     }
@@ -186,6 +191,21 @@ export class StructureDetailsComponent implements OnInit {
 
   onSubmit() {
     if (environment.isDevEnv) console.log(this.structureForm.value);
+    console.log(this.structureForm.value);
+    let assu = ''
+    let act = ''
+    for (let index = 0; index < this.assurances.length; index++) {
+      const element = this.assurances[index];
+      assu+=` ${element}`
+      
+    }
+    for (let index = 0; index < this.activity.length; index++) {
+      const element = this.activity[index];
+      act+=` ${element}`
+      
+    }
+    this.structureForm.controls.assurance.setValue(assu.trim());
+    this.structureForm.controls.activity.setValue(act.trim());
     if (this.structureId) {
       this.structureService
         .updateStructure(this.structureForm.value, this.structureId)
@@ -199,6 +219,8 @@ export class StructureDetailsComponent implements OnInit {
     nadress: new FormControl(''),
     eadress: new FormControl(''),
     isMain: new FormControl(''),
+    lat: new FormControl(),
+    lng: new FormControl(),
   });
   networkGroup = new FormGroup({
     name: new FormControl(''),
@@ -212,11 +234,19 @@ export class StructureDetailsComponent implements OnInit {
     hEndM: new FormControl(''),
   });
   addAdresse() {
+    const cor = this.addresseGroup.value.eadress?.split(',');
+    console.log(cor);
+    if (cor) {
+      this.addresseGroup.controls.lat.setValue(Number(cor[0].trim()));
+      this.addresseGroup.controls.lng.setValue(Number(cor[1].trim()));
+    }
     this.adresses.push(this.addresseGroup);
     this.addresseGroup = new FormGroup({
       nadress: new FormControl(''),
       eadress: new FormControl(''),
       isMain: new FormControl(''),
+      lat: new FormControl(),
+      lng: new FormControl(),
     });
     //if (environment.isDevEnv) console.log(this.structureForm.controls.adresse.value);
 
@@ -234,17 +264,20 @@ export class StructureDetailsComponent implements OnInit {
     // this.adresses=
   }
 
-  addHours(){
+  addHours() {
     const addingHours = new FormGroup({
       libelle: new FormControl(this.hoursGroup.value.libelle),
-      hStart : new FormControl(this.hoursGroup.value.hStartH+'h '+this.hoursGroup.value.hStartM),
-      hEnd : new FormControl(this.hoursGroup.value.hEndH+'h '+this.hoursGroup.value.hEndM),
-    })
+      hStart: new FormControl(
+        this.hoursGroup.value.hStartH + 'h ' + this.hoursGroup.value.hStartM
+      ),
+      hEnd: new FormControl(
+        this.hoursGroup.value.hEndH + 'h ' + this.hoursGroup.value.hEndM
+      ),
+    });
     console.log('coucou');
-    this.hours.push(addingHours)
+    this.hours.push(addingHours);
     // console.log(this.hoursGroup.value);
   }
-
 
   reloadOldAdresse() {
     if (this.structureId) {
@@ -277,7 +310,7 @@ export class StructureDetailsComponent implements OnInit {
       this.reloadOldNetwork();
     });
   }
-  removeOldHours(index:string){
+  removeOldHours(index: string) {
     this.structureService.deleteStructurHours(index).subscribe(() => {
       this.reloadOldHour();
     });
@@ -293,5 +326,43 @@ export class StructureDetailsComponent implements OnInit {
   removeHours(index: number) {
     this.structureForm.controls.hours.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
+  }
+
+  removeAssurance(index: number) {
+    console.log(0);
+
+    this.assurances.splice(index, 1);
+    // console.log(this.assurances);
+
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+
+  removeActivity(index: number) {
+    console.log(0);
+
+    this.activity.splice(index, 1);
+    // console.log(this.assurances);
+
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+  onKeyUp(event: KeyboardEvent) {
+    // Vérifier si la touche appuyée est un espace
+    if (event.code === 'Space' && this.structureForm.value.assurance) {
+      const trimmedWord = this.structureForm.value.assurance.trim(); // Retirer les espaces au début et à la fin
+      if (trimmedWord.length > 0) {
+        this.assurances.push(trimmedWord); // Ajouter le mot à la liste
+        this.structureForm.controls.assurance.setValue(''); // Réinitialiser le champ de saisie
+      }
+    }
+  }
+  onKeyUpAc(event: KeyboardEvent) {
+    // Vérifier si la touche appuyée est un espace
+    if (event.code === 'Space' && this.structureForm.value.activity) {
+      const trimmedWord = this.structureForm.value.activity.trim(); // Retirer les espaces au début et à la fin
+      if (trimmedWord.length > 0) {
+        this.activity.push(trimmedWord); // Ajouter le mot à la liste
+        this.structureForm.controls.activity.setValue(''); // Réinitialiser le champ de saisie
+      }
+    }
   }
 }

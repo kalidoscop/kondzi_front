@@ -124,8 +124,8 @@ export class StructureAddComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     // openingHours: new FormControl('', Validators.required),
     activity: new FormControl(''),
-    type: new FormControl(''),
-    assurance:new FormControl('', Validators.required),
+    type: new FormControl('',Validators.required),
+    assurance:new FormControl(''),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
     hours: new FormArray([], ArrayValidators.minLength(1)),
@@ -141,7 +141,7 @@ export class StructureAddComponent {
     return this.structureForm.get('hours') as FormArray;
   }
   onSubmit() {
-    // console.log(this.structureForm.value);
+    console.log(this.structureForm.value);
     let assu = ''
     let act = ''
     for (let index = 0; index < this.assurances.length; index++) {
@@ -154,7 +154,8 @@ export class StructureAddComponent {
       act+=` ${element}`
       
     }
-    this.structureForm.controls.assurance.setValue(assu);
+    this.structureForm.controls.assurance.setValue(assu.trim());
+    this.structureForm.controls.activity.setValue(act.trim());
     this.structureService
       .addStructure(this.structureForm.value)
       .subscribe(() => {
