@@ -192,7 +192,7 @@
     </table>
   </div>
   <div class="row">
-    <div class="flex flex-col w-11/12">
+    <div class="flex flex-col w-11/12" [formGroup]="assurenceGroup">
       <label for="assurance">Assurance</label>
       <div
         class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
@@ -208,7 +208,7 @@
       </div>
       <textarea
         class="w-full border p-2 border-ps-green focus:border-ps-orange focus:outline-none focus:border-2"
-        formControlName="assurance"
+        formControlName="libelle"
         id="assurance"
         (keyup)="onKeyUp($event)"
         required
@@ -217,7 +217,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="flex flex-col w-11/12">
+    <div class="flex flex-col w-11/12" [formGroup]="activityGroup">
       <label for="activity">activité de la structure</label>
       <div
         class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
@@ -233,10 +233,9 @@
       </div>
       <textarea
         class="w-full border p-2 border-ps-green focus:border-ps-orange focus:outline-none focus:border-2"
-        formControlName="activity"
+        formControlName="libelle"
         id="activity"
         (keyup)="onKeyUpAc($event)"
-        required
       ></textarea>
     </div>
   </div>
@@ -423,8 +422,8 @@
     <button
       type="submit"
       class="w-1/5 h-[5vh] bg-ps-green font-bold text-2xl text-white text-center hover:shadow-md transition-all hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_100px]"
+      [disabled]="!structureForm.valid"
       >
-      <!-- [disabled]="!structureForm.valid" -->
       Enreigistrer
     </button>
   </div>

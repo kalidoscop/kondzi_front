@@ -233,6 +233,12 @@ export class StructureDetailsComponent implements OnInit {
     hEndH: new FormControl(''),
     hEndM: new FormControl(''),
   });
+  activityGroup = new FormGroup({
+    libelle: new FormControl(''),
+  });
+  assurenceGroup = new FormGroup({
+    libelle: new FormControl(''),
+  });
   addAdresse() {
     const cor = this.addresseGroup.value.eadress?.split(',');
     console.log(cor);
@@ -347,21 +353,22 @@ export class StructureDetailsComponent implements OnInit {
   }
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
-    if (event.code === 'Space' && this.structureForm.value.assurance) {
-      const trimmedWord = this.structureForm.value.assurance.trim(); // Retirer les espaces au début et à la fin
+    if (event.code === 'Space' &&  this.assurenceGroup.value.libelle) {
+      const trimmedWord = this.assurenceGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.assurances.push(trimmedWord); // Ajouter le mot à la liste
-        this.structureForm.controls.assurance.setValue(''); // Réinitialiser le champ de saisie
+        this.assurenceGroup.controls.libelle.setValue(' '); // Réinitialiser le champ de saisie
       }
     }
   }
   onKeyUpAc(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
-    if (event.code === 'Space' && this.structureForm.value.activity) {
-      const trimmedWord = this.structureForm.value.activity.trim(); // Retirer les espaces au début et à la fin
+    if (event.code === 'Space' &&  this.activityGroup.value.libelle) {
+      
+      const trimmedWord = this.activityGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.activity.push(trimmedWord); // Ajouter le mot à la liste
-        this.structureForm.controls.activity.setValue(''); // Réinitialiser le champ de saisie
+        this.activityGroup.controls.libelle.setValue(''); // Réinitialiser le champ de saisie
       }
     }
   }
