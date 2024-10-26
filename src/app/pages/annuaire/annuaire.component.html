@@ -1,88 +1,79 @@
-<div class="w-full h-full bg-gray-100 ">
-
+<div class="w-full h-full bg-gray-100">
   <div class="gap-4 items-start flex bg-gray-100">
     <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div>
-    <div class="w-4/12 ml-[5.5vw] mt-[8.6vw] mb-[8.6vw]  flex flex-col items-center gap-10 ">
+    <div
+      class="w-4/12 ml-[5.5vw] mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
+    >
       <h1 class="text-3xl w-11/12 mt-10 font-bold">
         Résultat pour <<{{ word }}>>
       </h1>
       @for (item of structures; track $index) {
-      <div class="w-11/12 h-auto bg-white hover:border-2 border-ps-green" [ngClass]="{'cart-active':selectedIndex === item.id}" [id]="'structure-'+item.id">
-        <div class="w-full h-auto gap-4 m-auto flex flex-col p-3">
-          <div class="w-full h-2/5 flex gap-2 items-center">
-            <div class="h-full w-[12%] bg-green-500">
-
+      <div
+        class="w-11/12 h-auto bg-white hover:border-2 border-ps-green"
+        [ngClass]="{ 'cart-active': selectedIndex === item.id }"
+        [id]="'structure-' + item.id"
+      >
+        <div class="w-full h-auto gap-1 m-auto flex flex-col p-3">
+          <div class="flex justify-start items-center gap-2">
+            <span class="material-symbols-outlined text-4xl text-ps-green">
+              domain
+            </span>
+            <div>
+              <h1 class="text-2xl underline font-bold text-ps-green">
+                {{ item.name }}
+              </h1>
+              <p class="text-sm">Type de la structure</p>
             </div>
-            <div class="h-full w-9/12 flex flex-col">
-              <h1 class="text-2xl font-bold text-ps-green">{{ item.name }}</h1>
-              <p class="text-sm">Centre hospitalier</p>
-            </div>
-            
           </div>
-          <div class="w-full h-2/5 flex gap-2 items-center">
-            <div class="h-full w-[12%] bg-green-500">
-
+          <div class="flex justify-start items-center gap-2">
+            <span class="material-symbols-outlined text-2xl text-ps-green">
+              location_on
+            </span>
+            <div>
+              <p class="text-lg">{{ item.adresse[0].nadress }}</p>
             </div>
-            <div class="h-full w-9/12">
-              
-              <h1>{{ item.domaine }}</h1>
-            </div>
-            
           </div>
-          <div class="w-full h-2/5 flex gap-2 items-center">
-            <div class="h-full w-[12%] bg-green-500">
-
+          <div class="flex justify-start items-center gap-2">
+            <span class="material-symbols-outlined text-2xl text-ps-green">
+              call
+            </span>
+            <div>
+              <p class="text-lg">{{ item.tel }}</p>
             </div>
-            <div class="h-full w-9/12">
-              
-              <h1>{{ item.assurance }}</h1>
-            </div>
-            
           </div>
-          <div class="w-full h-2/5 flex gap-2 items-center">
-            <div class="h-full w-[12%] bg-green-500">
-
+          <div class="flex justify-start items-center gap-2">
+            <span class="material-symbols-outlined text-2xl text-ps-green">
+              add_box
+            </span>
+            <div>
+              <p class="text-lg">{{ item.assurance }}</p>
             </div>
-            <div class="h-full w-9/12">
-              
-              <h1>{{ item.adresse[0].nadress }}</h1>
-            </div>
-            
           </div>
-          <div class="w-full h-2/5 flex gap-2 items-center">
-            <div class="h-full w-[12%] bg-green-500">
-
-            </div>
-            <div class="h-full w-9/12">
-              
-              <h1>{{ item.tel }}</h1>
-            </div>
-            
-          </div>
-          <div class="w-full h-2/5 flex gap-2 items-center">
-            <div class="h-full w-[12%] bg-green-500">
-
-            </div>
-            <div class="h-full w-9/12">
-              
-              <h1>{{ item.email }}</h1>
-            </div>
-            
-          </div>
-          <div class="w-full h-2/5 flex gap-2 items-center">
-            <div class="h-full w-[12%] bg-green-500">
-
-            </div>
-            <div class="h-full w-9/12">
+          @if (item.hours.length) {
+          <div class="flex justify-start items-start gap-2">
+            <span class="material-symbols-outlined text-2xl text-ps-green">
+              schedule
+            </span>
+            <div class="flex flex-col pt-2">
               @for (it of item.hours; track $index) {
-                
-                <p>{{ it.libelle }} {{it.h_start}}-{{it.h_end}}</p>
+
+              <p class="text-sm">
+                {{ it.libelle }} {{ it.h_start }}-{{ it.h_end }}
+              </p>
               }
             </div>
-            
           </div>
-          
-          
+          }
+          <div class="w-full h-10 flex justify-end">
+            <a [href]="['https://www.google.com/maps?q='+[item.adresse[0].lat,item.adresse[0].lng]]" class="h-full w-1/4 flex justify-center items-center gap-2 rounded-lg bg-ps-green text-white">
+              <p>Y ALLER</p>
+              <span class="material-symbols-outlined"> send </span>
+            </a>
+          </div>
+
+          <!-- <div class="h-full w-9/12">
+              
+            </div> -->
         </div>
       </div>
       }

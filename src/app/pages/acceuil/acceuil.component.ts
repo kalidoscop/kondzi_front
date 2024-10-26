@@ -1,9 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { CarouselModule } from '../component/carousel/carousel.module';
 import { Youtube } from 'angular-feather/icons';
 import {YouTubePlayer,YouTubePlayerModule  } from '@angular/youtube-player';
 import { RouterLink } from '@angular/router';
 import { FooterComponent } from '../component/footer/footer.component';
+import { ScrollService } from '../../_services/scroll.service';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class AcceuilComponent implements OnInit {
     scriptTag.src = 'https://www.youtube.com/iframe_api'
     document.body.appendChild(scriptTag)
   }
+  scrollService = inject(ScrollService)
   
 
   images = [
@@ -39,6 +41,19 @@ export class AcceuilComponent implements OnInit {
       text:'KONDZI.COM, des renseignements 24h/24 partout au Togo'
     },
   ];
-  
+  navbarOpaque = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const triggerDiv = document.getElementById('trigger-div');
+    if (triggerDiv) {
+      const triggerPosition = triggerDiv.getBoundingClientRect().top;
+      const navbarHeight = 40; // Hauteur de votre barre de navigation
+
+      // Vérifie si la div de référence atteint la position de la navbar
+      // this.navbarOpaque = triggerPosition <= navbarHeight;
+      this.scrollService.setNavbarOpaque(triggerPosition <= navbarHeight);
+    }
+  }
   
 }

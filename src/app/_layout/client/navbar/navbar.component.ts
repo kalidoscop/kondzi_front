@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { IconsModule } from '../../../_icons/icons.module';
 import { StructureService } from '../../../_services/structure.service';
 import { Router, RouterModule } from '@angular/router';
@@ -10,6 +10,8 @@ import {
 } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { DataService } from '../../../_services/data.service';
+import { ScrollService } from '../../../_services/scroll.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -18,10 +20,16 @@ import { DataService } from '../../../_services/data.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit,OnDestroy {
+  ngOnDestroy(): void {
+    this.scrollSubscription?.unsubscribe();
+  }
   place: google.maps.places.PlaceResult | null = null;
 
   dataservice = inject(DataService)
+  scrollService = inject(ScrollService)
+  private scrollSubscription: Subscription | undefined;
+  navbarOpaque = false;
 
   async ngOnInit() {
     const center = { lat: 50.064192, lng: -130.605469 };
@@ -48,6 +56,9 @@ export class NavbarComponent implements OnInit {
       this.place = place
       console.log(place);
     });
+    this.scrollSubscription = this.scrollService.navbarOpaque$.subscribe(
+      isOpaque => (this.navbarOpaque = isOpaque)
+    );
   }
   structureService = inject(StructureService);
   private router = inject(Router);

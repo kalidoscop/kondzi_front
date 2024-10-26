@@ -12,6 +12,7 @@ import { Loader } from '@googlemaps/js-api-loader';
 import { DataService } from '../../_services/data.service';
 import { NgClass, NgFor } from '@angular/common';
 import { FooterComponent } from '../component/footer/footer.component';
+import { ScrollService } from '../../_services/scroll.service';
 
 @Component({
   selector: 'app-annuaire',
@@ -194,8 +195,11 @@ export class AnnuaireComponent implements OnInit {
   });
 
   structures: Structure[] = [];
+  scrollService = inject(ScrollService)
+
 
   async ngOnInit() {
+    this.scrollService.setNavbarOpaque(true);
     await this.loadStructure();
     // this.loadStructure()
   }

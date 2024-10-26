@@ -4,6 +4,52 @@
 .block{
     display: none;
 }
+nav {
+    transition: all 100ms;
+}
+nav::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 0%;
+    height: 5px;
+    transition: all 400ms;
+    background-color: #F27405;
+}
+nav::before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 5px;
+    transition: all 400ms;
+    background-color: #F27405;
+}
 .bt-open{
-    @apply bg-gray-200 border-none
+    @apply bg-gray-200 border-none bg-opacity-55
+}
+.nav-opaque{
+    @apply bg-opacity-100
+}
+.nav-opaque::after{
+    width: 50%;
+    // background-color: blue;
+}
+.nav-opaque::before{
+    width: 50%;
+    // background-color: blue;
+}
+.icone-opaque{
+    @apply text-ps-orange
+}
+.connexion-opaque{
+    @apply text-ps-orange
+}
+.connexion-icone-opaque{
+    @apply text-ps-orange
+}
+.inpute-opaque{
+    @apply bg-gray-100
 }

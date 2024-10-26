@@ -1,5 +1,6 @@
 <nav
-  class="w-full h-auto z-10 fixed top-0 border-b-4 border-ps-orange bg-white"
+  class="w-full h-auto z-10 fixed top-0 border-ps-orange bg-white bg-opacity-20"
+  [ngClass]="{ 'nav-opaque': navbarOpaque }"
 >
   <div class="w-full h-24 flex flex-row justify-between items-center">
     <a
@@ -20,7 +21,8 @@
       [formGroup]="search"
     >
       <div
-        class="w-11/12 h-4/5 flex rounded-l justify-around items-center bg-white bg-opacity-[0.7]"
+        class="w-11/12 h-4/5 flex rounded-l justify-around items-center bg-white bg-opacity-50"
+        [ngClass]="{ 'inpute-opaque': navbarOpaque }"
       >
         <input
           class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
@@ -50,13 +52,13 @@
       <button
         type="submit"
         [disabled]="!search.valid"
-        class="w-2/12 h-2/3 rounded-r bg-black flex justify-center items-center font-bold"
+        class="w-1/12 h-[84%] rounded-r bg-black flex justify-center items-center font-bold"
       >
         <i-feather name="search" class="text-white transition-all"></i-feather>
       </button>
     </form>
     <div
-      class="border-l-[1px] border-r-[1px] transition-all border-ps-green h-full w-[7%]"
+      class="border-l-[2px] border-r-[2px] transition-all border-ps-orange h-full w-[7%]"
       [ngClass]="{ 'bt-open': menu === true }"
     >
       <a
@@ -67,12 +69,13 @@
         @if (menu) {
         <i-feather
           name="x"
-          class="text-ps-green font-bold text-center w-full h-full text-3xl transition-all"
+          class="text-ps-orange font-bold text-center w-full h-full text-3xl transition-all"
         ></i-feather>
         }@else {
         <i-feather
           name="menu"
-          class="text-ps-green font-bold w-full h-full text-center transition-all"
+          [ngClass]="{ 'icone-opaque': navbarOpaque }"
+          class="text-white font-bold w-full h-full text-center transition-all"
         ></i-feather>
         }
       </a>
@@ -83,28 +86,35 @@
     >
       <i-feather
         name="user"
-        class="text-ps-green font-bold text-3xl transition-all"
+        [ngClass]="{ 'connexion-icone-opaque': navbarOpaque }"
+        class="text-white font-bold text-3xl transition-all"
       ></i-feather>
-      <samp class="text-ps-green font-bold">SE CONNECTER</samp>
+      <samp
+        [ngClass]="{ 'connexion-opaque': navbarOpaque }"
+        class="text-white font-bold"
+        >SE CONNECTER</samp
+      >
     </a>
   </div>
   <div
-    class="w-full h-0 transition-all bg-gray-200 flex flex-row justify-end items-center"
+    class="w-full h-0 transition-all bg-gray-200 bg-opacity-55 flex flex-row justify-end items-center"
     [ngClass]="{ open: menu === true }"
   >
     <div
-      class="w-6/12 h-full flex justify-around items-center"
+      class="w-full h-full flex justify-end items-center"
       [ngClass]="{ block: menu === false }"
     >
-      <div class="w-9/12 h-5/6 flex justify-center items-center">
-        <p class="w-1/4 text-center">Qui sommes-nous ?</p>
+      <a class="w-60 h-auto"><p class="text-center">Qui sommes-nous ?</p></a>
+      <a class="w-60"><p class="text-center border-l-2 border-r-2 border-black">
+        Nos missions
+      </p></a>
+      <a class="w-60"><p class="text-center border-r-2 border-black">Nos partenaires</p></a>
+      <a class="w-60"><p class="text-center">MEDIA-SANTÉ</p></a>
+      
 
-        <p class="w-1/4 text-center border-l-2 border-r-2 border-black">
-          Nos missions
-        </p>
-        <p class="w-1/4 text-center border-r-2 border-black">Nos partenaires</p>
-        <p class="w-1/4 text-center">MEDIA-SANTÉ</p>
-      </div>
+      
+      
+      
     </div>
   </div>
 </nav>
