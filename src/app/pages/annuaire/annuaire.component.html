@@ -1,84 +1,113 @@
-<div class="w-full h-full bg-gray-100">
+<div class="w-full h-full bg-gray-200">
   <div class="gap-4 items-start flex bg-gray-100">
     <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div>
     <div
       class="w-4/12 ml-[5.5vw] mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
     >
       <h1 class="text-3xl w-11/12 mt-10 font-bold">
-        Résultat pour <<{{ word }}>>
+        Résultats pour <<{{ word }}>>
       </h1>
       @for (item of structures; track $index) {
       <div
-        class="w-11/12 h-auto bg-white hover:border-2 border-ps-green"
+        class="w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
-        <div class="w-full h-auto gap-1 m-auto flex flex-col p-3">
-          <div class="flex justify-start items-center gap-2">
-            <span class="material-symbols-outlined text-4xl text-ps-green">
-              domain
-            </span>
-            <div>
-              <h1 class="text-2xl underline font-bold text-ps-green">
-                {{ item.name }}
-              </h1>
-              <p class="text-sm">Type de la structure</p>
+        <div class="w-full flex">
+          <div class="w-3/4 h-auto gap-1 m-auto flex flex-col p-3">
+            <div class="flex justify-start items-center gap-2">
+              <span class="material-symbols-outlined text-4xl text-ps-green">
+                domain
+              </span>
+              <div>
+                <h1 class="text-2xl underline font-extrabold text-ps-green">
+                  {{ item.name }}
+                </h1>
+                <!-- <p class="text-sm">Type de la structure</p> -->
+              </div>
             </div>
-          </div>
-          <div class="flex justify-start items-center gap-2">
-            <span class="material-symbols-outlined text-2xl text-ps-green">
-              location_on
-            </span>
-            <div>
-              <p class="text-lg">{{ item.adresse[0].nadress }}</p>
+            <div class="flex justify-start items-center gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                location_on
+              </span>
+              <div>
+                <p class="text-lg">{{ item.adresse[0].nadress }}</p>
+              </div>
             </div>
-          </div>
-          <div class="flex justify-start items-center gap-2">
-            <span class="material-symbols-outlined text-2xl text-ps-green">
-              call
-            </span>
-            <div>
-              <p class="text-lg">{{ item.tel }}</p>
+            <div class="flex justify-start items-center gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                call
+              </span>
+              <div>
+                <p class="text-lg">{{ item.tel }}</p>
+              </div>
             </div>
-          </div>
-          <div class="flex justify-start items-center gap-2">
-            <span class="material-symbols-outlined text-2xl text-ps-green">
-              add_box
-            </span>
-            <div>
-              <p class="text-lg">{{ item.assurance }}</p>
+            <div class="flex justify-start items-center gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                mail
+              </span>
+              <div>
+                <p class="text-lg">{{ item.email }}</p>
+              </div>
             </div>
-          </div>
-          @if (item.hours.length) {
-          <div class="flex justify-start items-start gap-2">
-            <span class="material-symbols-outlined text-2xl text-ps-green">
-              schedule
-            </span>
-            <div class="flex flex-col pt-2">
-              @for (it of item.hours; track $index) {
+            <div class="flex justify-start items-center gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                add_box
+              </span>
+              <div>
+                <p class="text-lg">{{ item.assurance }}</p>
+              </div>
+            </div>
+            @if (item.hours.length) {
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                schedule
+              </span>
+              <div class="flex flex-col pt-2">
+                @for (it of item.hours; track $index) {
 
-              <p class="text-sm">
-                {{ it.libelle }} {{ it.h_start }}-{{ it.h_end }}
-              </p>
-              }
+                <p class="text-sm">
+                  {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
+                </p>
+                }
+              </div>
             </div>
+            }
           </div>
-          }
-          <div class="w-full h-10 flex justify-end">
-            <a [href]="['https://www.google.com/maps?q='+[item.adresse[0].lat,item.adresse[0].lng]]" class="h-full w-1/4 flex justify-center items-center gap-2 rounded-lg bg-ps-green text-white">
-              <p>Y ALLER</p>
-              <span class="material-symbols-outlined"> send </span>
-            </a>
-          </div>
+          <div class="mt-6 w-[100px] h-1/4 gap-2 flex flex-wrap">
+            @for (ite of item.network; track $index) {
 
-          <!-- <div class="h-full w-9/12">
-              
-            </div> -->
+            <a
+              class="w-[25px] flex justify-start items-center"
+            target="_blank"
+            href="{{ ite.link }}" 
+              ><img src="images/icone/{{ ite.name }}.png" class="w-[100px]"
+            /></a>
+            }
+          </div>
+        </div>
+        <div class="w-11/12 h-10 mb-3 flex justify-between items-center">
+          <a
+            href=""
+            class="hover:underline hover:text-ps-green transition-all italic"
+            >En savoir plus...</a
+          >
+          <a
+            [href]="[
+              'https://www.google.com/maps?q=' +
+                [item.adresse[0].lat, item.adresse[0].lng]
+            ]"
+            target="_blank"
+            class="h-full w-1/4 flex justify-center items-center gap-2 rounded-lg bg-ps-green text-white"
+          >
+            <p>Y ALLER</p>
+            <span class="material-symbols-outlined"> send </span>
+          </a>
         </div>
       </div>
       }
     </div>
-    <div class="h-[88vh] right-0 mt-36 fixed w-7/12">
+    <div class="h-[88vh] right-0 bottom-10 mt-36 fixed w-7/12">
       <!-- <google-map height="100%" width="100%" [options]="options">
         @for (location of auLocations; track location) {
         <map-advanced-marker

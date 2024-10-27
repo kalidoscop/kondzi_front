@@ -43,7 +43,7 @@
         class="input"
         required
       >
-        <option value="ch">Centre Hospitalier</option>
+        <option value="ch">Centre/Structure de soins</option>
         <option value="ph">Pharmacie</option>
         <option value="lb">Laboratoires</option>
         <option value="co">Centre Optique</option>
@@ -97,18 +97,21 @@
   <div class="row" [formGroup]="hoursGroup">
     <div class="flex flex-col w-4/12">
       <label for="openingHours">Jours d'ouverture</label>
-      <select class="h-[5.5vh]" formControlName="libelle" required id="">
-        <option value="Lundi-Vendredi">Lundi-Vendredi</option>
-        <option value="Samedi-Dimance">Samedi-Dimanche</option>
+      <select class="h-[5.5vh] border border-ps-green" formControlName="libelle" required id="">
+        <option value="Lundi">Lundi</option>
+        <option value="Mardi">Mardi</option>
+        <option value="Mercredi">Mercredi</option>
+        <option value="Jeudi">Jeudi</option>
+        <option value="Vendredi">Vendredi</option>
         <option value="Samedi">Samedi</option>
-        <option value="Dimance">Dimanche</option>
+        <option value="Dimanche">Dimanche</option>
       </select>
     </div>
     <div class="flex flex-col w-3/12">
       <label for="openingHours">Heure d'ouverture</label>
       <div class="w-full flex justify-start gap-4 items-center">
         <select
-          class="h-[5.5vh] w-2/5 text-center"
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
           required
           formControlName="hStartH"
           id=""
@@ -118,7 +121,7 @@
           }
         </select>
         <select
-          class="h-[5.5vh] w-2/5 text-center"
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
           required
           formControlName="hStartM"
           id=""
@@ -133,7 +136,7 @@
       <label for="openingHours">Heure de fermeture</label>
       <div class="w-full flex justify-start gap-4 items-center">
         <select
-          class="h-[5.5vh] w-2/5 text-center"
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
           required
           formControlName="hEndH"
           id=""
@@ -143,7 +146,7 @@
           }
         </select>
         <select
-          class="h-[5.5vh] w-2/5 text-center"
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
           required
           formControlName="hEndM"
           id=""
@@ -383,9 +386,10 @@
               <option value="facebook">FaceBook</option>
               <option value="instagram">Instagram</option>
               <option value="tiktok">TikTok</option>
-              <option value="x">Youtube</option>
+              <option value="youtube">Youtube</option>
               <option value="x">X</option>
-              <option value="web">site web</option>
+              <option value="web">Site web</option>
+              <option value="linkedin">Linkedin</option>
             </select>
           </td>
           <td>
@@ -424,7 +428,7 @@
       class="w-1/5 h-[5vh] bg-ps-green font-bold text-2xl text-white text-center hover:shadow-md transition-all hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_100px]"
       [disabled]="!structureForm.valid"
       >
-      Enreigistrer
+      Enregistrer
     </button>
   </div>
 </form>

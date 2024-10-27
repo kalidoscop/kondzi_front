@@ -49,6 +49,7 @@ export class StructureAddComponent {
     '23',
   ];
   minute: string[] = [
+    '00',
     '01',
     '02',
     '03',
@@ -220,8 +221,8 @@ export class StructureAddComponent {
   addHours(){
     const addingHours = new FormGroup({
       libelle: new FormControl(this.hoursGroup.value.libelle),
-      hStart : new FormControl(this.hoursGroup.value.hStartH+'h '+this.hoursGroup.value.hStartM),
-      hEnd : new FormControl(this.hoursGroup.value.hEndH+'h '+this.hoursGroup.value.hEndM),
+      hStart : new FormControl(this.hoursGroup.value.hStartH+'h'+this.hoursGroup.value.hStartM),
+      hEnd : new FormControl(this.hoursGroup.value.hEndH+'h'+this.hoursGroup.value.hEndM),
     })
     console.log('coucou');
     this.hours.push(addingHours)

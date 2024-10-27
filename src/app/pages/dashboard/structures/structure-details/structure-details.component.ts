@@ -51,6 +51,7 @@ export class StructureDetailsComponent implements OnInit {
     '23',
   ];
   minute: string[] = [
+    '00',
     '01',
     '02',
     '03',
@@ -192,17 +193,15 @@ export class StructureDetailsComponent implements OnInit {
   onSubmit() {
     if (environment.isDevEnv) console.log(this.structureForm.value);
     console.log(this.structureForm.value);
-    let assu = ''
-    let act = ''
+    let assu = '';
+    let act = '';
     for (let index = 0; index < this.assurances.length; index++) {
       const element = this.assurances[index];
-      assu+=` ${element}`
-      
+      assu += ` ${element}`;
     }
     for (let index = 0; index < this.activity.length; index++) {
       const element = this.activity[index];
-      act+=` ${element}`
-      
+      act += ` ${element}`;
     }
     this.structureForm.controls.assurance.setValue(assu.trim());
     this.structureForm.controls.activity.setValue(act.trim());
@@ -274,10 +273,10 @@ export class StructureDetailsComponent implements OnInit {
     const addingHours = new FormGroup({
       libelle: new FormControl(this.hoursGroup.value.libelle),
       hStart: new FormControl(
-        this.hoursGroup.value.hStartH + 'h ' + this.hoursGroup.value.hStartM
+        this.hoursGroup.value.hStartH + 'h' + this.hoursGroup.value.hStartM
       ),
       hEnd: new FormControl(
-        this.hoursGroup.value.hEndH + 'h ' + this.hoursGroup.value.hEndM
+        this.hoursGroup.value.hEndH + 'h' + this.hoursGroup.value.hEndM
       ),
     });
     console.log('coucou');
@@ -353,7 +352,7 @@ export class StructureDetailsComponent implements OnInit {
   }
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
-    if (event.code === 'Space' &&  this.assurenceGroup.value.libelle) {
+    if (event.code === 'Space' && this.assurenceGroup.value.libelle) {
       const trimmedWord = this.assurenceGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.assurances.push(trimmedWord); // Ajouter le mot à la liste
@@ -363,8 +362,7 @@ export class StructureDetailsComponent implements OnInit {
   }
   onKeyUpAc(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
-    if (event.code === 'Space' &&  this.activityGroup.value.libelle) {
-      
+    if (event.code === 'Space' && this.activityGroup.value.libelle) {
       const trimmedWord = this.activityGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.activity.push(trimmedWord); // Ajouter le mot à la liste
