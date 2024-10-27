@@ -32,6 +32,9 @@ export class NavbarComponent implements OnInit,OnDestroy {
   navbarOpaque = false;
 
   async ngOnInit() {
+    this.scrollSubscription = this.scrollService.navbarOpaque$.subscribe(
+      isOpaque => (this.navbarOpaque = isOpaque)
+    );
     const center = { lat: 50.064192, lng: -130.605469 };
     const defaultBounds = {
       north: center.lat + 0.1,
@@ -56,9 +59,6 @@ export class NavbarComponent implements OnInit,OnDestroy {
       this.place = place
       console.log(place);
     });
-    this.scrollSubscription = this.scrollService.navbarOpaque$.subscribe(
-      isOpaque => (this.navbarOpaque = isOpaque)
-    );
   }
   structureService = inject(StructureService);
   private router = inject(Router);
