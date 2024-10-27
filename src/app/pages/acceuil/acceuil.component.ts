@@ -25,19 +25,24 @@ export class AcceuilComponent implements OnInit {
 
   images = [
     {
+      imageSrc: 'images/image defilante.jpg',
+      imageAlt: 'image1',
+      text:'Plateforme réseau N°1 des acteurs professionnels de santé au Togo'
+    },
+    {
       imageSrc: 'images/01.jpg',
       imageAlt: 'image2',
       text:'Une urgence vitale de santé, consultez KONDZI.COM'
     },
     {
       imageSrc: 'images/02.jpg',
-      imageAlt: 'image1',
+      imageAlt: 'image3',
       text:'Des informations en santé fiables à portée de main sur KONDZI.COM'
     },
     
     {
       imageSrc: 'images/03.jpg',
-      imageAlt: 'image3',
+      imageAlt: 'image4',
       text:'KONDZI.COM, des renseignements 24h/24 partout au Togo'
     },
   ];

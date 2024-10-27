@@ -10,11 +10,15 @@ import { IconsModule } from '../../../_icons/icons.module';
 })
 export class FooterComponent {
   network = [
-    { logo: 'facebook', link: 'https://www.facebook.com/profile.php?id=61562908653355&mibextid=ZbWKwL' },
-    { logo: 'twitter', link: 'https://x.com/kondzi_com' },
-    { logo: 'youtube', link: 'https://www.youtube.com/@kondzi_com' },
+    { logo: 'images/icone/FB2.png', link: 'https://www.facebook.com/profile.php?id=61562908653355&mibextid=ZbWKwL' },
+    { logo: 'images/icone/X.png', link: 'https://x.com/kondzi_com' },
+    { logo: 'images/icone/YTB.png', link: 'https://www.youtube.com/@kondzi_com' },
+    { logo: 'images/icone/TK2.png', link: 'https://www.tiktok.com/@kondzi.com' },
   ];
   scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  email = 'contact.kondzi.com@gmail.com'
+  tel = '+228 93 49 66 64'
+  web = 'www.kondzi.com'
 }

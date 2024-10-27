@@ -17,19 +17,23 @@ export class CarouselComponent implements OnInit {
   @Input() images : CarouselImage[]=[]
 
 
-  selectedIndex =2
+  selectedIndex =0
 
   ngOnInit(): void {
+    console.log(this.images);
+    
     setInterval(()=>{
       this.deroule()
       // console.log(this.selectedIndex);
       
-    },3000)
+    },4000)
     
     // throw new Error('Method not implemented.');
   }
 
   deroule(){
+    console.log(this.selectedIndex);
+    
     if (this.selectedIndex === this.images.length-1) {
       this.selectedIndex=0
     }else{
