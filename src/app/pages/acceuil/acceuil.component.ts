@@ -1,7 +1,6 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { CarouselModule } from '../component/carousel/carousel.module';
-import { Youtube } from 'angular-feather/icons';
-import {YouTubePlayer,YouTubePlayerModule  } from '@angular/youtube-player';
+// import { Youtube } from 'angular-feather/icons';
 import { RouterLink } from '@angular/router';
 import { FooterComponent } from '../component/footer/footer.component';
 import { ScrollService } from '../../_services/scroll.service';
@@ -10,7 +9,7 @@ import { ScrollService } from '../../_services/scroll.service';
 @Component({
   selector: 'app-acceuil',
   standalone: true,
-  imports: [CarouselModule,YouTubePlayer,YouTubePlayerModule,RouterLink,FooterComponent],
+  imports: [CarouselModule,RouterLink,FooterComponent],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
 })
