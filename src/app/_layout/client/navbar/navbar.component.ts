@@ -12,6 +12,7 @@ import { NgClass } from '@angular/common';
 import { DataService } from '../../../_services/data.service';
 import { ScrollService } from '../../../_services/scroll.service';
 import { Subscription } from 'rxjs';
+import { SharedService } from '../../../_services/shared.service';
 
 @Component({
   selector: 'app-navbar',
@@ -62,6 +63,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
   }
   structureService = inject(StructureService);
   private router = inject(Router);
+  private sharedService = inject(SharedService);
+
   menu: boolean = false;
 
   search = new FormGroup({
@@ -72,24 +75,34 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
   async onSubmit() {
     if (this.place) {
-      this.router.navigate([
-        '/annuaire',
-        `${this.search.value.word?.trim()}`,
-        `${this.search.value.type}`,
-        `${this.search.value.zone?.trim()}`,
-        `${this.place.geometry?.viewport?.getSouthWest().lng()}`,
-        `${this.place.geometry?.viewport?.getNorthEast().lng()}`,
-        `${this.place.geometry?.viewport?.getSouthWest().lat()}`,
-        `${this.place.geometry?.viewport?.getNorthEast().lat()}`,
-      ]);
+      // this.router.navigate([
+      //   '/annuaire',
+      //   `${this.search.value.word?.trim()}`,
+      //   `${this.search.value.type}`,
+      //   `${this.search.value.zone?.trim()}`,
+      //   `${this.place.geometry?.viewport?.getSouthWest().lng()}`,
+      //   `${this.place.geometry?.viewport?.getNorthEast().lng()}`,
+      //   `${this.place.geometry?.viewport?.getSouthWest().lat()}`,
+      //   `${this.place.geometry?.viewport?.getNorthEast().lat()}`,
+      // ]);
+
+      const newLink = `/annuaire/${this.search.value.word?.trim()}/${this.search.value.type}/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport?.getSouthWest().lng()}/${this.place.geometry?.viewport?.getNorthEast().lng()}/${this.place.geometry?.viewport?.getSouthWest().lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`
+      this.router.navigate(['/']).then(() => { this.router.navigate([newLink]); });
+
+
+      // this.refreshSchearchList()
       // console.log(1);
       
     }else{
-      this.router.navigate([
-        '/annuaire',
-        `${this.search.value.word?.trim()}`,
-        `${this.search.value.type}`,
-      ]);
+      const newLink = `/annuaire/${this.search.value.word?.trim()}/${this.search.value.type}`
+      this.router.navigate(['/']).then(() => { this.router.navigate([newLink]); });
+
+      // this.router.navigate([
+      //   '/annuaire',
+      //   `${this.search.value.word?.trim()}`,
+      //   `${this.search.value.type}`,
+      // ]);
+      // this.refreshSchearchList()
       // console.log(2);
     }
     // console.log(this.search.value);
@@ -98,5 +111,8 @@ export class NavbarComponent implements OnInit,OnDestroy {
   openMenu() {
     this.menu = !this.menu;
     console.log(this.menu);
+  }
+  refreshSchearchList() {
+    this.sharedService.callComponent();
   }
 }

@@ -194,6 +194,7 @@
       </tbody>
     </table>
   </div>
+  <!-- end assurance -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="assurenceGroup">
       <label for="assurance">Assurance</label>
@@ -219,6 +220,8 @@
       </textarea>
     </div>
   </div>
+  <!-- end assurance -->
+  <!-- activity -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="activityGroup">
       <label for="activity">activité de la structure</label>
@@ -242,6 +245,33 @@
       ></textarea>
     </div>
   </div>
+  <!-- end activity -->
+  <!-- activity phare-->
+  <div class="row">
+    <div class="flex flex-col w-11/12" [formGroup]="activityPhGroup">
+      <label for="activity">activité phare de la structure</label>
+      <div
+        class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
+      >
+        @for (item of activityPh; track $index) {
+        <div
+          class="w-auto h-8 p-1 flex justify-center gap-2 items-center text-center rounded-md bg-blue-100 m-1"
+        >
+          <p>{{ item }}</p>
+          <a type="button" (click)="removeActivityPh($index)" class="flex h-full justify-center items-center"><i-feather name="x"></i-feather></a>
+        </div>
+        }
+      </div>
+      <textarea
+        class="w-full border p-2 border-ps-green focus:border-ps-orange focus:outline-none focus:border-2"
+        formControlName="libelle"
+        id="activity"
+        (keyup)="onKeyUpAcPh($event)"
+      ></textarea>
+    </div>
+  </div>
+  <!-- end activity phare-->
+
   <div class="row">
     <div class="w-[48%]">
       <div class="w-[48%]"></div>

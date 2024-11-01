@@ -20,7 +20,7 @@ export class CarouselComponent implements OnInit {
   selectedIndex =0
 
   ngOnInit(): void {
-    console.log(this.images);
+    // console.log(this.images);
     
     setInterval(()=>{
       this.deroule()
@@ -32,7 +32,7 @@ export class CarouselComponent implements OnInit {
   }
 
   deroule(){
-    console.log(this.selectedIndex);
+    // console.log(this.selectedIndex);
     
     if (this.selectedIndex === this.images.length-1) {
       this.selectedIndex=0

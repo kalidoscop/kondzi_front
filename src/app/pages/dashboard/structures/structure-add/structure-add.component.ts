@@ -115,6 +115,7 @@ export class StructureAddComponent {
 
   assurances : string [] =[]
   activity : string [] =[]
+  activityPh : string [] =[]
 
   structureForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -125,6 +126,7 @@ export class StructureAddComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     // openingHours: new FormControl('', Validators.required),
     activity: new FormControl(''),
+    flagshipActivity: new FormControl(''),
     type: new FormControl('',Validators.required),
     assurance:new FormControl(''),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
@@ -145,6 +147,7 @@ export class StructureAddComponent {
     console.log(this.structureForm.value);
     let assu = ''
     let act = ''
+    let actPh = ''
     for (let index = 0; index < this.assurances.length; index++) {
       const element = this.assurances[index];
       assu+=` ${element}`
@@ -155,8 +158,14 @@ export class StructureAddComponent {
       act+=` ${element}`
       
     }
+    for (let index = 0; index < this.activityPh.length; index++) {
+      const element = this.activityPh[index];
+      actPh+=` ${element}`
+      
+    }
     this.structureForm.controls.assurance.setValue(assu.trim());
     this.structureForm.controls.activity.setValue(act.trim());
+    this.structureForm.controls.flagshipActivity.setValue(actPh.trim());
     this.structureService
       .addStructure(this.structureForm.value)
       .subscribe(() => {
@@ -185,6 +194,9 @@ export class StructureAddComponent {
     libelle: new FormControl(''),
   });
   assurenceGroup = new FormGroup({
+    libelle: new FormControl(''),
+  });
+  activityPhGroup = new FormGroup({
     libelle: new FormControl(''),
   });
   addAdresse() {
@@ -257,6 +269,14 @@ export class StructureAddComponent {
     
     // this.adresses=this.structureForm.controls.adresse.value
   }
+  removeActivityPh(index: number) {
+    console.log(0);
+    
+    this.activityPh.splice(index, 1);
+    // console.log(this.assurances);
+    
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
     if (event.code === 'Space' &&  this.assurenceGroup.value.libelle) {
@@ -275,6 +295,20 @@ export class StructureAddComponent {
       if (trimmedWord.length > 0) {
         this.activity.push(trimmedWord); // Ajouter le mot à la liste
         this.activityGroup.controls.libelle.setValue(''); // Réinitialiser le champ de saisie
+      }
+    }
+  }
+  onKeyUpAcPh(event: KeyboardEvent) {
+    // Vérifier si la touche appuyée est un espace
+    if (event.code === 'Space' &&  this.activityPhGroup.value.libelle) {
+      
+      const trimmedWord = this.activityPhGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
+      if (trimmedWord.length > 0) {
+        if (this.activityPh.length<5) {
+          
+          this.activityPh.push(trimmedWord); // Ajouter le mot à la liste
+        }
+        this.activityPhGroup.controls.libelle.setValue(''); // Réinitialiser le champ de saisie
       }
     }
   }

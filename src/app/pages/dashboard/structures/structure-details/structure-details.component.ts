@@ -115,6 +115,7 @@ export class StructureDetailsComponent implements OnInit {
 
   assurances: string[] = [];
   activity: string[] = [];
+  activityPh: string[] = [];
 
   structureService = inject(StructureService);
   // private router = inject(Router);
@@ -132,6 +133,7 @@ export class StructureDetailsComponent implements OnInit {
     tel: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     activity: new FormControl(''),
+    flagshipActivity: new FormControl(''),
     type: new FormControl(''),
     assurance: new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
@@ -174,7 +176,7 @@ export class StructureDetailsComponent implements OnInit {
             Validators.email,
           ]),
           assurance: new FormControl(``),
-
+          flagshipActivity: new FormControl(''),
           activity: new FormControl(``),
           type: new FormControl(`${res.type}`, Validators.required),
           adresse: new FormArray([], ArrayValidators.minLength(0)),
@@ -185,6 +187,7 @@ export class StructureDetailsComponent implements OnInit {
         this.network = res.network;
         this.assurances = res.assurance.split(' ');
         this.activity = res.activity.split(' ');
+        this.activityPh = res.flagship_activity.split(' ');
         this.hour = res.hours;
       });
     }
@@ -195,6 +198,8 @@ export class StructureDetailsComponent implements OnInit {
     console.log(this.structureForm.value);
     let assu = '';
     let act = '';
+    let actPh = '';
+
     for (let index = 0; index < this.assurances.length; index++) {
       const element = this.assurances[index];
       assu += ` ${element}`;
@@ -203,8 +208,13 @@ export class StructureDetailsComponent implements OnInit {
       const element = this.activity[index];
       act += ` ${element}`;
     }
+    for (let index = 0; index < this.activityPh.length; index++) {
+      const element = this.activityPh[index];
+      actPh += ` ${element}`;
+    }
     this.structureForm.controls.assurance.setValue(assu.trim());
     this.structureForm.controls.activity.setValue(act.trim());
+    this.structureForm.controls.flagshipActivity.setValue(actPh.trim());
     if (this.structureId) {
       this.structureService
         .updateStructure(this.structureForm.value, this.structureId)
@@ -236,6 +246,9 @@ export class StructureDetailsComponent implements OnInit {
     libelle: new FormControl(''),
   });
   assurenceGroup = new FormGroup({
+    libelle: new FormControl(''),
+  });
+  activityPhGroup = new FormGroup({
     libelle: new FormControl(''),
   });
   addAdresse() {
@@ -350,6 +363,14 @@ export class StructureDetailsComponent implements OnInit {
 
     // this.adresses=this.structureForm.controls.adresse.value
   }
+  removeActivityPh(index: number) {
+    console.log(0);
+
+    this.activityPh.splice(index, 1);
+    // console.log(this.assurances);
+
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
     if (event.code === 'Space' && this.assurenceGroup.value.libelle) {
@@ -367,6 +388,18 @@ export class StructureDetailsComponent implements OnInit {
       if (trimmedWord.length > 0) {
         this.activity.push(trimmedWord); // Ajouter le mot à la liste
         this.activityGroup.controls.libelle.setValue(''); // Réinitialiser le champ de saisie
+      }
+    }
+  }
+  onKeyUpAcPh(event: KeyboardEvent) {
+    // Vérifier si la touche appuyée est un espace
+    if (event.code === 'Space' && this.activityPhGroup.value.libelle) {
+      const trimmedWord = this.activityPhGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
+      if (trimmedWord.length > 0) {
+        if (this.activityPh.length < 5) {
+          this.activityPh.push(trimmedWord); // Ajouter le mot à la liste
+        }
+        this.activityPhGroup.controls.libelle.setValue(''); // Réinitialiser le champ de saisie
       }
     }
   }

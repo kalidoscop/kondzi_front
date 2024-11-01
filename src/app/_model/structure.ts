@@ -16,6 +16,7 @@ export interface Structure {
   updated_at: string;
   type: string;
   assurance:string;
+  flagship_activity:string;
   adresse: Adresse[];
   network: Network[];
   hours: Hour[]

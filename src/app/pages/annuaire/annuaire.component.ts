@@ -13,6 +13,7 @@ import { DataService } from '../../_services/data.service';
 import { NgClass, NgFor } from '@angular/common';
 import { FooterComponent } from '../component/footer/footer.component';
 import { ScrollService } from '../../_services/scroll.service';
+import { SharedService } from '../../_services/shared.service';
 
 @Component({
   selector: 'app-annuaire',
@@ -25,6 +26,8 @@ export class AnnuaireComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   structureService = inject(StructureService);
   dataservice = inject(DataService);
+  private sharedService = inject(SharedService);
+
   selectedIndex =''
   markers: google.maps.marker.AdvancedMarkerElement[] = [];
   geocoder = new google.maps.Geocoder();
@@ -36,7 +39,181 @@ export class AnnuaireComponent implements OnInit {
   place: google.maps.places.PlaceResult | null = null;
 
   tourStops: any = [];
-  // tourStops = [
+  
+
+  word: string | null = this.activatedRoute.snapshot.paramMap.get('word');
+  type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
+  zone: string | null = this.activatedRoute.snapshot.paramMap.get('zone');
+  slng: string | null = this.activatedRoute.snapshot.paramMap.get('slng');
+  nlng: string | null = this.activatedRoute.snapshot.paramMap.get('nlng');
+  slat: string | null = this.activatedRoute.snapshot.paramMap.get('slat');
+  nlat: string | null = this.activatedRoute.snapshot.paramMap.get('nlat');
+
+  search1 = new FormGroup({
+    word: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    zone: new FormControl(''),
+  });
+  search2 = new FormGroup({
+    word: new FormControl('', Validators.required),
+    type: new FormControl('', Validators.required),
+    lieu: new FormGroup({
+      lngLo: new FormControl(),
+      lngHi: new FormControl(),
+      latLo: new FormControl(),
+      latHi: new FormControl(),
+    }),
+  });
+
+  structures: Structure[] = [];
+  scrollService = inject(ScrollService)
+
+
+  async ngOnInit() {
+    this.scrollService.setNavbarOpaque(true);
+    await this.loadStructure();
+    this.sharedService.callComponent$.subscribe(() => {
+      // this.loadStructure();
+      // console.log('hello evry body');
+      window.location.reload();
+      
+    });
+    // this.loadStructure()
+  }
+
+  loadStructure() {
+    if (this.word && this.type) {
+      if (this.zone && this.slng && this.nlng && this.slat && this.nlat) {
+        // console.log(2);
+
+        this.search2 = new FormGroup({
+          word: new FormControl(this.word, Validators.required),
+          type: new FormControl(this.type, Validators.required),
+          lieu: new FormGroup({
+            lngLo: new FormControl(this.slng),
+            lngHi: new FormControl(this.nlng),
+            latLo: new FormControl(this.slat),
+            latHi: new FormControl(this.nlat),
+          }),
+          // zone: new FormControl(this.zone, Validators.required),
+        });
+        this.structureService.search(this.search2.value).subscribe((res) => {
+          // console.warn(res);
+          this.structures = res;
+          console.log(this.structures);
+
+          for (let i = 0; i < this.structures.length; i++) {
+            const element = this.structures[i];
+            for (let j = 0; j < element.adresse.length; j++) {
+              const ad = element.adresse[j];
+              const coord = {
+                position: { lat: ad.lat, lng: ad.lng },
+                title: element.name,
+                structure:element
+
+              };
+              this.auLocations.push(coord);
+            }
+          }
+          this.initMap();
+        });
+      } else {
+        // console.log(1);
+
+        this.search1 = new FormGroup({
+          word: new FormControl(this.word, Validators.required),
+          type: new FormControl(this.type, Validators.required),
+          zone: new FormControl(''),
+        });
+        this.structureService.search(this.search1.value).subscribe((res) => {
+          // console.warn(res);
+          this.structures = res;
+          console.log(this.structures);
+
+          for (let i = 0; i < this.structures.length; i++) {
+            const element = this.structures[i];
+            for (let j = 0; j < element.adresse.length; j++) {
+              const ad = element.adresse[j];
+              const coord = {
+                position: { lat: ad.lat, lng: ad.lng },
+                title: element.name,
+                structure:element
+              };
+              this.auLocations.push(coord);
+            }
+          }
+          this.initMap();
+        });
+      }
+    }
+  }
+  onSubmit() {
+    this.loadStructure();
+  }
+
+  auLocations: any[] = [];
+
+  async initMap() {
+    const { Map, InfoWindow } = (await google.maps.importLibrary(
+      'maps'
+    )) as google.maps.MapsLibrary;
+    const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+      'marker'
+    )) as google.maps.MarkerLibrary;
+
+    const map = new Map(document.getElementById('map') as HTMLElement, {
+      center: { lat: 8.817369, lng: 1.259029 },
+      zoom: 7,
+      mapId: '4504f8b37365c3d0',
+    });
+    const infoWindow = new InfoWindow();
+    console.log(this.auLocations);
+
+    for (let i = 0; i < this.auLocations.length; i++) {
+      const { position, title,structure } = this.auLocations[i];
+      const marker = new AdvancedMarkerElement({
+        map,
+        position,
+        title,
+        gmpClickable: true,
+      });
+      marker.addListener('click', ({}) => {
+        // console.log(structure);
+        
+        this.scrollToStudent(structure.id)
+        this.selectedIndex=structure.id
+        infoWindow.close();
+        infoWindow.setContent(marker.title);
+        infoWindow.open(marker.map, marker);
+      });
+    }
+  }
+  scrollToStudent(studentId: string) {
+    const element = document.querySelector(`#structure-${studentId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// tourStops = [
   //   // {
   //   //   position: { lat: 34.8791806, lng: -111.8265049 },
   //   //   title: 'Boynton Pass',
@@ -169,155 +346,6 @@ export class AnnuaireComponent implements OnInit {
   //   // { position: { lat: 51.5033, lng: -0.1195 }, title: 'London Eye' },
   //   // { position: { lat: 40.6892, lng: -74.0445 }, title: 'Statue of Liberty' },
   // ];
-
-  word: string | null = this.activatedRoute.snapshot.paramMap.get('word');
-  type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
-  zone: string | null = this.activatedRoute.snapshot.paramMap.get('zone');
-  slng: string | null = this.activatedRoute.snapshot.paramMap.get('slng');
-  nlng: string | null = this.activatedRoute.snapshot.paramMap.get('nlng');
-  slat: string | null = this.activatedRoute.snapshot.paramMap.get('slat');
-  nlat: string | null = this.activatedRoute.snapshot.paramMap.get('nlat');
-
-  search1 = new FormGroup({
-    word: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
-    zone: new FormControl(''),
-  });
-  search2 = new FormGroup({
-    word: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
-    lieu: new FormGroup({
-      lngLo: new FormControl(),
-      lngHi: new FormControl(),
-      latLo: new FormControl(),
-      latHi: new FormControl(),
-    }),
-  });
-
-  structures: Structure[] = [];
-  scrollService = inject(ScrollService)
-
-
-  async ngOnInit() {
-    this.scrollService.setNavbarOpaque(true);
-    await this.loadStructure();
-    // this.loadStructure()
-  }
-
-  loadStructure() {
-    if (this.word && this.type) {
-      if (this.zone && this.slng && this.nlng && this.slat && this.nlat) {
-        // console.log(2);
-
-        this.search2 = new FormGroup({
-          word: new FormControl(this.word, Validators.required),
-          type: new FormControl(this.type, Validators.required),
-          lieu: new FormGroup({
-            lngLo: new FormControl(this.slng),
-            lngHi: new FormControl(this.nlng),
-            latLo: new FormControl(this.slat),
-            latHi: new FormControl(this.nlat),
-          }),
-          // zone: new FormControl(this.zone, Validators.required),
-        });
-        this.structureService.search(this.search2.value).subscribe((res) => {
-          // console.warn(res);
-          this.structures = res;
-          console.log(this.structures);
-
-          for (let i = 0; i < this.structures.length; i++) {
-            const element = this.structures[i];
-            for (let j = 0; j < element.adresse.length; j++) {
-              const ad = element.adresse[j];
-              const coord = {
-                position: { lat: ad.lat, lng: ad.lng },
-                title: element.name,
-                structure:element
-
-              };
-              this.auLocations.push(coord);
-            }
-          }
-          this.initMap();
-        });
-      } else {
-        // console.log(1);
-
-        this.search1 = new FormGroup({
-          word: new FormControl(this.word, Validators.required),
-          type: new FormControl(this.type, Validators.required),
-          zone: new FormControl(''),
-        });
-        this.structureService.search(this.search1.value).subscribe((res) => {
-          // console.warn(res);
-          this.structures = res;
-          console.log(this.structures);
-
-          for (let i = 0; i < this.structures.length; i++) {
-            const element = this.structures[i];
-            for (let j = 0; j < element.adresse.length; j++) {
-              const ad = element.adresse[j];
-              const coord = {
-                position: { lat: ad.lat, lng: ad.lng },
-                title: element.name,
-                structure:element
-              };
-              this.auLocations.push(coord);
-            }
-          }
-          this.initMap();
-        });
-      }
-    }
-  }
-  onSubmit() {
-    this.loadStructure();
-  }
-
-  auLocations: any[] = [];
-
-  async initMap() {
-    const { Map, InfoWindow } = (await google.maps.importLibrary(
-      'maps'
-    )) as google.maps.MapsLibrary;
-    const { AdvancedMarkerElement } = (await google.maps.importLibrary(
-      'marker'
-    )) as google.maps.MarkerLibrary;
-
-    const map = new Map(document.getElementById('map') as HTMLElement, {
-      center: { lat: 8.817369, lng: 1.259029 },
-      zoom: 7,
-      mapId: '4504f8b37365c3d0',
-    });
-    const infoWindow = new InfoWindow();
-    console.log(this.auLocations);
-
-    for (let i = 0; i < this.auLocations.length; i++) {
-      const { position, title,structure } = this.auLocations[i];
-      const marker = new AdvancedMarkerElement({
-        map,
-        position,
-        title,
-        gmpClickable: true,
-      });
-      marker.addListener('click', ({}) => {
-        // console.log(structure);
-        
-        this.scrollToStudent(structure.id)
-        this.selectedIndex=structure.id
-        infoWindow.close();
-        infoWindow.setContent(marker.title);
-        infoWindow.open(marker.map, marker);
-      });
-    }
-  }
-  scrollToStudent(studentId: string) {
-    const element = document.querySelector(`#structure-${studentId}`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-}
 
 
 // async loadPlace() {
