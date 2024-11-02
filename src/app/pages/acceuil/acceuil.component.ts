@@ -4,12 +4,13 @@ import { CarouselModule } from '../component/carousel/carousel.module';
 import { RouterLink } from '@angular/router';
 import { FooterComponent } from '../component/footer/footer.component';
 import { ScrollService } from '../../_services/scroll.service';
+import { ModalComponent } from '../component/modal/modal.component';
 
 
 @Component({
   selector: 'app-acceuil',
   standalone: true,
-  imports: [CarouselModule,RouterLink,FooterComponent],
+  imports: [CarouselModule,RouterLink,FooterComponent,ModalComponent],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
 })
@@ -59,5 +60,16 @@ export class AcceuilComponent implements OnInit {
       this.scrollService.setNavbarOpaque(triggerPosition <= navbarHeight);
     }
   }
+
+  showModal = false;
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
   
 }

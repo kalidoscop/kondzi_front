@@ -35,8 +35,16 @@
           class="w-11/12 rounded mb-9 h-96 shadow-md border-[1px] border-gray-300 bg-white"
         > -->
         <!-- <youtube-player class="w-1/4 bg-blue-400 h-auto" videoId="bGxRcV7EUtg"></youtube-player> -->
-        <iframe width="95%" height="345" src="https://www.youtube.com/embed/bGxRcV7EUtg">
-        </iframe>
+        <!-- <iframe  width="95%" height="345" src="https://www.youtube.com/embed/bGxRcV7EUtg">
+        </iframe> -->
+        <button class="youtube w-11/12 h-96 flex justify-center items-center" >
+          <span (click)="openModal()" class="material-symbols-outlined text-7xl transition-all text-red-700 hover:text-9xl">
+            smart_display
+            </span>
+        </button>
+        <!-- <div  src="" width="95%" alt="Aperçu de la vidéo" /> -->
+
+        <!-- <button class="absolute mt-1/6 bg-blue-300" (click)="openModal()">ouvrire</button> -->
         <!-- </div> -->
         <!-- article -->
         <div
@@ -227,3 +235,10 @@
 
   <!-- body -->
 </div>
+@if (showModal) {
+  <app-modal (close)="closeModal()">
+    <iframe  width="95%" height="700" src="https://www.youtube.com/embed/bGxRcV7EUtg?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen frameborder="0">
+        </iframe>
+  </app-modal>
+}
+
