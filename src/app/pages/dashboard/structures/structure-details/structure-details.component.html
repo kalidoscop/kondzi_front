@@ -94,7 +94,7 @@
       />
     </div>
   </div>
-
+<!-- heur douverture -->
   <div class="row" [formGroup]="hoursGroup">
     <div class="flex flex-col w-4/12">
       <label for="openingHours">Jours d'ouverture</label>
@@ -106,38 +106,58 @@
         <option value="Vendredi">Vendredi</option>
         <option value="Samedi">Samedi</option>
         <option value="Dimanche">Dimanche</option>
+        <option value="Tous les jours">Tous les jours</option>
       </select>
     </div>
-    <div class="flex flex-col w-3/12">
-      <label for="openingHours">Heure d'ouverture</label>
+    <div class=" ml-5 flex flex-col w-3/12">
+      <label for="openingHours">24H/24H</label>
       <div class="w-full flex justify-start gap-4 items-center">
-        <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hStartH" id="">
-          @for (item of hourSlecte; track $index) {
-          <option [value]="item">{{ item }}</option>
-          }
-        </select>
-        <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hStartM" id="">
-          @for (item of minute; track $index) {
-          <option [value]="item">{{ item }}</option>
-          }
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="isH24"
+          id=""
+          (change)="isH24Change()"
+        >
+          <option value="true">oui</option>
+          <option value="false">nom</option>
         </select>
       </div>
     </div>
-    <div class="flex flex-col w-3/12">
-      <label for="openingHours">Heure de fermeture</label>
-      <div class="w-full flex justify-start gap-4 items-center">
-        <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hEndH" id="">
-          @for (item of hourSlecte; track $index) {
-          <option [value]="item">{{ item }}</option>
-          }
-        </select>
-        <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hEndM" id="">
-          @for (item of minute; track $index) {
-          <option [value]="item">{{ item }}</option>
-          }
-        </select>
+    @if (!isH24) {
+      <div class="flex flex-col w-3/12">
+        <label for="openingHours">Heure d'ouverture</label>
+        <div class="w-full flex justify-start gap-4 items-center">
+          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hStartH" id="">
+            @for (item of hourSlecte; track $index) {
+            <option [value]="item">{{ item }}</option>
+            }
+          </select>
+          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hStartM" id="">
+            @for (item of minute; track $index) {
+            <option [value]="item">{{ item }}</option>
+            }
+          </select>
+        </div>
       </div>
-    </div>
+      <div class="flex flex-col w-3/12">
+        <label for="openingHours">Heure de fermeture</label>
+        <div class="w-full flex justify-start gap-4 items-center">
+          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hEndH" id="">
+            @for (item of hourSlecte; track $index) {
+            <option [value]="item">{{ item }}</option>
+            }
+          </select>
+          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hEndM" id="">
+            @for (item of minute; track $index) {
+            <option [value]="item">{{ item }}</option>
+            }
+          </select>
+        </div>
+      </div>
+    }
+    
+    
     <div class="flex justify-center items-center w-1/12 h-[7vh]">
       <input
             type="button"
@@ -149,6 +169,7 @@
     </div>
 
   </div>
+  <!-- end heure ouverture  -->
   <div class="row">
     <table class="w-1/2" *ngIf="hours.value.length || hour.length">
       <thead class="w-full h-14 bg-ps-green text-white">

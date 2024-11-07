@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgClass } from '@angular/common';
+import { NgClass, NgOptimizedImage } from '@angular/common';
 import { DataService } from '../../../_services/data.service';
 import { ScrollService } from '../../../_services/scroll.service';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { SharedService } from '../../../_services/shared.service';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [IconsModule, ReactiveFormsModule, RouterModule, NgClass],
+  imports: [IconsModule, ReactiveFormsModule,NgOptimizedImage, RouterModule, NgClass],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })

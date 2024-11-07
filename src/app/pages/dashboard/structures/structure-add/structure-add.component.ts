@@ -15,13 +15,13 @@ import { Router, RouterModule } from '@angular/router';
 @Component({
   selector: 'app-structure-add',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterModule, IconsModule, NgFor,NgIf],
+  imports: [ReactiveFormsModule, RouterModule, IconsModule, NgFor, NgIf],
   templateUrl: './structure-add.component.html',
   styleUrl: './structure-add.component.scss',
 })
 export class StructureAddComponent {
   // adresses: adresse [] = []
-  
+
   hour: string[] = [
     '00',
     '01',
@@ -113,9 +113,9 @@ export class StructureAddComponent {
   structureService = inject(StructureService);
   private router = inject(Router);
 
-  assurances : string [] =[]
-  activity : string [] =[]
-  activityPh : string [] =[]
+  assurances: string[] = [];
+  activity: string[] = [];
+  activityPh: string[] = [];
 
   structureForm = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -127,8 +127,8 @@ export class StructureAddComponent {
     // openingHours: new FormControl('', Validators.required),
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
-    type: new FormControl('',Validators.required),
-    assurance:new FormControl(''),
+    type: new FormControl('', Validators.required),
+    assurance: new FormControl(''),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
     hours: new FormArray([], ArrayValidators.minLength(1)),
@@ -145,23 +145,20 @@ export class StructureAddComponent {
   }
   onSubmit() {
     console.log(this.structureForm.value);
-    let assu = ''
-    let act = ''
-    let actPh = ''
+    let assu = '';
+    let act = '';
+    let actPh = '';
     for (let index = 0; index < this.assurances.length; index++) {
       const element = this.assurances[index];
-      assu+=` ${element}`
-      
+      assu += ` ${element}`;
     }
     for (let index = 0; index < this.activity.length; index++) {
       const element = this.activity[index];
-      act+=` ${element}`
-      
+      act += ` ${element}`;
     }
     for (let index = 0; index < this.activityPh.length; index++) {
       const element = this.activityPh[index];
-      actPh+=` ${element}`
-      
+      actPh += ` ${element}`;
     }
     this.structureForm.controls.assurance.setValue(assu.trim());
     this.structureForm.controls.activity.setValue(act.trim());
@@ -189,7 +186,24 @@ export class StructureAddComponent {
     hStartM: new FormControl(''),
     hEndH: new FormControl(''),
     hEndM: new FormControl(''),
+    isH24: new FormControl(true),
   });
+  isH24 = true;
+  isH24Change() {
+    if (this.isH24) {
+      this.isH24 = !this.isH24;
+      this.hoursGroup.controls.hStartH.setValue('');
+      this.hoursGroup.controls.hStartM.setValue('');
+      this.hoursGroup.controls.hEndH.setValue('');
+      this.hoursGroup.controls.hEndM.setValue('');
+    } else {
+      this.isH24 = !this.isH24;
+      this.hoursGroup.controls.hStartH.setValue('00');
+      this.hoursGroup.controls.hStartM.setValue('00');
+      this.hoursGroup.controls.hEndH.setValue('00');
+      this.hoursGroup.controls.hEndM.setValue('00');
+    }
+  }
   activityGroup = new FormGroup({
     libelle: new FormControl(''),
   });
@@ -230,14 +244,19 @@ export class StructureAddComponent {
 
     // this.adresses=
   }
-  addHours(){
+  addHours() {
     const addingHours = new FormGroup({
       libelle: new FormControl(this.hoursGroup.value.libelle),
-      hStart : new FormControl(this.hoursGroup.value.hStartH+'h'+this.hoursGroup.value.hStartM),
-      hEnd : new FormControl(this.hoursGroup.value.hEndH+'h'+this.hoursGroup.value.hEndM),
-    })
+      hStart: new FormControl(
+        this.hoursGroup.value.hStartH + 'h' + this.hoursGroup.value.hStartM
+      ),
+      hEnd: new FormControl(
+        this.hoursGroup.value.hEndH + 'h' + this.hoursGroup.value.hEndM
+      ),
+      isH24: new FormControl(this.hoursGroup.value.isH24)
+    });
     console.log('coucou');
-    this.hours.push(addingHours)
+    this.hours.push(addingHours);
     // console.log(this.hoursGroup.value);
   }
   removeAdresse(index: number) {
@@ -254,32 +273,32 @@ export class StructureAddComponent {
   }
   removeAssurance(index: number) {
     console.log(0);
-    
+
     this.assurances.splice(index, 1);
     // console.log(this.assurances);
-    
+
     // this.adresses=this.structureForm.controls.adresse.value
   }
 
   removeActivity(index: number) {
     console.log(0);
-    
+
     this.activity.splice(index, 1);
     // console.log(this.assurances);
-    
+
     // this.adresses=this.structureForm.controls.adresse.value
   }
   removeActivityPh(index: number) {
     console.log(0);
-    
+
     this.activityPh.splice(index, 1);
     // console.log(this.assurances);
-    
+
     // this.adresses=this.structureForm.controls.adresse.value
   }
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
-    if (event.code === 'Space' &&  this.assurenceGroup.value.libelle) {
+    if (event.code === 'Space' && this.assurenceGroup.value.libelle) {
       const trimmedWord = this.assurenceGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.assurances.push(trimmedWord); // Ajouter le mot à la liste
@@ -289,8 +308,7 @@ export class StructureAddComponent {
   }
   onKeyUpAc(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
-    if (event.code === 'Space' &&  this.activityGroup.value.libelle) {
-      
+    if (event.code === 'Space' && this.activityGroup.value.libelle) {
       const trimmedWord = this.activityGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
         this.activity.push(trimmedWord); // Ajouter le mot à la liste
@@ -300,12 +318,10 @@ export class StructureAddComponent {
   }
   onKeyUpAcPh(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
-    if (event.code === 'Space' &&  this.activityPhGroup.value.libelle) {
-      
+    if (event.code === 'Space' && this.activityPhGroup.value.libelle) {
       const trimmedWord = this.activityPhGroup.value.libelle.trim(); // Retirer les espaces au début et à la fin
       if (trimmedWord.length > 0) {
-        if (this.activityPh.length<5) {
-          
+        if (this.activityPh.length < 5) {
           this.activityPh.push(trimmedWord); // Ajouter le mot à la liste
         }
         this.activityPhGroup.controls.libelle.setValue(''); // Réinitialiser le champ de saisie

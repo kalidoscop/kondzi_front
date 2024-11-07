@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IconsModule } from '../../../_icons/icons.module';
 import { CarouselModule } from '../carousel/carousel.module';
-import { NgClass } from '@angular/common';
+import { NgClass, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [IconsModule,CarouselModule,NgClass],
+  imports: [IconsModule,CarouselModule,NgClass,NgOptimizedImage],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })

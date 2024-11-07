@@ -241,7 +241,24 @@ export class StructureDetailsComponent implements OnInit {
     hStartM: new FormControl(''),
     hEndH: new FormControl(''),
     hEndM: new FormControl(''),
+    isH24: new FormControl(true),
   });
+  isH24 = true;
+  isH24Change() {
+    if (this.isH24) {
+      this.isH24 = !this.isH24;
+      this.hoursGroup.controls.hStartH.setValue('');
+      this.hoursGroup.controls.hStartM.setValue('');
+      this.hoursGroup.controls.hEndH.setValue('');
+      this.hoursGroup.controls.hEndM.setValue('');
+    } else {
+      this.isH24 = !this.isH24;
+      this.hoursGroup.controls.hStartH.setValue('00');
+      this.hoursGroup.controls.hStartM.setValue('00');
+      this.hoursGroup.controls.hEndH.setValue('00');
+      this.hoursGroup.controls.hEndM.setValue('00');
+    }
+  }
   activityGroup = new FormGroup({
     libelle: new FormControl(''),
   });
@@ -291,6 +308,7 @@ export class StructureDetailsComponent implements OnInit {
       hEnd: new FormControl(
         this.hoursGroup.value.hEndH + 'h' + this.hoursGroup.value.hEndM
       ),
+      isH24: new FormControl(this.hoursGroup.value.isH24)
     });
     console.log('coucou');
     this.hours.push(addingHours);

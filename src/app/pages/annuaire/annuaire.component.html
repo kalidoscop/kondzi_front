@@ -58,18 +58,24 @@
                 <p class="text-lg">{{ item.assurance }}</p>
               </div>
             </div>
+            <div class="flex justify-start items-center gap-2">
+              <div>
+                <p class="text-lg">{{ item.flagship_activity }}</p>
+              </div>
+            </div>
             @if (item.hours.length) {
             <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
                 schedule
               </span>
               <div class="flex flex-col pt-2">
-                @for (it of item.hours; track $index) {
-
+                @for (it of item.hours; track $index) { @if (it.is_h24) {
+                <p class="text-sm">{{ it.libelle }} 24H/24</p>
+                }@else {
                 <p class="text-sm">
                   {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
                 </p>
-                }
+                } }
               </div>
             </div>
             }
@@ -79,8 +85,8 @@
 
             <a
               class="w-[25px] flex justify-start items-center"
-            target="_blank"
-            href="{{ ite.link }}" 
+              target="_blank"
+              href="{{ ite.link }}"
               ><img src="images/icone/{{ ite.name }}.png" class="w-[100px]"
             /></a>
             }
