@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IconsModule } from '../../../_icons/icons.module';
-import { CarouselModule } from '../carousel/carousel.module';
+// import { CarouselModule } from '../carousel/carousel.module';
 import { NgClass, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [IconsModule,CarouselModule,NgClass,NgOptimizedImage],
+  imports: [IconsModule,NgClass],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
-export class FooterComponent {
+export class FooterComponent implements OnInit{
   network = [
     { logo: 'images/icone/FB2.png', link: 'https://www.facebook.com/profile.php?id=61562908653355&mibextid=ZbWKwL' },
     { logo: 'images/icone/X.png', link: 'https://x.com/kondzi_com' },
@@ -32,6 +32,10 @@ export class FooterComponent {
     {
       imageSrc: 'images/PUB 2.jpg',
       imageAlt: 'image2',
+    },
+    {
+      imageSrc: 'images/PUB 1.jpg',
+      imageAlt: 'image1',
     },
   ];
 
