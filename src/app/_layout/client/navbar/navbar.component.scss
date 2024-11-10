@@ -48,8 +48,12 @@ nav::before{
     @apply text-ps-orange
 }
 .connexion-icone-opaque{
-    @apply text-ps-orange
+    @apply text-ps-orange big
 }
 .inpute-opaque{
     @apply bg-gray-100
 }
+.big {
+    height: 40px;
+    width: 40px;
+  }
