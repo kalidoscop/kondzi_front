@@ -163,7 +163,7 @@ export class AnnuaireComponent implements OnInit {
 
     const map = new Map(document.getElementById('map') as HTMLElement, {
       center: { lat: 8.817369, lng: 1.259029 },
-      zoom: 7,
+      zoom: 5,
       mapId: '4504f8b37365c3d0',
     });
     const infoWindow = new InfoWindow();
