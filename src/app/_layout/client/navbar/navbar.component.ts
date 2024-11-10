@@ -13,6 +13,11 @@ import { DataService } from '../../../_services/data.service';
 import { ScrollService } from '../../../_services/scroll.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../../../_services/shared.service';
+import { algoliasearch } from "algoliasearch";
+import { autocomplete } from '@algolia/autocomplete-js';
+import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions';
+
+import '@algolia/autocomplete-theme-classic';
 
 @Component({
   selector: 'app-navbar',
@@ -22,6 +27,10 @@ import { SharedService } from '../../../_services/shared.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit,OnDestroy {
+  // private client = algoliasearch(
+  //   "34AAOQ05H2",
+  //   "9702026042bc36c1da382e63818502a5"
+  // );
   ngOnDestroy(): void {
     this.scrollSubscription?.unsubscribe();
   }
@@ -33,6 +42,10 @@ export class NavbarComponent implements OnInit,OnDestroy {
   navbarOpaque = false;
 
   async ngOnInit() {
+    const searchClient = algoliasearch(
+      "34AAOQ05H2",
+      "9702026042bc36c1da382e63818502a5"
+    );
     this.scrollSubscription = this.scrollService.navbarOpaque$.subscribe(
       isOpaque => (this.navbarOpaque = isOpaque)
     );
@@ -52,13 +65,29 @@ export class NavbarComponent implements OnInit,OnDestroy {
       fields: ['address_components', 'geometry', 'icon', 'name'],
       strictBounds: false,
     };
-    const autocomplete = await new google.maps.places.Autocomplete(input, options);
-    autocomplete.addListener('place_changed', () => {
+    const autocompletes = await new google.maps.places.Autocomplete(input, options);
+    autocompletes.addListener('place_changed', () => {
       console.log('coucou');
       // console.log(autocomplete.)
-      const place = autocomplete.getPlace();
+      const place = autocompletes.getPlace();
       this.place = place
       console.log(place);
+    });
+    const querySuggestionsPlugin = createQuerySuggestionsPlugin({
+      searchClient,
+      indexName: 'kondzi_dev',
+      getSearchParams() {
+        return {
+          hitsPerPage: 10,
+        };
+      },
+    });
+    autocomplete({
+      container: '#autocomp',
+      placeholder: 'Search',
+      openOnFocus: true,
+      insights: true,
+      plugins: [querySuggestionsPlugin],
     });
   }
   structureService = inject(StructureService);

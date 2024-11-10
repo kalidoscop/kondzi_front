@@ -20,7 +20,7 @@
                 domain
               </span>
               <div>
-                <h1 class="text-2xl underline font-extrabold text-ps-green">
+                <h1 class="text-2xl underline font-bold text-ps-green">
                   {{ item.name }}
                 </h1>
                 <!-- <p class="text-sm">Type de la structure</p> -->
@@ -31,7 +31,7 @@
                 location_on
               </span>
               <div>
-                <p class="text-lg">{{ item.adresse[0].nadress }}</p>
+                <p class="text-lg italic">{{ item.adresse[0].nadress }}</p>
               </div>
             </div>
             <div class="flex justify-start items-center gap-2">
@@ -47,18 +47,21 @@
                 mail
               </span>
               <div>
-                <p class="text-lg">{{ item.email }}</p>
+                <p class="text-lg underline">{{ item.email }}</p>
               </div>
             </div>
-            <div class="flex justify-start items-center gap-2">
+            <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
-                add_box
+                credit_card
               </span>
               <div>
-                <p class="text-lg">{{ item.assurance }}</p>
+                <p class="text-lg italic">{{ item.assurance }}</p>
               </div>
             </div>
-            <div class="flex justify-start items-center gap-2">
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                add_box
+                </span>
               <div>
                 <p class="text-lg">{{ item.flagship_activity }}</p>
               </div>
@@ -104,7 +107,7 @@
                 [item.adresse[0].lat, item.adresse[0].lng]
             ]"
             target="_blank"
-            class="h-full w-1/4 flex justify-center items-center gap-2 rounded-lg bg-ps-green text-white"
+            class="h-full w-36 flex justify-center items-center gap-2 rounded-lg bg-ps-green text-white"
           >
             <p>Y ALLER</p>
             <span class="material-symbols-outlined"> send </span>
@@ -122,7 +125,7 @@
         />
         }</google-map
       > -->
-      <div id="map" class="h-full w-full"></div>
+      <div id="map" class="absolute bottom-0 h-[85%] w-full"></div>
       <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
         <gmp-advanced-marker position="6.129994869232178,1.2203582525253296" title="My location"></gmp-advanced-marker>
       </gmp-map> -->
