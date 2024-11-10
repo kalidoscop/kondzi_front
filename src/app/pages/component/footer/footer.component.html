@@ -1,6 +1,6 @@
 <footer class="w-full flex flex-col absolute">
   <div
-    class="w-full z-10 h-24 flex gap-10 justify-center items-center bg-white absolute top-0"
+    class="w-full h-24 flex gap-10 justify-center items-center bg-white absolute top-0"
   >
     <a
       (click)="scrollToTop()"
@@ -21,7 +21,7 @@
   </div>
   <!-- publicite -->
   <div
-    class="w-full flex z-10 top-24 justify-center items-center overflow-hidden bg-white absolute"
+    class="w-full flex top-24 justify-center items-center overflow-hidden bg-white absolute"
   >
     <div
       class="w-5/6  h-32 mb-2 top-24 flex justify-start items-center overflow-hidden"
@@ -43,9 +43,9 @@
   <div
     class="w-full min-h-96 bg-ps-green gap-6 flex flex-col lg:flex-row justify-around items-start pt-5 absolute top-56"
   >
-    <div class="h-full w-1/4 flex flex-col gap-4 justify-start items-start">
+    <div class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5">
       <h1 class="mt-4 text-white font-extrabold">KONDZI.COM</h1>
-      <ul class="w-full h-5/6 flex flex-col text-white">
+      <ul class="w-full h-5/6 flex flex-col justify-center items-baseline text-white">
         <li class="flex justify-start items-center gap-2">
           <span class="material-symbols-outlined text-2xl"> call </span>
           <a class="hover:underline">{{ tel }}</a>
@@ -70,9 +70,9 @@
         </li>
       </ul>
     </div>
-    <div class="h-full w-1/4 flex flex-col gap-4 justify-start items-start">
+    <div class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5">
       <h1 class="mt-4 text-white font-extrabold">INFORMATIONS LÉGALES</h1>
-      <ul class="list-disc gap-2 w-full h-5/6 flex flex-col text-white">
+      <ul class="list-disc gap-2 w-full h-5/6 flex flex-col text-white pl-5">
         <li>
           <a class="hover:underline">Accessibilité : conformité partielle</a>
         </li>
@@ -85,9 +85,9 @@
         <li><a class="hover:underline">Politique de confidentialité</a></li>
       </ul>
     </div>
-    <div class="h-full w-1/6 flex flex-col gap-4 justify-start items-start">
+    <div class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5">
       <h1 class="mt-4 text-white font-extrabold">NOS SERVICES</h1>
-      <ul class="list-disc gap-2 w-full h-5/6 flex flex-col text-white">
+      <ul class="list-disc gap-2 w-full h-5/6 flex flex-col text-white pl-5">
         <li><a class="hover:underline">Actualités Santé</a></li>
         <li>
           <a class="hover:underline">Répertoires & Adresses géolocalisées</a>
@@ -97,12 +97,12 @@
       </ul>
     </div>
     <div
-      class="absolute bottom-24 z-40 w-full flex justify-center items-center"
+      class="lg:absolute bottom-24 z-40 w-full flex justify-center items-center"
     >
       <img class="img-active w-7" src="images/icone/icone_blanc.png" />
     </div>
-    <div class="absolute bottom-4 z-30 w-full flex justify-center items-center">
-      <h1 class="text-white left-[40vw] italic">
+    <div class="lg:absolute mb-4 lg:mb-0 lg:bottom-4 w-full flex justify-center items-center">
+      <h1 class="text-white text-xs lg:text-lg left-[40vw] italic">
         Copyright © 2024 kondzi.com - Tous droits réservés
       </h1>
     </div>

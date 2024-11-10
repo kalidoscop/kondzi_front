@@ -15,7 +15,7 @@
       >
         <div class="w-full flex">
           <div class="w-3/4 h-auto gap-1 m-auto flex flex-col p-3">
-            <div class="flex justify-start items-center gap-2">
+            <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-4xl text-ps-green">
                 domain
               </span>
@@ -26,7 +26,7 @@
                 <!-- <p class="text-sm">Type de la structure</p> -->
               </div>
             </div>
-            <div class="flex justify-start items-center gap-2">
+            <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
                 location_on
               </span>
@@ -34,7 +34,7 @@
                 <p class="text-lg italic">{{ item.adresse[0].nadress }}</p>
               </div>
             </div>
-            <div class="flex justify-start items-center gap-2">
+            <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
                 call
               </span>
@@ -42,7 +42,7 @@
                 <p class="text-lg">{{ item.tel }}</p>
               </div>
             </div>
-            <div class="flex justify-start items-center gap-2">
+            <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
                 mail
               </span>
@@ -98,7 +98,8 @@
         <div class="w-11/12 h-10 mb-3 flex justify-between items-center">
           <a
             href=""
-            class="hover:underline hover:text-ps-green transition-all italic"
+            class="hover:underline text-ps-orange hover:text-ps-green transition-all italic"
+            style="font-weight: 600;"
             >En savoir plus...</a
           >
           <a
@@ -107,9 +108,9 @@
                 [item.adresse[0].lat, item.adresse[0].lng]
             ]"
             target="_blank"
-            class="h-full w-36 flex justify-center items-center gap-2 rounded-lg bg-ps-green text-white"
+            class="h-full w-36 flex justify-center items-center gap-2 rounded-lg bg-ps-orange text-white"
           >
-            <p>Y ALLER</p>
+            <p class="bol">Y ALLER</p>
             <span class="material-symbols-outlined"> send </span>
           </a>
         </div>
