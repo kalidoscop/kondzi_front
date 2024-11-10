@@ -35,7 +35,9 @@ module.exports = {
       pink: colors.pink,
       rose: colors.rose,
       "ps-green": "#014040",
-      "ps-orange":"#F27405"
+      "ps-green-2": "#03A678",
+      "ps-orange":"#F27405",
+      "ps-orange-2":"#731702"
     }),
     extend: {},
   },
