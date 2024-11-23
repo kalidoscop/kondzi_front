@@ -1,12 +1,13 @@
 <div class="w-full h-full bg-gray-200">
-  <div class="gap-4 items-start flex bg-gray-100">
+  <div class="gap-4 items-start flex flex-col md:flex-row bg-gray-100">
     <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div>
     <div
-      class="w-4/12 ml-[5.5vw] mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
+      class=" w-11/12 md:w-4/12 ml-[5.5vw] mt-[100px] md:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
     >
       <h1 class="text-3xl w-11/12 mt-10 font-bold">
         Résultats pour <<{{ word }}>>
       </h1>
+      <button class="md:hidden" (click)="opencart()">Carte</button>
       @for (item of structures; track $index) {
       <div
         class="w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
@@ -108,16 +109,19 @@
                 [item.adresse[0].lat, item.adresse[0].lng]
             ]"
             target="_blank"
-            class="h-full w-36 flex justify-center items-center gap-2 rounded-lg bg-ps-green-2 text-white"
+            class="h-full w-36 flex justify-center items-center gap-2 rounded-3xl bg-ps-green-2 text-white"
           >
             <p class="bol">Y ALLER</p>
-            <span class="material-symbols-outlined"> send </span>
+            <!-- <span class="material-symbols-outlined"> send </span> -->
+            <i-feather name="external-link"></i-feather>
           </a>
         </div>
       </div>
       }
     </div>
-    <div class="h-[80%] box-border right-0 top-40 fixed w-7/12">
+    <div class="h-[80%] box-border hidden md:block right-0 top-40 fixed w-7/12"
+    [ngClass]="{ '.cartt-open': cart === true }"
+    >
       <!-- <google-map height="100%" width="100%" [options]="options">
         @for (location of auLocations; track location) {
         <map-advanced-marker
@@ -126,7 +130,7 @@
         />
         }</google-map
       > -->
-      <div id="map" class="absolute bottom-0 h-full w-full"></div>
+      <div id="map" class="md:absolute bottom-0 h-full w-full"></div>
       <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
         <gmp-advanced-marker position="6.129994869232178,1.2203582525253296" title="My location"></gmp-advanced-marker>
       </gmp-map> -->
@@ -134,3 +138,22 @@
   </div>
   <app-footer></app-footer>
 </div>
+@if (showModal) {
+  <app-modal (close)="closeModal()">
+    <!-- <div class="h-full box-border fixed w-full"
+    > -->
+      <!-- <google-map height="100%" width="100%" [options]="options">
+        @for (location of auLocations; track location) {
+        <map-advanced-marker
+          #markerElem="mapAdvancedMarker"
+          [position]="{ lat: location.lat, lng: location.lng }"
+        />
+        }</google-map
+      > -->
+      <div id="map2" class="md:absolute bottom-0 h-full w-full"></div>
+      <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
+        <gmp-advanced-marker position="6.129994869232178,1.2203582525253296" title="My location"></gmp-advanced-marker>
+      </gmp-map> -->
+    <!-- </div> -->
+  </app-modal>
+}

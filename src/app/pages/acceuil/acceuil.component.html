@@ -24,7 +24,7 @@
     <app-carousel [images]="images"></app-carousel>
   </div>
   <!-- body -->
-  <div class="w-full top-[400px] lg:top-[600px] absolute" id="trigger-div">
+  <div class="w-full top-[300px] lg:top-[600px] absolute" id="trigger-div">
     <div class="w-full pb-9 pt-9 flex justify-center"></div>
     <div class="w-full pb-9 pt-9 flex flex-col lg:flex-row justify-center gap-4 bg-gray-100">
       <div
@@ -237,8 +237,15 @@
 </div>
 @if (showModal) {
   <app-modal (close)="closeModal()">
-    <iframe  width="95%" height="700" src="https://www.youtube.com/embed/bGxRcV7EUtg?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen frameborder="0">
-        </iframe>
+    <div class="h-full w-full flex justify-center items-center absolute">
+      <div
+    class="absolute w-full h-full z-30 top-0 left-0"
+    (click)="closeModal()"
+  ></div>
+      <iframe class="z-40" width="95%" height="50%" src="https://www.youtube.com/embed/bGxRcV7EUtg?autoplay=1" allow="autoplay; encrypted-media" allowfullscreen frameborder="0">
+      </iframe>
+    </div>
+    
   </app-modal>
 }
 

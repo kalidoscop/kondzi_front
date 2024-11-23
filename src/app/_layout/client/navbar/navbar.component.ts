@@ -18,11 +18,12 @@ import { autocomplete } from '@algolia/autocomplete-js';
 import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions';
 
 import '@algolia/autocomplete-theme-classic';
+import { ModalComponent } from '../../../pages/component/modal/modal.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [IconsModule, ReactiveFormsModule,NgOptimizedImage, RouterModule, NgClass],
+  imports: [IconsModule, ReactiveFormsModule,NgOptimizedImage,ModalComponent, RouterModule, NgClass],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
@@ -143,5 +144,14 @@ export class NavbarComponent implements OnInit,OnDestroy {
   }
   refreshSchearchList() {
     this.sharedService.callComponent();
+  }
+  showModal = false;
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }

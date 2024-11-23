@@ -14,11 +14,13 @@ import { NgClass, NgFor } from '@angular/common';
 import { FooterComponent } from '../component/footer/footer.component';
 import { ScrollService } from '../../_services/scroll.service';
 import { SharedService } from '../../_services/shared.service';
+import { ModalComponent } from '../component/modal/modal.component';
+import { IconsModule } from '../../_icons/icons.module';
 
 @Component({
   selector: 'app-annuaire',
   standalone: true,
-  imports: [ReactiveFormsModule, NgFor,NgClass,FooterComponent],
+  imports: [ReactiveFormsModule,IconsModule, NgFor,NgClass,FooterComponent, ModalComponent],
   templateUrl: './annuaire.component.html',
   styleUrl: './annuaire.component.scss',
 })
@@ -115,7 +117,7 @@ export class AnnuaireComponent implements OnInit {
               this.auLocations.push(coord);
             }
           }
-          this.initMap();
+          this.initMap('map');
         });
       } else {
         // console.log(1);
@@ -142,7 +144,7 @@ export class AnnuaireComponent implements OnInit {
               this.auLocations.push(coord);
             }
           }
-          this.initMap();
+          this.initMap('map');
         });
       }
     }
@@ -153,7 +155,7 @@ export class AnnuaireComponent implements OnInit {
 
   auLocations: any[] = [];
 
-  async initMap() {
+  async initMap(mapName:string) {
     const { Map, InfoWindow } = (await google.maps.importLibrary(
       'maps'
     )) as google.maps.MapsLibrary;
@@ -161,7 +163,7 @@ export class AnnuaireComponent implements OnInit {
       'marker'
     )) as google.maps.MarkerLibrary;
 
-    const map = new Map(document.getElementById('map') as HTMLElement, {
+    const map = new Map(document.getElementById(mapName) as HTMLElement, {
       center: { lat: 8.3, lng: 1.259029 },
       zoom: 7,
       mapId: '4504f8b37365c3d0',
@@ -193,6 +195,26 @@ export class AnnuaireComponent implements OnInit {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+  }
+  cart = true
+
+  opencart(){
+    this.cart=!this.cart
+  }
+
+  showModal = false;
+  async openAll(){
+    await this.openModal()
+    this.initMap('map2');
+  }
+
+  openModal() {
+    this.showModal = true;
+    // this.initMap('map2');
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 }
 
