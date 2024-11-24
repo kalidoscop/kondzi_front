@@ -7,20 +7,22 @@
   />
 </div> -->
 
-<div class="w-full m-auto overflow-hidden bg-black">
+<div class="w-full h-full m-auto overflow-x-hidden bg-black">
   @for (item of images; track $index) {
-    <div class="absolute h-full w-full flex justify-center items-center">
-      
-      <h1  class=" top-auto text-center w-full h-1/6 z-10 text-white font-bold" style="font-size: 2.5vw;" [ngClass]="{'img-active':selectedIndex === $index}">{{item.text}}</h1>
-    </div>
-    <img
-    class="img-not-active h-full w-auto lg:w-full lg:h-auto"
-    [src]="item.imageSrc"
-    [alt]="item.imageAlt"
-    [ngClass]="{'img-active':selectedIndex === $index}"
-    />
+  <div class="absolute h-full w-full flex justify-center items-center">
+    <h1
+      class="top-auto text-[3.5vw] md:text-[2.5vw] text-center w-full h-1/6 z-10 text-white font-bold"
+      [ngClass]="{ 'img-active': selectedIndex === $index }"
+    >
+      {{ item.text }}
+    </h1>
+  </div>
+  <div
+    class="img h-full w-full"
+    style="background-image: url('{{item.imageSrc}}'); background-size: cover; background-repeat: no-repeat; background-position: center;"
+    [ngClass]="{ 'img-active': selectedIndex === $index }"
+  ></div>
   }
-  
 
   <!-- <img src="images/logo condji-02.png" alt=""> -->
 </div>

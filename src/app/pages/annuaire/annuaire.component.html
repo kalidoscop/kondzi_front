@@ -1,8 +1,8 @@
 <div class="w-full h-full bg-gray-200">
-  <div class="gap-4 items-start flex flex-col md:flex-row bg-gray-100">
+  <div class="w-full h-full justify-start lg:items-start flex flex-col lg:flex-row bg-gray-100">
     <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div>
     <div
-      class=" w-11/12 md:w-4/12 ml-[5.5vw] mt-[100px] md:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
+      class=" w-11/12 md:w-4/12 ml-[6vw] mt-[100px] md:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
     >
       <h1 class="text-3xl w-11/12 mt-10 font-bold">
         Résultats pour <<{{ word }}>>
@@ -10,7 +10,7 @@
       <button class="md:hidden" (click)="opencart()">Carte</button>
       @for (item of structures; track $index) {
       <div
-        class="w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
+        class="sm:w-[400px] w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
@@ -119,7 +119,7 @@
       </div>
       }
     </div>
-    <div class="h-[80%] box-border hidden md:block right-0 top-40 fixed w-7/12"
+    <div class="h-[80%] box-border hidden md:block right-0 top-40 lg:fixed w-7/12"
     [ngClass]="{ '.cartt-open': cart === true }"
     >
       <!-- <google-map height="100%" width="100%" [options]="options">
@@ -130,7 +130,7 @@
         />
         }</google-map
       > -->
-      <div id="map" class="md:absolute bottom-0 h-full w-full"></div>
+      <div id="map" class="lg:absolute bottom-0 h-full w-full"></div>
       <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
         <gmp-advanced-marker position="6.129994869232178,1.2203582525253296" title="My location"></gmp-advanced-marker>
       </gmp-map> -->
@@ -150,7 +150,7 @@
         />
         }</google-map
       > -->
-      <div id="map2" class="md:absolute bottom-0 h-full w-full"></div>
+      <div id="map2" class="lg:absolute bottom-0 h-full w-full"></div>
       <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
         <gmp-advanced-marker position="6.129994869232178,1.2203582525253296" title="My location"></gmp-advanced-marker>
       </gmp-map> -->
