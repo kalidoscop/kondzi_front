@@ -4,6 +4,7 @@ import { AcceuilComponent } from './pages/acceuil/acceuil.component';
 import { AuthGuard } from './_guard/auth.guard';
 import { AnnuaireComponent } from './pages/annuaire/annuaire.component';
 import { BaseComponent } from './_layout/client/base/base.component';
+import { NosMissionComponent } from './pages/nos-mission/nos-mission.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -22,6 +23,13 @@ export const routes: Routes = [
     component:BaseComponent,
     children: [
       { path: '', component: AcceuilComponent },
+    ],
+  },
+  {
+    path: 'nos-mission',
+    component:BaseComponent,
+    children: [
+      { path: '', component: NosMissionComponent },
     ],
   },
   {

@@ -1,8 +1,22 @@
 <!-- <p>nos-mission works!</p> -->
-<div class="w-full h-full flex flex-col justify-start items-center">
+<!-- <div class="w-full h-full flex flex-col justify-start items-center">
   <div class="w-10/12 border-2 border-ps-green">
     <div id="editorjs"></div>
   </div>
   <button (click)="onsubmit()" >Enreigistre</button>
-</div>
+</div> -->
 <!-- <ckeditor [editor]="Editor" [config]="config" data="<p>Hello, world!</p>"></ckeditor> -->
+<div class="prose gap-5 flex justify-around items-start">
+	<div class="main-container">
+		<div class="editor-container editor-container_classic-editor" #editorContainerElement>
+			<div class="editor-container__editor">
+				<div #editorElement>
+					<ckeditor [editor]="Editor" [config]="config" [(ngModel)]="model.editorData" *ngIf="isLayoutReady" />
+				</div>
+			</div>
+		</div>
+	</div>
+  <button class="bg-ps-green text-white" (click)="onsubmit()">Enreigistre</button>
+</div>
+
+<!-- <div class="prose" [innerHTML]="model.editorData"></div> -->
