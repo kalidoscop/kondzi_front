@@ -38,21 +38,21 @@ export class PageService {
 
 
   private log(object: any, message?: string) {
-    if (environment.isDevEnv) {
+    // if (environment.isDevEnv) {
       if (object instanceof Array) {
         console.table(object);
       } else {
         console.log(object);
       }
-    }
+    // }
     if (message) {
       this.alertService.creatAlert('success', message, 3000);
     }
   }
   private handleError(error: Error, errorValue: any, message?: string) {
-    if (environment.isDevEnv) {
+    // if (environment.isDevEnv) {
       console.error(error);
-    }
+    // }
     if (message) {
       this.alertService.creatAlert('error', message, 5000);
     }
