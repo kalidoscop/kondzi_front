@@ -6,17 +6,40 @@
   <button (click)="onsubmit()" >Enreigistre</button>
 </div> -->
 <!-- <ckeditor [editor]="Editor" [config]="config" data="<p>Hello, world!</p>"></ckeditor> -->
-<div class="prose gap-5 flex justify-around items-start">
-	<div class="main-container">
-		<div class="editor-container editor-container_classic-editor" #editorContainerElement>
-			<div class="editor-container__editor">
-				<div #editorElement>
-					<ckeditor [editor]="Editor" [config]="config" [(ngModel)]="model.editorData" *ngIf="isLayoutReady" />
-				</div>
-			</div>
-		</div>
-	</div>
-  <button class="bg-ps-green text-white" (click)="onsubmit()">Enreigistre</button>
+<div class="flex justify-center items-start">
+  <div class="main-container">
+    <div
+      class="prose editor-container editor-container_classic-editor"
+      #editorContainerElement
+    >
+      <div class="editor-container__editor">
+        <div #editorElement>
+          <ckeditor
+            [editor]="Editor"
+            [config]="config"
+            [(ngModel)]="model.editorData"
+            *ngIf="isLayoutReady"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-around items-center w-[500px]">
+    <select
+      class="w-52 h-10 border border-ps-green"
+      required
+      id=""
+	  [(ngModel)]="pageName"
+	  (change)="getPage()"
+    >
+      <option value="qui-sommes-nous">qui sommes nous ?</option>
+      <option value="nos-mission">nos services</option>
+      <option value="nos-partenaires">nos partenaires</option>
+    </select>
+	<button class="bg-ps-green w-52 h-10 text-white" (click)="onsubmit()">
+	  Enregistrer
+	</button>
+  </div>
 </div>
 
 <!-- <div class="prose" [innerHTML]="model.editorData"></div> -->

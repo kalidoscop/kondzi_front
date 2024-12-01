@@ -5,6 +5,8 @@ import { AuthGuard } from './_guard/auth.guard';
 import { AnnuaireComponent } from './pages/annuaire/annuaire.component';
 import { BaseComponent } from './_layout/client/base/base.component';
 import { NosMissionComponent } from './pages/nos-mission/nos-mission.component';
+import { QuiSommesNousComponent } from './pages/qui-sommes-nous/qui-sommes-nous.component';
+import { NosPartenaireComponent } from './pages/nos-partenaire/nos-partenaire.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -32,6 +34,23 @@ export const routes: Routes = [
       { path: '', component: NosMissionComponent },
     ],
   },
+
+  {
+    path: 'qui-sommes-nous',
+    component:BaseComponent,
+    children: [
+      { path: '', component: QuiSommesNousComponent },
+    ],
+  },
+
+  {
+    path: 'nos-partenaires',
+    component:BaseComponent,
+    children: [
+      { path: '', component: NosPartenaireComponent },
+    ],
+  },
+
   {
     path: 'dashboard',
     canActivate: [AuthGuard],

@@ -27,8 +27,8 @@ export class PageService {
       this.log(re,'La page est bien modifier')
     }),catchError((error)=>this.handleError(error,[])));
   }
-  getNosmission():Observable<Page>{
-    return this.http.get<Page>(`${environment.baseUrl}page/nos-mission`,{
+  getPage(pageName:string):Observable<Page>{
+    return this.http.get<Page>(`${environment.baseUrl}page/${pageName}`,{
       headers: this.tokenService.getOption(),
     }).pipe(tap((re)=>{
       this.log(re)
