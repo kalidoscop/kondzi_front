@@ -24,7 +24,7 @@
     class="w-full flex top-20 lg:top-24 justify-center items-center overflow-hidden bg-white absolute"
   >
     <div
-      class="w-5/6  lg:h-[155px] mb-2 top-24 flex justify-start items-center overflow-hidden"
+      class="w-5/6 lg:h-[155px] mb-2 top-24 flex justify-start items-center overflow-hidden"
     >
       @for (item of images; track $index) {
 
@@ -43,9 +43,13 @@
   <div
     class="w-full min-h-96 bg-ps-green gap-6 flex flex-col lg:flex-row justify-around items-start pt-5 absolute top-32 lg:top-64"
   >
-    <div class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5">
+    <div
+      class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5"
+    >
       <h1 class="mt-4 text-white font-extrabold">KONDZI.COM</h1>
-      <ul class="w-full h-5/6 flex flex-col justify-center items-baseline text-white">
+      <ul
+        class="w-full h-5/6 flex flex-col justify-center items-baseline text-white"
+      >
         <li class="flex justify-start items-center gap-2">
           <span class="material-symbols-outlined text-2xl"> call </span>
           <a class="hover:underline">{{ tel }}</a>
@@ -70,30 +74,63 @@
         </li>
       </ul>
     </div>
-    <div class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5">
+    <div
+      class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5"
+    >
       <h1 class="mt-4 text-white font-extrabold">INFORMATIONS LÉGALES</h1>
       <ul class="list-disc gap-2 w-full h-5/6 flex flex-col text-white pl-5">
         <li>
-          <a class="hover:underline">Accessibilité : conformité partielle</a>
+          <a [routerLink]="['/accessibilite-conformite-partielle']" class="hover:underline"
+            >Accessibilité : conformité partielle</a
+          >
         </li>
         <li>
-          <a class="hover:underline">Conditions générales d'utilisation</a>
+          <a [routerLink]="['/conditions-generales-utilisation']" class="hover:underline"
+            >Conditions générales d'utilisation</a
+          >
         </li>
         <li>
-          <a class="hover:underline">Mentions légales</a>
+          <a [routerLink]="['/mentions-legales']" class="hover:underline"
+            >Mentions légales</a
+          >
         </li>
-        <li><a class="hover:underline">Politique de confidentialité</a></li>
+        <li>
+          <a [routerLink]="['/politique-de-confidentialite']" class="hover:underline"
+            >Politique de confidentialité</a
+          >
+        </li>
       </ul>
     </div>
-    <div class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5">
+    <div
+      class="h-full w-11/12 lg:w-1/4 flex flex-col gap-4 justify-center items-start lg:justify-start lg:items-start pl-5"
+    >
       <h1 class="mt-4 text-white font-extrabold">NOS SERVICES</h1>
       <ul class="list-disc gap-2 w-full h-5/6 flex flex-col text-white pl-5">
-        <li><a class="hover:underline">Actualités Santé</a></li>
         <li>
-          <a class="hover:underline">Répertoires & Adresses géolocalisées</a>
+          <a
+            [routerLink]="['/actualites-sante']"
+            routerLinkActive="router-link-active"
+            class="hover:underline"
+            >Actualités Santé</a
+          >
         </li>
-        <li><a class="hover:underline">Bien-être & infos utiles</a></li>
-        <li><a class="hover:underline">MédiaSanté</a></li>
+        <li>
+          <a
+            [routerLink]="['/repertoires-adresses-geolocalisees']"
+            class="hover:underline"
+            >Répertoires & Adresses géolocalisées</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="['/bien-etre-infos-utiles']" class="hover:underline"
+            >Bien-être & infos utiles</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="['/media-sante']" class="hover:underline"
+            >MédiaSanté</a
+          >
+        </li>
       </ul>
     </div>
     <div
@@ -101,7 +138,9 @@
     >
       <img class="img-active w-7" src="images/icone/icone_blanc.png" />
     </div>
-    <div class="lg:absolute mb-4 lg:mb-0 lg:bottom-4 w-full flex justify-center items-center">
+    <div
+      class="lg:absolute mb-4 lg:mb-0 lg:bottom-4 w-full flex justify-center items-center"
+    >
       <h1 class="text-white text-xs lg:text-lg left-[40vw] italic">
         Copyright © 2024 kondzi.com - Tous droits réservés
       </h1>

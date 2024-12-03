@@ -250,17 +250,57 @@ export class NosMissionComponent implements OnInit {
       case 'qui-sommes-nous':
         this.pageService
           .changPage({ quiSommesNous: this.model.editorData })
-          .subscribe(()=>this.getPageContent());
+          .subscribe(() => this.getPageContent());
         break;
       case 'nos-mission':
         this.pageService
           .changPage({ nosMission: this.model.editorData })
-          .subscribe(()=>this.getPageContent());
+          .subscribe(() => this.getPageContent());
         break;
       case 'nos-partenaires':
         this.pageService
           .changPage({ nosPartenaires: this.model.editorData })
-          .subscribe(()=>this.getPageContent());
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'actualites-sante':
+        this.pageService
+          .changPage({ actualitesSante: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'repertoires-adresses-geolocalisees':
+        this.pageService
+          .changPage({ repertoiresAdressesGeolocalisees: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'bien-etre-infos-utiles':
+        this.pageService
+          .changPage({ bienEtreInfosUtiles: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'accessibilite-conformite-partielle':
+        this.pageService
+          .changPage({ accessibiliteConformitePartielle: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'conditions-generales-utilisation':
+        this.pageService
+          .changPage({ conditionsGeneralesUtilisation: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'mentions-legales':
+        this.pageService
+          .changPage({ mentionsLegales: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'politique-de-confidentialite':
+        this.pageService
+          .changPage({ politiqueDeConfidentialite: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'media-sante':
+        this.pageService
+          .changPage({ mediaSante: this.model.editorData })
+          .subscribe(() => this.getPageContent());
         break;
 
       default:
