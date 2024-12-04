@@ -96,6 +96,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
   private sharedService = inject(SharedService);
 
   menu: boolean = false;
+  servieMenu: boolean = false;
 
   search = new FormGroup({
     word: new FormControl('', Validators.required),
@@ -140,7 +141,12 @@ export class NavbarComponent implements OnInit,OnDestroy {
   }
   openMenu() {
     this.menu = !this.menu;
-    console.log(this.menu);
+    // console.log(this.menu);
+  }
+
+  openServiceMenu() {
+    this.servieMenu = !this.servieMenu;
+    console.log(this.servieMenu);
   }
   refreshSchearchList() {
     this.sharedService.callComponent();

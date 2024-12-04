@@ -1,6 +1,6 @@
 .open{
     // height: 50px;
-    @apply h-[400px] md:h-[50px] 
+    @apply h-[360px] md:h-[50px] 
 }
 .block{
     display: none;
@@ -58,3 +58,13 @@ nav::before{
     height: 40px;
     width: 40px;
   }
+
+.menu-link{
+    @apply w-full h-10 flex justify-center items-center md:block md:h-auto
+}
+.openServiceMenu{
+    @apply h-44
+}
+.openServiceMenuMobile{
+    @apply h-48
+}
