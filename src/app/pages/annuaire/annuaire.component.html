@@ -1,16 +1,16 @@
 <div class="w-full h-full bg-gray-200">
-  <div class="w-full h-full justify-start lg:items-start flex flex-col lg:flex-row bg-gray-100">
-    <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div>
+  <div class="w-full h-full justify-center items-center xl:items-start flex flex-col bg-gray-100">
+    <!-- <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div> -->
     <div
-      class=" w-11/12 md:w-4/12 ml-[6vw] mt-[100px] md:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
+      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] xl:w-4/12  xl:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
     >
       <h1 class="text-3xl w-11/12 mt-10 font-bold">
         Résultats pour <<{{ word }}>>
       </h1>
-      <button class="md:hidden" (click)="opencart()">Carte</button>
+      <!-- <button class="md:hidden" (click)="opencart()">Carte</button> -->
       @for (item of structures; track $index) {
       <div
-        class="sm:w-[400px] w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
@@ -119,8 +119,7 @@
       </div>
       }
     </div>
-    <div class="h-[80%] box-border hidden md:block right-0 top-40 lg:fixed w-7/12"
-    [ngClass]="{ '.cartt-open': cart === true }"
+    <div class=" w-full h-64 sm:h-96 top-[96px] xl:h-[80%] box-border xl:right-0 xl:top-40 fixed xl:w-7/12"
     >
       <!-- <google-map height="100%" width="100%" [options]="options">
         @for (location of auLocations; track location) {

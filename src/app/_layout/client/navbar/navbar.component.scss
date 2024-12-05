@@ -66,5 +66,11 @@ nav::before{
     @apply h-44
 }
 .openServiceMenuMobile{
-    @apply h-48
+    @apply h-52
+}
+.openMenuMobile{
+    @apply w-screen opacity-100
+}
+.translateIcone{
+    transform: rotate(90deg);
 }

@@ -13,7 +13,7 @@ import { DataService } from '../../../_services/data.service';
 import { ScrollService } from '../../../_services/scroll.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../../../_services/shared.service';
-import { algoliasearch } from "algoliasearch";
+import { algoliasearch } from 'algoliasearch';
 import { autocomplete } from '@algolia/autocomplete-js';
 import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions';
 
@@ -23,11 +23,18 @@ import { ModalComponent } from '../../../pages/component/modal/modal.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [IconsModule, ReactiveFormsModule,NgOptimizedImage,ModalComponent, RouterModule, NgClass],
+  imports: [
+    IconsModule,
+    ReactiveFormsModule,
+    NgOptimizedImage,
+    ModalComponent,
+    RouterModule,
+    NgClass,
+  ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent implements OnInit,OnDestroy {
+export class NavbarComponent implements OnInit, OnDestroy {
   // private client = algoliasearch(
   //   "34AAOQ05H2",
   //   "9702026042bc36c1da382e63818502a5"
@@ -37,18 +44,18 @@ export class NavbarComponent implements OnInit,OnDestroy {
   }
   place: google.maps.places.PlaceResult | null = null;
 
-  dataservice = inject(DataService)
-  scrollService = inject(ScrollService)
+  dataservice = inject(DataService);
+  scrollService = inject(ScrollService);
   private scrollSubscription: Subscription | undefined;
   navbarOpaque = false;
 
   async ngOnInit() {
     const searchClient = algoliasearch(
-      "34AAOQ05H2",
-      "9702026042bc36c1da382e63818502a5"
+      '34AAOQ05H2',
+      '9702026042bc36c1da382e63818502a5'
     );
     this.scrollSubscription = this.scrollService.navbarOpaque$.subscribe(
-      isOpaque => (this.navbarOpaque = isOpaque)
+      (isOpaque) => (this.navbarOpaque = isOpaque)
     );
     const center = { lat: 50.064192, lng: -130.605469 };
     const defaultBounds = {
@@ -66,12 +73,15 @@ export class NavbarComponent implements OnInit,OnDestroy {
       fields: ['address_components', 'geometry', 'icon', 'name'],
       strictBounds: false,
     };
-    const autocompletes = await new google.maps.places.Autocomplete(input, options);
+    const autocompletes = await new google.maps.places.Autocomplete(
+      input,
+      options
+    );
     autocompletes.addListener('place_changed', () => {
       console.log('coucou');
       // console.log(autocomplete.)
       const place = autocompletes.getPlace();
-      this.place = place
+      this.place = place;
       console.log(place);
     });
     const querySuggestionsPlugin = createQuerySuggestionsPlugin({
@@ -97,6 +107,7 @@ export class NavbarComponent implements OnInit,OnDestroy {
 
   menu: boolean = false;
   servieMenu: boolean = false;
+  menuMobile: boolean = false;
 
   search = new FormGroup({
     word: new FormControl('', Validators.required),
@@ -117,16 +128,28 @@ export class NavbarComponent implements OnInit,OnDestroy {
       //   `${this.place.geometry?.viewport?.getNorthEast().lat()}`,
       // ]);
 
-      const newLink = `/annuaire/${this.search.value.word?.trim()}/${this.search.value.type}/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport?.getSouthWest().lng()}/${this.place.geometry?.viewport?.getNorthEast().lng()}/${this.place.geometry?.viewport?.getSouthWest().lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`
-      this.router.navigate(['/']).then(() => { this.router.navigate([newLink]); });
-
+      const newLink = `/annuaire/${this.search.value.word?.trim()}/${
+        this.search.value.type
+      }/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
+        ?.getSouthWest()
+        .lng()}/${this.place.geometry?.viewport
+        ?.getNorthEast()
+        .lng()}/${this.place.geometry?.viewport
+        ?.getSouthWest()
+        .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
+      this.router.navigate(['/']).then(() => {
+        this.router.navigate([newLink]);
+      });
 
       // this.refreshSchearchList()
       // console.log(1);
-      
-    }else{
-      const newLink = `/annuaire/${this.search.value.word?.trim()}/${this.search.value.type}`
-      this.router.navigate(['/']).then(() => { this.router.navigate([newLink]); });
+    } else {
+      const newLink = `/annuaire/${this.search.value.word?.trim()}/${
+        this.search.value.type
+      }`;
+      this.router.navigate(['/']).then(() => {
+        this.router.navigate([newLink]);
+      });
 
       // this.router.navigate([
       //   '/annuaire',
@@ -137,16 +160,21 @@ export class NavbarComponent implements OnInit,OnDestroy {
       // console.log(2);
     }
     // console.log(this.search.value);
-    
   }
   openMenu() {
     this.menu = !this.menu;
+    this.servieMenu = false
     // console.log(this.menu);
   }
 
   openServiceMenu() {
     this.servieMenu = !this.servieMenu;
-    console.log(this.servieMenu);
+    // console.log(this.servieMenu);
+  }
+  openMenuMobile() {
+    this.menuMobile = !this.menuMobile;
+    this.servieMenu = false
+    // console.log(this.menuMobile);
   }
   refreshSchearchList() {
     this.sharedService.callComponent();
