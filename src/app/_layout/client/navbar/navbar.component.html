@@ -131,7 +131,7 @@
     </a>
   </div>
   <div
-    class="w-full h-0 transition-all bg-gray-200 md:bg-opacity-55 flex md:flex-row justify-end items-center"
+    class="w-full h-0 transition-all bg-gray-200 md:bg-opacity-55 hidden md:flex md:flex-row justify-end items-center"
     [ngClass]="{ open: menu === true }"
   >
     <div
@@ -239,7 +239,9 @@
   class="z-50 fixed w-0 top-0 right-0 opacity-0 h-screen transition-all bg-gray-200 bg-opacity-55 overflow-y-auto flex justify-end items-center"
   [ngClass]="{ openMenuMobile: menuMobile === true }"
 >
-  <div class="h-full w-4/5 bg-gray-200 flex flex-col justify-start items-center gap-4">
+  <div
+    class="h-full w-4/5 bg-gray-200 flex flex-col justify-start items-center gap-4"
+  >
     <div class="w-full h-[15%] flex justify-between items-center">
       <a
         [routerLink]="['']"
@@ -254,7 +256,7 @@
       </a>
       <button
         type="button"
-        class="w-[70px]  h-[70px] flex justify-center items-center text-5xl "
+        class="w-[70px] h-[70px] flex justify-center items-center text-5xl"
         (click)="openMenuMobile()"
       >
         <i-feather
@@ -279,23 +281,35 @@
         >
           Nos services
 
-          <i-feather name="chevron-right" class="transition-all" [ngClass]="{ translateIcone: servieMenu === true }"></i-feather>
+          <i-feather
+            name="chevron-right"
+            class="transition-all"
+            [ngClass]="{ translateIcone: servieMenu === true }"
+          ></i-feather>
         </button>
-        <div class="mt-5 flex flex-col border-black justify-start gap-3 items-start">
-          <a [routerLink]="['/actualites-sante']"
-          class="w-full border-black border-t-2"
+        <div
+          class="mt-5 flex flex-col border-black justify-start gap-3 items-start"
+        >
+          <a
+            [routerLink]="['/actualites-sante']"
+            class="w-full border-black border-t-2"
             ><p>Actualités Santé</p></a
           >
           <!-- [routerLink]="['/nos-mission']" -->
-          <a [routerLink]="['/repertoires-adresses-geolocalisees']" class="w-full border-black border-t-2">
-            <p>
-              Répertoires & Adresses géolocalisées
-            </p>
+          <a
+            [routerLink]="['/repertoires-adresses-geolocalisees']"
+            class="w-full border-black border-t-2"
+          >
+            <p>Répertoires & Adresses géolocalisées</p>
           </a>
-          <a [routerLink]="['/bien-etre-infos-utiles']" class="w-full border-black border-t-2"
+          <a
+            [routerLink]="['/bien-etre-infos-utiles']"
+            class="w-full border-black border-t-2"
             ><p>Bien-être & infos utiles</p></a
           >
-          <a [routerLink]="['/media-sante']" class="w-full border-black border-t-2"
+          <a
+            [routerLink]="['/media-sante']"
+            class="w-full border-black border-t-2"
             ><p class="">MEDIA-SANTÉ</p></a
           >
         </div>
@@ -303,9 +317,7 @@
       <a
         class="w-full h-10 flex justify-start pl-2 items-center border-t-2 border-black"
         [routerLink]="['/nos-partenaires']"
-        ><p class="text-center border-black">
-          Nos partenaires
-        </p></a
+        ><p class="text-center border-black">Nos partenaires</p></a
       >
       <a
         class="w-full h-10 flex justify-start border-black border-t-2 pl-2 items-center"
@@ -313,7 +325,11 @@
         ><p class="text-center">MEDIA-SANTÉ</p></a
       >
     </div>
-    <a [routerLink]="['/login']" class="w-11/12 h-10 border-2 border-ps-orange text-ps-orange rounded-lg font-medium text-xl flex justify-center items-center">Se connecter</a>
+    <a
+      [routerLink]="['/login']"
+      class="w-11/12 h-10 border-2 border-ps-orange text-ps-orange rounded-lg font-medium text-xl flex justify-center items-center"
+      >Se connecter</a
+    >
   </div>
 </div>
 <!-- }  -->

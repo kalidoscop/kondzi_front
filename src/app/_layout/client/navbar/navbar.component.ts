@@ -174,6 +174,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   openMenuMobile() {
     this.menuMobile = !this.menuMobile;
     this.servieMenu = false
+    this.menu = false
+
     // console.log(this.menuMobile);
   }
   refreshSchearchList() {
