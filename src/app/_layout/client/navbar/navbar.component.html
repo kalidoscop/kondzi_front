@@ -101,9 +101,7 @@
       </button>
     </div>
     <!-- for mobile  -->
-    <div
-      class="border-l-[2px] border-r-[2px] md:hidden transition-all border-ps-orange h-full w-[70px] md:w-[7%]"
-    >
+    <div class="md:hidden transition-all h-full w-[70px] md:w-[7%]">
       <button
         type="button"
         class="w-full h-full flex justify-center items-center"
@@ -236,11 +234,11 @@
 </nav>
 <!-- @if (menuMobile) { -->
 <div
-  class="z-50 fixed w-0 top-0 right-0 opacity-0 h-screen transition-all bg-gray-200 bg-opacity-55 overflow-y-auto flex justify-end items-center"
+  class="z-50 fixed w-0 top-0 right-0 opacity-0 h-screen transition-all bg-ps-green bg-opacity-55 overflow-y-auto flex justify-end items-center"
   [ngClass]="{ openMenuMobile: menuMobile === true }"
 >
   <div
-    class="h-full w-4/5 bg-gray-200 flex flex-col justify-start items-center gap-4"
+    class="h-full w-4/5 bg-ps-green flex flex-col justify-start items-center gap-4 text-white font-bold"
   >
     <div class="w-full h-[15%] flex justify-between items-center">
       <a
@@ -250,7 +248,7 @@
       >
         <img
           class="ml-4 h-[100%] md:h-[180%]"
-          src="images/logo condji-04.png"
+          src="images/logo condji-03.png"
           alt=""
         />
       </a>
@@ -265,18 +263,18 @@
         ></i-feather>
       </button>
     </div>
-    <div class="w-full border-black border-b-2">
+    <div class="w-full border-white border-b-2">
       <a
-        class="w-full border-black border-t-2 h-10 flex justify-start pl-2 items-center"
+        class="w-full border-white border-t-2 h-10 flex justify-start pl-2 items-center"
         [routerLink]="['/qui-sommes-nous']"
-        ><p class="text-center">Qui sommes-nous ?</p></a
+        ><p class="text-center font-bold">Qui sommes-nous ?</p></a
       >
       <div
-        class="flex flex-col overflow-y-hidden w-full h-10 transition-all justify-start pl-2 items-start border-black border-t-2"
+        class="flex flex-col overflow-y-hidden w-full h-10 transition-all justify-start pl-2 items-start border-white border-t-2"
         [ngClass]="{ openServiceMenuMobile: servieMenu === true }"
       >
         <button
-          class="border-black w-full flex justify-between items-center h-6 text-left"
+          class="border-white w-full flex justify-between items-center h-6 text-left font-bold"
           (click)="openServiceMenu()"
         >
           Nos services
@@ -288,41 +286,36 @@
           ></i-feather>
         </button>
         <div
-          class="mt-5 flex flex-col border-black justify-start gap-3 items-start"
+          class="mt-5 flex flex-col border-white justify-start gap-3 items-start"
         >
           <a
             [routerLink]="['/actualites-sante']"
-            class="w-full border-black border-t-2"
-            ><p>Actualités Santé</p></a
+            class="w-full border-white border-t-2 "
+            ><p class="font-bold">Actualités Santé</p></a
           >
           <!-- [routerLink]="['/nos-mission']" -->
           <a
             [routerLink]="['/repertoires-adresses-geolocalisees']"
-            class="w-full border-black border-t-2"
+            class="w-full border-white border-t-2"
           >
-            <p>Répertoires & Adresses géolocalisées</p>
+            <p class="font-bold">Répertoires & Adresses géolocalisées</p>
           </a>
           <a
             [routerLink]="['/bien-etre-infos-utiles']"
-            class="w-full border-black border-t-2"
-            ><p>Bien-être & infos utiles</p></a
+            class="w-full border-white border-t-2"
+            ><p class="font-bold">Bien-être & infos utiles</p></a
           >
           <a
             [routerLink]="['/media-sante']"
-            class="w-full border-black border-t-2"
-            ><p class="">MEDIA-SANTÉ</p></a
+            class="w-full border-white border-t-2"
+            ><p class="font-bold">MEDIA-SANTÉ</p></a
           >
         </div>
       </div>
       <a
-        class="w-full h-10 flex justify-start pl-2 items-center border-t-2 border-black"
+        class="w-full h-10 flex justify-start pl-2 items-center border-t-2 border-white"
         [routerLink]="['/nos-partenaires']"
-        ><p class="text-center border-black">Nos partenaires</p></a
-      >
-      <a
-        class="w-full h-10 flex justify-start border-black border-t-2 pl-2 items-center"
-        [routerLink]="['/media-sante']"
-        ><p class="text-center">MEDIA-SANTÉ</p></a
+        ><p class="text-center font-bold">Nos partenaires</p></a
       >
     </div>
     <a
@@ -361,8 +354,9 @@
         formControlName="zone"
         placeholder="Votre zone"
       />
-      <select
-        class="w-full h-[80px] p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+      <div class="w-full h-[80px] bg-gray-200 flex justify-center">
+        <select
+        class="w-[95%] h-full p-4 outline-none text-gray-600 bg-gray-200"
         formControlName="type"
         type="text"
       >
@@ -372,6 +366,8 @@
         <option value="co">Centre Optique</option>
         <option value="doc">Médécins</option>
       </select>
+      </div>
+      
     </div>
     <button
       type="submit"
