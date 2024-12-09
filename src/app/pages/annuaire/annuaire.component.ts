@@ -164,7 +164,7 @@ export class AnnuaireComponent implements OnInit {
     )) as google.maps.MarkerLibrary;
 
     const map = new Map(document.getElementById(mapName) as HTMLElement, {
-      center: { lat: 8.3, lng: 1.259029 },
+      center: { lat: 7, lng: 1.259029 },
       zoom: 7,
       mapId: '4504f8b37365c3d0',
     });

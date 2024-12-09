@@ -1,6 +1,6 @@
 .open{
     // height: 50px;
-    @apply h-[360px] md:h-[50px] 
+    @apply h-[360px] md:h-[50px] bg-opacity-100
 }
 .block{
     display: none;
@@ -29,7 +29,7 @@ nav::before{
     background-color: #F27405;
 }
 .bt-open{
-    @apply bg-gray-200 border-none bg-opacity-55
+    @apply bg-ps-green border-none
 }
 .nav-opaque{
     @apply bg-opacity-100
