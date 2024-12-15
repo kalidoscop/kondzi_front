@@ -7,6 +7,8 @@ import { Structure } from '../_model/structure';
 import { environment } from '../../environments/environment';
 import { Response } from '../_model/response';
 import { Doctor } from '../_model/doctor';
+import { StructureQuery } from '../_model/structureQuery';
+import { Suggestion } from '../_model/suggestion';
 
 @Injectable({
   providedIn: 'root',
@@ -134,11 +136,27 @@ export class StructureService {
       );
   }
   // https://maps.googleapis.com/maps/api/geocode/json?address=Legbassito&key=AIzaSyA3L1IdT9OeeN2GXjJGkTUVVuNFr7AEWx8
-  search(newStrucutre:any): Observable<Structure[]> {
-    return this.http.post<Structure[]>(`${environment.baseUrl}structure/search`, newStrucutre,{
+  
+  search(newStrucutre:any,page?:string): Observable<StructureQuery> {
+    if (page) {
+      return this.http.post<StructureQuery>(`${environment.baseUrl}structure/search${page}`, newStrucutre,{
+        headers: this.tokenService.getOption(),
+      }).pipe(tap((structure)=>{
+        this.log(structure)
+      }),catchError((error)=>this.handleError(error,[])));
+    }
+    return this.http.post<StructureQuery>(`${environment.baseUrl}structure/search`, newStrucutre,{
       headers: this.tokenService.getOption(),
     }).pipe(tap((structure)=>{
       this.log(structure)
+    }),catchError((error)=>this.handleError(error,[])));
+  }
+
+  suggestio(query:any): Observable<Suggestion> {
+    return this.http.get<Suggestion>(`${environment.baseUrl}suggestions/?query=${query}`,{
+      headers: this.tokenService.getOption(),
+    }).pipe(tap((suggestion)=>{
+      this.log(suggestion)
     }),catchError((error)=>this.handleError(error,[])));
   }
 
@@ -156,7 +174,7 @@ export class StructureService {
 
 
 
-  private log(object: Structure | Structure[] | Response|Doctor[], message?: string) {
+  private log(object: Structure | Structure[] | Response|Doctor[] | StructureQuery|Suggestion, message?: string) {
     if (environment.isDevEnv) {
       if (object instanceof Array) {
         console.table(object);

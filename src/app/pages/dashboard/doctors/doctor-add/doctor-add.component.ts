@@ -26,6 +26,7 @@ export class DoctorAddComponent {
     lastName: new FormControl('', Validators.required),
     speciality: new FormControl('', Validators.required),
     tel: new FormControl('', Validators.required),
+    secteur: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
   onSubmit() {

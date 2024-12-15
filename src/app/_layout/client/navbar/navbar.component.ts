@@ -26,7 +26,6 @@ import { ModalComponent } from '../../../pages/component/modal/modal.component';
   imports: [
     IconsModule,
     ReactiveFormsModule,
-    NgOptimizedImage,
     ModalComponent,
     RouterModule,
     NgClass,
@@ -50,10 +49,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   navbarOpaque = false;
 
   async ngOnInit() {
-    const searchClient = algoliasearch(
-      '34AAOQ05H2',
-      '9702026042bc36c1da382e63818502a5'
-    );
+    // const searchClient = algoliasearch(
+    //   '34AAOQ05H2',
+    //   '9702026042bc36c1da382e63818502a5'
+    // );
     this.scrollSubscription = this.scrollService.navbarOpaque$.subscribe(
       (isOpaque) => (this.navbarOpaque = isOpaque)
     );
@@ -84,22 +83,22 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.place = place;
       console.log(place);
     });
-    const querySuggestionsPlugin = createQuerySuggestionsPlugin({
-      searchClient,
-      indexName: 'kondzi_dev',
-      getSearchParams() {
-        return {
-          hitsPerPage: 10,
-        };
-      },
-    });
-    autocomplete({
-      container: '#autocomp',
-      placeholder: 'Search',
-      openOnFocus: true,
-      insights: true,
-      plugins: [querySuggestionsPlugin],
-    });
+    // const querySuggestionsPlugin = createQuerySuggestionsPlugin({
+    //   searchClient,
+    //   indexName: 'kondzi_dev',
+    //   getSearchParams() {
+    //     return {
+    //       hitsPerPage: 10,
+    //     };
+    //   },
+    // });
+    // autocomplete({
+    //   container: '#autocomp',
+    //   placeholder: 'Search',
+    //   openOnFocus: true,
+    //   insights: true,
+    //   plugins: [querySuggestionsPlugin],
+    // });
   }
   structureService = inject(StructureService);
   private router = inject(Router);
@@ -110,7 +109,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   menuMobile: boolean = false;
 
   search = new FormGroup({
-    word: new FormControl('', Validators.required),
+    word: new FormControl(' '),
     zone: new FormControl(''),
     type: new FormControl('', Validators.required),
   });
@@ -127,29 +126,50 @@ export class NavbarComponent implements OnInit, OnDestroy {
       //   `${this.place.geometry?.viewport?.getSouthWest().lat()}`,
       //   `${this.place.geometry?.viewport?.getNorthEast().lat()}`,
       // ]);
-
-      const newLink = `/annuaire/${this.search.value.word?.trim()}/${
-        this.search.value.type
-      }/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
-        ?.getSouthWest()
-        .lng()}/${this.place.geometry?.viewport
-        ?.getNorthEast()
-        .lng()}/${this.place.geometry?.viewport
-        ?.getSouthWest()
-        .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
-      this.router.navigate(['/']).then(() => {
-        this.router.navigate([newLink]);
-      });
+      if (this.search.value.word === ' ') {
+        const newLink = `/annuaire/${this.search.value.word}/${
+          this.search.value.type
+        }//${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
+          ?.getSouthWest()
+          .lng()}/${this.place.geometry?.viewport
+          ?.getNorthEast()
+          .lng()}/${this.place.geometry?.viewport
+          ?.getSouthWest()
+          .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
+        this.router.navigate(['/']).then(() => {
+          this.router.navigate([newLink]);
+        });
+      } else {
+        const newLink = `/annuaire/${this.search.value.word?.trim()}/${
+          this.search.value.type
+        }/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
+          ?.getSouthWest()
+          .lng()}/${this.place.geometry?.viewport
+          ?.getNorthEast()
+          .lng()}/${this.place.geometry?.viewport
+          ?.getSouthWest()
+          .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
+        this.router.navigate(['/']).then(() => {
+          this.router.navigate([newLink]);
+        });
+      }
 
       // this.refreshSchearchList()
       // console.log(1);
     } else {
-      const newLink = `/annuaire/${this.search.value.word?.trim()}/${
-        this.search.value.type
-      }`;
-      this.router.navigate(['/']).then(() => {
-        this.router.navigate([newLink]);
-      });
+      if (this.search.value.word === ' ') {
+        const newLink = `/annuaire/${this.search.value.word}/${this.search.value.type}`;
+        this.router.navigate(['/']).then(() => {
+          this.router.navigate([newLink]);
+        });
+      } else {
+        const newLink = `/annuaire/${this.search.value.word?.trim()}/${
+          this.search.value.type
+        }`;
+        this.router.navigate(['/']).then(() => {
+          this.router.navigate([newLink]);
+        });
+      }
 
       // this.router.navigate([
       //   '/annuaire',
@@ -163,7 +183,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   openMenu() {
     this.menu = !this.menu;
-    this.servieMenu = false
+    this.servieMenu = false;
     // console.log(this.menu);
   }
 
@@ -173,8 +193,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   openMenuMobile() {
     this.menuMobile = !this.menuMobile;
-    this.servieMenu = false
-    this.menu = false
+    this.servieMenu = false;
+    this.menu = false;
 
     // console.log(this.menuMobile);
   }
@@ -189,5 +209,50 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   closeModal() {
     this.showModal = false;
+  }
+
+  activities: string[] = [];
+  activitiesF: string[] = [];
+  assurance: string[] = [];
+  otherSuggestions: {
+    id: string;
+    name: string;
+    domaine: string;
+  }[] = [];
+
+  onSearchChange(): void {
+    if (this.search.value.word) {
+      this.activities = []; // Suggestions d'activités
+      this.activitiesF = []; // Suggestions d'activités
+      this.assurance = []; // Suggestions d'activités
+      this.otherSuggestions = [];
+      if (this.search.value.word.length > 1) {
+        this.structureService.suggestio(this.search.value.word).subscribe({
+          next: (data) => {
+
+            
+            this.activities = data.activities; // Suggestions d'activités
+            console.log(this.activities);
+            this.activitiesF = data.activities_f; // Suggestions d'activités
+            this.assurance = data.assurance; // Suggestions d'activités
+            this.otherSuggestions = data.suggestions; // Autres suggestions
+          },
+
+          error: (err) =>
+            console.error(
+              'Erreur lors de la récupération des suggestions :',
+              err
+            ),
+        });
+      }
+    } else {
+      this.activities = [];
+      this.otherSuggestions = [];
+    }
+  }
+  onActivityClick(activity: string): void {
+    console.log('Activité sélectionnée :', activity);
+    this.search.controls.word.setValue(activity)
+    // Effectuer une action, par exemple, effectuer une recherche basée sur cette activité
   }
 }

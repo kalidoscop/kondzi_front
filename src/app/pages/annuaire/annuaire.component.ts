@@ -10,17 +10,18 @@ import { StructureService } from '../../_services/structure.service';
 import { Structure } from '../../_model/structure';
 import { Loader } from '@googlemaps/js-api-loader';
 import { DataService } from '../../_services/data.service';
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { FooterComponent } from '../component/footer/footer.component';
 import { ScrollService } from '../../_services/scroll.service';
 import { SharedService } from '../../_services/shared.service';
 import { ModalComponent } from '../component/modal/modal.component';
 import { IconsModule } from '../../_icons/icons.module';
+import { MetaData } from '../../_model/meta';
 
 @Component({
   selector: 'app-annuaire',
   standalone: true,
-  imports: [ReactiveFormsModule,IconsModule, NgFor,NgClass,FooterComponent, ModalComponent],
+  imports: [ReactiveFormsModule,IconsModule,NgClass,FooterComponent, ModalComponent],
   templateUrl: './annuaire.component.html',
   styleUrl: './annuaire.component.scss',
 })
@@ -68,6 +69,7 @@ export class AnnuaireComponent implements OnInit {
   });
 
   structures: Structure[] = [];
+  meta:MetaData|undefined
   scrollService = inject(ScrollService)
 
 
@@ -83,7 +85,7 @@ export class AnnuaireComponent implements OnInit {
     // this.loadStructure()
   }
 
-  loadStructure() {
+  loadStructure(page?:string) {
     if (this.word && this.type) {
       if (this.zone && this.slng && this.nlng && this.slat && this.nlat) {
         // console.log(2);
@@ -99,9 +101,10 @@ export class AnnuaireComponent implements OnInit {
           }),
           // zone: new FormControl(this.zone, Validators.required),
         });
-        this.structureService.search(this.search2.value).subscribe((res) => {
+        this.structureService.search(this.search2.value,page).subscribe((res) => {
           // console.warn(res);
-          this.structures = res;
+          this.structures = res.data;
+          this.meta = res.meta;
           console.log(this.structures);
 
           for (let i = 0; i < this.structures.length; i++) {
@@ -127,9 +130,10 @@ export class AnnuaireComponent implements OnInit {
           type: new FormControl(this.type, Validators.required),
           zone: new FormControl(''),
         });
-        this.structureService.search(this.search1.value).subscribe((res) => {
+        this.structureService.search(this.search1.value,page).subscribe((res) => {
           // console.warn(res);
-          this.structures = res;
+          this.structures = res.data;
+          this.meta = res.meta;
           console.log(this.structures);
 
           for (let i = 0; i < this.structures.length; i++) {
@@ -164,7 +168,7 @@ export class AnnuaireComponent implements OnInit {
     )) as google.maps.MarkerLibrary;
 
     const map = new Map(document.getElementById(mapName) as HTMLElement, {
-      center: { lat: 7, lng: 1.259029 },
+      center: { lat: 8, lng: 1.259029 },
       zoom: 7,
       mapId: '4504f8b37365c3d0',
     });
@@ -216,6 +220,15 @@ export class AnnuaireComponent implements OnInit {
   closeModal() {
     this.showModal = false;
   }
+
+  next(page:string){
+    console.log(this.activatedRoute.url);
+
+    this.loadStructure(page)
+    
+  }
+
+  
 }
 
 

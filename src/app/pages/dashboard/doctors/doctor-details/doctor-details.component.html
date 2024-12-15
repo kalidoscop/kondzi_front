@@ -44,6 +44,19 @@
         required
       />
     </div>
+    <div class="flex flex-col w-[48%]">
+      <label for="speciality">secteur d'activité du médécin</label>
+      <select
+        type="text"
+        id="speciality"
+        formControlName="secteur"
+        class="input"
+        required
+      >
+        <option value="prv">Privée</option>
+        <option value="pub">Public</option>
+      </select>
+    </div>
   </div>
   <div class="row">
     <div class="flex flex-col w-[48%]">

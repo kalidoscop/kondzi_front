@@ -1,12 +1,40 @@
 <div class="w-full h-full bg-gray-200">
-  <div class="w-full h-full justify-center items-center lg:items-start flex flex-col bg-gray-100">
+  <div
+    class="w-full h-full justify-center items-center lg:items-start flex flex-col bg-gray-100"
+  >
     <!-- <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div> -->
     <div
-      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12  lg:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
+      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
     >
+      @if (meta) {
+
       <h1 class="text-3xl w-11/12 mt-10 font-bold">
-        Résultats pour <<{{ word }}>>
+        Résultats pour <<{{ word }}>> de {{ (meta.current_page * 25)-(structures.length -1) }} à
+        {{ meta.current_page * 25 }} sur {{ meta.total }}
       </h1>
+
+      <div class="w-full pl-8 h-16 flex justify-start gap-4 items-center">
+        @if (meta.previous_page_url) {
+
+        <button
+          (click)="next(meta.previous_page_url)"
+          class="w-40 h-14 bg-ps-green rounded-2xl flex justify-center gap-2 items-center font-bold text-xl text-white"
+        >
+          <i-feather name="arrow-left"></i-feather>
+          precedent
+        </button>
+        } @if (meta.next_page_url) {
+
+        <button
+          (click)="next(meta.next_page_url)"
+          class="w-32 h-14 bg-ps-green rounded-2xl flex justify-center gap-2 items-center font-bold text-xl text-white"
+        >
+          suivant
+          <i-feather name="arrow-right"></i-feather>
+        </button>
+        }
+      </div>
+      }
       <!-- <button class="md:hidden" (click)="opencart()">Carte</button> -->
       @for (item of structures; track $index) {
       <div
@@ -62,7 +90,7 @@
             <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
                 add_box
-                </span>
+              </span>
               <div>
                 <p class="text-lg">{{ item.flagship_activity }}</p>
               </div>
@@ -100,7 +128,7 @@
           <a
             href=""
             class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
-            style="font-weight: 600;"
+            style="font-weight: 600"
             >En savoir plus...</a
           >
           <a
@@ -117,9 +145,33 @@
           </a>
         </div>
       </div>
+      } @if (meta) {
+
+      <div class="w-full pl-8 h-16 flex justify-start gap-4 items-center">
+        @if (meta.previous_page_url) {
+
+        <button
+          (click)="next(meta.previous_page_url)"
+          class="w-40 h-14 bg-ps-green rounded-2xl flex justify-center gap-2 items-center font-bold text-xl text-white"
+        >
+          <i-feather name="arrow-left"></i-feather>
+          precedent
+        </button>
+        } @if (meta.next_page_url) {
+
+        <button
+          (click)="next(meta.next_page_url)"
+          class="w-32 h-14 bg-ps-green rounded-2xl flex justify-center gap-2 items-center font-bold text-xl text-white"
+        >
+          suivant
+          <i-feather name="arrow-right"></i-feather>
+        </button>
+        }
+      </div>
       }
     </div>
-    <div class=" w-full h-64 sm:h-96 top-[96px] lg:h-[80%] box-border lg:right-0 lg:top-40 fixed lg:w-7/12"
+    <div
+      class="w-full h-64 sm:h-96 top-[96px] lg:h-[80%] box-border lg:right-0 lg:top-40 fixed lg:w-7/12"
     >
       <!-- <google-map height="100%" width="100%" [options]="options">
         @for (location of auLocations; track location) {
@@ -138,10 +190,10 @@
   <app-footer></app-footer>
 </div>
 @if (showModal) {
-  <app-modal (close)="closeModal()">
-    <!-- <div class="h-full box-border fixed w-full"
+<app-modal (close)="closeModal()">
+  <!-- <div class="h-full box-border fixed w-full"
     > -->
-      <!-- <google-map height="100%" width="100%" [options]="options">
+  <!-- <google-map height="100%" width="100%" [options]="options">
         @for (location of auLocations; track location) {
         <map-advanced-marker
           #markerElem="mapAdvancedMarker"
@@ -149,10 +201,10 @@
         />
         }</google-map
       > -->
-      <div id="map2" class="lg:absolute bottom-0 h-full w-full"></div>
-      <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
+  <div id="map2" class="lg:absolute bottom-0 h-full w-full"></div>
+  <!-- <gmp-map class="h-full w-full" center="6.129994869232178,1.2203582525253296" zoom="14" map-id="DEMO_MAP_ID">
         <gmp-advanced-marker position="6.129994869232178,1.2203582525253296" title="My location"></gmp-advanced-marker>
       </gmp-map> -->
-    <!-- </div> -->
-  </app-modal>
+  <!-- </div> -->
+</app-modal>
 }

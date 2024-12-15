@@ -27,6 +27,7 @@ export class DoctorDetailsComponent implements OnInit {
     lastName: new FormControl('', Validators.required),
     speciality: new FormControl('', Validators.required),
     tel: new FormControl('', Validators.required),
+    secteur: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
@@ -52,6 +53,7 @@ export class DoctorDetailsComponent implements OnInit {
           lastName: new FormControl(`${res.last_name}`, Validators.required),
           speciality: new FormControl(`${res.speciality}`, Validators.required),
           tel: new FormControl(`${res.tel}`, Validators.required),
+          secteur: new FormControl(`${res.secteur}`, Validators.required),
           email: new FormControl(`${res.email}`, [
             Validators.required,
             Validators.email,
