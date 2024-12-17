@@ -1,6 +1,7 @@
 <nav
   class="w-full h-auto z-10 fixed top-0 border-ps-orange bg-white bg-opacity-20"
   [ngClass]="{ 'nav-opaque': navbarOpaque }"
+  
 >
   <div class="w-full h-24 flex flex-row justify-around items-center">
     <a
@@ -34,7 +35,8 @@
           />
           <div class="bg-white w-full max-h-96 overflow-y-auto z-50">
             <ul class="w-full">
-              @if (otherSuggestions.length) { @for (item of otherSuggestions;
+              <!-- @if (otherSuggestions.length) { 
+                @for (item of otherSuggestions;
               track $index) {
               <li
                 (click)="onActivityClick(item.domaine)"
@@ -45,7 +47,9 @@
                 </button>
               </li>
 
-              } } @if (activities.length) { @for (item of activities; track
+              } 
+              }  -->
+              @if (activities.length) { @for (item of activities; track
               $index) {
               <li
                 (click)="onActivityClick(item)"
