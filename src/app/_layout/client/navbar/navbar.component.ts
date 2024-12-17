@@ -1,7 +1,7 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { IconsModule } from '../../../_icons/icons.module';
 import { StructureService } from '../../../_services/structure.service';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   FormControl,
   FormGroup,
@@ -45,10 +45,28 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   dataservice = inject(DataService);
   scrollService = inject(ScrollService);
+  private activatedRoute = inject(ActivatedRoute);
+
   private scrollSubscription: Subscription | undefined;
   navbarOpaque = false;
 
+  word: string | null = this.activatedRoute.snapshot.paramMap.get('word');
+  type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
+  zone: string | null = this.activatedRoute.snapshot.paramMap.get('zone');
+
   async ngOnInit() {
+    console.log('cooooo');
+    
+    console.log(this.activatedRoute.url);
+    if (this.word && this.type && this.zone) {
+      
+      this.search = new FormGroup({
+        word: new FormControl(this.word),
+        zone: new FormControl(this.zone),
+        type: new FormControl(this.type, Validators.required),
+      });
+    }
+
     // const searchClient = algoliasearch(
     //   '34AAOQ05H2',
     //   '9702026042bc36c1da382e63818502a5'
@@ -229,8 +247,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (this.search.value.word.length > 1) {
         this.structureService.suggestio(this.search.value.word).subscribe({
           next: (data) => {
-
-            
             this.activities = data.activities; // Suggestions d'activités
             console.log(this.activities);
             this.activitiesF = data.activities_f; // Suggestions d'activités
@@ -252,7 +268,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   onActivityClick(activity: string): void {
     console.log('Activité sélectionnée :', activity);
-    this.search.controls.word.setValue(activity)
+    this.search.controls.word.setValue(activity);
     // Effectuer une action, par exemple, effectuer une recherche basée sur cette activité
   }
 }
