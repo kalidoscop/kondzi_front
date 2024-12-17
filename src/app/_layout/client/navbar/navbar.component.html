@@ -24,9 +24,7 @@
         class="w-11/12 h-4/5 flex rounded-l justify-around items-center bg-white bg-opacity-50"
         [ngClass]="{ 'inpute-opaque': navbarOpaque }"
       >
-        <div
-          class="w-4/12 h-4/5 border-b border-black rounded-t"
-        >
+        <div class="w-5/12 h-4/5 border-b border-black rounded-t">
           <input
             class="w-full h-full p-4 outline-none text-gray-600 bg-gray-200"
             type="text"
@@ -35,90 +33,80 @@
             placeholder="Votre recherche"
           />
           <div class="bg-white w-full max-h-96 overflow-y-auto z-50">
-            @if (otherSuggestions.length) {
-            <div class="w-full flex flex-col justify-start items-start pl-3">
-              <h1 class="font-bold">Nom de strucutre</h1>
-              <ul class="w-full">
-                @for (item of otherSuggestions; track $index) {
-                <li (click)="onActivityClick(item.name)" class="w-full border-b-2 border-gray-500">
-                  {{ item.name }}
-                </li>
-
-                }
-              </ul>
-            </div>
-            <div class="w-full flex flex-col justify-start items-start pl-3">
-              <h1 class="font-bold">Domaine</h1>
-              <ul class="w-full">
-                @for (item of otherSuggestions; track $index) {
-                <li (click)="onActivityClick(item.domaine)" class="w-full border-b-2 border-gray-500">
+            <ul class="w-full">
+              @if (otherSuggestions.length) { @for (item of otherSuggestions;
+              track $index) {
+              <li
+                (click)="onActivityClick(item.domaine)"
+                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+              >
+                <button type="button" class="w-full h-full  text-start pl-4">
                   {{ item.domaine }}
-                </li>
+                </button>
+              </li>
 
-                }
-              </ul>
-            </div>
-            } @if (activities.length) {
-            <div class="w-full flex flex-col justify-start items-start pl-3">
-              <h1 class="font-bold">Activité</h1>
-              <ul class="w-full">
-                @for (item of activities; track $index) {
-                <li (click)="onActivityClick(item)" class="w-full h-10 border-b-2 border-gray-500">
+              } } @if (activities.length) { @for (item of activities; track
+              $index) {
+              <li
+                (click)="onActivityClick(item)"
+                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+              >
+                <button type="button" class="w-full h-full  text-start pl-4">
                   {{ item }}
-                </li>
+                </button>
+              </li>
 
-                }
-              </ul>
-            </div>
-            } @if (activitiesF.length) {
-            <div class="w-full flex flex-col justify-start items-start pl-3">
-              <h1 class="font-bold">Activité fare</h1>
-              <ul class="w-full">
-                @for (item of activitiesF; track $index) {
-                <li (click)="onActivityClick(item)" class="w-full h-10 border-b-2 border-gray-500">
+              } } @if (activitiesF.length) { @for (item of activitiesF; track
+              $index) {
+              <li
+                (click)="onActivityClick(item)"
+                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+              >
+                <button type="button" class="w-full h-full  text-start pl-4">
                   {{ item }}
-                </li>
-                }
-              </ul>
-            </div>
-            }
-            @if (assurance.length) {
-              <div class="w-full flex flex-col justify-start items-start pl-3">
-                <h1 class="font-bold">Assurance</h1>
-                <ul class="w-full">
-                  @for (item of assurance; track $index) {
-                  <li (click)="onActivityClick(item)" class="w-full h-10 border-b-2 border-gray-500">
-                    {{ item }}
-                  </li>
-                  }
-                </ul>
-              </div>
-              }
+                </button>
+              </li>
+              } } @if (assurance.length) { @for (item of assurance; track
+              $index) {
+              <li
+                (click)="onActivityClick(item)"
+                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+              >
+                <button type="button" class="w-full h-full  text-start pl-4">
+                  {{ item }}
+                </button>
+              </li>
+              } }
+            </ul>
           </div>
         </div>
         <!-- <div class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200" id="autocomp"></div> -->
         <input
-          class="w-4/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+          class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
           type="text"
           id="search"
           formControlName="zone"
           placeholder="Votre zone"
         />
-        <select
+        <!-- <select
           class="w-3/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
           formControlName="type"
           type="text"
         >
-          <option [defaultSelected]="true" value="ch">Centre/Structure de soins</option>
+          <option [defaultSelected]="true" value="ch">
+            Centre/Structure de soins
+          </option>
           <option value="ph">Pharmacie</option>
           <option value="lb">Laboratoires</option>
           <option value="co">Centre Optique</option>
           <option value="doc">Médécins</option>
-        </select>
+        </select> -->
       </div>
       <button
         type="submit"
         [disabled]="!search.valid"
+        [ngClass]="{ 'bg-ps-green': search.valid }"
+        
         class="w-1/12 h-[84%] rounded-r bg-black flex justify-center items-center font-bold"
       >
         <i-feather name="search" class="text-white transition-all"></i-feather>

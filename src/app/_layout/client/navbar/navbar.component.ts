@@ -51,20 +51,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
   navbarOpaque = false;
 
   word: string | null = this.activatedRoute.snapshot.paramMap.get('word');
-  type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
+  // type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
   zone: string | null = this.activatedRoute.snapshot.paramMap.get('zone');
 
   async ngOnInit() {
     console.log('cooooo');
-    
+
     console.log(this.activatedRoute.url);
-    if (this.word && this.type && this.zone) {
-      
+    if (this.word && this.zone) {
       this.search = new FormGroup({
-        word: new FormControl(this.word),
+        word: new FormControl(this.word, Validators.required),
         zone: new FormControl(this.zone),
-        type: new FormControl(this.type, Validators.required),
       });
+      // type: new FormControl(this.type),
     }
 
     // const searchClient = algoliasearch(
@@ -127,68 +126,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
   menuMobile: boolean = false;
 
   search = new FormGroup({
-    word: new FormControl(' '),
+    word: new FormControl('',Validators.required),
     zone: new FormControl(''),
-    type: new FormControl('', Validators.required),
   });
+  // type: new FormControl(''),
 
   async onSubmit() {
     if (this.place) {
-      // this.router.navigate([
-      //   '/annuaire',
-      //   `${this.search.value.word?.trim()}`,
-      //   `${this.search.value.type}`,
-      //   `${this.search.value.zone?.trim()}`,
-      //   `${this.place.geometry?.viewport?.getSouthWest().lng()}`,
-      //   `${this.place.geometry?.viewport?.getNorthEast().lng()}`,
-      //   `${this.place.geometry?.viewport?.getSouthWest().lat()}`,
-      //   `${this.place.geometry?.viewport?.getNorthEast().lat()}`,
-      // ]);
-      if (this.search.value.word === ' ') {
-        const newLink = `/annuaire/${this.search.value.word}/${
-          this.search.value.type
-        }//${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
-          ?.getSouthWest()
-          .lng()}/${this.place.geometry?.viewport
-          ?.getNorthEast()
-          .lng()}/${this.place.geometry?.viewport
-          ?.getSouthWest()
-          .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
-        this.router.navigate(['/']).then(() => {
-          this.router.navigate([newLink]);
-        });
-      } else {
-        const newLink = `/annuaire/${this.search.value.word?.trim()}/${
-          this.search.value.type
-        }/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
-          ?.getSouthWest()
-          .lng()}/${this.place.geometry?.viewport
-          ?.getNorthEast()
-          .lng()}/${this.place.geometry?.viewport
-          ?.getSouthWest()
-          .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
-        this.router.navigate(['/']).then(() => {
-          this.router.navigate([newLink]);
-        });
-      }
-
-      // this.refreshSchearchList()
-      // console.log(1);
+      const newLink = `/annuaire/${this.search.value.word?.trim()}/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
+        ?.getSouthWest()
+        .lng()}/${this.place.geometry?.viewport
+        ?.getNorthEast()
+        .lng()}/${this.place.geometry?.viewport
+        ?.getSouthWest()
+        .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
+      this.router.navigate(['/']).then(() => {
+        this.router.navigate([newLink]);
+      });
     } else {
-      if (this.search.value.word === ' ') {
-        const newLink = `/annuaire/${this.search.value.word}/${this.search.value.type}`;
-        this.router.navigate(['/']).then(() => {
-          this.router.navigate([newLink]);
-        });
-      } else {
-        const newLink = `/annuaire/${this.search.value.word?.trim()}/${
-          this.search.value.type
-        }`;
-        this.router.navigate(['/']).then(() => {
-          this.router.navigate([newLink]);
-        });
-      }
+      console.log('coucou');
 
+      const newLink = `/annuaire/${this.search.value.word?.trim()}`;
+      this.router.navigate(['/']).then(() => {
+        this.router.navigate([newLink]);
+      });
       // this.router.navigate([
       //   '/annuaire',
       //   `${this.search.value.word?.trim()}`,

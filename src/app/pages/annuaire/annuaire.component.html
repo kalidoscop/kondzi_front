@@ -3,17 +3,37 @@
     class="w-full h-full justify-center items-center lg:items-start flex flex-col bg-gray-100"
   >
     <!-- <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div> -->
+     
     <div
-      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-10"
+      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-4"
     >
+    <div class="w-full pl-8 h-16">
+      <select
+        class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+        [formControl]="type"
+        (change)="onFilter()"
+        type="text"
+      >
+      <option value="all">
+        Tout
+      </option>
+        <option value="ch">
+          Centre/Structure de soins
+        </option>
+        <option value="ph">Pharmacie</option>
+        <option value="lb">Laboratoires</option>
+        <option value="co">Centre Optique</option>
+        <option value="doc">Médécins</option>
+      </select>
+    </div>
       @if (meta) { @if (structures.length<25) {
-      <h1 class="text-3xl w-11/12 mt-10 font-bold">
+      <h1 class="text-3xl w-11/12  font-bold">
         Résultats pour <<{{ word }}>> de
         {{ meta.total - structures.length + 1 }} à {{ meta.total }} sur
         {{ meta.total }}
       </h1>
       } @else {
-      <h1 class="text-3xl w-11/12 mt-10 font-bold">
+      <h1 class="text-3xl w-11/12 font-bold">
         Résultats pour <<{{ word }}>> de
         {{ meta.current_page * 25 - (structures.length - 1) }} à
         {{ meta.current_page * 25 }} sur {{ meta.total }}
@@ -44,6 +64,7 @@
         }
       </div>
       } }
+      
       <!-- <button class="md:hidden" (click)="opencart()">Carte</button> -->
       @for (item of structures; track $index) {
       <div

@@ -45,7 +45,7 @@ export class AnnuaireComponent implements OnInit {
   
 
   word: string | null = this.activatedRoute.snapshot.paramMap.get('word');
-  type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
+  // type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
   zone: string | null = this.activatedRoute.snapshot.paramMap.get('zone');
   slng: string | null = this.activatedRoute.snapshot.paramMap.get('slng');
   nlng: string | null = this.activatedRoute.snapshot.paramMap.get('nlng');
@@ -53,13 +53,13 @@ export class AnnuaireComponent implements OnInit {
   nlat: string | null = this.activatedRoute.snapshot.paramMap.get('nlat');
 
   search1 = new FormGroup({
+    type: new FormControl(''),
     word: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
     zone: new FormControl(''),
   });
   search2 = new FormGroup({
+    type: new FormControl(''),
     word: new FormControl('', Validators.required),
-    type: new FormControl('', Validators.required),
     lieu: new FormGroup({
       lngLo: new FormControl(),
       lngHi: new FormControl(),
@@ -86,74 +86,170 @@ export class AnnuaireComponent implements OnInit {
   }
 
   loadStructure(page?:string) {
-    if (this.word && this.type) {
-      if (this.zone && this.slng && this.nlng && this.slat && this.nlat) {
-        // console.log(2);
 
-        this.search2 = new FormGroup({
-          word: new FormControl(this.word, Validators.required),
-          type: new FormControl(this.type, Validators.required),
-          lieu: new FormGroup({
-            lngLo: new FormControl(this.slng),
-            lngHi: new FormControl(this.nlng),
-            latLo: new FormControl(this.slat),
-            latHi: new FormControl(this.nlat),
-          }),
-          // zone: new FormControl(this.zone, Validators.required),
-        });
-        this.structureService.search(this.search2.value,page).subscribe((res) => {
-          // console.warn(res);
-          this.structures = res.data;
-          this.meta = res.meta;
-          console.log(this.structures);
-
-          for (let i = 0; i < this.structures.length; i++) {
-            const element = this.structures[i];
-            for (let j = 0; j < element.adresse.length; j++) {
-              const ad = element.adresse[j];
-              const coord = {
-                position: { lat: ad.lat, lng: ad.lng },
-                title: element.name,
-                structure:element
-
-              };
-              this.auLocations.push(coord);
+    if (this.type.value === 'all') {
+      if (this.word) {
+        if (this.zone && this.slng && this.nlng && this.slat && this.nlat) {
+          // console.log(2);
+  
+          this.search2 = new FormGroup({
+            type: new FormControl(),
+            word: new FormControl(this.word, Validators.required),
+            lieu: new FormGroup({
+              lngLo: new FormControl(this.slng),
+              lngHi: new FormControl(this.nlng),
+              latLo: new FormControl(this.slat),
+              latHi: new FormControl(this.nlat),
+            }),
+            // zone: new FormControl(this.zone, Validators.required),
+          });
+          this.structureService.search(this.search2.value,page).subscribe((res) => {
+            // console.warn(res);
+            this.structures = res.data;
+            this.meta = res.meta;
+            console.log(this.structures);
+  
+            if (this.structures.length) {
+              for (let i = 0; i < this.structures.length; i++) {
+                const element = this.structures[i];
+                for (let j = 0; j < element.adresse.length; j++) {
+                  const ad = element.adresse[j];
+                  const coord = {
+                    position: { lat: ad.lat, lng: ad.lng },
+                    title: element.name,
+                    structure:element
+                  };
+                  this.auLocations.push(coord);
+                }
+              }
+              this.initMap('map');
+            }else{
+              this.auLocations=[]
+              this.initMap('map');
             }
-          }
-          this.initMap('map');
-        });
-      } else {
-        // console.log(1);
-
-        this.search1 = new FormGroup({
-          word: new FormControl(this.word, Validators.required),
-          type: new FormControl(this.type, Validators.required),
-          zone: new FormControl(''),
-        });
-        this.structureService.search(this.search1.value,page).subscribe((res) => {
-          // console.warn(res);
-          this.structures = res.data;
-          this.meta = res.meta;
-          console.log(this.structures);
-
-          for (let i = 0; i < this.structures.length; i++) {
-            const element = this.structures[i];
-            for (let j = 0; j < element.adresse.length; j++) {
-              const ad = element.adresse[j];
-              const coord = {
-                position: { lat: ad.lat, lng: ad.lng },
-                title: element.name,
-                structure:element
-              };
-              this.auLocations.push(coord);
+          });
+        } else {
+          // console.log(1);
+  
+          this.search1 = new FormGroup({
+            type: new FormControl(),
+            word: new FormControl(this.word, Validators.required),
+            zone: new FormControl(''),
+          });
+          this.structureService.search(this.search1.value,page).subscribe((res) => {
+            // console.warn(res);
+            this.structures = res.data;
+            this.meta = res.meta;
+            console.log(this.structures);
+  
+            if (this.structures.length) {
+              for (let i = 0; i < this.structures.length; i++) {
+                const element = this.structures[i];
+                for (let j = 0; j < element.adresse.length; j++) {
+                  const ad = element.adresse[j];
+                  const coord = {
+                    position: { lat: ad.lat, lng: ad.lng },
+                    title: element.name,
+                    structure:element
+                  };
+                  this.auLocations.push(coord);
+                }
+              }
+              this.initMap('map');
+            }else{
+              this.auLocations=[]
+              this.initMap('map');
             }
-          }
-          this.initMap('map');
-        });
+          });
+        }
       }
     }
+    else{
+      if (this.word) {
+        if (this.zone && this.slng && this.nlng && this.slat && this.nlat) {
+          // console.log(2);
+  
+          this.search2 = new FormGroup({
+            type: new FormControl(this.type.value),
+            word: new FormControl(this.word, Validators.required),
+            lieu: new FormGroup({
+              lngLo: new FormControl(this.slng),
+              lngHi: new FormControl(this.nlng),
+              latLo: new FormControl(this.slat),
+              latHi: new FormControl(this.nlat),
+            }),
+            // zone: new FormControl(this.zone, Validators.required),
+          });
+          this.structureService.search(this.search2.value,page).subscribe((res) => {
+            // console.warn(res);
+            this.structures = res.data;
+            this.meta = res.meta;
+            console.log(this.structures);
+  
+            if (this.structures.length) {
+              for (let i = 0; i < this.structures.length; i++) {
+                const element = this.structures[i];
+                for (let j = 0; j < element.adresse.length; j++) {
+                  const ad = element.adresse[j];
+                  const coord = {
+                    position: { lat: ad.lat, lng: ad.lng },
+                    title: element.name,
+                    structure:element
+                  };
+                  this.auLocations.push(coord);
+                }
+              }
+              this.initMap('map');
+            }else{
+              this.auLocations=[]
+              this.initMap('map');
+            }
+          });
+        } else {
+          // console.log(1);
+  
+          this.search1 = new FormGroup({
+            type: new FormControl(this.type.value),
+            word: new FormControl(this.word, Validators.required),
+            zone: new FormControl(''),
+          });
+          this.structureService.search(this.search1.value,page).subscribe((res) => {
+            // console.warn(res);
+            this.structures = res.data;
+            this.meta = res.meta;
+            console.log(this.structures);
+            if (this.structures.length) {
+              for (let i = 0; i < this.structures.length; i++) {
+                const element = this.structures[i];
+                for (let j = 0; j < element.adresse.length; j++) {
+                  const ad = element.adresse[j];
+                  const coord = {
+                    position: { lat: ad.lat, lng: ad.lng },
+                    title: element.name,
+                    structure:element
+                  };
+                  this.auLocations.push(coord);
+                }
+              }
+              this.initMap('map');
+            }else{
+              this.auLocations=[]
+              this.initMap('map');
+            }
+  
+            
+          });
+        }
+      }
+    }
+
+
+    
   }
-  onSubmit() {
+  type = new FormControl('all')
+  onFilter() {
+    console.log(this.type.value);
+    
     this.loadStructure();
   }
 

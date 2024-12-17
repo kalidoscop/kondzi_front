@@ -24,8 +24,8 @@ export const routes: Routes = [
     path: 'annuaire',
     component:BaseComponent,
     children: [
-      { path: ':word/:type/:zone/:slng/:nlng/:slat/:nlat', component: AnnuaireComponent },
-      { path: ':word/:type', component: AnnuaireComponent },
+      { path: ':word/:zone/:slng/:nlng/:slat/:nlat', component: AnnuaireComponent },
+      { path: ':word', component: AnnuaireComponent },
     ],
   },
   {
