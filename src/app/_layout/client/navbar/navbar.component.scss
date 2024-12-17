@@ -15,6 +15,7 @@ nav::after{
     right: 0;
     width: 0%;
     height: 5px;
+    z-index: -1;
     transition: all 400ms;
     background-color: #F27405;
 }
@@ -25,9 +26,21 @@ nav::before{
     left: 0;
     width: 0%;
     height: 5px;
+    z-index: -1;
     transition: all 400ms;
     background-color: #F27405;
 }
+
+// .sugg::before{
+//     content: '';
+//     position: fixed;
+//     bottom: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     z-index: -1;
+//     // background-color: ;
+// }
 .bt-open{
     @apply bg-ps-green border-none
 }

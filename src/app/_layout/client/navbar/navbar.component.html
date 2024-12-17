@@ -33,56 +33,60 @@
             (input)="onSearchChange()"
             placeholder="Votre recherche"
           />
-          <div class="bg-white w-full max-h-96 overflow-y-auto z-50">
-            <ul class="w-full">
-              <!-- @if (otherSuggestions.length) { 
-                @for (item of otherSuggestions;
-              track $index) {
-              <li
-                (click)="onActivityClick(item.domaine)"
-                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
-              >
-                <button type="button" class="w-full h-full  text-start pl-4">
-                  {{ item.domaine }}
-                </button>
-              </li>
-
-              } 
-              }  -->
-              @if (activities.length) { @for (item of activities; track
-              $index) {
-              <li
-                (click)="onActivityClick(item)"
-                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
-              >
-                <button type="button" class="w-full h-full  text-start pl-4">
-                  {{ item }}
-                </button>
-              </li>
-
-              } } @if (activitiesF.length) { @for (item of activitiesF; track
-              $index) {
-              <li
-                (click)="onActivityClick(item)"
-                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
-              >
-                <button type="button" class="w-full h-full  text-start pl-4">
-                  {{ item }}
-                </button>
-              </li>
-              } } @if (assurance.length) { @for (item of assurance; track
-              $index) {
-              <li
-                (click)="onActivityClick(item)"
-                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
-              >
-                <button type="button" class="w-full h-full  text-start pl-4">
-                  {{ item }}
-                </button>
-              </li>
-              } }
-            </ul>
-          </div>
+          @if (activities.length||activitiesF.length||assurance.length) {
+            <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
+            <div class="bg-white w-[22.3%] absolute max-h-96 overflow-y-auto z-30 sugg">
+              <span class=" fixed w-screen h-screen -z-20  top-0 left-0" (click)="closeSuggestion()"></span>
+              <ul class="w-full">
+                <!-- @if (otherSuggestions.length) { 
+                  @for (item of otherSuggestions;
+                track $index) {
+                <li
+                  (click)="onActivityClick(item.domaine)"
+                  class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+                >
+                  <button type="button" class="w-full h-full  text-start pl-4">
+                    {{ item.domaine }}
+                  </button>
+                </li>
+  
+                } 
+                }  -->
+                @if (activities.length) { @for (item of activities; track
+                $index) {
+                <li
+                  (click)="onActivityClick(item)"
+                  class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+                >
+                  <button type="button" class="w-full h-full  text-start pl-4">
+                    {{ item }}
+                  </button>
+                </li>
+  
+                } } @if (activitiesF.length) { @for (item of activitiesF; track
+                $index) {
+                <li
+                  (click)="onActivityClick(item)"
+                  class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+                >
+                  <button type="button" class="w-full h-full  text-start pl-4">
+                    {{ item }}
+                  </button>
+                </li>
+                } } @if (assurance.length) { @for (item of assurance; track
+                $index) {
+                <li
+                  (click)="onActivityClick(item)"
+                  class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+                >
+                  <button type="button" class="w-full h-full  text-start pl-4">
+                    {{ item }}
+                  </button>
+                </li>
+                } }
+              </ul>
+            </div>
+          }
         </div>
         <!-- <div class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200" id="autocomp"></div> -->
         <input

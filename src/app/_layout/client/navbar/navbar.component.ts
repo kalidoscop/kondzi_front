@@ -199,6 +199,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
     domaine: string;
   }[] = [];
 
+  closeSuggestion(){
+    this.activities = []; // Suggestions d'activités
+      this.activitiesF = []; // Suggestions d'activités
+      this.assurance = []; // Suggestions d'activités
+      this.otherSuggestions = [];
+  }
+
   onSearchChange(): void {
     if (this.search.value.word) {
       this.activities = []; // Suggestions d'activités
