@@ -1,3 +1,5 @@
+import { Adresse } from "./adresse";
+
 export interface Doctor {
   id: string;
   first_name: string;
@@ -8,4 +10,6 @@ export interface Doctor {
   secteur:string;
   created_at: string;
   updated_at: string;
+  adresse: Adresse[];
+
 }

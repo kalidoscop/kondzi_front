@@ -81,6 +81,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       west: center.lng - 0.1,
     };
     const input = document.getElementById('search') as HTMLInputElement;
+    const input2 = document.getElementById('search2') as HTMLInputElement;
     // console.log(input);
 
     const options = {
@@ -93,7 +94,18 @@ export class NavbarComponent implements OnInit, OnDestroy {
       input,
       options
     );
+    const autocompletes2 = await new google.maps.places.Autocomplete(
+      input2,
+      options
+    );
     autocompletes.addListener('place_changed', () => {
+      console.log('coucou');
+      // console.log(autocomplete.)
+      const place = autocompletes.getPlace();
+      this.place = place;
+      console.log(place);
+    });
+    autocompletes2.addListener('place_changed', () => {
       console.log('coucou');
       // console.log(autocomplete.)
       const place = autocompletes.getPlace();
@@ -237,6 +249,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onActivityClick(activity: string): void {
     console.log('Activité sélectionnée :', activity);
     this.search.controls.word.setValue(activity);
+    this.closeSuggestion()
     // Effectuer une action, par exemple, effectuer une recherche basée sur cette activité
   }
 }

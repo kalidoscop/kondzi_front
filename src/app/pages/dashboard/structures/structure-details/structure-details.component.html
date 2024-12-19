@@ -41,6 +41,7 @@
         id="type"
         formControlName="type"
         class="input"
+        (change)="pharmacieChange()"
         required
       >
         <option value="ch">Centre/Structure de soins</option>
@@ -49,6 +50,24 @@
         <option value="co">Centre Optique</option>
       </select>
     </div>
+    @if (structureForm.value.type==='ph') {
+
+      <div class=" ml-5 flex flex-col w-3/12">
+        <label for="openingHours">De garde</label>
+        <div class="w-full flex justify-start gap-4 items-center">
+          <select
+            class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+            required
+            formControlName="isGarde"
+            id=""
+            (change)="isH24Change()"
+          >
+            <option value="true">oui</option>
+            <option value="false">non</option>
+          </select>
+        </div>
+      </div>
+    }
   </div>
   <div class="row">
     <div class="flex flex-col w-[48%]">
@@ -94,6 +113,8 @@
       />
     </div>
   </div>
+  @if (structureForm.value.type !='ph') {
+
 <!-- heur douverture -->
   <div class="row" [formGroup]="hoursGroup">
     <div class="flex flex-col w-4/12">
@@ -214,6 +235,7 @@
       </tbody>
     </table>
   </div>
+}
   <!-- assurance -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="assurenceGroup">

@@ -3,31 +3,30 @@
     class="w-full h-full justify-center items-center lg:items-start flex flex-col bg-gray-100"
   >
     <!-- <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div> -->
-     
+
     <div
-      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[8.6vw] mb-[8.6vw] flex flex-col items-center gap-4"
+      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[160px] mb-[8.6vw] flex flex-col items-center gap-4"
     >
-    <div class="w-full pl-8 h-16">
-      <select
-        class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
-        [formControl]="type"
-        (change)="onFilter()"
-        type="text"
-      >
-      <option value="all">
-        Tout
-      </option>
-        <option value="ch">
-          Centre/Structure de soins
-        </option>
-        <option value="ph">Pharmacie</option>
-        <option value="lb">Laboratoires</option>
-        <option value="co">Centre Optique</option>
-        <option value="doc">Médécins</option>
-      </select>
-    </div>
-      @if (meta) { @if (structures.length<25) {
-      <h1 class="text-3xl w-11/12  font-bold">
+      <div class="w-full pl-8 h-16">
+        <span class="material-symbols-outlined text-2xl text-ps-green">
+          tune
+        </span>
+        <select
+          class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+          [formControl]="type"
+          (change)="onFilter()"
+          type="text"
+        >
+          <option value="all">Tout</option>
+          <option value="ch">Centre/Structure de soins</option>
+          <option value="ph">Pharmacie</option>
+          <option value="lb">Laboratoires</option>
+          <option value="co">Centre Optique</option>
+          <option value="doc">Médécins</option>
+        </select>
+      </div>
+      @if (meta) { @if (structures.length) { @if ( structures.length<25) {
+      <h1 class="text-3xl w-11/12 font-bold">
         Résultats pour <<{{ word }}>> de
         {{ meta.total - structures.length + 1 }} à {{ meta.total }} sur
         {{ meta.total }}
@@ -39,7 +38,21 @@
         {{ meta.current_page * 25 }} sur {{ meta.total }}
       </h1>
 
-      }
+      } } @else if (doctors.length) { @if ( doctors.length<25) {
+      <h1 class="text-3xl w-11/12 font-bold">
+        Résultats pour <<{{ word }}>> de {{ meta.total - doctors.length + 1 }} à
+        {{ meta.total }} sur
+        {{ meta.total }}
+      </h1>
+      } @else {
+      <h1 class="text-3xl w-11/12 font-bold">
+        Résultats pour <<{{ word }}>> de
+        {{ meta.current_page * 25 - (doctors.length - 1) }} à
+        {{ meta.current_page * 25 }} sur {{ meta.total }}
+      </h1>
+
+      } }
+
       <!-- } -->
       @if (meta.previous_page_url||meta.next_page_url) {
       <div class="w-full pl-8 h-16 flex justify-start gap-4 items-center">
@@ -64,8 +77,119 @@
         }
       </div>
       } }
-      
+
       <!-- <button class="md:hidden" (click)="opencart()">Carte</button> -->
+
+      <!-- medecini -->
+      @for (item of doctors; track $index) {
+      <div
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
+        [ngClass]="{ 'cart-active': selectedIndex === item.id}"
+        [id]="'structure-' + item.id"
+      >
+        <div class="w-full flex">
+          <div
+            class="w-3/4 h-auto transition-all overflow-y-hidden gap-1 m-auto flex flex-col p-2"
+          >
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-4xl text-ps-green">
+                person
+              </span>
+              <div>
+                <h1 class="text-2xl underline font-bold text-ps-green">
+                  {{ item.last_name }} {{ item.first_name }}
+                </h1>
+                <!-- <p class="text-sm">Type de la structure</p> -->
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <div>
+                <p class="text-lg italic">{{ item.speciality }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                call
+              </span>
+              <div>
+                <p class="text-lg">{{ item.tel }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                mail
+              </span>
+              <div>
+                <p class="text-lg underline">{{ item.email }}</p>
+              </div>
+            </div>
+            <div class="w-11/12 h-10 mb-3 flex justify-between items-center">
+              <button
+                (click)="seeMore($index)"
+                class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
+                style="font-weight: 600"
+              >
+              @if (see === $index) {
+                Cacher les adresses...
+
+              }@else {
+
+                Voir les adresses...
+              }
+              </button>
+              <!-- <a
+                [href]="[
+                  'https://www.google.com/maps?q=' +
+                    [item.adresse[0].lat, item.adresse[0].lng]
+                ]"
+                target="_blank"
+                class="h-full w-36 flex justify-center items-center gap-2 rounded-3xl bg-ps-green-2 text-white"
+              >
+                <p class="bol">Y ALLER</p> -->
+              <!-- <span class="material-symbols-outlined"> send </span> -->
+              <!-- <i-feather name="external-link"></i-feather>
+              </a> -->
+            </div>
+            @if (see === $index) {
+              @for (add of item.adresse; track $index) {
+                <a
+                  [href]="['https://www.google.com/maps?q=' + [add.lat, add.lng]]"
+                  class="flex justify-start items-start gap-2"
+                >
+                  <span class="material-symbols-outlined text-2xl text-ps-green">
+                    location_on
+                  </span>
+                  <div>
+                    <p class="text-lg italic">{{ add.nadress }}</p>
+                  </div>
+                </a>
+                }
+            }
+           
+
+            <!-- <div class="flex justify-start items-start gap-2">
+                  <span class="material-symbols-outlined text-2xl text-ps-green">
+                    credit_card
+                  </span>
+                  <div>
+                    <p class="text-lg italic">{{ item.assurance }}</p>
+                  </div>
+                </div> -->
+            <!-- <div class="flex justify-start items-start gap-2">
+                  <span class="material-symbols-outlined text-2xl text-ps-green">
+                    add_box
+                  </span>
+                  <div>
+                    <p class="text-lg">{{ item.flagship_activity }}</p>
+                  </div>
+                </div> -->
+          </div>
+        </div>
+      </div>
+      }
+      <!--end medecini -->
+
+      <!--structure -->
       @for (item of structures; track $index) {
       <div
         class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
@@ -125,21 +249,47 @@
                 <p class="text-lg">{{ item.flagship_activity }}</p>
               </div>
             </div>
-            @if (item.hours.length) {
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                schedule
-              </span>
-              <div class="flex flex-col pt-2">
-                @for (it of item.hours; track $index) { @if (it.is_h24) {
-                <p class="text-sm">{{ it.libelle }} 24H/24</p>
-                }@else {
-                <p class="text-sm">
-                  {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
-                </p>
-                } }
+            @if (item.type!=='ph') {
+              @if (item.hours.length) {
+              <div class="flex justify-start items-start gap-2">
+                <span class="material-symbols-outlined text-2xl text-ps-green">
+                  schedule
+                </span>
+                <div class="flex flex-col pt-2">
+                  @for (it of item.hours; track $index) { @if (it.is_h24) {
+                  <p class="text-sm">{{ it.libelle }} 24H/24</p>
+                  }@else {
+                  <p class="text-sm">
+                    {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
+                  </p>
+                  } }
+                </div>
               </div>
-            </div>
+              }
+            }
+            @else {
+              @switch (item.is_garde) {
+                @case (true) {
+                  <div class="flex justify-start items-start gap-2">
+                    <span class="material-symbols-outlined text-2xl text-ps-green">
+                      
+                    </span>
+                    <div style="font-weight: 800;" class="flex flex-col pt-2 text-ps-green-2 font-extrabold">
+                      DE GARDE
+                    </div>
+                  </div>
+                }
+                @case (false) {
+                  <div class="flex justify-start items-start gap-2">
+                    <span class="material-symbols-outlined text-2xl text-ps-green">
+                      
+                    </span>
+                    <div style="font-weight: 800;" class="flex flex-col pt-2 text-red-500 font-bold">
+                      PAS DE GARDE
+                    </div>
+                  </div>
+                }
+              }
             }
           </div>
           <div class="mt-6 w-[100px] h-1/4 gap-2 flex flex-wrap">
@@ -175,7 +325,10 @@
           </a>
         </div>
       </div>
-      } @if (meta) {
+      }
+      <!--end structure -->
+
+      @if (meta) {
 
       <div class="w-full pl-8 h-16 flex justify-start gap-4 items-center">
         @if (meta.previous_page_url) {

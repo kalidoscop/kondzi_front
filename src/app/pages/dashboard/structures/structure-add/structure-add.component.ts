@@ -129,6 +129,7 @@ export class StructureAddComponent {
     flagshipActivity: new FormControl(''),
     type: new FormControl('', Validators.required),
     assurance: new FormControl(''),
+    isGarde: new FormControl(false),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
     hours: new FormArray([], ArrayValidators.minLength(1)),
@@ -143,7 +144,15 @@ export class StructureAddComponent {
   get hours(): FormArray {
     return this.structureForm.get('hours') as FormArray;
   }
-  onSubmit() {
+  async onSubmit() {
+    console.log('coucou2');
+
+    // if (this.structureForm.value.type === 'ph') {
+    //   console.log('coucou3');
+
+    //  await this.pharmacieChange()
+    // }
+
     console.log(this.structureForm.value);
     let assu = '';
     let act = '';
@@ -191,19 +200,42 @@ export class StructureAddComponent {
   isH24 = true;
   isH24Change() {
     if (this.isH24) {
-      this.isH24 = !this.isH24;
+      this.isH24 = false;
       this.hoursGroup.controls.hStartH.setValue('');
       this.hoursGroup.controls.hStartM.setValue('');
       this.hoursGroup.controls.hEndH.setValue('');
       this.hoursGroup.controls.hEndM.setValue('');
     } else {
-      this.isH24 = !this.isH24;
+      this.isH24 = true;
       this.hoursGroup.controls.hStartH.setValue('00');
       this.hoursGroup.controls.hStartM.setValue('00');
       this.hoursGroup.controls.hEndH.setValue('00');
       this.hoursGroup.controls.hEndM.setValue('00');
     }
   }
+
+  pharmacieChange() {
+    this.hours.setValue([]);
+    if (this.structureForm.value.type === 'ph') {
+      this.hoursGroup.controls.hStartH.setValue('00');
+      this.hoursGroup.controls.hStartM.setValue('00');
+      this.hoursGroup.controls.hEndH.setValue('00');
+      this.hoursGroup.controls.hEndM.setValue('00');
+      const addingHours = new FormGroup({
+        libelle: new FormControl('Tous les jours'),
+        hStart: new FormControl(
+          this.hoursGroup.value.hStartH + 'h' + this.hoursGroup.value.hStartM
+        ),
+        hEnd: new FormControl(
+          this.hoursGroup.value.hEndH + 'h' + this.hoursGroup.value.hEndM
+        ),
+        isH24: new FormControl(this.hoursGroup.value.isH24),
+      });
+      console.log('coucou');
+      this.hours.push(addingHours);
+    }
+  }
+
   activityGroup = new FormGroup({
     libelle: new FormControl(''),
   });
@@ -253,7 +285,7 @@ export class StructureAddComponent {
       hEnd: new FormControl(
         this.hoursGroup.value.hEndH + 'h' + this.hoursGroup.value.hEndM
       ),
-      isH24: new FormControl(this.hoursGroup.value.isH24)
+      isH24: new FormControl(this.hoursGroup.value.isH24),
     });
     console.log('coucou');
     this.hours.push(addingHours);

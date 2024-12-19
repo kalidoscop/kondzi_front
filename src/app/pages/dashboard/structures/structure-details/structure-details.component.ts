@@ -135,6 +135,7 @@ export class StructureDetailsComponent implements OnInit {
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
     type: new FormControl(''),
+    isGarde: new FormControl(),
     assurance: new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
@@ -178,6 +179,8 @@ export class StructureDetailsComponent implements OnInit {
           assurance: new FormControl(``),
           flagshipActivity: new FormControl(''),
           activity: new FormControl(``),
+          isGarde: new FormControl(res.is_garde),
+
           type: new FormControl(`${res.type}`, Validators.required),
           adresse: new FormArray([], ArrayValidators.minLength(0)),
           network: new FormArray([], ArrayValidators.minLength(0)),
@@ -259,6 +262,27 @@ export class StructureDetailsComponent implements OnInit {
       this.hoursGroup.controls.hEndM.setValue('00');
     }
   }
+  pharmacieChange() {
+    this.hours.setValue([]);
+    if (this.structureForm.value.type === 'ph' && !this.hour.length) {
+      this.hoursGroup.controls.hStartH.setValue('00');
+      this.hoursGroup.controls.hStartM.setValue('00');
+      this.hoursGroup.controls.hEndH.setValue('00');
+      this.hoursGroup.controls.hEndM.setValue('00');
+      const addingHours = new FormGroup({
+        libelle: new FormControl('Tous les jours'),
+        hStart: new FormControl(
+          this.hoursGroup.value.hStartH + 'h' + this.hoursGroup.value.hStartM
+        ),
+        hEnd: new FormControl(
+          this.hoursGroup.value.hEndH + 'h' + this.hoursGroup.value.hEndM
+        ),
+        isH24: new FormControl(this.hoursGroup.value.isH24),
+      });
+      console.log('coucou');
+      this.hours.push(addingHours);
+    }
+  }
   activityGroup = new FormGroup({
     libelle: new FormControl(''),
   });
@@ -308,7 +332,7 @@ export class StructureDetailsComponent implements OnInit {
       hEnd: new FormControl(
         this.hoursGroup.value.hEndH + 'h' + this.hoursGroup.value.hEndM
       ),
-      isH24: new FormControl(this.hoursGroup.value.isH24)
+      isH24: new FormControl(this.hoursGroup.value.isH24),
     });
     console.log('coucou');
     this.hours.push(addingHours);

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Doctor } from '../_model/doctor';
 import { environment } from '../../environments/environment';
+import { DoctorQuery } from '../_model/doctorQuery';
 
 @Injectable({
   providedIn: 'root',
@@ -52,7 +53,22 @@ export class DoctorService {
     }),catchError((error) => this.handleError(error, [],error.error.message)))
   }
 
-  private log(object: Doctor | Doctor[] | Response, message?: string) {
+  search(newStrucutre:any,page?:string): Observable<DoctorQuery> {
+    if (page) {
+      return this.http.post<DoctorQuery>(`${environment.baseUrl}structure/search${page}`, newStrucutre,{
+        headers: this.tokenService.getOption(),
+      }).pipe(tap((structure)=>{
+        this.log(structure)
+      }),catchError((error)=>this.handleError(error,[])));
+    }
+    return this.http.post<DoctorQuery>(`${environment.baseUrl}structure/search`, newStrucutre,{
+      headers: this.tokenService.getOption(),
+    }).pipe(tap((structure)=>{
+      this.log(structure)
+    }),catchError((error)=>this.handleError(error,[])));
+  }
+
+  private log(object: Doctor | Doctor[] | Response |DoctorQuery, message?: string) {
     if (environment.isDevEnv) {
       if (object instanceof Array) {
         console.table(object);
