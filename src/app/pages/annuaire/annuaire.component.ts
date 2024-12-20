@@ -84,6 +84,10 @@ export class AnnuaireComponent implements OnInit {
   async ngOnInit() {
     this.scrollService.setNavbarOpaque(true);
     await this.loadStructure();
+    if (!this.structures.length) {
+      this.type.setValue('doc');
+      this.loadStructure();
+    }
     this.sharedService.callComponent$.subscribe(() => {
       // this.loadStructure();
       // console.log('hello evry body');
@@ -136,9 +140,7 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                this.type.setValue('doc')
-                this.loadStructure()
-                // this.initMap('map');
+                this.initMap('map');
               }
             });
         } else {
@@ -173,9 +175,7 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                this.type.setValue('doc')
-                this.loadStructure()
-                // this.initMap('map');
+                this.initMap('map');
               }
             });
         }
@@ -306,10 +306,7 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                // this.initMap('map');
-                this.type.setValue('doc')
-                this.loadStructure()
-
+                this.initMap('map');
               }
             });
         } else {
@@ -343,9 +340,7 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                // this.initMap('map');
-                this.type.setValue('doc')
-                this.loadStructure()
+                this.initMap('map');
               }
             });
         }
