@@ -269,7 +269,9 @@ export class NosMissionComponent implements OnInit {
         break;
       case 'repertoires-adresses-geolocalisees':
         this.pageService
-          .changPage({ repertoiresAdressesGeolocalisees: this.model.editorData })
+          .changPage({
+            repertoiresAdressesGeolocalisees: this.model.editorData,
+          })
           .subscribe(() => this.getPageContent());
         break;
       case 'bien-etre-infos-utiles':
@@ -279,7 +281,9 @@ export class NosMissionComponent implements OnInit {
         break;
       case 'accessibilite-conformite-partielle':
         this.pageService
-          .changPage({ accessibiliteConformitePartielle: this.model.editorData })
+          .changPage({
+            accessibiliteConformitePartielle: this.model.editorData,
+          })
           .subscribe(() => this.getPageContent());
         break;
       case 'conditions-generales-utilisation':
@@ -300,6 +304,11 @@ export class NosMissionComponent implements OnInit {
       case 'media-sante':
         this.pageService
           .changPage({ mediaSante: this.model.editorData })
+          .subscribe(() => this.getPageContent());
+        break;
+      case 'urgence':
+        this.pageService
+          .changPage({ urgence: this.model.editorData })
           .subscribe(() => this.getPageContent());
         break;
 

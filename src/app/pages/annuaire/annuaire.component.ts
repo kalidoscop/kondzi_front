@@ -136,7 +136,9 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                this.initMap('map');
+                this.type.setValue('doc')
+                this.loadStructure()
+                // this.initMap('map');
               }
             });
         } else {
@@ -171,7 +173,9 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                this.initMap('map');
+                this.type.setValue('doc')
+                this.loadStructure()
+                // this.initMap('map');
               }
             });
         }
@@ -302,7 +306,10 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                this.initMap('map');
+                // this.initMap('map');
+                this.type.setValue('doc')
+                this.loadStructure()
+
               }
             });
         } else {
@@ -336,7 +343,9 @@ export class AnnuaireComponent implements OnInit {
                 this.initMap('map');
               } else {
                 this.auLocations = [];
-                this.initMap('map');
+                // this.initMap('map');
+                this.type.setValue('doc')
+                this.loadStructure()
               }
             });
         }

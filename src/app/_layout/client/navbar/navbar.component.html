@@ -32,7 +32,9 @@
             (input)="onSearchChange()"
             placeholder="Votre recherche"
           />
-          @if (activities.length||activitiesF.length||assurance.length) {
+          @if
+          (activities.length||activitiesF.length||assurance.length||speciality.length)
+          {
           <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
           <div
             class="bg-white w-[22.3%] absolute max-h-96 overflow-y-auto z-30 sugg"
@@ -41,7 +43,7 @@
               class="fixed w-screen h-screen -z-20 top-0 left-0"
               (click)="closeSuggestion()"
             ></span>
-            <ul class="w-full">
+            <ul class="w-full flex flex-col justify-start items-center">
               <!-- @if (otherSuggestions.length) { 
                   @for (item of otherSuggestions;
                 track $index) {
@@ -60,9 +62,17 @@
               {
               <li
                 (click)="onActivityClick(item)"
-                class="w-full hover:bg-gray-200 min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+                class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
               >
-                <button type="button" class="w-full h-full text-start pl-4">
+                <button
+                  type="button"
+                  class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+                >
+                  <i-feather
+                    name="search"
+                    [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                    class="text-gray-500 font-bold w-full h-full text-center transition-all"
+                  ></i-feather>
                   {{ item }}
                 </button>
               </li>
@@ -71,9 +81,17 @@
               $index) {
               <li
                 (click)="onActivityClick(item)"
-                class="w-full hover:bg-gray-200 min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+                class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
               >
-                <button type="button" class="w-full h-full text-start pl-4">
+                <button
+                  type="button"
+                  class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+                >
+                  <i-feather
+                    name="search"
+                    [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                    class="text-gray-500 font-bold w-full h-full text-center transition-all"
+                  ></i-feather>
                   {{ item }}
                 </button>
               </li>
@@ -81,9 +99,35 @@
               $index) {
               <li
                 (click)="onActivityClick(item)"
-                class="w-full hover:bg-gray-200 min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+                class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
               >
-                <button type="button" class="w-full h-full text-start pl-4">
+                <button
+                  type="button"
+                  class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+                >
+                  <i-feather
+                    name="search"
+                    [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                    class="text-gray-500 font-bold w-full h-full text-center transition-all"
+                  ></i-feather>
+                  {{ item }}
+                </button>
+              </li>
+              } }@if (speciality.length) { @for (item of speciality; track
+              $index) {
+              <li
+                (click)="onActivityClick(item)"
+                class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
+              >
+                <button
+                  type="button"
+                  class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+                >
+                  <i-feather
+                    name="search"
+                    [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                    class="text-gray-500 font-bold w-full h-full text-center transition-all"
+                  ></i-feather>
                   {{ item }}
                 </button>
               </li>
@@ -123,8 +167,8 @@
         <i-feather name="search" class="text-white transition-all"></i-feather>
       </button>
     </form>
-    <!-- recher button  -->
 
+    <!-- recher button  -->
     <div
       class="lg:border-l-[2px] lg:border-r-[2px] lg:hidden transition-all border-ps-orange h-full w-[70px] lg:w-[7%]"
     >
@@ -141,6 +185,7 @@
       </a>
     </div>
     <!-- recher button  -->
+    
     <!-- menu button  -->
     <div
       class="hidden lg:block transition-all border-ps-orange h-full w-[70px] md:w-[7%]"
@@ -165,7 +210,9 @@
         }
       </button>
     </div>
-    <!-- for mobile  -->
+    <!-- menu button  -->
+    
+    <!-- menu button for mobile  -->
     <div class="lg:hidden transition-all h-full w-[70px] md:w-[7%]">
       <button
         type="button"
@@ -179,9 +226,9 @@
         ></i-feather>
       </button>
     </div>
-    <!-- for mobile  -->
+    <!-- menu button for mobile  -->
 
-    <!-- menu button  -->
+    <!-- Login button  -->
     <a
       [routerLink]="['/login']"
       class="w-1/12 h-5/6 hidden lg:flex justify-center items-center gap-4 text-2xl"
@@ -192,6 +239,7 @@
         class="text-white font-bold big transition-all"
       ></i-feather>
     </a>
+    <!-- Login button  -->
   </div>
   <!-- dekstop menu  -->
   <div
@@ -218,39 +266,6 @@
           Nos services
         </p>
       </button>
-      <!-- for mobile  -->
-      <div
-        class="md:hidden flex flex-col overflow-y-hidden w-full h-10 transition-all justify-start md:justify-center pl-2 items-start md:w-60 border-white border-t-2 border-b-2 md:border-none md:h-auto"
-        [ngClass]="{ openServiceMenuMobile: servieMenu === true }"
-      >
-        <button
-          class="md:border-l-2 md:border-r-2 text-white border-white w-full h-6 text-left"
-          (click)="openServiceMenu()"
-        >
-          Nos services
-        </button>
-        <div class="ml-4 mt-5 flex flex-col justify-start gap-3 items-start">
-          <a [routerLink]="['/actualites-sante']"
-            ><p class="text-center text-white">Actualités Santé</p></a
-          >
-          <!-- [routerLink]="['/nos-mission']" -->
-          <a [routerLink]="['/repertoires-adresses-geolocalisees']">
-            <p class="text-center text-white border-white">
-              Répertoires & Adresses géolocalisées
-            </p>
-          </a>
-          <a [routerLink]="['/bien-etre-infos-utiles']"
-            ><p class="text-center text-white border-white">
-              Bien-être & infos utiles
-            </p></a
-          >
-          <a [routerLink]="['/media-sante']"
-            ><p class="text-center text-white">MEDIA-SANTÉ</p></a
-          >
-        </div>
-      </div>
-      <!-- for mobile  -->
-
       <a
         class="w-full h-10 flex justify-start md:justify-center pl-2 items-center md:block md:w-60 border-b-2 border-white md:border-none md:h-auto"
         [routerLink]="['/nos-partenaires']"
@@ -288,17 +303,17 @@
           </p>
         </a>
         <a
-          class="w-full h-10 flex justify-center items-center md:w-60 border-b-2 border-white"
+          class="w-full h-10 flex justify-center items-center md:w-60 border-white"
           [routerLink]="['/bien-etre-infos-utiles']"
           ><p class="text-center border-white text-white">
             Bien-être & infos utiles
           </p></a
         >
-        <a
+        <!-- <a
           class="w-full h-10 flex justify-center items-center"
           [routerLink]="['/media-sante']"
           ><p class="text-center text-white">MEDIA-SANTÉ</p></a
-        >
+        > -->
       </div>
     </div>
     <!-- service menu  -->
@@ -306,12 +321,14 @@
   <!-- dekstop menu  -->
 </nav>
 <!-- @if (menuMobile) { -->
+
+<!-- dekstop menu  -->
 <div
   class="z-50 fixed w-0 top-0 right-0 opacity-0 h-screen transition-all bg-ps-green bg-opacity-55 overflow-y-auto flex justify-end items-center"
   [ngClass]="{ openMenuMobile: menuMobile === true }"
 >
   <div
-    class="h-full w-4/5 bg-ps-green flex flex-col justify-start items-center gap-4 text-white font-bold"
+    class="h-full w-4/6 bg-ps-green flex flex-col justify-start items-center gap-4 text-white font-bold"
   >
     <div class="w-full h-[15%] flex justify-between items-center">
       <a
@@ -336,14 +353,14 @@
         ></i-feather>
       </button>
     </div>
-    <div class="w-full border-white border-b-2">
+    <div class="w-full flex flex-col justify-start items-center">
       <a
-        class="w-full border-white border-t-2 h-10 flex justify-start pl-2 items-center"
+        class="w-11/12 border-gray-400 border-t-[1px]  pl-2 h-10 flex justify-start items-center"
         [routerLink]="['/qui-sommes-nous']"
         ><p class="text-center font-bold">Qui sommes-nous ?</p></a
       >
       <div
-        class="flex flex-col overflow-y-hidden w-full h-10 transition-all justify-start pl-2 items-start border-white border-t-2"
+        class="flex flex-col overflow-y-hidden w-11/12 h-10 transition-all justify-start pl-2 items-start border-gray-400 border-t-[1px]"
         [ngClass]="{ openServiceMenuMobile: servieMenu === true }"
       >
         <button
@@ -359,36 +376,36 @@
           ></i-feather>
         </button>
         <div
-          class="mt-5 flex flex-col border-white justify-start gap-3 items-start"
+          class="mt-5 w-full flex flex-col border-white justify-start gap-3 items-start"
         >
           <a
             [routerLink]="['/actualites-sante']"
-            class="w-full border-white border-t-2"
+            class="w-full border-gray-400 pl-2 border-t-[1px]"
             ><p class="font-bold">Actualités Santé</p></a
           >
           <!-- [routerLink]="['/nos-mission']" -->
           <a
             [routerLink]="['/repertoires-adresses-geolocalisees']"
-            class="w-full border-white border-t-2"
+            class="w-full border-gray-400 pl-2 border-t-[1px]"
           >
             <p class="font-bold">Répertoires & Adresses géolocalisées</p>
           </a>
           <a
             [routerLink]="['/bien-etre-infos-utiles']"
-            class="w-full border-white border-t-2"
+            class="w-full border-gray-400 pl-2 border-t-[1px]"
             ><p class="font-bold">Bien-être & infos utiles</p></a
-          >
-          <a
-            [routerLink]="['/media-sante']"
-            class="w-full border-white border-t-2"
-            ><p class="font-bold">MEDIA-SANTÉ</p></a
           >
         </div>
       </div>
       <a
-        class="w-full h-10 flex justify-start pl-2 items-center border-t-2 border-white"
+        class="w-11/12 h-10 flex justify-start pl-2 items-center border-gray-400 border-t-[1px]"
         [routerLink]="['/nos-partenaires']"
         ><p class="text-center font-bold">Nos partenaires</p></a
+      >
+      <a
+        [routerLink]="['/media-sante']"
+        class="w-11/12 h-10 flex justify-start pl-2 items-center border-gray-400 border-t-[1px] border-b-[1px]"
+        ><p class="font-bold">MEDIA-SANTÉ</p></a
       >
     </div>
     <a
@@ -398,6 +415,8 @@
     >
   </div>
 </div>
+<!-- dekstop menu  -->
+
 <!-- }  -->
 @if (showModal) {
 <form
@@ -405,16 +424,21 @@
   (ngSubmit)="onSubmit()"
   [formGroup]="search"
 >
-  <div class="w-full min-h-2/5 bg-ps-green flex flex-col items-center gap-10">
+  <div
+    class="w-full transition-all min-h-2/5 max-h-1/2 bg-ps-green flex flex-col items-center gap-10"
+  >
     <div class="w-full flex items-center justify-around mt-10">
-      <h1 (click)="closeModal()" class="flex justify-center gap-4 text-xl text-white items-center font-bold">
+      <h1
+        (click)="closeModal()"
+        class="flex justify-center gap-4 text-sm text-white items-center font-bold"
+      >
         <i-feather name="x" class="text-white transition-all"></i-feather>
-        Annuler
+        ANNULER
       </h1>
       <button
         type="submit"
         [disabled]="!search.valid"
-        class="w-3/5 h-[80px] rounded-r bg-black flex justify-center gap-4 text-md text-white items-center font-bold"
+        class="w-6/12 h-[50px] border-2 border-ps-green-2 rounded-2xl flex justify-center gap-4 text-md text-white items-center font-bold"
       >
         <i-feather name="search" class="text-white transition-all"></i-feather>
         RECHERCHER
@@ -422,22 +446,22 @@
     </div>
     <div class="w-10/12 flex flex-col justify-center items-center">
       <input
-      class="w-full h-[80px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200"
-      type="text"
-      formControlName="word"
-      placeholder="Votre recherche"
-      (input)="onSearchChange()"
-    />
-    @if (activities.length||activitiesF.length||assurance.length) {
+        class="w-full h-[60px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200"
+        type="text"
+        formControlName="word"
+        placeholder="Votre recherche"
+        (input)="onSearchChange()"
+      />
+      @if
+      (activities.length||activitiesF.length||assurance.length||speciality.length)
+      {
       <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
-      <div
-        class="bg-white w-full relative  max-h-96 overflow-y-auto z-30 sugg "
-      >
+      <div class="bg-white w-full relative max-h-96 overflow-y-auto z-30 sugg">
         <span
           class="fixed w-screen h-screen -z-20 top-0 left-0"
           (click)="closeSuggestion()"
         ></span>
-        <ul class="w-full">
+        <ul class="w-full flex justify-start items-center flex-col">
           <!-- @if (otherSuggestions.length) { 
               @for (item of otherSuggestions;
             track $index) {
@@ -452,13 +476,20 @@
 
             } 
             }  -->
-          @if (activities.length) { @for (item of activities; track $index)
-          {
+          @if (activities.length) { @for (item of activities; track $index) {
           <li
             (click)="onActivityClick(item)"
-            class="w-full hover:bg-gray-200 min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+            class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[1px] flex justify-center items-center border-gray-300"
           >
-            <button type="button" class="w-full h-full text-start pl-4">
+            <button
+              type="button"
+              class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+            >
+              <i-feather
+                name="search"
+                [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                class="text-gray-500 font-bold w-full h-full text-center transition-all"
+              ></i-feather>
               {{ item }}
             </button>
           </li>
@@ -467,19 +498,51 @@
           $index) {
           <li
             (click)="onActivityClick(item)"
-            class="w-full hover:bg-gray-200 min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+            class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[1px] flex justify-center items-center border-gray-300"
           >
-            <button type="button" class="w-full h-full text-start pl-4">
+            <button
+              type="button"
+              class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+            >
+              <i-feather
+                name="search"
+                [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                class="text-gray-500 font-bold w-full h-full text-center transition-all"
+              ></i-feather>
               {{ item }}
             </button>
           </li>
-          } } @if (assurance.length) { @for (item of assurance; track
-          $index) {
+          } } @if (assurance.length) { @for (item of assurance; track $index) {
           <li
             (click)="onActivityClick(item)"
-            class="w-full hover:bg-gray-200 min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+            class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[1px] flex justify-center items-center border-gray-300"
           >
-            <button type="button" class="w-full h-full text-start pl-4">
+            <button
+              type="button"
+              class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+            >
+              <i-feather
+                name="search"
+                [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                class="text-gray-500 font-bold w-full h-full text-center transition-all"
+              ></i-feather>
+              {{ item }}
+            </button>
+          </li>
+          } }@if (speciality.length) { @for (item of speciality; track $index) {
+          <li
+            (click)="onActivityClick(item)"
+            class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[1px] flex justify-center items-center border-gray-300"
+          >
+            <button
+              type="button"
+              class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+            >
+              <i-feather
+                name="search"
+                [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                class="text-gray-500 font-bold w-full h-full text-center transition-all"
+              ></i-feather>
               {{ item }}
             </button>
           </li>
@@ -487,19 +550,21 @@
         </ul>
       </div>
       }
-    <input
-      class="w-full h-[80px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200 mt-5 mb-5"
-      type="text"
-      id="search2"
-      formControlName="zone"
-      placeholder="Votre zone"
-    />
-   
+      <input
+        class="w-full h-[60px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200 mt-5 mb-5"
+        type="text"
+        id="search2"
+        formControlName="zone"
+        placeholder="Votre zone"
+      />
     </div>
   </div>
-  <div class="">
-    
+  <div
+    class="decoration w-full absolute bottom-0 h-4/6 -z-10 overflow-hidden bg-blue-500"
+  >
+    <app-carousel [images]="images"></app-carousel>
   </div>
+  <img src="images/logo condji-03.png" class="absolute bottom-0 w-1/3" alt="" />
   <!-- 
     <div
       class="w-11/12 h-3/5 flex flex-col rounded-l justify-around items-center bg-white bg-opacity-50"

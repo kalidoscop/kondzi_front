@@ -15,6 +15,7 @@ import { AccessibiliteConformitePartielleComponent } from './pages/accessibilite
 import { ConditionsGeneralesUtilisationComponent } from './pages/conditions-generales-utilisation/conditions-generales-utilisation.component';
 import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-legales.component';
 import { PolitiqueDeConfidentialiteComponent } from './pages/politique-de-confidentialite/politique-de-confidentialite.component';
+import { CasUrgenceComponent } from './pages/cas-urgence/cas-urgence.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -112,6 +113,13 @@ export const routes: Routes = [
     component:BaseComponent,
     children: [
       { path: '', component: PolitiqueDeConfidentialiteComponent },
+    ],
+  },
+  {
+    path: 'urgence',
+    component:BaseComponent,
+    children: [
+      { path: '', component: CasUrgenceComponent },
     ],
   },
 

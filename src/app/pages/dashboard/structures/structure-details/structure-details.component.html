@@ -52,21 +52,21 @@
     </div>
     @if (structureForm.value.type==='ph') {
 
-      <div class=" ml-5 flex flex-col w-3/12">
-        <label for="openingHours">De garde</label>
-        <div class="w-full flex justify-start gap-4 items-center">
-          <select
-            class="h-[5.5vh] w-2/5 text-center border border-ps-green"
-            required
-            formControlName="isGarde"
-            id=""
-            (change)="isH24Change()"
-          >
-            <option value="true">oui</option>
-            <option value="false">non</option>
-          </select>
-        </div>
+    <div class="ml-5 flex flex-col w-3/12">
+      <label for="openingHours">De garde</label>
+      <div class="w-full flex justify-start gap-4 items-center">
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="isGarde"
+          id=""
+          (change)="isH24Change()"
+        >
+          <option value="true">oui</option>
+          <option value="false">non</option>
+        </select>
       </div>
+    </div>
     }
   </div>
   <div class="row">
@@ -115,11 +115,16 @@
   </div>
   @if (structureForm.value.type !='ph') {
 
-<!-- heur douverture -->
+  <!-- heur douverture -->
   <div class="row" [formGroup]="hoursGroup">
     <div class="flex flex-col w-4/12">
       <label for="openingHours">Jours d'ouverture</label>
-      <select class="h-[5.5vh] border border-ps-green" formControlName="libelle" required id="">
+      <select
+        class="h-[5.5vh] border border-ps-green"
+        formControlName="libelle"
+        required
+        id=""
+      >
         <option value="Lundi">Lundi</option>
         <option value="Mardi">Mardi</option>
         <option value="Mercredi">Mercredi</option>
@@ -130,7 +135,7 @@
         <option value="Tous les jours">Tous les jours</option>
       </select>
     </div>
-    <div class=" ml-5 flex flex-col w-3/12">
+    <div class="ml-5 flex flex-col w-3/12">
       <label for="openingHours">24H/24H</label>
       <div class="w-full flex justify-start gap-4 items-center">
         <select
@@ -146,49 +151,67 @@
       </div>
     </div>
     @if (!isH24) {
-      <div class="flex flex-col w-3/12">
-        <label for="openingHours">Heure d'ouverture</label>
-        <div class="w-full flex justify-start gap-4 items-center">
-          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hStartH" id="">
-            @for (item of hourSlecte; track $index) {
-            <option [value]="item">{{ item }}</option>
-            }
-          </select>
-          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hStartM" id="">
-            @for (item of minute; track $index) {
-            <option [value]="item">{{ item }}</option>
-            }
-          </select>
-        </div>
+    <div class="flex flex-col w-3/12">
+      <label for="openingHours">Heure d'ouverture</label>
+      <div class="w-full flex justify-start gap-4 items-center">
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hStartH"
+          id=""
+        >
+          @for (item of hourSlecte; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hStartM"
+          id=""
+        >
+          @for (item of minute; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
       </div>
-      <div class="flex flex-col w-3/12">
-        <label for="openingHours">Heure de fermeture</label>
-        <div class="w-full flex justify-start gap-4 items-center">
-          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hEndH" id="">
-            @for (item of hourSlecte; track $index) {
-            <option [value]="item">{{ item }}</option>
-            }
-          </select>
-          <select class="h-[5.5vh] w-2/5 text-center border border-ps-green" required formControlName="hEndM" id="">
-            @for (item of minute; track $index) {
-            <option [value]="item">{{ item }}</option>
-            }
-          </select>
-        </div>
+    </div>
+    <div class="flex flex-col w-3/12">
+      <label for="openingHours">Heure de fermeture</label>
+      <div class="w-full flex justify-start gap-4 items-center">
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hEndH"
+          id=""
+        >
+          @for (item of hourSlecte; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hEndM"
+          id=""
+        >
+          @for (item of minute; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
       </div>
+    </div>
     }
-    
-    
+
     <div class="flex justify-center items-center w-1/12 h-[7vh]">
       <input
-            type="button"
-            class="bg-ps-green text-white font-bold text-center w-full hover:shadow-md hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_50px] transition-all h-[4vh] m-1"
-            (click)="addHours()"
-            [disabled]="!hoursGroup.valid"
-            value="Ajouter"
-          />
+        type="button"
+        class="bg-ps-green text-white font-bold text-center w-full hover:shadow-md hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_50px] transition-all h-[4vh] m-1"
+        (click)="addHours()"
+        [disabled]="!hoursGroup.valid"
+        value="Ajouter"
+      />
     </div>
-
   </div>
   <!-- end heure ouverture  -->
   <div class="row">
@@ -203,39 +226,40 @@
       </thead>
       <tbody>
         <!-- old hours -->
-        <tr  class="h-12" *ngFor="
-        let item of hour;
-        let i = index
-      ">
-          <td class="text-right">{{item.libelle}}</td>
-          <td class="text-right">{{item.h_start}}</td>
-          <td class="text-right">{{item.h_end}}</td>
-          <td class="text-right"><a (click)="removeOldHours(item.id)">
-            <i-feather
-              name="x"
-              class="text-red-500 transition-all"
-            ></i-feather>
-          </a></td>
+        <tr class="h-12" *ngFor="let item of hour; let i = index">
+          <td class="text-right">{{ item.libelle }}</td>
+          <td class="text-right">{{ item.h_start }}</td>
+          <td class="text-right">{{ item.h_end }}</td>
+          <td class="text-right">
+            <a (click)="removeOldHours(item.id)">
+              <i-feather
+                name="x"
+                class="text-red-500 transition-all"
+              ></i-feather>
+            </a>
+          </td>
         </tr>
         <!-- new hours -->
-        <tr  class="h-12 bg-blue-100" *ngFor="
-        let item of hours.value;
-        let i = index
-      ">
-          <td class="text-right">{{item.libelle}}</td>
-          <td class="text-right">{{item.hStart}}</td>
-          <td class="text-right">{{item.hEnd}}</td>
-          <td class="text-right"><a (click)="removeHours(i)">
-            <i-feather
-              name="x"
-              class="text-red-500 transition-all"
-            ></i-feather>
-          </a></td>
+        <tr
+          class="h-12 bg-blue-100"
+          *ngFor="let item of hours.value; let i = index"
+        >
+          <td class="text-right">{{ item.libelle }}</td>
+          <td class="text-right">{{ item.hStart }}</td>
+          <td class="text-right">{{ item.hEnd }}</td>
+          <td class="text-right">
+            <a (click)="removeHours(i)">
+              <i-feather
+                name="x"
+                class="text-red-500 transition-all"
+              ></i-feather>
+            </a>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-}
+  }
   <!-- assurance -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="assurenceGroup">
@@ -248,7 +272,12 @@
           class="w-auto h-8 p-1 flex justify-center gap-2 items-center text-center rounded-md bg-blue-100 m-1"
         >
           <p>{{ item }}</p>
-          <a type="button" (click)="removeAssurance($index)" class="flex h-full justify-center items-center"><i-feather name="x"></i-feather></a>
+          <a
+            type="button"
+            (click)="removeAssurance($index)"
+            class="flex h-full justify-center items-center"
+            ><i-feather name="x"></i-feather
+          ></a>
         </div>
         }
       </div>
@@ -262,7 +291,7 @@
     </div>
   </div>
   <!-- end assurance -->
-   <!-- activity  -->
+  <!-- activity  -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="activityGroup">
       <label for="activity">activité de la structure</label>
@@ -274,7 +303,12 @@
           class="w-auto h-8 p-1 flex justify-center gap-2 items-center text-center rounded-md bg-blue-100 m-1"
         >
           <p>{{ item }}</p>
-          <a type="button" (click)="removeActivity($index)" class="flex h-full justify-center items-center"><i-feather name="x"></i-feather></a>
+          <a
+            type="button"
+            (click)="removeActivity($index)"
+            class="flex h-full justify-center items-center"
+            ><i-feather name="x"></i-feather
+          ></a>
         </div>
         }
       </div>
@@ -299,7 +333,12 @@
           class="w-auto h-8 p-1 flex justify-center gap-2 items-center text-center rounded-md bg-blue-100 m-1"
         >
           <p>{{ item }}</p>
-          <a type="button" (click)="removeActivityPh($index)" class="flex h-full justify-center items-center"><i-feather name="x"></i-feather></a>
+          <a
+            type="button"
+            (click)="removeActivityPh($index)"
+            class="flex h-full justify-center items-center"
+            ><i-feather name="x"></i-feather
+          ></a>
         </div>
         }
       </div>
@@ -533,7 +572,6 @@
               <option value="x">X</option>
               <option value="web">Site web</option>
               <option value="linkedin">Linkedin</option>
-
             </select>
           </td>
           <td>
@@ -572,7 +610,7 @@
       type="submit"
       class="w-2/5 h-[5vh] bg-ps-green font-bold text-2xl text-white text-center hover:shadow-md transition-all hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_100px]"
       [disabled]="!structureForm.valid"
-      >
+    >
       Enregistrer les modifications
     </button>
   </div>

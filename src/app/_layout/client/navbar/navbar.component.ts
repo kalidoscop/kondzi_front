@@ -19,11 +19,13 @@ import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query
 
 import '@algolia/autocomplete-theme-classic';
 import { ModalComponent } from '../../../pages/component/modal/modal.component';
+import { CarouselModule } from '../../../pages/component/carousel/carousel.module';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   imports: [
+    CarouselModule,
     IconsModule,
     ReactiveFormsModule,
     ModalComponent,
@@ -41,6 +43,29 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.scrollSubscription?.unsubscribe();
   }
+  images = [
+    {
+      imageSrc: 'images/image defilante.jpg',
+      imageAlt: 'image1',
+      text: 'Plateforme réseau N°1 des acteurs professionnels de santé au Togo',
+    },
+    {
+      imageSrc: 'images/01.jpg',
+      imageAlt: 'image2',
+      text: 'Une urgence vitale de santé, consultez KONDZI.COM',
+    },
+    {
+      imageSrc: 'images/02.jpg',
+      imageAlt: 'image3',
+      text: 'Des informations en santé fiables à portée de main sur KONDZI.COM',
+    },
+
+    {
+      imageSrc: 'images/03.jpg',
+      imageAlt: 'image4',
+      text: 'KONDZI.COM, des renseignements 24h/24 partout au Togo',
+    },
+  ];
   place: google.maps.places.PlaceResult | null = null;
 
   dataservice = inject(DataService);
@@ -81,7 +106,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       west: center.lng - 0.1,
     };
     const input = document.getElementById('search') as HTMLInputElement;
-    const input2 = document.getElementById('search2') as HTMLInputElement;
+    // const input2 = document.getElementById('search2') as HTMLInputElement;
     // console.log(input);
 
     const options = {
@@ -94,10 +119,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       input,
       options
     );
-    const autocompletes2 = await new google.maps.places.Autocomplete(
-      input2,
-      options
-    );
+    // const autocompletes2 = await new google.maps.places.Autocomplete(
+    //   input2,
+    //   options
+    // );
     autocompletes.addListener('place_changed', () => {
       console.log('coucou');
       // console.log(autocomplete.)
@@ -105,13 +130,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.place = place;
       console.log(place);
     });
-    autocompletes2.addListener('place_changed', () => {
-      console.log('coucou');
-      // console.log(autocomplete.)
-      const place = autocompletes.getPlace();
-      this.place = place;
-      console.log(place);
-    });
+    // autocompletes2.addListener('place_changed', () => {
+    //   console.log('coucou');
+    //   // console.log(autocomplete.)
+    //   const place = autocompletes.getPlace();
+    //   this.place = place;
+    //   console.log(place);
+    // });
     // const querySuggestionsPlugin = createQuerySuggestionsPlugin({
     //   searchClient,
     //   indexName: 'kondzi_dev',
@@ -138,7 +163,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   menuMobile: boolean = false;
 
   search = new FormGroup({
-    word: new FormControl('',Validators.required),
+    word: new FormControl('', Validators.required),
     zone: new FormControl(''),
   });
   // type: new FormControl(''),
@@ -194,8 +219,28 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
   showModal = false;
 
-  openModal() {
+  async openModal() {
     this.showModal = true;
+    const center = { lat: 50.064192, lng: -130.605469 };
+
+    const input2 = document.getElementById('search2') as HTMLInputElement;
+    // console.log(input);
+    const defaultBounds = {
+      north: center.lat + 0.1,
+      south: center.lat - 0.1,
+      east: center.lng + 0.1,
+      west: center.lng - 0.1,
+    };
+    const options = {
+      bounds: defaultBounds,
+      componentRestrictions: { country: 'tg' },
+      fields: ['address_components', 'geometry', 'icon', 'name'],
+      strictBounds: false,
+    };
+    const autocompletes2 = await new google.maps.places.Autocomplete(
+      input2,
+      options
+    );
   }
 
   closeModal() {
@@ -205,17 +250,20 @@ export class NavbarComponent implements OnInit, OnDestroy {
   activities: string[] = [];
   activitiesF: string[] = [];
   assurance: string[] = [];
+  speciality: string[] = [];
   otherSuggestions: {
     id: string;
     name: string;
     domaine: string;
   }[] = [];
 
-  closeSuggestion(){
+  closeSuggestion() {
     this.activities = []; // Suggestions d'activités
-      this.activitiesF = []; // Suggestions d'activités
-      this.assurance = []; // Suggestions d'activités
-      this.otherSuggestions = [];
+    this.activitiesF = []; // Suggestions d'activités
+    this.assurance = []; // Suggestions d'activités
+    this.otherSuggestions = [];
+    this.speciality = [];
+
   }
 
   onSearchChange(): void {
@@ -224,14 +272,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.activitiesF = []; // Suggestions d'activités
       this.assurance = []; // Suggestions d'activités
       this.otherSuggestions = [];
+      this.speciality = [];
       if (this.search.value.word.length > 1) {
         this.structureService.suggestio(this.search.value.word).subscribe({
           next: (data) => {
             this.activities = data.activities; // Suggestions d'activités
-            console.log(this.activities);
             this.activitiesF = data.activities_f; // Suggestions d'activités
             this.assurance = data.assurance; // Suggestions d'activités
             this.otherSuggestions = data.suggestions; // Autres suggestions
+            this.speciality = data.speciality; // Autres suggestions
+            console.log(this.speciality);
           },
 
           error: (err) =>
@@ -249,7 +299,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   onActivityClick(activity: string): void {
     console.log('Activité sélectionnée :', activity);
     this.search.controls.word.setValue(activity);
-    this.closeSuggestion()
+    this.closeSuggestion();
     // Effectuer une action, par exemple, effectuer une recherche basée sur cette activité
   }
 }
