@@ -84,10 +84,10 @@ export class AnnuaireComponent implements OnInit {
   async ngOnInit() {
     this.scrollService.setNavbarOpaque(true);
     await this.loadStructure();
-    if (!this.structures.length) {
-      this.type.setValue('doc');
-      this.loadStructure();
-    }
+    // if (!this.structures.length) {
+    //   this.type.setValue('doc');
+    //   this.loadStructure();
+    // }
     this.sharedService.callComponent$.subscribe(() => {
       // this.loadStructure();
       // console.log('hello evry body');
