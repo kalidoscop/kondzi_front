@@ -418,11 +418,12 @@
 <!-- dekstop menu  -->
 
 <!-- }  -->
-@if (showModal) {
+<!-- @if (showModal) { -->
 <form
-  class="w-screen h-screen bg-white fixed top-0 left-0 z-30 flex flex-col items-center justify-start"
+  class="w-screen h-screen bg-white fixed top-0 left-0 z-30 hidden flex-col items-center justify-start"
   (ngSubmit)="onSubmit()"
   [formGroup]="search"
+  [ngClass]="{'inblox': showModal == true}"
 >
   <div
     class="w-full transition-all min-h-2/5 max-h-1/2 bg-ps-green flex flex-col items-center gap-10"
@@ -445,6 +446,7 @@
       </button>
     </div>
     <div class="w-10/12 flex flex-col justify-center items-center">
+      <p class="text-sm mb-2 text-gray-100">saisir les 3 premières lettres de votre recherche</p>
       <input
         class="w-full h-[60px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200"
         type="text"
@@ -574,4 +576,4 @@
     </div>
      -->
 </form>
-}
+<!-- } -->

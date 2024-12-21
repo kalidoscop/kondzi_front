@@ -28,7 +28,6 @@ import { CarouselModule } from '../../../pages/component/carousel/carousel.modul
     CarouselModule,
     IconsModule,
     ReactiveFormsModule,
-    ModalComponent,
     RouterModule,
     NgClass,
   ],
@@ -106,7 +105,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       west: center.lng - 0.1,
     };
     const input = document.getElementById('search') as HTMLInputElement;
-    // const input2 = document.getElementById('search2') as HTMLInputElement;
+    const input2 = document.getElementById('search2') as HTMLInputElement;
     // console.log(input);
 
     const options = {
@@ -119,10 +118,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
       input,
       options
     );
-    // const autocompletes2 = await new google.maps.places.Autocomplete(
-    //   input2,
-    //   options
-    // );
+    const autocompletes2 = await new google.maps.places.Autocomplete(
+      input2,
+      options
+    );
     autocompletes.addListener('place_changed', () => {
       console.log('coucou');
       // console.log(autocomplete.)

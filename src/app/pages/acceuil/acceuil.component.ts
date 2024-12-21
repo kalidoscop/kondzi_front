@@ -7,6 +7,11 @@ import { ScrollService } from '../../_services/scroll.service';
 import { ModalComponent } from '../component/modal/modal.component';
 import { ArticleService } from '../../_services/article.service';
 import { Article } from '../../_model/article';
+import { formatDate, registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+
+registerLocaleData(localeFr, 'fr');
+
 
 
 @Component({
@@ -85,6 +90,13 @@ export class AcceuilComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
+  }
+
+  Date(date: string | null | undefined): string {
+    if (date) {
+      return formatDate(date, 'shortDate', 'fr-FR');
+    }
+    return '';
   }
 
   
