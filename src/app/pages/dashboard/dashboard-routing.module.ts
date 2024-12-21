@@ -6,7 +6,7 @@ import { BaseComponent } from '../../_layout/dashbord/base/base.component';
 const routes: Routes = [
   {
     path: '',
-    component:BaseComponent,
+    component: BaseComponent,
     children: [
       { path: '', redirectTo: 'stuctures', pathMatch: 'full' },
       // {path:'stuctures',component: StructureListComponent},
@@ -18,12 +18,20 @@ const routes: Routes = [
           ),
       },
       {
-        path:'doctors',
-        loadChildren:()=> import('./doctors/doctors.module').then((m)=>m.DoctorsModule)
+        path: 'doctors',
+        loadChildren: () =>
+          import('./doctors/doctors.module').then((m) => m.DoctorsModule),
       },
       {
-        path:'menu',loadChildren:()=>import('./menu/menu.module').then((m)=>m.MenuModule) 
-      }
+        path: 'menu',
+        loadChildren: () =>
+          import('./menu/menu.module').then((m) => m.MenuModule),
+      },
+      {
+        path: 'article',
+        loadChildren: () =>
+          import('./article/article.module').then((m) => m.ArticleModule),
+      },
     ],
   },
 ];

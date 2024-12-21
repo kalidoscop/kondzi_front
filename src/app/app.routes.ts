@@ -16,6 +16,7 @@ import { ConditionsGeneralesUtilisationComponent } from './pages/conditions-gene
 import { MentionsLegalesComponent } from './pages/mentions-legales/mentions-legales.component';
 import { PolitiqueDeConfidentialiteComponent } from './pages/politique-de-confidentialite/politique-de-confidentialite.component';
 import { CasUrgenceComponent } from './pages/cas-urgence/cas-urgence.component';
+import { ArticleComponent } from './pages/article/article.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -120,6 +121,13 @@ export const routes: Routes = [
     component:BaseComponent,
     children: [
       { path: '', component: CasUrgenceComponent },
+    ],
+  },
+  {
+    path: 'article/:id',
+    component:BaseComponent,
+    children: [
+      { path: '', component: ArticleComponent },
     ],
   },
 

@@ -73,6 +73,18 @@ export class StructureService {
         catchError((error) => this.handleError(error, [],error.error.message))
       );
   }
+  deleteStructure(id:string): Observable<Response> {
+    return this.http
+      .delete<Response>(`${environment.baseUrl}structure/${id}`, {
+        headers: this.tokenService.getOption(),
+      })
+      .pipe(
+        tap((Response) => {
+          this.log([],Response.message);
+        }),
+        catchError((error) => this.handleError(error, [],error.error.message))
+      );
+  }
   deleteStructurNetwork(id:string): Observable<Response> {
     return this.http
       .delete<Response>(`${environment.baseUrl}structure/network/${id}`, {

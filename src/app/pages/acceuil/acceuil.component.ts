@@ -5,6 +5,8 @@ import { RouterLink } from '@angular/router';
 import { FooterComponent } from '../component/footer/footer.component';
 import { ScrollService } from '../../_services/scroll.service';
 import { ModalComponent } from '../component/modal/modal.component';
+import { ArticleService } from '../../_services/article.service';
+import { Article } from '../../_model/article';
 
 
 @Component({
@@ -15,12 +17,26 @@ import { ModalComponent } from '../component/modal/modal.component';
   styleUrl: './acceuil.component.scss',
 })
 export class AcceuilComponent implements OnInit {
+  articles : Article[]=[]
   ngOnInit(): void {
-    const scriptTag = document.createElement('script')
-    scriptTag.src = 'https://www.youtube.com/iframe_api'
-    document.body.appendChild(scriptTag)
+    this.loadArticles()
   }
+  loadArticles(){
+    this.articleService.getArticles().subscribe((res)=>{
+      this.articles=res
+      console.log(this.articles);
+      
+
+    })
+  }
+
+  // ngOnInit(): void {
+  //   // const scriptTag = document.createElement('script')
+  //   // scriptTag.src = 'https://www.youtube.com/iframe_api'
+  //   // document.body.appendChild(scriptTag)
+  // }
   scrollService = inject(ScrollService)
+  articleService = inject(ArticleService)
   
 
   images = [

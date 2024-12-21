@@ -17,4 +17,10 @@ export const navbarData = [
     label: 'Menu',
     open: true,
   },
+  {
+    link: '/dashboard/article',
+    icon: 'home',
+    label: 'Article',
+    open: true,
+  },
 ];

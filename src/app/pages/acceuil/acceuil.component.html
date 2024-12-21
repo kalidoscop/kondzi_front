@@ -30,16 +30,12 @@
       class="w-full pb-9 pt-9 flex flex-col lg:flex-row justify-center gap-4 bg-gray-100"
     >
       <div
-        class="lg:min-w-[300px] lg:max-w-[500px] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
+        class="lg:min-w-[400px] lg:max-w-[500px] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
       >
-        <h1 class="text-2xl mt-4 mb-9 font-bold">PRÉSENTATION KONDZI.COM</h1>
-        <!-- <div
-          class="w-11/12 rounded mb-9 h-96 shadow-md border-[1px] border-gray-300 bg-white"
-        > -->
-        <!-- <youtube-player class="w-1/4 bg-blue-400 h-auto" videoId="bGxRcV7EUtg"></youtube-player> -->
-        <!-- <iframe  width="95%" height="345" src="https://www.youtube.com/embed/bGxRcV7EUtg">
-        </iframe> -->
-        <button class="youtube w-11/12 h-96 flex justify-center items-center">
+        <h1 class="text-2xl mt-4 text-center font-bold">
+          PRÉSENTATION KONDZI.COM
+        </h1>
+        <button class="youtube w-11/12 h-80 flex justify-center items-center">
           <span
             (click)="openModal()"
             class="material-symbols-outlined text-7xl transition-all text-red-700 hover:text-9xl"
@@ -47,94 +43,120 @@
             smart_display
           </span>
         </button>
-        <!-- <div  src="" width="95%" alt="Aperçu de la vidéo" /> -->
-
-        <!-- <button class="absolute mt-1/6 bg-blue-300" (click)="openModal()">ouvrire</button> -->
-        <!-- </div> -->
-        <!-- article -->
+        @if (articles[0]) {
+        <div
+          class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+        >
+          <div class="w-full h-24 bg-orange-500"></div>
+          <div class="w-full p-4 flex flex-col">
+            <h1 class="mb-7 font-bold">
+              {{ articles[0].title }}
+            </h1>
+            <p class="text-left text-sm">
+              Publié le date <br />
+              par {{ articles[0].autor }}
+            </p>
+            <a
+              [routerLink]="['/article/', articles[0].id]"
+              class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+            >
+              LIRE L'ARTICLE
+            </a>
+          </div>
+        </div>
+        } @if (articles[1]) {
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
           <div class="w-full h-24 bg-orange-500"></div>
-          <div class="w-full p-4">
+          <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
-              perdre du poids ?
+              {{ articles[1].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
+              Publié le date <br />
+              par {{ articles[1].autor }}
             </p>
-            <button
+            <a
+              [routerLink]="['/article/', articles[1].id]"
               class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
             >
               LIRE L'ARTICLE
-            </button>
+            </a>
           </div>
         </div>
-        <div
-          class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
-        >
-          <div class="w-full h-24 bg-orange-500"></div>
-          <div class="w-full p-4">
-            <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
-              perdre du poids ?
-            </h1>
-            <p class="text-left text-sm">
-              Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
-            </p>
-            <button
-              class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
-            >
-              LIRE L'ARTICLE
-            </button>
-          </div>
-        </div>
+        }
         <!-- article -->
       </div>
       <div
-        class="lg:min-w-[300px] lg:max-w-[400px] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
+        class="lg:min-w-[400px] lg:max-w-[400px] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
       >
         <h1 class="text-2xl mt-4 mb-9 font-bold">NOS SÉLECTIONS</h1>
         <!-- article -->
+        @if (articles[2]) {
         <div
-          class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
           <div class="w-full h-24 bg-orange-500"></div>
-          <div class="w-full p-4">
+          <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
-              perdre du poids ?
+              {{ articles[2].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
+              Publié le date <br />
+              par {{ articles[2].autor }}
             </p>
-            <button
+            <a
+              [routerLink]="['/article/', articles[2].id]"
               class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
             >
               LIRE L'ARTICLE
-            </button>
+            </a>
           </div>
         </div>
+        } @if (articles[3]) {
         <div
-          class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
           <div class="w-full h-24 bg-orange-500"></div>
-          <div class="w-full p-4">
+          <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
-              Le jeûne occasionnel est-il bon pour la santé ? Permet-il de
-              perdre du poids ?
+              {{ articles[3].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le 19/12/2022 <br />Proposé par Santé.fr Décryptage
+              Publié le date <br />
+              par {{ articles[3].autor }}
             </p>
-            <button
+            <a
+              [routerLink]="['/article/', articles[3].id]"
               class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
             >
               LIRE L'ARTICLE
-            </button>
+            </a>
           </div>
         </div>
+        } @if (articles[4]) {
+        <div
+          class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+        >
+          <div class="w-full h-24 bg-orange-500"></div>
+          <div class="w-full p-4 flex flex-col">
+            <h1 class="mb-7 font-bold">
+              {{ articles[4].title }}
+            </h1>
+            <p class="text-left text-sm">
+              Publié le date <br />
+              par {{ articles[4].autor }}
+            </p>
+            <a
+              [routerLink]="['/article/', articles[4].id]"
+              class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+            >
+              LIRE L'ARTICLE
+            </a>
+          </div>
+        </div>
+        }
         <!-- article -->
       </div>
       <div class="lg:w-[400px]">
@@ -142,7 +164,8 @@
           class="w-full h-32 mb-9 flex flex-col justify-center items-center rounded border-2 border-red-600 bg-white"
         >
           <h1 class="text-xl text-red-600 font-bold">EN CAS D'URGENCE</h1>
-          <a [routerLink]="['/urgence']"
+          <a
+            [routerLink]="['/urgence']"
             class="transition mt-4 border rounded-full border-red-600 text-white px-4 py-2 bg-red-600 hover:text-white"
           >
             Conseils & numéros utiles

@@ -6,6 +6,8 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { Doctor } from '../_model/doctor';
 import { environment } from '../../environments/environment';
 import { DoctorQuery } from '../_model/doctorQuery';
+import { Response } from '../_model/response';
+
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +52,14 @@ export class DoctorService {
       headers:this.tokenService.getOption()
     }).pipe(tap((doctor)=>{
       this.log(doctor,'Médécin est bien modifié')
+    }),catchError((error) => this.handleError(error, [],error.error.message)))
+  }
+
+  deleteDotor(id:string):Observable<Response>{
+    return this.http.delete<Response>(`${environment.baseUrl}doctor/${id}`,{
+      headers:this.tokenService.getOption()
+    }).pipe(tap((Response)=>{
+      this.log([],Response.message)
     }),catchError((error) => this.handleError(error, [],error.error.message)))
   }
 
