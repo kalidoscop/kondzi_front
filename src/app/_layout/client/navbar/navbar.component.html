@@ -33,7 +33,7 @@
             placeholder="Votre recherche"
           />
           @if
-          (activities.length||activitiesF.length||assurance.length||speciality.length)
+          (activities.length||activitiesF.length||assurance.length||speciality.length ||name.length||doc_name.length)
           {
           <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
           <div
@@ -58,8 +58,42 @@
   
                 } 
                 }  -->
-              @if (activities.length) { @for (item of activities; track $index)
-              {
+              @if (name.length) { @for (item of name; track $index) {
+              <li
+                (click)="onActivityClick(item)"
+                class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
+              >
+                <button
+                  type="button"
+                  class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+                >
+                  <i-feather
+                    name="search"
+                    [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                    class="text-gray-500 font-bold w-full h-full text-center transition-all"
+                  ></i-feather>
+                  {{ item }}
+                </button>
+              </li>
+              } } @if (doc_name.length) { @for (item of doc_name; track $index) {
+              <li
+                (click)="onActivityClick(item)"
+                class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
+              >
+                <button
+                  type="button"
+                  class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+                >
+                  <i-feather
+                    name="search"
+                    [ngClass]="{ 'icone-opaque': navbarOpaque }"
+                    class="text-gray-500 font-bold w-full h-full text-center transition-all"
+                  ></i-feather>
+                  {{ item }}
+                </button>
+              </li>
+              } }@if (activities.length) { @for (item of activities; track
+              $index) {
               <li
                 (click)="onActivityClick(item)"
                 class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
@@ -185,7 +219,7 @@
       </a>
     </div>
     <!-- recher button  -->
-    
+
     <!-- menu button  -->
     <div
       class="hidden lg:block transition-all border-ps-orange h-full w-[70px] md:w-[7%]"
@@ -211,7 +245,7 @@
       </button>
     </div>
     <!-- menu button  -->
-    
+
     <!-- menu button for mobile  -->
     <div class="lg:hidden transition-all h-full w-[70px] md:w-[7%]">
       <button
@@ -336,11 +370,7 @@
         routerLinkActive="router-link-active"
         class="h-full"
       >
-        <img
-          class="ml-4 h-[100%]"
-          src="images/logo condji-03.png"
-          alt=""
-        />
+        <img class="ml-4 h-[100%]" src="images/logo condji-03.png" alt="" />
       </a>
       <button
         type="button"
@@ -355,7 +385,7 @@
     </div>
     <div class="w-full flex flex-col justify-start items-center">
       <a
-        class="w-11/12 border-gray-400 border-t-[1px]  pl-2 h-10 flex justify-start items-center"
+        class="w-11/12 border-gray-400 border-t-[1px] pl-2 h-10 flex justify-start items-center"
         [routerLink]="['/qui-sommes-nous']"
         ><p class="text-center font-bold">Qui sommes-nous ?</p></a
       >
@@ -423,7 +453,7 @@
   class="w-screen h-screen bg-white fixed top-0 left-0 z-30 hidden flex-col items-center justify-start"
   (ngSubmit)="onSubmit()"
   [formGroup]="search"
-  [ngClass]="{'inblox': showModal == true}"
+  [ngClass]="{ inblox: showModal == true }"
 >
   <div
     class="w-full transition-all min-h-2/5 max-h-1/2 bg-ps-green flex flex-col items-center gap-10"
@@ -446,7 +476,9 @@
       </button>
     </div>
     <div class="w-10/12 flex flex-col justify-center items-center">
-      <p class="text-sm mb-2 text-gray-100 italic">(saisir les 3 premières lettres de votre recherche)</p>
+      <p class="text-sm mb-2 text-gray-100 italic">
+        (saisir les 3 premières lettres de votre recherche)
+      </p>
       <input
         class="w-full h-[60px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200"
         type="text"
@@ -566,7 +598,11 @@
   >
     <app-carousel [images]="images"></app-carousel>
   </div>
-  <img src="images/logo condji-03.png" class="absolute bottom-20 w-1/3" alt="" />
+  <img
+    src="images/logo condji-03.png"
+    class="absolute bottom-20 w-1/3"
+    alt=""
+  />
   <!-- 
     <div
       class="w-11/12 h-3/5 flex flex-col rounded-l justify-around items-center bg-white bg-opacity-50"

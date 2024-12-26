@@ -3,9 +3,11 @@ export interface Suggestion {
   activities_f: string[];
   assurance: string[];
   speciality:string[];
-  suggestions: {
-    id: string;
-    name: string;
-    domaine: string;
-  }[];
+  name:string[];
+  doc_name:string[];
+  // suggestions: {
+  //   id: string;
+  //   name: string;
+  //   domaine: string;
+  // }[];
 }

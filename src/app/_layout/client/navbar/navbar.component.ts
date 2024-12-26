@@ -250,6 +250,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   activitiesF: string[] = [];
   assurance: string[] = [];
   speciality: string[] = [];
+  name: string[] = [];
+  doc_name: string[] = [];
   otherSuggestions: {
     id: string;
     name: string;
@@ -262,6 +264,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.assurance = []; // Suggestions d'activités
     this.otherSuggestions = [];
     this.speciality = [];
+    this.name = [];
+    this.doc_name = [];
 
   }
 
@@ -272,15 +276,19 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.assurance = []; // Suggestions d'activités
       this.otherSuggestions = [];
       this.speciality = [];
+      this.name = [];
+      this.doc_name = [];
       if (this.search.value.word.length > 1) {
         this.structureService.suggestio(this.search.value.word).subscribe({
           next: (data) => {
             this.activities = data.activities; // Suggestions d'activités
             this.activitiesF = data.activities_f; // Suggestions d'activités
             this.assurance = data.assurance; // Suggestions d'activités
-            this.otherSuggestions = data.suggestions; // Autres suggestions
+            // this.otherSuggestions = data.suggestions; // Autres suggestions
             this.speciality = data.speciality; // Autres suggestions
-            console.log(this.speciality);
+            this.name = data.name; // Autres suggestions
+            this.doc_name = data.doc_name; // Autres suggestions
+            console.log(this.doc_name);
           },
 
           error: (err) =>
