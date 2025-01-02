@@ -44,6 +44,7 @@
         required
       />
     </div>
+    
 
     <!-- <div class="flex flex-col w-[48%]">
       <label for="speciality">secteur d'activité du médécin</label>
@@ -59,6 +60,36 @@
       </select>
     </div> -->
   </div>
+  <!-- activity -->
+  <div class="row">
+    <div class="flex flex-col w-1/2" [formGroup]="activityGroup">
+      <label for="activity">Activités/compétences</label>
+      <div
+        class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
+      >
+        @for (item of activity; track $index) {
+        <div
+          class="w-auto h-8 p-1 flex justify-center gap-2 items-center text-center rounded-md bg-blue-100 m-1"
+        >
+          <p>{{ item }}</p>
+          <a
+            type="button"
+            (click)="removeActivity($index)"
+            class="flex h-full justify-center items-center"
+            ><i-feather name="x"></i-feather
+          ></a>
+        </div>
+        }
+      </div>
+      <textarea
+        class="w-full border p-2 border-ps-green focus:border-ps-orange focus:outline-none focus:border-2"
+        formControlName="libelle"
+        id="activity"
+        (keyup)="onKeyUpAc($event)"
+      ></textarea>
+    </div>
+  </div>
+  <!-- end activity -->
   <div class="row">
     <div class="flex flex-col w-[48%]">
       <label for="tel">Numero téléphone du médécin</label>

@@ -8,6 +8,7 @@ export interface Doctor {
   email: string;
   tel: string;
   secteur:string;
+  activity:string;
   created_at: string;
   updated_at: string;
   adresse: Adresse[];
