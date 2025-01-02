@@ -3,16 +3,21 @@ import { ScrollService } from '../../_services/scroll.service';
 import { ArticleService } from '../../_services/article.service';
 import { ActivatedRoute } from '@angular/router';
 import { FooterComponent } from '../component/footer/footer.component';
+import { environment } from '../../../environments/environment';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [FooterComponent],
+  imports: [FooterComponent,NgIf],
   templateUrl: './article.component.html',
   styleUrl: './article.component.scss'
 })
 export class ArticleComponent implements OnInit {
   content:string = ''
+  baseUrl:string = `${environment.baseUrl}uploads/`
+  image:string = ''
+
   scrollService = inject(ScrollService)
   articleService = inject(ArticleService);
   private activatedRoute = inject(ActivatedRoute);
@@ -24,6 +29,7 @@ export class ArticleComponent implements OnInit {
     if (this.articleId) {
       this.articleService.getArticle(this.articleId).subscribe((res)=>{
         this.content=res.content
+        this.image=res.image
       })
     }
   }

@@ -7,8 +7,9 @@ import { ScrollService } from '../../_services/scroll.service';
 import { ModalComponent } from '../component/modal/modal.component';
 import { ArticleService } from '../../_services/article.service';
 import { Article } from '../../_model/article';
-import { formatDate, registerLocaleData } from '@angular/common';
+import { formatDate, NgIf, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { environment } from '../../../environments/environment';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -17,11 +18,12 @@ registerLocaleData(localeFr, 'fr');
 @Component({
   selector: 'app-acceuil',
   standalone: true,
-  imports: [CarouselModule,RouterLink,FooterComponent,ModalComponent],
+  imports: [CarouselModule,RouterLink,FooterComponent,ModalComponent,NgIf],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
 })
 export class AcceuilComponent implements OnInit {
+  baseUrl:string = `${environment.baseUrl}uploads/`
   articles : Article[]=[]
   ngOnInit(): void {
     this.loadArticles()

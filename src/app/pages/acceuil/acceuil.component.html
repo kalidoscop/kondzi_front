@@ -52,7 +52,9 @@
         <div
           class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-          <div class="article w-full h-24"></div>
+          <div class="article w-full h-24 flex justify-center items-center overflow-hidden bg-white">
+            <img *ngIf="baseUrl+articles[0].image" [src]="baseUrl+articles[0].image" class=" min-h-full min-w-full"/>
+          </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[0].title }}
@@ -73,7 +75,9 @@
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-          <div class="article w-full h-24 bg-orange-500"></div>
+        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
+          <img *ngIf="baseUrl+articles[1].image" [src]="baseUrl+articles[1].image" class=" min-h-full min-w-full"/>
+        </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[1].title }}
@@ -102,7 +106,9 @@
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-          <div class="article w-full h-24 bg-orange-500"></div>
+        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
+          <img *ngIf="baseUrl+articles[2].image" [src]="baseUrl+articles[2].image" class=" min-h-full min-w-full"/>
+        </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[2].title }}
@@ -123,7 +129,9 @@
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-          <div class="article w-full h-24 bg-orange-500"></div>
+        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
+          <img *ngIf="baseUrl+articles[3].image" [src]="baseUrl+articles[3].image" class=" min-h-full min-w-full"/>
+        </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[3].title }}
@@ -144,7 +152,9 @@
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-          <div class="article w-full h-24 bg-orange-500"></div>
+        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
+          <img *ngIf="baseUrl+articles[4].image" [src]="baseUrl+articles[4].image" class=" min-h-full min-w-full"/>
+        </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[4].title }}

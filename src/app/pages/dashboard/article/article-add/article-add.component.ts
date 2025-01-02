@@ -59,7 +59,13 @@ import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-article-add',
   standalone: true,
-  imports: [CKEditorModule,IconsModule, ReactiveFormsModule, RouterModule,NgIf],
+  imports: [
+    CKEditorModule,
+    IconsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NgIf,
+  ],
   templateUrl: './article-add.component.html',
   styleUrl: './article-add.component.scss',
 })
@@ -232,7 +238,22 @@ export class ArticleAddComponent {
     this.changeDetector.detectChanges();
   }
   public isLayoutReady = false;
+  imageUrl: any;
+  fileToUpload: any;
 
+  handleFileInput(e: Event) {
+    const input = e.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.fileToUpload = input.files[0];
+
+      //Show image preview
+      let reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+      };
+      reader.readAsDataURL(this.fileToUpload);
+    }
+  }
 
   public model = {
     editorData: '',
@@ -245,15 +266,12 @@ export class ArticleAddComponent {
     content: new FormControl('', Validators.required),
   });
 
-  onSubmit(){
+  onSubmit() {
     console.log(this.articleForm.value);
-    this.articleService.addArticle(this.articleForm.value).subscribe(()=>{
-      this.router.navigate(['dashboard/article']);
-
-    })
+    this.articleService
+      .addArticle(this.articleForm.value, this.fileToUpload as File)
+      .subscribe(() => {
+        this.router.navigate(['dashboard/article']);
+      });
   }
-
-
-
-
 }

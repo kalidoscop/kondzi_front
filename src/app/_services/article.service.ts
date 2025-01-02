@@ -39,16 +39,38 @@ export class ArticleService {
 
   }
 
-  addArticle(newArticle:any):Observable<Article>{
-    return this.http.post<Article>(`${environment.baseUrl}article/`,newArticle,{
+  addArticle(newArticle:any,file:File):Observable<Article>{
+    const formData = new FormData();
+
+    // Ajouter les données de l'article
+    formData.append('title', newArticle.title || '');
+    formData.append('autor', newArticle.autor || '');
+    formData.append('content', newArticle.content || '');
+
+    // Ajouter l'image
+    if (file) {
+      formData.append('file', file);
+    }
+    return this.http.post<Article>(`${environment.baseUrl}article/`,formData,{
       headers:this.tokenService.getOption()
     }).pipe(tap((Article)=>{
       this.log(Article,'Médécin est bien ajouter')
     }),catchError((error) => this.handleError(error, [],error.error.message)))
   }
 
-  updateArticle(newArticle:any,id:string):Observable<Article>{
-    return this.http.put<Article>(`${environment.baseUrl}article/${id}`,newArticle,{
+  updateArticle(newArticle:any,id:string,file?:File):Observable<Article>{
+    const formData = new FormData();
+
+    // Ajouter les données de l'article
+    formData.append('title', newArticle.title || '');
+    formData.append('autor', newArticle.autor || '');
+    formData.append('content', newArticle.content || '');
+
+    // Ajouter l'image
+    if (file) {
+      formData.append('image', file);
+    }
+    return this.http.put<Article>(`${environment.baseUrl}article/${id}`,formData,{
       headers:this.tokenService.getOption()
     }).pipe(tap((Article)=>{
       this.log(Article,'Médécin est bien modifié')

@@ -45,15 +45,16 @@ import {
   type EditorConfig,
 } from 'ckeditor5';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IconsModule } from '../../../../_icons/icons.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArticleService } from '../../../../_services/article.service';
+import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-article-details',
   standalone: true,
-  imports: [CKEditorModule,IconsModule, ReactiveFormsModule, RouterModule,NgIf],
+  imports: [CKEditorModule,IconsModule, ReactiveFormsModule, RouterModule,NgIf,NgClass],
   templateUrl: './article-details.component.html',
   styleUrl: './article-details.component.scss'
 })
@@ -232,6 +233,23 @@ export class ArticleDetailsComponent implements OnInit{
     this.changeDetector.detectChanges();
   }
   public isLayoutReady = false;
+  oldImageUrl: string ='';
+  imageUrl: string ='';
+  fileToUpload: any;
+
+  handleFileInput(e: Event) {
+    const input = e.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.fileToUpload = input.files[0];
+
+      //Show image preview
+      let reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.imageUrl = event.target.result;
+      };
+      reader.readAsDataURL(this.fileToUpload);
+    }
+  }
 
 
   public model = {
@@ -253,6 +271,10 @@ export class ArticleDetailsComponent implements OnInit{
           autor: new FormControl(`${res.autor}`, Validators.required),
           content: new FormControl(`${res.content}`, Validators.required),
         });
+        this.oldImageUrl=`${environment.baseUrl}uploads/${res.image}`
+        this.imageUrl=this.oldImageUrl
+        // console.log(this.imageUrl);
+
       });
     }
   }
@@ -260,9 +282,11 @@ export class ArticleDetailsComponent implements OnInit{
   onSubmit(){
     if (this.articleId) {
       this.articleService
-        .updateArticle(this.articleForm.value, this.articleId)
+        .updateArticle(this.articleForm.value, this.articleId,this.fileToUpload as File)
         .subscribe(() => {
           this.loadArticleInfo()
+          // console.log(this.imageUrl);
+          
         });
     }
   }

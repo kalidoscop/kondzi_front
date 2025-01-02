@@ -11,6 +11,13 @@
   (ngSubmit)="onSubmit()"
   [formGroup]="articleForm"
 >
+  <div class="w-11/12 flex flex-col gap-2 justify-start items-start p-4">
+    <input #Image type="file" (change)="handleFileInput($event)" />
+    <div class="w-full h-[300px] border-[1px] border-ps-green flex justify-center items-center overflow-hidden">
+
+      <img *ngIf="imageUrl" [src]="imageUrl" class="min-h-full min-w-full"/>
+    </div>
+  </div>
   <div class="row">
     <div class="flex flex-col w-[48%]">
       <label for="last-name">Titre del'article</label>
