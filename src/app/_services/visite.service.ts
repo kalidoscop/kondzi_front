@@ -47,6 +47,14 @@ export class VisiteService {
       visitTime,
     };
   }
+  isFirstVisit(): boolean {
+    const visitRecorded = sessionStorage.getItem('visitRecorded');
+    return !visitRecorded; // Retourne true si aucune visite enregistrée
+  }
+
+  markVisitAsRecorded(): void {
+    sessionStorage.setItem('visitRecorded', 'true');
+  }
 
   private async getHostname(): Promise<string> {
     return new Promise((resolve) => {

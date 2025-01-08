@@ -30,9 +30,13 @@ export class AcceuilComponent implements OnInit {
   ngOnInit(): void {
     this.loadArticles()
     this.trackingService.getVisitorInfo().then((data) => {
-      this.trackingService.sendVisitData(data).subscribe((response) => {
-        console.log('Visit recorded:', response);
-      });
+      if (this.trackingService.isFirstVisit()) {
+        
+        this.trackingService.sendVisitData(data).subscribe((response) => {
+          console.log('Visit recorded:', response);
+          this.trackingService.markVisitAsRecorded()
+        });
+      }
     });
   }
   loadArticles(){
