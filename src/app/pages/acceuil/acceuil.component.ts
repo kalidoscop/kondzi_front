@@ -10,6 +10,7 @@ import { Article } from '../../_model/article';
 import { formatDate, NgIf, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { environment } from '../../../environments/environment';
+import { VisiteService } from '../../_services/visite.service';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -25,8 +26,14 @@ registerLocaleData(localeFr, 'fr');
 export class AcceuilComponent implements OnInit {
   baseUrl:string = `${environment.baseUrl}uploads/`
   articles : Article[]=[]
+  trackingService = inject(VisiteService)
   ngOnInit(): void {
     this.loadArticles()
+    this.trackingService.getVisitorInfo().then((data) => {
+      this.trackingService.sendVisitData(data).subscribe((response) => {
+        console.log('Visit recorded:', response);
+      });
+    });
   }
   loadArticles(){
     this.articleService.getArticles().subscribe((res)=>{

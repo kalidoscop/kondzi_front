@@ -252,6 +252,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   speciality: string[] = [];
   name: string[] = [];
   doc_name: string[] = [];
+  doc_activity: string[] = [];
   otherSuggestions: {
     id: string;
     name: string;
@@ -278,6 +279,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       this.speciality = [];
       this.name = [];
       this.doc_name = [];
+      this.doc_activity = [];
       if (this.search.value.word.length > 1) {
         this.structureService.suggestio(this.search.value.word).subscribe({
           next: (data) => {
@@ -288,6 +290,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
             this.speciality = data.speciality; // Autres suggestions
             this.name = data.name; // Autres suggestions
             this.doc_name = data.doc_name; // Autres suggestions
+            this.doc_activity = data.doc_activity; // Autres suggestions
             console.log(this.doc_name);
           },
 

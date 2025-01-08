@@ -5,6 +5,7 @@ export interface Suggestion {
   speciality:string[];
   name:string[];
   doc_name:string[];
+  doc_activity:string[];
   // suggestions: {
   //   id: string;
   //   name: string;
