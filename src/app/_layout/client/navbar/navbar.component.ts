@@ -267,6 +267,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.speciality = [];
     this.name = [];
     this.doc_name = [];
+    this.doc_activity = [];
+
 
   }
 
