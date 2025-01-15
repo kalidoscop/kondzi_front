@@ -23,4 +23,10 @@ export const navbarData = [
     label: 'Article',
     open: true,
   },
+  {
+    link: '/dashboard/visite',
+    icon: 'home',
+    label: 'Visite',
+    open: true,
+  },
 ];

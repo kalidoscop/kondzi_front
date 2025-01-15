@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TokenService } from './token.service';
-import { catchError, of, tap } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { VsiteMouth } from '../_model/visite';
+import { AlerteService } from './alerte.service';
 
 interface ipInt {
   country: string;
@@ -14,7 +16,9 @@ export class VisiteService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  constructor(private tokenService: TokenService, private http: HttpClient) {}
+  
+
+  constructor(private alertService: AlerteService,private tokenService: TokenService, private http: HttpClient) {}
 
   getIp(): any {
     this.http.get<any>(`http://ip-api.com/json`).pipe(
@@ -66,6 +70,19 @@ export class VisiteService {
     return this.http.post(`${environment.baseUrl}viste/`, data);
   }
 
+  getVisiteByMouth(): Observable<VsiteMouth[]> {
+    return this.http
+      .get<VsiteMouth[]>(`${environment.baseUrl}viste/`, {
+        headers: this.tokenService.getOption(),
+      })
+      .pipe(
+        tap((structures) => {
+          this.log(structures);
+        }),
+        catchError((error) => this.handleError(error, [],error.error.message))
+      );
+  }
+
   private handleError(error: Error, errorValue: any, message?: string) {
     if (environment.isDevEnv) {
       console.error(error);
@@ -75,5 +92,18 @@ export class VisiteService {
       console.error(message);
     }
     return of(errorValue);
+  }
+
+  private log(object: VsiteMouth[], message?: string) {
+    if (environment.isDevEnv) {
+      if (object instanceof Array) {
+        console.table(object);
+      } else {
+        console.log(object);
+      }
+    }
+    if (message) {
+      this.alertService.creatAlert('success', message, 3000);
+    }
   }
 }
