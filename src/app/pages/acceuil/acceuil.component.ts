@@ -61,7 +61,7 @@ export class AcceuilComponent implements OnInit {
     {
       imageSrc: 'images/image defilante.jpg',
       imageAlt: 'image1',
-      text:'Plateforme réseau N°1 des acteurs professionnels de santé au Togo'
+      text:'Plateforme réseau N°1 des acteurs professionnels de santé en Afrique'
     },
     {
       imageSrc: 'images/01.jpg',
@@ -77,7 +77,7 @@ export class AcceuilComponent implements OnInit {
     {
       imageSrc: 'images/03.jpg',
       imageAlt: 'image4',
-      text:'KONDZI.COM, des renseignements 24h/24 partout au Togo'
+      text:'KONDZI.COM, des renseignements 24h/24 partout en Afrique'
     },
   ];
   navbarOpaque = false;

@@ -360,4 +360,9 @@ export class StructureAddComponent {
       }
     }
   }
+
+
+
+  
+
 }
