@@ -35,6 +35,26 @@
   </div>
   <div class="row">
     <div class="flex flex-col w-[48%]">
+      <label for="type">Pays</label>
+      <select
+        type="text"
+        id="type"
+        formControlName="country"
+        class="input"
+        required
+      >
+        @for (item of countries; track $index) {
+        <option value="{{ item.translations.fra.common }} {{ item.flag }}">
+          {{ item.flag }} {{ item.translations.fra.common }}
+          {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
+        </option>
+
+        }
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="flex flex-col w-[48%]">
       <label for="type">Type de structure</label>
       <select
         type="text"
@@ -52,21 +72,21 @@
     </div>
     @if (structureForm.value.type==='ph') {
 
-      <div class=" ml-5 flex flex-col w-3/12">
-        <label for="openingHours">De garde</label>
-        <div class="w-full flex justify-start gap-4 items-center">
-          <select
-            class="h-[5.5vh] w-2/5 text-center border border-ps-green"
-            required
-            formControlName="isGarde"
-            id=""
-            (change)="isH24Change()"
-          >
-            <option value="true">oui</option>
-            <option value="false">non</option>
-          </select>
-        </div>
+    <div class="ml-5 flex flex-col w-3/12">
+      <label for="openingHours">De garde</label>
+      <div class="w-full flex justify-start gap-4 items-center">
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="isGarde"
+          id=""
+          (change)="isH24Change()"
+        >
+          <option value="true">oui</option>
+          <option value="false">non</option>
+        </select>
       </div>
+    </div>
     }
   </div>
   <div class="row">
@@ -115,130 +135,130 @@
   </div>
   @if (structureForm.value.type !='ph') {
 
-    <div class="row" [formGroup]="hoursGroup">
-      <div class="flex flex-col w-4/12">
-        <label for="openingHours">Jours d'ouverture</label>
+  <div class="row" [formGroup]="hoursGroup">
+    <div class="flex flex-col w-4/12">
+      <label for="openingHours">Jours d'ouverture</label>
+      <select
+        class="h-[5.5vh] border border-ps-green"
+        formControlName="libelle"
+        required
+        id=""
+      >
+        <option value="Lundi">Lundi</option>
+        <option value="Mardi">Mardi</option>
+        <option value="Mercredi">Mercredi</option>
+        <option value="Jeudi">Jeudi</option>
+        <option value="Vendredi">Vendredi</option>
+        <option value="Samedi">Samedi</option>
+        <option value="Dimanche">Dimanche</option>
+        <option value="Tous les jours">Tous les jours</option>
+      </select>
+    </div>
+    <div class="ml-5 flex flex-col w-3/12">
+      <label for="openingHours">24H/24H</label>
+      <div class="w-full flex justify-start gap-4 items-center">
         <select
-          class="h-[5.5vh] border border-ps-green"
-          formControlName="libelle"
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
           required
+          formControlName="isH24"
           id=""
+          (change)="isH24Change()"
         >
-          <option value="Lundi">Lundi</option>
-          <option value="Mardi">Mardi</option>
-          <option value="Mercredi">Mercredi</option>
-          <option value="Jeudi">Jeudi</option>
-          <option value="Vendredi">Vendredi</option>
-          <option value="Samedi">Samedi</option>
-          <option value="Dimanche">Dimanche</option>
-          <option value="Tous les jours">Tous les jours</option>
+          <option value="true">oui</option>
+          <option value="false">non</option>
         </select>
       </div>
-      <div class=" ml-5 flex flex-col w-3/12">
-        <label for="openingHours">24H/24H</label>
-        <div class="w-full flex justify-start gap-4 items-center">
-          <select
-            class="h-[5.5vh] w-2/5 text-center border border-ps-green"
-            required
-            formControlName="isH24"
-            id=""
-            (change)="isH24Change()"
-          >
-            <option value="true">oui</option>
-            <option value="false">non</option>
-          </select>
-        </div>
-      </div>
-      @if (!isH24) {
-        <div class="flex flex-col w-3/12">
-          <label for="openingHours">Heure d'ouverture</label>
-          <div class="w-full flex justify-start gap-4 items-center">
-            <select
-              class="h-[5.5vh] w-2/5 text-center border border-ps-green"
-              required
-              formControlName="hStartH"
-              id=""
-            >
-              @for (item of hour; track $index) {
-              <option [value]="item">{{ item }}</option>
-              }
-            </select>
-            <select
-              class="h-[5.5vh] w-2/5 text-center border border-ps-green"
-              required
-              formControlName="hStartM"
-              id=""
-            >
-              @for (item of minute; track $index) {
-              <option [value]="item">{{ item }}</option>
-              }
-            </select>
-          </div>
-        </div>
-        <div class="flex flex-col w-3/12">
-          <label for="openingHours">Heure de fermeture</label>
-          <div class="w-full flex justify-start gap-4 items-center">
-            <select
-              class="h-[5.5vh] w-2/5 text-center border border-ps-green"
-              required
-              formControlName="hEndH"
-              id=""
-            >
-              @for (item of hour; track $index) {
-              <option [value]="item">{{ item }}</option>
-              }
-            </select>
-            <select
-              class="h-[5.5vh] w-2/5 text-center border border-ps-green"
-              required
-              formControlName="hEndM"
-              id=""
-            >
-              @for (item of minute; track $index) {
-              <option [value]="item">{{ item }}</option>
-              }
-            </select>
-          </div>
-        </div>
-      }
-      
-      <div class="flex justify-center items-center w-1/12 h-[7vh]">
-        <input
-          type="button"
-          class="bg-ps-green text-white font-bold text-center w-full hover:shadow-md hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_50px] transition-all h-[4vh] m-1"
-          (click)="addHours()"
-          [disabled]="!hoursGroup.valid"
-          value="Ajouter"
-        />
+    </div>
+    @if (!isH24) {
+    <div class="flex flex-col w-3/12">
+      <label for="openingHours">Heure d'ouverture</label>
+      <div class="w-full flex justify-start gap-4 items-center">
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hStartH"
+          id=""
+        >
+          @for (item of hour; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hStartM"
+          id=""
+        >
+          @for (item of minute; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
       </div>
     </div>
-    <div class="row">
-      <table class="w-1/2" *ngIf="hours.value.length">
-        <thead class="w-full h-14 bg-ps-green text-white">
-          <tr>
-            <th class="text-right">horaire</th>
-            <th class="text-right">heure de debut</th>
-            <th class="text-right">heure de fin</th>
-            <th class="text-right"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="h-12" *ngFor="let item of hours.value; let i = index">
-            <td class="text-right">{{ item.libelle }}</td>
-            <td class="text-right">{{ item.hStart }}</td>
-            <td class="text-right">{{ item.hEnd }}</td>
-            <td class="text-right">
-              <a (click)="removeHours(i)">
-                <i-feather
-                  name="x"
-                  class="text-red-500 transition-all"
-                ></i-feather>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="flex flex-col w-3/12">
+      <label for="openingHours">Heure de fermeture</label>
+      <div class="w-full flex justify-start gap-4 items-center">
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hEndH"
+          id=""
+        >
+          @for (item of hour; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
+        <select
+          class="h-[5.5vh] w-2/5 text-center border border-ps-green"
+          required
+          formControlName="hEndM"
+          id=""
+        >
+          @for (item of minute; track $index) {
+          <option [value]="item">{{ item }}</option>
+          }
+        </select>
+      </div>
     </div>
+    }
+
+    <div class="flex justify-center items-center w-1/12 h-[7vh]">
+      <input
+        type="button"
+        class="bg-ps-green text-white font-bold text-center w-full hover:shadow-md hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_50px] transition-all h-[4vh] m-1"
+        (click)="addHours()"
+        [disabled]="!hoursGroup.valid"
+        value="Ajouter"
+      />
+    </div>
+  </div>
+  <div class="row">
+    <table class="w-1/2" *ngIf="hours.value.length">
+      <thead class="w-full h-14 bg-ps-green text-white">
+        <tr>
+          <th class="text-right">horaire</th>
+          <th class="text-right">heure de debut</th>
+          <th class="text-right">heure de fin</th>
+          <th class="text-right"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="h-12" *ngFor="let item of hours.value; let i = index">
+          <td class="text-right">{{ item.libelle }}</td>
+          <td class="text-right">{{ item.hStart }}</td>
+          <td class="text-right">{{ item.hEnd }}</td>
+          <td class="text-right">
+            <a (click)="removeHours(i)">
+              <i-feather
+                name="x"
+                class="text-red-500 transition-all"
+              ></i-feather>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   }
   <!-- end assurance -->
   <div class="row">

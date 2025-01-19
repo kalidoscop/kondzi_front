@@ -15,6 +15,7 @@ import { Adresse } from '../../../../_model/adresse';
 import { Network } from '../../../../_model/network';
 import { environment } from '../../../../../environments/environment';
 import { Hour } from '../../../../_model/hour';
+import { RestContriesService } from '../../../../_services/rest-contries.service';
 
 @Component({
   selector: 'app-structure-details',
@@ -112,6 +113,8 @@ export class StructureDetailsComponent implements OnInit {
     '58',
     '59',
   ];
+  countries: any[] = [];
+
 
   assurances: string[] = [];
   activity: string[] = [];
@@ -120,6 +123,8 @@ export class StructureDetailsComponent implements OnInit {
   structureService = inject(StructureService);
   // private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
+  private countryService = inject(RestContriesService)
+
 
   structureId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
   adresse: Adresse[] = [];
@@ -135,6 +140,7 @@ export class StructureDetailsComponent implements OnInit {
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
     type: new FormControl(''),
+    country: new FormControl(''),
     isGarde: new FormControl(),
     assurance: new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
@@ -142,7 +148,12 @@ export class StructureDetailsComponent implements OnInit {
     hours: new FormArray([], ArrayValidators.minLength(1)),
   });
   ngOnInit(): void {
-    this.loadStructureInfo();
+    this.countryService.getAfricanCountries().subscribe((res)=>{
+      console.log(res);
+      this.countries=res
+      this.loadStructureInfo();
+      
+    })
     // throw new Error('Method not implemented.');
   }
 
@@ -172,6 +183,7 @@ export class StructureDetailsComponent implements OnInit {
             Validators.required
           ),
           tel: new FormControl(`${res.tel}`, Validators.required),
+          country: new FormControl(`${res.country}`, Validators.required),
           email: new FormControl(`${res.email}`, [
             Validators.required,
             Validators.email,

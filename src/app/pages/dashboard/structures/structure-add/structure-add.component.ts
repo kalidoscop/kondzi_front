@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormArray,
   FormControl,
@@ -11,6 +11,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { StructureService } from '../../../../_services/structure.service';
 import { ArrayValidators } from '../../../../_validator/array.validator';
 import { Router, RouterModule } from '@angular/router';
+import { RestContriesService } from '../../../../_services/rest-contries.service';
 
 @Component({
   selector: 'app-structure-add',
@@ -19,9 +20,17 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './structure-add.component.html',
   styleUrl: './structure-add.component.scss',
 })
-export class StructureAddComponent {
+export class StructureAddComponent implements OnInit{
+  ngOnInit() {
+    this.countryService.getAfricanCountries().subscribe((res)=>{
+      console.log(res);
+      this.countries=res
+      
+    })
+  }
   // adresses: adresse [] = []
-
+  countries: any[] = [];
+  // searchTerm = new FormControl('')
   hour: string[] = [
     '00',
     '01',
@@ -112,6 +121,7 @@ export class StructureAddComponent {
   ];
   structureService = inject(StructureService);
   private router = inject(Router);
+  private countryService = inject(RestContriesService)
 
   assurances: string[] = [];
   activity: string[] = [];
@@ -129,6 +139,7 @@ export class StructureAddComponent {
     flagshipActivity: new FormControl(''),
     type: new FormControl('', Validators.required),
     assurance: new FormControl(''),
+    country: new FormControl('',Validators.required),
     isGarde: new FormControl(false),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
@@ -360,9 +371,23 @@ export class StructureAddComponent {
       }
     }
   }
+  
 
+// Filtrer les pays selon la recherche
+// filteredCountries() {
+//   return this.countries.filter((country) =>{
+//     if (this.searchTerm.value) {
+      
+//       country.name.common.toLowerCase().includes(this.searchTerm.value.toLowerCase())
+//     }
+//   }
+//   );
+// }
 
-
+// Action lors de la sélection d'un pays
+selectCountry(country: any) {
+  console.log('Selected Country:', country);
+}
   
 
 }

@@ -35,6 +35,26 @@
   </div>
   <div class="row">
     <div class="flex flex-col w-[48%]">
+      <label for="type">Pays</label>
+      <select
+        type="text"
+        id="type"
+        formControlName="country"
+        class="input"
+        required
+      >
+        @for (item of countries; track $index) {
+        <option value="{{ item.translations.fra.common }} {{ item.flag }}">
+          {{ item.flag }} {{ item.translations.fra.common }}
+          {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
+        </option>
+
+        }
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="flex flex-col w-[48%]">
       <label for="type">Type de structure</label>
       <select
         type="text"

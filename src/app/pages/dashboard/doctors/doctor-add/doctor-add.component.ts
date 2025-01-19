@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { IconsModule } from '../../../../_icons/icons.module';
 import {
   FormControl,
@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { DoctorService } from '../../../../_services/doctor.service';
 import { Router, RouterModule } from '@angular/router';
+import { RestContriesService } from '../../../../_services/rest-contries.service';
 
 @Component({
   selector: 'app-doctor-add',
@@ -16,8 +17,18 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './doctor-add.component.html',
   styleUrl: './doctor-add.component.scss',
 })
-export class DoctorAddComponent {
+export class DoctorAddComponent implements OnInit{
+  ngOnInit() {
+    this.countryService.getAfricanCountries().subscribe((res)=>{
+      console.log(res);
+      this.countries=res
+      
+    })
+  }
 
+  countries: any[] = [];
+
+  private countryService = inject(RestContriesService)
   private doctorService = inject(DoctorService)
   private router = inject(Router);
   activity: string[] = [];
@@ -30,6 +41,7 @@ export class DoctorAddComponent {
     tel: new FormControl('', Validators.required),
     secteur: new FormControl('pub', Validators.required),
     activity: new FormControl(''),
+    country: new FormControl('',Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
   onSubmit() {

@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { IconsModule } from '../../../../_icons/icons.module';
+import { RestContriesService } from '../../../../_services/rest-contries.service';
 
 @Component({
   selector: 'app-doctor-details',
@@ -19,7 +20,10 @@ import { IconsModule } from '../../../../_icons/icons.module';
 export class DoctorDetailsComponent implements OnInit {
   doctorService = inject(DoctorService);
   private activatedRoute = inject(ActivatedRoute);
+  private countryService = inject(RestContriesService)
+
   activity: string[] = [];
+  countries: any[] = [];
 
   doctorId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -28,13 +32,19 @@ export class DoctorDetailsComponent implements OnInit {
     lastName: new FormControl('', Validators.required),
     speciality: new FormControl('', Validators.required),
     tel: new FormControl('', Validators.required),
+    country: new FormControl('',Validators.required),
     secteur: new FormControl('pub', Validators.required),
     activity: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
   ngOnInit(): void {
-    this.loadDoctorInfo();
+    this.countryService.getAfricanCountries().subscribe((res)=>{
+      console.log(res);
+      this.countries=res
+      this.loadDoctorInfo();
+      
+    })
   }
 
   onSubmit() {
@@ -61,6 +71,7 @@ export class DoctorDetailsComponent implements OnInit {
           lastName: new FormControl(`${res.last_name}`, Validators.required),
           speciality: new FormControl(`${res.speciality}`, Validators.required),
           tel: new FormControl(`${res.tel}`, Validators.required),
+          country: new FormControl(`${res.country}`, Validators.required),
           secteur: new FormControl(`${res.secteur}`, Validators.required),
           activity: new FormControl(' '),
 

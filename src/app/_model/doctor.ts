@@ -7,6 +7,7 @@ export interface Doctor {
   speciality: string;
   email: string;
   tel: string;
+  country: string;
   secteur:string;
   activity:string;
   created_at: string;

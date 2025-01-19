@@ -15,6 +15,7 @@ export interface Structure {
   created_at: string;
   updated_at: string;
   type: string;
+  country: string;
   assurance:string;
   flagship_activity:string;
   is_garde:boolean;
