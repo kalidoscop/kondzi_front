@@ -43,25 +43,29 @@
             smart_display
           </span>
         </button>
-        <h1 class="text-2xl mt-4 mb-4 text-center font-bold">
-          <h1 class="text-2xl mt-4 text-center font-bold">
-            ARTICLES A LA UNE
-        </h1>
+        <h1 class="text-2xl mt-4 mb-3 text-center font-bold">
+          <h1 class="text-2xl mt-4 text-center font-bold">ARTICLES A LA UNE</h1>
         </h1>
         @if (articles[0]) {
         <div
           class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-          <div class="article w-full h-24 flex justify-center items-center overflow-hidden bg-white">
-            <img *ngIf="baseUrl+articles[0].image" [src]="baseUrl+articles[0].image" class=" min-h-full min-w-full"/>
+          <div
+            class="article w-full h-24 flex justify-center items-center overflow-hidden bg-white"
+          >
+            <img
+              *ngIf="baseUrl + articles[0].image"
+              [src]="baseUrl + articles[0].image"
+              class="min-h-full min-w-full"
+            />
           </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[0].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le {{Date(articles[0].created_at)}} <br />
-              par <strong class="font-bold">{{ articles[0].autor }}</strong> 
+              Publié le {{ Date(articles[0].created_at) }} <br />
+              par <strong class="font-bold">{{ articles[0].autor }}</strong>
             </p>
             <a
               [routerLink]="['/article/', articles[0].id]"
@@ -75,16 +79,22 @@
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
-          <img *ngIf="baseUrl+articles[1].image" [src]="baseUrl+articles[1].image" class=" min-h-full min-w-full"/>
-        </div>
+          <div
+            class="article w-full h-24 flex justify-center items-center overflow-hidden"
+          >
+            <img
+              *ngIf="baseUrl + articles[1].image"
+              [src]="baseUrl + articles[1].image"
+              class="min-h-full min-w-full"
+            />
+          </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[1].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le {{Date(articles[1].created_at)}} <br />
-              par <strong class="font-bold">{{ articles[1].autor }}</strong> 
+              Publié le {{ Date(articles[1].created_at) }} <br />
+              par <strong class="font-bold">{{ articles[1].autor }}</strong>
             </p>
             <a
               [routerLink]="['/article/', articles[1].id]"
@@ -100,22 +110,28 @@
       <div
         class="lg:min-w-[400px] lg:max-w-[400px] flex flex-col justify-start items-center border-[1px] border-gray-300 bg-white"
       >
-        <h1 class="text-2xl mt-4 mb-9 font-bold">ARTICLES A LA UNE</h1>
+        <h1 class="text-2xl mt-4 mb-4 font-bold">ARTICLES A LA UNE</h1>
         <!-- article -->
         @if (articles[2]) {
         <div
-          class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
-          <img *ngIf="baseUrl+articles[2].image" [src]="baseUrl+articles[2].image" class=" min-h-full min-w-full"/>
-        </div>
+          <div
+            class="article w-full h-24 flex justify-center items-center overflow-hidden"
+          >
+            <img
+              *ngIf="baseUrl + articles[2].image"
+              [src]="baseUrl + articles[2].image"
+              class="min-h-full min-w-full"
+            />
+          </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[2].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le {{Date(articles[2].created_at)}} <br />
-              par <strong class="font-bold">{{ articles[2].autor }}</strong> 
+              Publié le {{ Date(articles[2].created_at) }} <br />
+              par <strong class="font-bold">{{ articles[2].autor }}</strong>
             </p>
             <a
               [routerLink]="['/article/', articles[2].id]"
@@ -129,16 +145,22 @@
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
-          <img *ngIf="baseUrl+articles[3].image" [src]="baseUrl+articles[3].image" class=" min-h-full min-w-full"/>
-        </div>
+          <div
+            class="article w-full h-24 flex justify-center items-center overflow-hidden"
+          >
+            <img
+              *ngIf="baseUrl + articles[3].image"
+              [src]="baseUrl + articles[3].image"
+              class="min-h-full min-w-full"
+            />
+          </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[3].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le {{Date(articles[3].created_at)}} <br />
-              par <strong class="font-bold">{{ articles[3].autor }}</strong> 
+              Publié le {{ Date(articles[3].created_at) }} <br />
+              par <strong class="font-bold">{{ articles[3].autor }}</strong>
             </p>
             <a
               [routerLink]="['/article/', articles[3].id]"
@@ -152,16 +174,22 @@
         <div
           class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
         >
-        <div class="article w-full h-24 flex justify-center items-center overflow-hidden">
-          <img *ngIf="baseUrl+articles[4].image" [src]="baseUrl+articles[4].image" class=" min-h-full min-w-full"/>
-        </div>
+          <div
+            class="article w-full h-24 flex justify-center items-center overflow-hidden"
+          >
+            <img
+              *ngIf="baseUrl + articles[4].image"
+              [src]="baseUrl + articles[4].image"
+              class="min-h-full min-w-full"
+            />
+          </div>
           <div class="w-full p-4 flex flex-col">
             <h1 class="mb-7 font-bold">
               {{ articles[4].title }}
             </h1>
             <p class="text-left text-sm">
-              Publié le {{Date(articles[4].created_at)}} <br />
-              par <strong class="font-bold">{{ articles[4].autor }}</strong> 
+              Publié le {{ Date(articles[4].created_at) }} <br />
+              par <strong class="font-bold">{{ articles[4].autor }}</strong>
             </p>
             <a
               [routerLink]="['/article/', articles[4].id]"
@@ -176,7 +204,7 @@
       </div>
       <div class="lg:w-[400px]">
         <div
-          class="w-full h-32 mb-9 flex  flex-col justify-center items-center rounded border-2 border-red-600 bg-white"
+          class="w-full h-32 mb-9 flex flex-col justify-center items-center rounded border-2 border-red-600 bg-white"
         >
           <h1 class="text-xl text-red-600 font-bold">EN CAS D'URGENCE</h1>
           <a
