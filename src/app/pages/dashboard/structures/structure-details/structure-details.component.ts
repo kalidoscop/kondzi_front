@@ -16,6 +16,7 @@ import { Network } from '../../../../_model/network';
 import { environment } from '../../../../../environments/environment';
 import { Hour } from '../../../../_model/hour';
 import { RestContriesService } from '../../../../_services/rest-contries.service';
+import libphonenumber from 'google-libphonenumber';
 
 @Component({
   selector: 'app-structure-details',
@@ -25,6 +26,8 @@ import { RestContriesService } from '../../../../_services/rest-contries.service
   styleUrl: './structure-details.component.scss',
 })
 export class StructureDetailsComponent implements OnInit {
+  private PNF = libphonenumber.PhoneNumberFormat;
+  private phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
   hourSlecte: string[] = [
     '00',
     '01',
@@ -135,7 +138,7 @@ export class StructureDetailsComponent implements OnInit {
     domaine: new FormControl('', Validators.required),
     managerName: new FormControl('', Validators.required),
     managerTitle: new FormControl('', Validators.required),
-    tel: new FormControl('', Validators.required),
+    tel: new FormArray([], ArrayValidators.minLength(1)),
     email: new FormControl('', [Validators.required, Validators.email]),
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
@@ -166,6 +169,9 @@ export class StructureDetailsComponent implements OnInit {
   get hours(): FormArray {
     return this.structureForm.get('hours') as FormArray;
   }
+  get tels(): FormArray {
+    return this.structureForm.get('tel') as FormArray;
+  }
 
   loadStructureInfo() {
     if (this.structureId) {
@@ -182,7 +188,7 @@ export class StructureDetailsComponent implements OnInit {
             `${res.manager_title}`,
             Validators.required
           ),
-          tel: new FormControl(`${res.tel}`, Validators.required),
+          tel: new FormArray([], ArrayValidators.minLength(0)),
           country: new FormControl(`${res.country}`, Validators.required),
           email: new FormControl(`${res.email}`, [
             Validators.required,
@@ -204,6 +210,16 @@ export class StructureDetailsComponent implements OnInit {
         this.activity = res.activity.split(' ');
         this.activityPh = res.flagship_activity.split(' ');
         this.hour = res.hours;
+        for (let i = 0; i < res.tel.length; i++) {
+          const tel = res.tel[i];
+          const addingTel = new FormGroup({
+            flag: new FormControl(tel.flag),
+            prefix: new FormControl(tel.prefix),
+            number: new FormControl(tel.number),
+          });
+          this.tels.push(addingTel);
+          
+        }
       });
     }
   }
@@ -304,6 +320,12 @@ export class StructureDetailsComponent implements OnInit {
   activityPhGroup = new FormGroup({
     libelle: new FormControl(''),
   });
+
+  numberGroup = new FormGroup({
+    cca2: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+  });
+
   addAdresse() {
     const cor = this.addresseGroup.value.eadress?.split(',');
     console.log(cor);
@@ -349,6 +371,26 @@ export class StructureDetailsComponent implements OnInit {
     console.log('coucou');
     this.hours.push(addingHours);
     // console.log(this.hoursGroup.value);
+  }
+
+  addNumber() {
+    console.log(this.numberGroup.value);
+    const cca2 = this.numberGroup.value.cca2?.split('|');
+    if (cca2 && this.numberGroup.value.number) {
+      const number = this.phoneUtil.parseAndKeepRawInput(
+        String(this.numberGroup.value.number),
+        cca2[0]
+      );
+      console.log(this.phoneUtil.isValidNumberForRegion(number, cca2[0]));
+      if (this.phoneUtil.isValidNumberForRegion(number, cca2[0])) {
+        const addingTel = new FormGroup({
+          flag: new FormControl(cca2[1]),
+          prefix: new FormControl(cca2[2]),
+          number: new FormControl(String(this.numberGroup.value.number)),
+        });
+        this.tels.push(addingTel);
+      }
+    }
   }
 
   reloadOldAdresse() {
@@ -425,6 +467,13 @@ export class StructureDetailsComponent implements OnInit {
 
     // this.adresses=this.structureForm.controls.adresse.value
   }
+
+  removeNumber(index: number) {
+    this.structureForm.controls.tel.removeAt(index);
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+
+
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
     if (event.code === 'Space' && this.assurenceGroup.value.libelle) {

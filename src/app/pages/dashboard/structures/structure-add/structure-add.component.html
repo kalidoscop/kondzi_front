@@ -33,6 +33,7 @@
       />
     </div>
   </div>
+  <!-- pays -->
   <div class="row">
     <div class="flex flex-col w-[48%]">
       <label for="type">Pays</label>
@@ -52,7 +53,18 @@
         }
       </select>
     </div>
+    <div class="flex flex-col w-[48%]">
+      <label for="manager-title">Titre du responsable</label>
+      <input
+        type="text"
+        id="manager-title"
+        formControlName="managerTitle"
+        class="input"
+        required
+      />
+    </div>
   </div>
+  <!-- pays -->
   <div class="row">
     <div class="flex flex-col w-[48%]">
       <label for="type">Type de structure</label>
@@ -91,33 +103,11 @@
   </div>
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="manager-name">Nom du responsable</label>
+      <label for="managerName">Nom du responsble</label>
       <input
         type="text"
-        id="manager-name"
+        id="managerName"
         formControlName="managerName"
-        class="input"
-        required
-      />
-    </div>
-    <div class="flex flex-col w-[48%]">
-      <label for="manager-title">Titre du responsable</label>
-      <input
-        type="text"
-        id="manager-title"
-        formControlName="managerTitle"
-        class="input"
-        required
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="flex flex-col w-[48%]">
-      <label for="tel">Numero téléphone de la structure</label>
-      <input
-        type="text"
-        id="tel"
-        formControlName="tel"
         class="input"
         required
       />
@@ -133,6 +123,91 @@
       />
     </div>
   </div>
+  <div class="row">
+    <div class="flex flex-col gap-2 w-[48%]" >
+      <label for="manager-name">Nom du responsable</label>
+      <div class="input flex justify-around items-center" [formGroup]="numberGroup">
+        <select
+          type="text"
+          id="type"
+          formControlName="cca2"
+          class="h-full w-2/12 outline-none"
+          required
+        >
+          @for (item of countries; track $index) {
+          <option value="{{ item.cca2 }}|{{ item.flag }}|{{ item.idd?.root || '' }}{{ item.idd?.suffixes?.[0] || '' }}">
+            {{ item.flag }} {{ item.idd?.root || '' }}{{ item.idd?.suffixes?.[0] || '' }}</option>
+
+          }
+        </select>
+        <input
+          type="number"
+          id="manager-name"
+          formControlName="number"
+          class="h-full w-6/12 bg-gray-100 p-2"
+          required
+        />
+        <input
+        type="button"
+        class="bg-ps-green p-1 text-white font-bold text-center w-3/12 hover:shadow-md hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_50px] transition-all h-[4vh] m-1"
+        (click)="addNumber()"
+        [disabled]="!numberGroup.valid"
+        value="Ajouter"
+      />
+        
+      </div>
+      <table class="w-[48%]">
+        <thead class="w-full h-14 bg-ps-green text-white">
+          <tr>  
+            <th>Pays</th>
+            <th>Numero</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody class="text-center h-10" formArrayName="tel">
+          <tr
+            class="h-14"
+            *ngFor="
+              let item of structureForm.controls.tel.controls;
+              let i = index
+            "
+            [formGroupName]="i"
+          >
+          <td>
+            <input
+              type="text"
+              id="flag"
+              formControlName="flag"
+              class="w-11/12 h-10 px-2 py-2 text-gray-500 focus:outline-none focus:border-2 focus:border-ps-orange border border-ps-green"
+              required
+              [disabled]="true"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              class="w-11/12 h-10 px-2 py-2 text-gray-500 focus:outline-none focus:border-2 focus:border-ps-orange border border-ps-green"
+              formControlName="number"
+              id="number"
+              required
+              [disabled]="true"
+
+            />
+          </td>
+            <td>
+              <a (click)="removeNumber(i)">
+                <i-feather
+                  name="x"
+                  class="text-red-500 transition-all"
+                ></i-feather>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
   @if (structureForm.value.type !='ph') {
 
   <div class="row" [formGroup]="hoursGroup">

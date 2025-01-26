@@ -1,4 +1,5 @@
 import { Adresse } from "./adresse";
+import { Tel } from "./tel";
 
 export interface Doctor {
   id: string;
@@ -6,7 +7,7 @@ export interface Doctor {
   last_name: string;
   speciality: string;
   email: string;
-  tel: string;
+  tel: Tel[];
   country: string;
   secteur:string;
   activity:string;

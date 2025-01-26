@@ -117,7 +117,9 @@
                 call
               </span>
               <div>
-                <p class="text-lg">{{ item.tel }}</p>
+                @for (tel of item.tel; track $index) {
+                  <p class="text-lg">{{ tel.flag }} {{tel.prefix}}{{tel.number}}</p>
+                }
               </div>
             </div>
             <div class="flex justify-start items-start gap-2">
@@ -232,7 +234,10 @@
                 call
               </span>
               <div>
-                <p class="text-lg">{{ item.tel }}</p>
+                @for (tel of item.tel; track $index) {
+
+                  <p class="text-lg">{{ tel.flag }} {{tel.prefix}}{{tel.number}}</p>
+                }
               </div>
             </div>
             <div class="flex justify-start items-start gap-2">

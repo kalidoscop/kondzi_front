@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { IconsModule } from '../../../../_icons/icons.module';
 import {
+  FormArray,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -9,11 +10,14 @@ import {
 import { DoctorService } from '../../../../_services/doctor.service';
 import { Router, RouterModule } from '@angular/router';
 import { RestContriesService } from '../../../../_services/rest-contries.service';
+import { ArrayValidators } from '../../../../_validator/array.validator';
+import libphonenumber from 'google-libphonenumber';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-doctor-add',
   standalone: true,
-  imports: [IconsModule, ReactiveFormsModule,RouterModule],
+  imports: [IconsModule, ReactiveFormsModule,RouterModule,NgFor],
   templateUrl: './doctor-add.component.html',
   styleUrl: './doctor-add.component.scss',
 })
@@ -27,7 +31,7 @@ export class DoctorAddComponent implements OnInit{
   }
 
   countries: any[] = [];
-
+  private phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
   private countryService = inject(RestContriesService)
   private doctorService = inject(DoctorService)
   private router = inject(Router);
@@ -38,7 +42,7 @@ export class DoctorAddComponent implements OnInit{
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     speciality: new FormControl('', Validators.required),
-    tel: new FormControl('', Validators.required),
+    tel: new FormArray([], ArrayValidators.minLength(1)),
     secteur: new FormControl('pub', Validators.required),
     activity: new FormControl(''),
     country: new FormControl('',Validators.required),
@@ -62,9 +66,38 @@ export class DoctorAddComponent implements OnInit{
   activityGroup = new FormGroup({
     libelle: new FormControl(''),
   });
+  numberGroup = new FormGroup({
+    cca2: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
+  });
+  get tels(): FormArray {
+    return this.doctorForm.get('tel') as FormArray;
+  }
 
+  addNumber() {
+    console.log(this.numberGroup.value);
+    const cca2 = this.numberGroup.value.cca2?.split('|');
+    if (cca2 && this.numberGroup.value.number) {
+      const number = this.phoneUtil.parseAndKeepRawInput(
+        String(this.numberGroup.value.number),
+        cca2[0]
+      );
+      console.log(this.phoneUtil.isValidNumberForRegion(number, cca2[0]));
+      if (this.phoneUtil.isValidNumberForRegion(number, cca2[0])) {
+        const addingTel = new FormGroup({
+          flag: new FormControl(cca2[1]),
+          prefix: new FormControl(cca2[2]),
+          number: new FormControl(String(this.numberGroup.value.number)),
+        });
+        this.tels.push(addingTel);
+      }
+    }
+  }
 
-
+  removeNumber(index: number) {
+    this.doctorForm.controls.tel.removeAt(index);
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
 
   removeActivity(index: number) {
     console.log(0);

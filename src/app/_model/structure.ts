@@ -1,6 +1,7 @@
 import { Adresse } from './adresse';
 import { Hour } from './hour';
 import { Network } from './network';
+import { Tel } from './tel';
 
 export interface Structure {
   id: string;
@@ -8,7 +9,7 @@ export interface Structure {
   domaine: string;
   manager_name: string;
   manager_title: string;
-  tel: string;
+  tel: Tel[];
   email: string;
   opening_hours: string;
   activity: string;

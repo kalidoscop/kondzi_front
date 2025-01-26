@@ -12,7 +12,7 @@ import { StructureService } from '../../../../_services/structure.service';
 import { ArrayValidators } from '../../../../_validator/array.validator';
 import { Router, RouterModule } from '@angular/router';
 import { RestContriesService } from '../../../../_services/rest-contries.service';
-
+import libphonenumber from 'google-libphonenumber';
 @Component({
   selector: 'app-structure-add',
   standalone: true,
@@ -20,14 +20,16 @@ import { RestContriesService } from '../../../../_services/rest-contries.service
   templateUrl: './structure-add.component.html',
   styleUrl: './structure-add.component.scss',
 })
-export class StructureAddComponent implements OnInit{
+export class StructureAddComponent implements OnInit {
   ngOnInit() {
-    this.countryService.getAfricanCountries().subscribe((res)=>{
+    this.countryService.getAfricanCountries().subscribe((res) => {
       console.log(res);
-      this.countries=res
-      
-    })
+      this.countries = res;
+      // const number = this.phoneUtil.parseAndKeepRawInput('90059173', 'TG');
+      // console.log(this.phoneUtil.isValidNumberForRegion(number, 'TG'));
+    });
   }
+
   // adresses: adresse [] = []
   countries: any[] = [];
   // searchTerm = new FormControl('')
@@ -121,8 +123,9 @@ export class StructureAddComponent implements OnInit{
   ];
   structureService = inject(StructureService);
   private router = inject(Router);
-  private countryService = inject(RestContriesService)
-
+  private countryService = inject(RestContriesService);
+  private PNF = libphonenumber.PhoneNumberFormat;
+  private phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
   assurances: string[] = [];
   activity: string[] = [];
   activityPh: string[] = [];
@@ -132,14 +135,14 @@ export class StructureAddComponent implements OnInit{
     domaine: new FormControl('', Validators.required),
     managerName: new FormControl('', Validators.required),
     managerTitle: new FormControl('', Validators.required),
-    tel: new FormControl('', Validators.required),
+    tel: new FormArray([], ArrayValidators.minLength(1)),
     email: new FormControl('', [Validators.required, Validators.email]),
     // openingHours: new FormControl('', Validators.required),
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
     type: new FormControl('', Validators.required),
     assurance: new FormControl(''),
-    country: new FormControl('',Validators.required),
+    country: new FormControl('', Validators.required),
     isGarde: new FormControl(false),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(1)),
@@ -154,6 +157,10 @@ export class StructureAddComponent implements OnInit{
 
   get hours(): FormArray {
     return this.structureForm.get('hours') as FormArray;
+  }
+
+  get tels(): FormArray {
+    return this.structureForm.get('tel') as FormArray;
   }
   async onSubmit() {
     console.log('coucou2');
@@ -207,6 +214,11 @@ export class StructureAddComponent implements OnInit{
     hEndH: new FormControl(''),
     hEndM: new FormControl(''),
     isH24: new FormControl(true),
+  });
+
+  numberGroup = new FormGroup({
+    cca2: new FormControl('', Validators.required),
+    number: new FormControl('', Validators.required),
   });
   isH24 = true;
   isH24Change() {
@@ -302,6 +314,26 @@ export class StructureAddComponent implements OnInit{
     this.hours.push(addingHours);
     // console.log(this.hoursGroup.value);
   }
+  addNumber() {
+    console.log(this.numberGroup.value);
+    const cca2 = this.numberGroup.value.cca2?.split('|');
+    if (cca2 && this.numberGroup.value.number) {
+      const number = this.phoneUtil.parseAndKeepRawInput(
+        String(this.numberGroup.value.number),
+        cca2[0]
+      );
+      console.log(this.phoneUtil.isValidNumberForRegion(number, cca2[0]));
+      if (this.phoneUtil.isValidNumberForRegion(number, cca2[0])) {
+        const addingTel = new FormGroup({
+          flag: new FormControl(cca2[1]),
+          prefix: new FormControl(cca2[2]),
+          number: new FormControl(String(this.numberGroup.value.number)),
+        });
+        this.tels.push(addingTel);
+      }
+    }
+  }
+
   removeAdresse(index: number) {
     this.structureForm.controls.adresse.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
@@ -339,6 +371,12 @@ export class StructureAddComponent implements OnInit{
 
     // this.adresses=this.structureForm.controls.adresse.value
   }
+  removeNumber(index: number) {
+    this.structureForm.controls.tel.removeAt(index);
+    // this.adresses=this.structureForm.controls.adresse.value
+  }
+
+
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
     if (event.code === 'Space' && this.assurenceGroup.value.libelle) {
@@ -371,23 +409,20 @@ export class StructureAddComponent implements OnInit{
       }
     }
   }
-  
 
-// Filtrer les pays selon la recherche
-// filteredCountries() {
-//   return this.countries.filter((country) =>{
-//     if (this.searchTerm.value) {
-      
-//       country.name.common.toLowerCase().includes(this.searchTerm.value.toLowerCase())
-//     }
-//   }
-//   );
-// }
+  // Filtrer les pays selon la recherche
+  // filteredCountries() {
+  //   return this.countries.filter((country) =>{
+  //     if (this.searchTerm.value) {
 
-// Action lors de la sélection d'un pays
-selectCountry(country: any) {
-  console.log('Selected Country:', country);
-}
-  
+  //       country.name.common.toLowerCase().includes(this.searchTerm.value.toLowerCase())
+  //     }
+  //   }
+  //   );
+  // }
 
+  // Action lors de la sélection d'un pays
+  selectCountry(country: any) {
+    console.log('Selected Country:', country);
+  }
 }
