@@ -11,6 +11,7 @@ import { formatDate, NgIf, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { environment } from '../../../environments/environment';
 import { VisiteService } from '../../_services/visite.service';
+import { IconsModule } from '../../_icons/icons.module';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -19,7 +20,7 @@ registerLocaleData(localeFr, 'fr');
 @Component({
   selector: 'app-acceuil',
   standalone: true,
-  imports: [CarouselModule,RouterLink,FooterComponent,ModalComponent,NgIf],
+  imports: [CarouselModule,RouterLink,FooterComponent,ModalComponent,NgIf,IconsModule],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
 })
