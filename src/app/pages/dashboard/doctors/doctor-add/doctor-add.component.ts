@@ -83,14 +83,20 @@ export class DoctorAddComponent implements OnInit{
         cca2[0]
       );
       console.log(this.phoneUtil.isValidNumberForRegion(number, cca2[0]));
-      if (this.phoneUtil.isValidNumberForRegion(number, cca2[0])) {
-        const addingTel = new FormGroup({
-          flag: new FormControl(cca2[1]),
-          prefix: new FormControl(cca2[2]),
-          number: new FormControl(String(this.numberGroup.value.number)),
-        });
-        this.tels.push(addingTel);
-      }
+      // if (this.phoneUtil.isValidNumberForRegion(number, cca2[0])) {
+      //   const addingTel = new FormGroup({
+      //     flag: new FormControl(cca2[1]),
+      //     prefix: new FormControl(cca2[2]),
+      //     number: new FormControl(String(this.numberGroup.value.number)),
+      //   });
+      //   this.tels.push(addingTel);
+      // }
+      const addingTel = new FormGroup({
+        flag: new FormControl(cca2[1]),
+        prefix: new FormControl(cca2[2]),
+        number: new FormControl(String(this.numberGroup.value.number)),
+      });
+      this.tels.push(addingTel);
     }
   }
 

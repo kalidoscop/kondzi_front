@@ -96,7 +96,7 @@ export class AnnuaireComponent implements OnInit {
     // this.loadStructure()
   }
 
-  loadStructure(page?: string) {
+  loadStructure(page?: string, lodDoc: boolean = true) {
     this.doctors = [];
     this.structures = [];
 
@@ -139,8 +139,13 @@ export class AnnuaireComponent implements OnInit {
                 }
                 this.initMap('map');
               } else {
-                this.auLocations = [];
-                this.initMap('map');
+                if (lodDoc) {
+                  this.type.setValue('doc');
+                  this.loadStructure();
+                } else {
+                  this.auLocations = [];
+                  this.initMap('map');
+                }
               }
             });
         } else {
@@ -174,8 +179,13 @@ export class AnnuaireComponent implements OnInit {
                 }
                 this.initMap('map');
               } else {
-                this.auLocations = [];
-                this.initMap('map');
+                if (lodDoc) {
+                  this.type.setValue('doc');
+                  this.loadStructure();
+                } else {
+                  this.auLocations = [];
+                  this.initMap('map');
+                }
               }
             });
         }
@@ -209,14 +219,14 @@ export class AnnuaireComponent implements OnInit {
               this.meta = res.meta;
               console.log(this.doctors);
 
-              if (this.structures.length) {
-                for (let i = 0; i < this.structures.length; i++) {
-                  const element = this.structures[i];
+              if (this.doctors.length) {
+                for (let i = 0; i < this.doctors.length; i++) {
+                  const element = this.doctors[i];
                   for (let j = 0; j < element.adresse.length; j++) {
                     const ad = element.adresse[j];
                     const coord = {
                       position: { lat: ad.lat, lng: ad.lng },
-                      title: element.name,
+                      title: `${element.last_name} ${element.first_name}`,
                       structure: element,
                     };
                     this.auLocations.push(coord);
@@ -224,6 +234,11 @@ export class AnnuaireComponent implements OnInit {
                 }
                 this.initMap('map');
               } else {
+                console.log('none');
+
+                this.type.setValue('all');
+                this.loadStructure(undefined, false);
+
                 this.auLocations = [];
                 this.initMap('map');
               }
@@ -244,14 +259,14 @@ export class AnnuaireComponent implements OnInit {
               this.meta = res.meta;
               console.log(this.doctors);
 
-              if (this.structures.length) {
-                for (let i = 0; i < this.structures.length; i++) {
-                  const element = this.structures[i];
+              if (this.doctors.length) {
+                for (let i = 0; i < this.doctors.length; i++) {
+                  const element = this.doctors[i];
                   for (let j = 0; j < element.adresse.length; j++) {
                     const ad = element.adresse[j];
                     const coord = {
                       position: { lat: ad.lat, lng: ad.lng },
-                      title: element.name,
+                      title: `${element.last_name} ${element.first_name}`,
                       structure: element,
                     };
                     this.auLocations.push(coord);
@@ -259,6 +274,9 @@ export class AnnuaireComponent implements OnInit {
                 }
                 this.initMap('map');
               } else {
+                console.log('none');
+                this.type.setValue('all');
+                this.loadStructure(undefined, false);
                 this.auLocations = [];
                 this.initMap('map');
               }
@@ -305,8 +323,13 @@ export class AnnuaireComponent implements OnInit {
                 }
                 this.initMap('map');
               } else {
-                this.auLocations = [];
-                this.initMap('map');
+                if (lodDoc) {
+                  this.type.setValue('doc');
+                  this.loadStructure();
+                } else {
+                  this.auLocations = [];
+                  this.initMap('map');
+                }
               }
             });
         } else {
@@ -339,8 +362,13 @@ export class AnnuaireComponent implements OnInit {
                 }
                 this.initMap('map');
               } else {
-                this.auLocations = [];
-                this.initMap('map');
+                if (lodDoc) {
+                  this.type.setValue('doc');
+                  this.loadStructure();
+                } else {
+                  this.auLocations = [];
+                  this.initMap('map');
+                }
               }
             });
         }
@@ -366,7 +394,7 @@ export class AnnuaireComponent implements OnInit {
 
     const map = new Map(document.getElementById(mapName) as HTMLElement, {
       // center: { lat: 8, lng: 1.259029 },
-      center: { lat: 16, lng: 7},
+      center: { lat: 16, lng: 7 },
       zoom: 3,
       mapId: '4504f8b37365c3d0',
     });

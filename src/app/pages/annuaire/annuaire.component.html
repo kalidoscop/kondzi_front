@@ -5,9 +5,9 @@
     <!-- <div class="h-[88vh] w-[5vw] fixed mt-36 bg-ps-green"></div> -->
 
     <div
-      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[160px] mb-[8.6vw] flex flex-col items-center gap-4"
+      class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[160px] mb-[8.6vw] flex flex-col items-center"
     >
-      <div class="w-full pl-8 h-16 flex justify-start items-center gap-4">
+      <div class="w-full pl-8 h-16 flex justify-start items-center gap-4 mb-4">
         <span class="material-symbols-outlined text-2xl text-ps-green">
           tune
         </span>
@@ -26,26 +26,26 @@
         </select>
       </div>
       @if (meta) { @if (structures.length) { @if ( structures.length<25) {
-      <h1 class="text-3xl w-11/12 font-bold">
+      <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
         {{ meta.total - structures.length + 1 }} à {{ meta.total }} sur
         {{ meta.total }}
       </h1>
       } @else {
-      <h1 class="text-3xl w-11/12 font-bold">
+      <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
         {{ meta.current_page * 25 - (structures.length - 1) }} à
         {{ meta.current_page * 25 }} sur {{ meta.total }}
       </h1>
 
       } } @else if (doctors.length) { @if ( doctors.length<25) {
-      <h1 class="text-3xl w-11/12 font-bold">
+      <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de {{ meta.total - doctors.length + 1 }} à
         {{ meta.total }} sur
         {{ meta.total }}
       </h1>
       } @else {
-      <h1 class="text-3xl w-11/12 font-bold">
+      <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
         {{ meta.current_page * 25 - (doctors.length - 1) }} à
         {{ meta.current_page * 25 }} sur {{ meta.total }}
@@ -55,7 +55,7 @@
 
       <!-- } -->
       @if (meta.previous_page_url||meta.next_page_url) {
-      <div class="w-full pl-8 h-16 flex justify-start gap-4 items-center">
+      <div class="w-full pl-8 h-16 flex justify-start gap-4 items-center mb-4">
         @if (meta.previous_page_url) {
 
         <button
@@ -83,66 +83,49 @@
       <!-- medecini -->
       @for (item of doctors; track $index) {
       <div
-        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
-        [ngClass]="{ 'cart-active': selectedIndex === item.id}"
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white border-b-[1px] transition-all hover:bg-gray-200 border-ps-green shadow-lg"
+        [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
         <div class="w-full flex">
           <div
-            class="w-3/4 h-auto transition-all overflow-y-hidden gap-1 m-auto flex flex-col p-2"
+            class="w-full h-auto transition-all overflow-y-hidden m-auto flex flex-col p-2"
           >
             <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-4xl text-ps-green">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
                 person
               </span>
               <div>
-                <h1 class="text-2xl underline font-bold text-ps-green">
+                <h1 class="text-xl underline font-bold text-ps-green">
                   {{ item.last_name }} {{ item.first_name }}
                 </h1>
                 <!-- <p class="text-sm">Type de la structure</p> -->
               </div>
             </div>
-            <div class="flex justify-start items-start gap-2">
+            <div class="flex flex-col justify-start items-start pl-7">
               <div>
-                <p class="text-lg italic">{{ item.speciality }}</p>
+                <p class="italic">{{ item.speciality }} ,{{ item.country }}</p>
               </div>
-            </div>
-            <div class="flex justify-start items-start gap-2">
-              <div>
-                <p class="text-lg">{{ item.country }}</p>
-              </div>
-            </div>
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                call
-              </span>
-              <div>
+              <div class="flex gap-1 flex-wrap">
                 @for (tel of item.tel; track $index) {
-                  <p class="text-lg">{{ tel.flag }} {{tel.prefix}}{{tel.number}}</p>
+
+                <p class="">
+                  ({{ tel.prefix }}) {{ tel.number }}
+                </p>
                 }
               </div>
-            </div>
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                mail
-              </span>
               <div>
-                <p class="text-lg underline">{{ item.email }}</p>
+                <p class="underline">{{ item.email }}</p>
               </div>
             </div>
-            <div class="w-11/12 h-10 mb-3 flex justify-between items-center">
+            <div class="w-11/12 h-10 flex justify-between items-center">
               <button
                 (click)="seeMore($index)"
                 class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
                 style="font-weight: 600"
               >
-              @if (see === $index) {
-                Cacher les adresses...
-
-              }@else {
-
-                Voir les adresses...
-              }
+                @if (see === $index) { Cacher les adresses... }@else { Voir les
+                adresses... }
               </button>
               <!-- <a
                 [href]="[
@@ -157,22 +140,16 @@
               <!-- <i-feather name="external-link"></i-feather>
               </a> -->
             </div>
-            @if (see === $index) {
-              @for (add of item.adresse; track $index) {
-                <a
-                  [href]="['https://www.google.com/maps?q=' + [add.lat, add.lng]]"
-                  class="flex justify-start items-start gap-2"
-                >
-                  <span class="material-symbols-outlined text-2xl text-ps-green">
-                    location_on
-                  </span>
-                  <div>
-                    <p class="text-lg italic">{{ add.nadress }}</p>
-                  </div>
-                </a>
-                }
-            }
-           
+            @if (see === $index) { @for (add of item.adresse; track $index) {
+            <a
+              [href]="['https://www.google.com/maps?q=' + [add.lat, add.lng]]"
+              class="flex justify-start items-start pl-7 hover:text-green-700 hover:underline"
+            >
+              <div>
+                <p class="text italic">{{ add.nadress }}, ,{{ item.country }}</p>
+              </div>
+            </a>
+            } }
 
             <!-- <div class="flex justify-start items-start gap-2">
                   <span class="material-symbols-outlined text-2xl text-ps-green">
@@ -199,78 +176,26 @@
       <!--structure -->
       @for (item of structures; track $index) {
       <div
-        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white border-b-[1px] transition-all hover:bg-gray-200  border-ps-green"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
         <div class="w-full flex">
-          <div class="w-3/4 h-auto gap-1 m-auto flex flex-col p-3">
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-4xl text-ps-green">
-                domain
-              </span>
-              <div>
-                <h1 class="text-2xl underline font-bold text-ps-green">
-                  {{ item.name }}
-                </h1>
-                <!-- <p class="text-sm">Type de la structure</p> -->
-              </div>
-            </div>
+          <div class="w-5/6 h-auto m-auto flex flex-col p-3">
             <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
                 location_on
               </span>
               <div>
-                <p class="text-lg italic">{{ item.adresse[0].nadress }}</p>
+                <h1 class="text-xl underline font-bold text-ps-green">
+                  {{ item.name }}
+                </h1>
+                <!-- <p class="text-sm">Type de la structure</p> -->
               </div>
             </div>
-            <div class="flex justify-start items-start gap-2">
-              <div>
-                <p class="text-lg">{{ item.country }}</p>
-              </div>
-            </div>
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                call
-              </span>
-              <div>
-                @for (tel of item.tel; track $index) {
-
-                  <p class="text-lg">{{ tel.flag }} {{tel.prefix}}{{tel.number}}</p>
-                }
-              </div>
-            </div>
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                mail
-              </span>
-              <div>
-                <p class="text-lg underline">{{ item.email }}</p>
-              </div>
-            </div>
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                credit_card
-              </span>
-              <div>
-                <p class="text-lg italic">{{ item.assurance }}</p>
-              </div>
-            </div>
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                add_box
-              </span>
-              <div>
-                <p class="text-lg">{{ item.flagship_activity }}</p>
-              </div>
-            </div>
-            @if (item.type!=='ph') {
-              @if (item.hours.length) {
+            @if (item.type!=='ph') { @if (item.hours.length) {
               <div class="flex justify-start items-start gap-2">
-                <span class="material-symbols-outlined text-2xl text-ps-green">
-                  schedule
-                </span>
-                <div class="flex flex-col pt-2">
+                <div class="flex flex-col pl-7">
                   @for (it of item.hours; track $index) { @if (it.is_h24) {
                   <p class="text-sm">{{ it.libelle }} 24H/24</p>
                   }@else {
@@ -280,34 +205,53 @@
                   } }
                 </div>
               </div>
-              }
-            }
-            @else {
-              @switch (item.is_garde) {
-                @case (true) {
-                  <div class="flex justify-start items-start gap-2">
-                    <span class="material-symbols-outlined text-2xl text-ps-green">
-                      
-                    </span>
-                    <div style="font-weight: 800;" class="flex flex-col pt-2 text-red-500 font-extrabold">
-                      DE GARDE
-                    </div>
-                  </div>
+              } } @else { @switch (item.is_garde) { @case (true) {
+              <div class="flex justify-start items-start gap-2">
+                <span class="material-symbols-outlined text-2xl text-ps-green">
+                </span>
+                <div
+                  style="font-weight: 800"
+                  class="flex flex-col pl-7 text-red-500 font-extrabold"
+                >
+                  DE GARDE
+                </div>
+              </div>
+              } @case (false) {
+              <div class="flex justify-start items-start gap-2">
+                <span class="material-symbols-outlined text-2xl text-ps-green">
+                </span>
+                <div
+                  style="font-weight: 800"
+                  class="flex flex-col pl-7 text-ps-green-2 font-bold"
+                >
+                  PAS DE GARDE
+                </div>
+              </div>
+              } } }
+            <div class="flex flex-col justify-start items-start pl-7">
+              <div>
+                <p class=" italic">{{ item.adresse[0].nadress }} ,{{ item.country }} </p>
+              </div>
+              <div class="flex gap-1 flex-wrap">
+                @for (tel of item.tel; track $index) {
+
+                <p class="">
+                  ({{ tel.prefix }}) {{ tel.number }}
+                </p>
                 }
-                @case (false) {
-                  <div class="flex justify-start items-start gap-2">
-                    <span class="material-symbols-outlined text-2xl text-ps-green">
-                      
-                    </span>
-                    <div style="font-weight: 800;" class="flex flex-col pt-2 text-ps-green-2 font-bold">
-                      PAS DE GARDE
-                    </div>
-                  </div>
-                }
-              }
-            }
+              </div>
+              <div>
+                <p class=" underline">{{ item.email }}</p>
+              </div>
+              <div>
+                <p class=" italic">{{ item.assurance }}</p>
+              </div>
+              <div>
+                <p class="">{{ item.flagship_activity }}</p>
+              </div>
+            </div>  
           </div>
-          <div class="mt-6 w-[100px] h-1/4 gap-2 flex flex-wrap">
+          <div class="mt-6 w-1/6 h-1/4 gap-2 flex flex-wrap">
             @for (ite of item.network; track $index) {
 
             <a
@@ -319,7 +263,7 @@
             }
           </div>
         </div>
-        <div class="w-11/12 h-10 mb-3 flex justify-between items-center">
+        <div class="w-full h-7 mb-3 flex justify-between pl-3 pr-3 items-center">
           <a
             href=""
             class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
@@ -406,3 +350,4 @@
   <!-- </div> -->
 </app-modal>
 }
+

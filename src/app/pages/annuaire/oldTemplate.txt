@@ -1,0 +1,265 @@
+<div
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
+        [ngClass]="{ 'cart-active': selectedIndex === item.id }"
+        [id]="'structure-' + item.id"
+      >
+        <div class="w-full flex">
+          <div
+            class="w-3/4 h-auto transition-all overflow-y-hidden gap-1 m-auto flex flex-col p-2"
+          >
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-4xl text-ps-green">
+                person
+              </span>
+              <div>
+                <h1 class="text-2xl underline font-bold text-ps-green">
+                  {{ item.last_name }} {{ item.first_name }}
+                </h1>
+                <!-- <p class="text-sm">Type de la structure</p> -->
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <div>
+                <p class="text-lg italic">{{ item.speciality }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <div>
+                <p class="text-lg">{{ item.country }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                call
+              </span>
+              <div>
+                @for (tel of item.tel; track $index) {
+                <p class="text-lg">
+                  {{ tel.flag }} {{ tel.prefix }}{{ tel.number }}
+                </p>
+                }
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                mail
+              </span>
+              <div>
+                <p class="text-lg underline">{{ item.email }}</p>
+              </div>
+            </div>
+            <div class="w-11/12 h-10 mb-3 flex justify-between items-center">
+              <button
+                (click)="seeMore($index)"
+                class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
+                style="font-weight: 600"
+              >
+                @if (see === $index) { Cacher les adresses... }@else { Voir les
+                adresses... }
+              </button>
+              <!-- <a
+                [href]="[
+                  'https://www.google.com/maps?q=' +
+                    [item.adresse[0].lat, item.adresse[0].lng]
+                ]"
+                target="_blank"
+                class="h-full w-36 flex justify-center items-center gap-2 rounded-3xl bg-ps-green-2 text-white"
+              >
+                <p class="bol">Y ALLER</p> -->
+              <!-- <span class="material-symbols-outlined"> send </span> -->
+              <!-- <i-feather name="external-link"></i-feather>
+              </a> -->
+            </div>
+            @if (see === $index) { @for (add of item.adresse; track $index) {
+            <a
+              [href]="['https://www.google.com/maps?q=' + [add.lat, add.lng]]"
+              class="flex justify-start items-start gap-2"
+            >
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                location_on
+              </span>
+              <div>
+                <p class="text-lg italic">{{ add.nadress }}</p>
+              </div>
+            </a>
+            } }
+
+            <!-- <div class="flex justify-start items-start gap-2">
+                  <span class="material-symbols-outlined text-2xl text-ps-green">
+                    credit_card
+                  </span>
+                  <div>
+                    <p class="text-lg italic">{{ item.assurance }}</p>
+                  </div>
+                </div> -->
+            <!-- <div class="flex justify-start items-start gap-2">
+                  <span class="material-symbols-outlined text-2xl text-ps-green">
+                    add_box
+                  </span>
+                  <div>
+                    <p class="text-lg">{{ item.flagship_activity }}</p>
+                  </div>
+                </div> -->
+          </div>
+        </div>
+      </div>
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
+///                                                                            ///
+///                                                                            ///
+///                           Structure                                        ///
+///                                                                            /// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+
+<div
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white hover:border-2 border-ps-green shadow-lg"
+        [ngClass]="{ 'cart-active': selectedIndex === item.id }"
+        [id]="'structure-' + item.id"
+      >
+        <div class="w-full flex">
+          <div class="w-3/4 h-auto gap-1 m-auto flex flex-col p-3">
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-4xl text-ps-green">
+                domain
+              </span>
+              <div>
+                <h1 class="text-2xl underline font-bold text-ps-green">
+                  {{ item.name }}
+                </h1>
+                <!-- <p class="text-sm">Type de la structure</p> -->
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                location_on
+              </span>
+              <div>
+                <p class="text-lg italic">{{ item.adresse[0].nadress }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <div>
+                <p class="text-lg">{{ item.country }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                call
+              </span>
+              <div>
+                @for (tel of item.tel; track $index) {
+
+                <p class="text-lg">
+                  {{ tel.flag }} {{ tel.prefix }}{{ tel.number }}
+                </p>
+                }
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                mail
+              </span>
+              <div>
+                <p class="text-lg underline">{{ item.email }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                credit_card
+              </span>
+              <div>
+                <p class="text-lg italic">{{ item.assurance }}</p>
+              </div>
+            </div>
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                add_box
+              </span>
+              <div>
+                <p class="text-lg">{{ item.flagship_activity }}</p>
+              </div>
+            </div>
+            @if (item.type!=='ph') { @if (item.hours.length) {
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+                schedule
+              </span>
+              <div class="flex flex-col pt-2">
+                @for (it of item.hours; track $index) { @if (it.is_h24) {
+                <p class="text-sm">{{ it.libelle }} 24H/24</p>
+                }@else {
+                <p class="text-sm">
+                  {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
+                </p>
+                } }
+              </div>
+            </div>
+            } } @else { @switch (item.is_garde) { @case (true) {
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+              </span>
+              <div
+                style="font-weight: 800"
+                class="flex flex-col pt-2 text-red-500 font-extrabold"
+              >
+                DE GARDE
+              </div>
+            </div>
+            } @case (false) {
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+              </span>
+              <div
+                style="font-weight: 800"
+                class="flex flex-col pt-2 text-ps-green-2 font-bold"
+              >
+                PAS DE GARDE
+              </div>
+            </div>
+            } } }
+          </div>
+          <div class="mt-6 w-[100px] h-1/4 gap-2 flex flex-wrap">
+            @for (ite of item.network; track $index) {
+
+            <a
+              class="w-[25px] flex justify-start items-center"
+              target="_blank"
+              href="{{ ite.link }}"
+              ><img src="images/icone/{{ ite.name }}.png" class="w-[100px]"
+            /></a>
+            }
+          </div>
+        </div>
+        <div class="w-11/12 h-10 mb-3 flex justify-between items-center">
+          <a
+            href=""
+            class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
+            style="font-weight: 600"
+            >En savoir plus...</a
+          >
+          <a
+            [href]="[
+              'https://www.google.com/maps?q=' +
+                [item.adresse[0].lat, item.adresse[0].lng]
+            ]"
+            target="_blank"
+            class="h-full w-36 flex justify-center items-center gap-2 rounded-3xl bg-ps-green-2 text-white"
+          >
+            <p class="bol">Y ALLER</p>
+            <!-- <span class="material-symbols-outlined"> send </span> -->
+            <i-feather name="external-link"></i-feather>
+          </a>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
