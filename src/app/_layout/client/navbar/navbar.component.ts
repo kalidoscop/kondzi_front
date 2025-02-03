@@ -246,13 +246,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.showModal = false;
   }
 
-  activities: string[] = [];
-  activitiesF: string[] = [];
-  assurance: string[] = [];
-  speciality: string[] = [];
-  name: string[] = [];
-  doc_name: string[] = [];
-  doc_activity: string[] = [];
+  suggestion: string[] = [];
   otherSuggestions: {
     id: string;
     name: string;
@@ -260,40 +254,40 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }[] = [];
 
   closeSuggestion() {
-    this.activities = []; // Suggestions d'activités
-    this.activitiesF = []; // Suggestions d'activités
-    this.assurance = []; // Suggestions d'activités
-    this.otherSuggestions = [];
-    this.speciality = [];
-    this.name = [];
-    this.doc_name = [];
-    this.doc_activity = [];
+    this.suggestion = []; // Suggestions d'activités
+    // this.activitiesF = []; // Suggestions d'activités
+    // this.assurance = []; // Suggestions d'activités
+    // this.otherSuggestions = [];
+    // this.speciality = [];
+    // this.name = [];
+    // this.doc_name = [];
+    // this.doc_activity = [];
 
 
   }
 
   onSearchChange(): void {
     if (this.search.value.word) {
-      this.activities = []; // Suggestions d'activités
-      this.activitiesF = []; // Suggestions d'activités
-      this.assurance = []; // Suggestions d'activités
-      this.otherSuggestions = [];
-      this.speciality = [];
-      this.name = [];
-      this.doc_name = [];
-      this.doc_activity = [];
+      this.suggestion = []; // Suggestions d'activités
+      // this.activitiesF = []; // Suggestions d'activités
+      // this.assurance = []; // Suggestions d'activités
+      // this.otherSuggestions = [];
+      // this.speciality = [];
+      // this.name = [];
+      // this.doc_name = [];
+      // this.doc_activity = [];
       if (this.search.value.word.length > 1) {
         this.structureService.suggestio(this.search.value.word).subscribe({
           next: (data) => {
-            this.activities = data.activities; // Suggestions d'activités
-            this.activitiesF = data.activities_f; // Suggestions d'activités
-            this.assurance = data.assurance; // Suggestions d'activités
-            // this.otherSuggestions = data.suggestions; // Autres suggestions
-            this.speciality = data.speciality; // Autres suggestions
-            this.name = data.name; // Autres suggestions
-            this.doc_name = data.doc_name; // Autres suggestions
-            this.doc_activity = data.doc_activity; // Autres suggestions
-            console.log(this.doc_name);
+            this.suggestion = data.suggestion; // Suggestions d'activités
+            // this.activitiesF = data.activities_f; // Suggestions d'activités
+            // this.assurance = data.assurance; // Suggestions d'activités
+            // // this.otherSuggestions = data.suggestions; // Autres suggestions
+            // this.speciality = data.speciality; // Autres suggestions
+            // this.name = data.name; // Autres suggestions
+            // this.doc_name = data.doc_name; // Autres suggestions
+            // this.doc_activity = data.doc_activity; // Autres suggestions
+            // console.log(this.doc_name);
           },
 
           error: (err) =>
@@ -304,7 +298,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         });
       }
     } else {
-      this.activities = [];
+      this.suggestion = [];
       this.otherSuggestions = [];
     }
   }

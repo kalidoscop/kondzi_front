@@ -123,7 +123,7 @@
       />
     </div>
   </div>
-  <div class="row">
+  <div class="row-f">
     <div class="flex flex-col gap-2 w-[48%]" >
       <label for="manager-name">Numéros de téléphone</label>
       <div class="input flex justify-around items-center" [formGroup]="numberGroup">
@@ -205,6 +205,16 @@
           </tr>
         </tbody>
       </table>
+    </div>
+    <div class="flex flex-col w-[48%]">
+      <label for="email">En savoir plus sur la structure</label>
+      <input
+        type="url"
+        id="social"
+        formControlName="social"
+        class="input mt-2"
+        required
+      />
     </div>
   </div>
   

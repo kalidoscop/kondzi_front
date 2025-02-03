@@ -15,6 +15,7 @@ export interface Structure {
   activity: string;
   created_at: string;
   updated_at: string;
+  social:string;
   type: string;
   country: string;
   assurance:string;

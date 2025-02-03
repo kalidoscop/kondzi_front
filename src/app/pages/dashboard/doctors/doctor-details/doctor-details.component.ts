@@ -17,42 +17,41 @@ import { NgFor } from '@angular/common';
 @Component({
   selector: 'app-doctor-details',
   standalone: true,
-  imports: [ReactiveFormsModule, IconsModule, RouterModule,NgFor],
+  imports: [ReactiveFormsModule, IconsModule, RouterModule, NgFor],
   templateUrl: './doctor-details.component.html',
   styleUrl: './doctor-details.component.scss',
 })
 export class DoctorDetailsComponent implements OnInit {
   doctorService = inject(DoctorService);
   private activatedRoute = inject(ActivatedRoute);
-  private countryService = inject(RestContriesService)
+  private countryService = inject(RestContriesService);
   private phoneUtil = libphonenumber.PhoneNumberUtil.getInstance();
-
 
   activity: string[] = [];
   countries: any[] = [];
 
   doctorId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
-  
+
   doctorForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
     speciality: new FormControl('', Validators.required),
     tel: new FormArray([], ArrayValidators.minLength(1)),
-    country: new FormControl('',Validators.required),
+    country: new FormControl('', Validators.required),
     secteur: new FormControl('pub', Validators.required),
     activity: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
+    social: new FormControl('', [Validators.required]),
   });
   get tels(): FormArray {
     return this.doctorForm.get('tel') as FormArray;
   }
   ngOnInit(): void {
-    this.countryService.getAfricanCountries().subscribe((res)=>{
+    this.countryService.getAfricanCountries().subscribe((res) => {
       console.log(res);
-      this.countries=res
+      this.countries = res;
       this.loadDoctorInfo();
-      
-    })
+    });
   }
 
   onSubmit() {
@@ -87,6 +86,7 @@ export class DoctorDetailsComponent implements OnInit {
             Validators.required,
             Validators.email,
           ]),
+          social: new FormControl(`${res.social}`, [Validators.required]),
         });
         this.activity = res.activity.split(' ');
         for (let i = 0; i < res.tel.length; i++) {
@@ -97,7 +97,6 @@ export class DoctorDetailsComponent implements OnInit {
             number: new FormControl(tel.number),
           });
           this.tels.push(addingTel);
-          
         }
       });
     }

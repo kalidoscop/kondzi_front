@@ -22,7 +22,7 @@
           <option value="ph">Pharmacie</option>
           <option value="lb">Laboratoires</option>
           <option value="co">Centre Optique</option>
-          <option value="doc">Médécins</option>
+          <option value="doc">Agent Professionnel-le</option>
         </select>
       </div>
       @if (meta) { @if (structures.length) { @if ( structures.length<25) {
@@ -83,51 +83,74 @@
       <!-- medecini -->
       @for (item of doctors; track $index) {
       <div
-        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white border-b-[1px] transition-all hover:bg-gray-200 border-ps-green shadow-lg"
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white transition-all hover:bg-gray-200 border-ps-green shadow-lg"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
         <div class="w-full flex">
           <div
-            class="w-full h-auto transition-all overflow-y-hidden m-auto flex flex-col p-2"
+            class="w-full h-auto transition-all overflow-y-hidden m-auto flex flex-col items-center"
           >
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-                person
-              </span>
-              <div>
-                <h1 class="text-xl underline font-bold text-ps-green">
-                  {{ item.last_name }} {{ item.first_name }}
-                </h1>
-                <!-- <p class="text-sm">Type de la structure</p> -->
+            <div class="w-full flex flex-col p-2">
+              <div class="flex justify-start items-start gap-2">
+                <span class="material-symbols-outlined text-2xl text-ps-green">
+                  person
+                </span>
+                <div>
+                  <h1 class="text-xl underline font-bold text-ps-green">
+                    {{ item.last_name }} {{ item.first_name }}
+                  </h1>
+                  <!-- <p class="text-sm">Type de la structure</p> -->
+                </div>
               </div>
-            </div>
-            <div class="flex flex-col justify-start items-start pl-7">
-              <div>
-                <p class="italic">{{ item.speciality }} ,{{ item.country }}</p>
-              </div>
-              <div class="flex gap-1 flex-wrap">
-                @for (tel of item.tel; track $index) {
+              <div class="flex flex-col justify-start items-start">
+                <div class="flex items-center gap-1 flex-wrap">
+                  <span class="material-symbols-outlined text-xl text-ps-green">
+                    location_on
+                  </span>
+                  <p class="italic">
+                    {{ item.speciality }} ,{{ item.country }}
+                  </p>
+                </div>
+                <div class="flex items-center gap-1 flex-wrap">
+                  <span class="material-symbols-outlined text-xl text-ps-green">
+                    call
+                  </span>
+                  @for (tel of item.tel; track $index) {
 
-                <p class="">
-                  ({{ tel.prefix }}) {{ tel.number }}
-                </p>
-                }
-              </div>
-              <div>
-                <p class="underline">{{ item.email }}</p>
+                  <p class="">({{ tel.prefix }}) {{ tel.number }}</p>
+                  }
+                </div>
+                <div class="flex items-center gap-1 flex-wrap">
+                  <span class="material-symbols-outlined text-xl text-ps-green">
+                    mail
+                  </span>
+                  <p class="underline">{{ item.email }}</p>
+                </div>
               </div>
             </div>
-            <div class="w-11/12 h-10 flex justify-between items-center">
-              <button
+
+            <div
+              class="w-11/12 h-10 flex justify-between items-center border-b-[1px] border-gray-300"
+            >
+              <!-- <button
                 (click)="seeMore($index)"
                 class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
                 style="font-weight: 600"
               >
                 @if (see === $index) { Cacher les adresses... }@else { Voir les
                 adresses... }
-              </button>
-              <!-- <a
+              </button> -->
+              <a
+                href=""
+                class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
+                [href]="[item.social]"
+                style="font-weight: 600"
+                target="_blank"
+                >En savoir plus...</a
+              >
+              @if (item.adresse[0]) {
+              <a
                 [href]="[
                   'https://www.google.com/maps?q=' +
                     [item.adresse[0].lat, item.adresse[0].lng]
@@ -135,21 +158,24 @@
                 target="_blank"
                 class="h-full w-36 flex justify-center items-center gap-2 rounded-3xl bg-ps-green-2 text-white"
               >
-                <p class="bol">Y ALLER</p> -->
-              <!-- <span class="material-symbols-outlined"> send </span> -->
-              <!-- <i-feather name="external-link"></i-feather>
-              </a> -->
+                <p class="bol">Y ALLER</p>
+                <!-- <span class="material-symbols-outlined"> send </span> -->
+                <i-feather name="external-link"></i-feather>
+              </a>
+              }
             </div>
-            @if (see === $index) { @for (add of item.adresse; track $index) {
+            <!-- @if (see === $index) { @for (add of item.adresse; track $index) {
             <a
               [href]="['https://www.google.com/maps?q=' + [add.lat, add.lng]]"
               class="flex justify-start items-start pl-7 hover:text-green-700 hover:underline"
             >
               <div>
-                <p class="text italic">{{ add.nadress }}, ,{{ item.country }}</p>
+                <p class="text italic">
+                  {{ add.nadress }}, ,{{ item.country }}
+                </p>
               </div>
             </a>
-            } }
+            } } -->
 
             <!-- <div class="flex justify-start items-start gap-2">
                   <span class="material-symbols-outlined text-2xl text-ps-green">
@@ -176,7 +202,7 @@
       <!--structure -->
       @for (item of structures; track $index) {
       <div
-        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white border-b-[1px] transition-all hover:bg-gray-200  border-ps-green"
+        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white border-ps-green transition-all hover:bg-gray-200"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
@@ -184,7 +210,7 @@
           <div class="w-5/6 h-auto m-auto flex flex-col p-3">
             <div class="flex justify-start items-start gap-2">
               <span class="material-symbols-outlined text-2xl text-ps-green">
-                location_on
+                domain
               </span>
               <div>
                 <h1 class="text-xl underline font-bold text-ps-green">
@@ -194,62 +220,80 @@
               </div>
             </div>
             @if (item.type!=='ph') { @if (item.hours.length) {
-              <div class="flex justify-start items-start gap-2">
-                <div class="flex flex-col pl-7">
-                  @for (it of item.hours; track $index) { @if (it.is_h24) {
-                  <p class="text-sm">{{ it.libelle }} 24H/24</p>
-                  }@else {
-                  <p class="text-sm">
-                    {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
-                  </p>
-                  } }
-                </div>
+            <div class="flex justify-start gap-2 items-center">
+              <span class="material-symbols-outlined text-xl text-ps-green">
+                schedule
+              </span>
+              <div class="flex flex-col">
+                @for (it of item.hours; track $index) { @if (it.is_h24) {
+                <p class="text-sm">{{ it.libelle }} 24H/24</p>
+                }@else {
+                <p class="text-sm">
+                  {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
+                </p>
+                } }
               </div>
-              } } @else { @switch (item.is_garde) { @case (true) {
-              <div class="flex justify-start items-start gap-2">
-                <span class="material-symbols-outlined text-2xl text-ps-green">
+            </div>
+            } } @else { @switch (item.is_garde) { @case (true) {
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+              </span>
+              <div
+                style="font-weight: 800"
+                class="flex flex-col pl-7 text-red-500 font-extrabold"
+              >
+                DE GARDE
+              </div>
+            </div>
+            } @case (false) {
+            <div class="flex justify-start items-start gap-2">
+              <span class="material-symbols-outlined text-2xl text-ps-green">
+              </span>
+              <div
+                style="font-weight: 800"
+                class="flex flex-col pl-7 text-ps-green-2 font-bold"
+              >
+                PAS DE GARDE
+              </div>
+            </div>
+            } } }
+            <div class="flex flex-col justify-start items-start">
+              <div class="flex items-center gap-1 flex-wrap">
+                <span class="material-symbols-outlined text-xl text-ps-green">
+                  location_on
                 </span>
-                <div
-                  style="font-weight: 800"
-                  class="flex flex-col pl-7 text-red-500 font-extrabold"
-                >
-                  DE GARDE
-                </div>
+                <p class="italic">
+                  {{ item.adresse[0].nadress }} ,{{ item.country }}
+                </p>
               </div>
-              } @case (false) {
-              <div class="flex justify-start items-start gap-2">
-                <span class="material-symbols-outlined text-2xl text-ps-green">
+              <div class="flex gap-1 items-center flex-wrap">
+                <span class="material-symbols-outlined text-xl text-ps-green">
+                  call
                 </span>
-                <div
-                  style="font-weight: 800"
-                  class="flex flex-col pl-7 text-ps-green-2 font-bold"
-                >
-                  PAS DE GARDE
-                </div>
-              </div>
-              } } }
-            <div class="flex flex-col justify-start items-start pl-7">
-              <div>
-                <p class=" italic">{{ item.adresse[0].nadress }} ,{{ item.country }} </p>
-              </div>
-              <div class="flex gap-1 flex-wrap">
                 @for (tel of item.tel; track $index) {
 
-                <p class="">
-                  ({{ tel.prefix }}) {{ tel.number }}
-                </p>
+                <p class="">({{ tel.prefix }}) {{ tel.number }}</p>
                 }
               </div>
-              <div>
-                <p class=" underline">{{ item.email }}</p>
+              <div class="flex gap-1 items-center flex-wrap">
+                <span class="material-symbols-outlined text-xl text-ps-green">
+                  mail
+                </span>
+                <p class="underline">{{ item.email }}</p>
               </div>
-              <div>
-                <p class=" italic">{{ item.assurance }}</p>
+              <div class="flex gap-1 items-center flex-wrap">
+                <span class="material-symbols-outlined text-xl text-ps-green">
+                  credit_card
+                </span>
+                <p class="italic">{{ item.assurance }}</p>
               </div>
-              <div>
+              <div class="flex gap-1 items-center flex-wrap">
+                <span class="material-symbols-outlined text-xl text-ps-green">
+                  add_box
+                </span>
                 <p class="">{{ item.flagship_activity }}</p>
               </div>
-            </div>  
+            </div>
           </div>
           <div class="mt-6 w-1/6 h-1/4 gap-2 flex flex-wrap">
             @for (ite of item.network; track $index) {
@@ -263,9 +307,12 @@
             }
           </div>
         </div>
-        <div class="w-full h-7 mb-3 flex justify-between pl-3 pr-3 items-center">
+        <div
+          class="w-11/12 h-10 flex justify-between pl-3 pr-3 items-center border-b-[1px] border-gray-300"
+        >
           <a
-            href=""
+            [href]="[item.social]"
+            target="_blank"
             class="hover:underline text-ps-green-2 hover:text-ps-green transition-all italic"
             style="font-weight: 600"
             >En savoir plus...</a
@@ -276,7 +323,7 @@
                 [item.adresse[0].lat, item.adresse[0].lng]
             ]"
             target="_blank"
-            class="h-full w-36 flex justify-center items-center gap-2 rounded-3xl bg-ps-green-2 text-white"
+            class="h-[80%] w-36 flex justify-center items-center gap-2 rounded-3xl bg-ps-green-2 text-white"
           >
             <p class="bol">Y ALLER</p>
             <!-- <span class="material-symbols-outlined"> send </span> -->
@@ -350,4 +397,3 @@
   <!-- </div> -->
 </app-modal>
 }
-

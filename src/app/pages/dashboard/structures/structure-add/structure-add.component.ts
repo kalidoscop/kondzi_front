@@ -137,6 +137,7 @@ export class StructureAddComponent implements OnInit {
     managerTitle: new FormControl('', Validators.required),
     tel: new FormArray([], ArrayValidators.minLength(1)),
     email: new FormControl('', [Validators.required, Validators.email]),
+    social: new FormControl('', [Validators.required]),
     // openingHours: new FormControl('', Validators.required),
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),

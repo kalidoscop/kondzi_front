@@ -118,7 +118,6 @@ export class StructureDetailsComponent implements OnInit {
   ];
   countries: any[] = [];
 
-
   assurances: string[] = [];
   activity: string[] = [];
   activityPh: string[] = [];
@@ -126,8 +125,7 @@ export class StructureDetailsComponent implements OnInit {
   structureService = inject(StructureService);
   // private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
-  private countryService = inject(RestContriesService)
-
+  private countryService = inject(RestContriesService);
 
   structureId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
   adresse: Adresse[] = [];
@@ -140,6 +138,7 @@ export class StructureDetailsComponent implements OnInit {
     managerTitle: new FormControl('', Validators.required),
     tel: new FormArray([], ArrayValidators.minLength(1)),
     email: new FormControl('', [Validators.required, Validators.email]),
+    social: new FormControl('', [Validators.required]),
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
     type: new FormControl(''),
@@ -151,12 +150,11 @@ export class StructureDetailsComponent implements OnInit {
     hours: new FormArray([], ArrayValidators.minLength(1)),
   });
   ngOnInit(): void {
-    this.countryService.getAfricanCountries().subscribe((res)=>{
+    this.countryService.getAfricanCountries().subscribe((res) => {
       console.log(res);
-      this.countries=res
+      this.countries = res;
       this.loadStructureInfo();
-      
-    })
+    });
     // throw new Error('Method not implemented.');
   }
 
@@ -194,6 +192,8 @@ export class StructureDetailsComponent implements OnInit {
             Validators.required,
             Validators.email,
           ]),
+          social: new FormControl(`${res.social}`, [Validators.required]),
+
           assurance: new FormControl(``),
           flagshipActivity: new FormControl(''),
           activity: new FormControl(``),
@@ -218,7 +218,6 @@ export class StructureDetailsComponent implements OnInit {
             number: new FormControl(tel.number),
           });
           this.tels.push(addingTel);
-          
         }
       });
     }
@@ -478,7 +477,6 @@ export class StructureDetailsComponent implements OnInit {
     this.structureForm.controls.tel.removeAt(index);
     // this.adresses=this.structureForm.controls.adresse.value
   }
-
 
   onKeyUp(event: KeyboardEvent) {
     // Vérifier si la touche appuyée est un espace
