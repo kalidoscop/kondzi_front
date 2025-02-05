@@ -134,11 +134,11 @@ export class StructureDetailsComponent implements OnInit {
   structureForm = new FormGroup({
     name: new FormControl('', Validators.required),
     domaine: new FormControl('', Validators.required),
-    managerName: new FormControl('', Validators.required),
-    managerTitle: new FormControl('', Validators.required),
+    managerName: new FormControl(''),
+    managerTitle: new FormControl(''),
     tel: new FormArray([], ArrayValidators.minLength(1)),
     email: new FormControl('', [Validators.required, Validators.email]),
-    social: new FormControl('', [Validators.required]),
+    social: new FormControl(''),
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
     type: new FormControl(''),
@@ -146,7 +146,7 @@ export class StructureDetailsComponent implements OnInit {
     isGarde: new FormControl(),
     assurance: new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
-    network: new FormArray([], ArrayValidators.minLength(1)),
+    network: new FormArray([], ArrayValidators.minLength(0)),
     hours: new FormArray([], ArrayValidators.minLength(1)),
   });
   ngOnInit(): void {
@@ -179,12 +179,10 @@ export class StructureDetailsComponent implements OnInit {
           name: new FormControl(`${res.name}`, Validators.required),
           domaine: new FormControl(`${res.domaine}`, Validators.required),
           managerName: new FormControl(
-            `${res.manager_name}`,
-            Validators.required
+            `${res.manager_name}`
           ),
           managerTitle: new FormControl(
-            `${res.manager_title}`,
-            Validators.required
+            `${res.manager_title}`
           ),
           tel: new FormArray([], ArrayValidators.minLength(0)),
           country: new FormControl(`${res.country}`, Validators.required),
@@ -192,7 +190,7 @@ export class StructureDetailsComponent implements OnInit {
             Validators.required,
             Validators.email,
           ]),
-          social: new FormControl(`${res.social}`, [Validators.required]),
+          social: new FormControl(`${res.social}`),
 
           assurance: new FormControl(``),
           flagshipActivity: new FormControl(''),

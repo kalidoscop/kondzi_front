@@ -13,7 +13,10 @@
 >
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="name">Nom de la structure</label>
+      <label for="name"
+        >Nom de la structure
+        <span class="font-bold text-red-500">*</span></label
+      >
       <input
         type="text"
         id="name"
@@ -23,7 +26,7 @@
       />
     </div>
     <div class="flex flex-col w-[48%]">
-      <label for="damaine">Domaine de la structure</label>
+      <label for="damaine">Domaine de la structure <span class="font-bold text-red-500">*</span></label>
       <input
         type="text"
         id="damaine"
@@ -35,27 +38,28 @@
   </div>
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="type">Pays</label>
-      <select
+      <label for="manager-name">Nom du responsable</label>
+      <input
         type="text"
-        id="type"
-        formControlName="country"
+        id="manager-name"
+        formControlName="managerName"
         class="input"
-        required
-      >
-        @for (item of countries; track $index) {
-        <option value="{{ item.translations.fra.common }} {{ item.flag }}">
-          {{ item.flag }} {{ item.translations.fra.common }}
-          {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
-        </option>
-
-        }
-      </select>
+      />
+    </div>
+    <div class="flex flex-col w-[48%]">
+      <label for="manager-title">Titre du responsable</label>
+      <input
+        type="text"
+        id="manager-title"
+        formControlName="managerTitle"
+        class="input"
+      />
     </div>
   </div>
+
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="type">Type de structure</label>
+      <label for="type">Type de structure <span class="font-bold text-red-500">*</span></label>
       <select
         type="text"
         id="type"
@@ -89,31 +93,10 @@
     </div>
     }
   </div>
+
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="manager-name">Nom du responsable</label>
-      <input
-        type="text"
-        id="manager-name"
-        formControlName="managerName"
-        class="input"
-        required
-      />
-    </div>
-    <div class="flex flex-col w-[48%]">
-      <label for="manager-title">Titre du responsable</label>
-      <input
-        type="text"
-        id="manager-title"
-        formControlName="managerTitle"
-        class="input"
-        required
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div class="flex flex-col w-[48%]">
-      <label for="email">Email de la structure</label>
+      <label for="email">Email de la structure <span class="font-bold text-red-500">*</span></label>
       <input
         type="email"
         id="email"
@@ -122,11 +105,45 @@
         required
       />
     </div>
+    <div class="flex flex-col w-[48%]">
+      <label for="email">En savoir plus sur la structure</label>
+      <input
+        type="url"
+        id="social"
+        formControlName="social"
+        class="input mt-2"
+      />
+    </div>
   </div>
+  <!-- pays  -->
+  <div class="row">
+    <div class="flex flex-col w-[48%]">
+      <label for="type">Pays <span class="font-bold text-red-500">*</span></label>
+      <select
+        type="text"
+        id="type"
+        formControlName="country"
+        class="input"
+        required
+      >
+        @for (item of countries; track $index) {
+        <option value="{{ item.translations.fra.common }} {{ item.flag }}">
+          {{ item.flag }} {{ item.translations.fra.common }}
+          {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
+        </option>
+
+        }
+      </select>
+    </div>
+  </div>
+  <!-- pays  -->
   <div class="row-f">
-    <div class="flex flex-col gap-2 w-[48%]" >
-      <label for="manager-name">Numéros de téléphone</label>
-      <div class="input flex justify-around items-center" [formGroup]="numberGroup">
+    <div class="flex flex-col gap-2 w-[48%]">
+      <label for="manager-name">Numéros de téléphone <span class="font-bold text-red-500">*</span></label>
+      <div
+        class="input flex justify-around items-center"
+        [formGroup]="numberGroup"
+      >
         <select
           type="text"
           id="type"
@@ -135,8 +152,14 @@
           required
         >
           @for (item of countries; track $index) {
-          <option value="{{ item.cca2 }}|{{ item.flag }}|{{ item.idd?.root || '' }}{{ item.idd?.suffixes?.[0] || '' }}">
-            {{ item.flag }} {{ item.idd?.root || '' }}{{ item.idd?.suffixes?.[0] || '' }}</option>
+          <option
+            value="{{ item.cca2 }}|{{ item.flag }}|{{
+              item.idd?.root || ''
+            }}{{ item.idd?.suffixes?.[0] || '' }}"
+          >
+            {{ item.flag }} {{ item.idd?.root || ""
+            }}{{ item.idd?.suffixes?.[0] || '' }}
+          </option>
 
           }
         </select>
@@ -148,17 +171,16 @@
           required
         />
         <input
-        type="button"
-        class="bg-ps-green p-1 text-white font-bold text-center w-3/12 hover:shadow-md hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_50px] transition-all h-[4vh] m-1"
-        (click)="addNumber()"
-        [disabled]="!numberGroup.valid"
-        value="Ajouter"
-      />
-        
+          type="button"
+          class="bg-ps-green p-1 text-white font-bold text-center w-3/12 hover:shadow-md hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_50px] transition-all h-[4vh] m-1"
+          (click)="addNumber()"
+          [disabled]="!numberGroup.valid"
+          value="Ajouter"
+        />
       </div>
       <table class="w-full">
         <thead class="w-full h-14 bg-ps-green text-white">
-          <tr>  
+          <tr>
             <th>Pays</th>
             <th>Numero</th>
             <th></th>
@@ -173,27 +195,26 @@
             "
             [formGroupName]="i"
           >
-          <td>
-            <input
-              type="text"
-              id="flag"
-              formControlName="flag"
-              class="w-11/12 h-10 px-2 py-2 text-gray-500 focus:outline-none focus:border-2 focus:border-ps-orange border border-ps-green"
-              required
-              [disabled]="true"
-            />
-          </td>
-          <td>
-            <input
-              type="text"
-              class="w-11/12 h-10 px-2 py-2 text-gray-500 focus:outline-none focus:border-2 focus:border-ps-orange border border-ps-green"
-              formControlName="number"
-              id="number"
-              required
-              [disabled]="true"
-
-            />
-          </td>
+            <td>
+              <input
+                type="text"
+                id="flag"
+                formControlName="flag"
+                class="w-11/12 h-10 px-2 py-2 text-gray-500 focus:outline-none focus:border-2 focus:border-ps-orange border border-ps-green"
+                required
+                [disabled]="true"
+              />
+            </td>
+            <td>
+              <input
+                type="text"
+                class="w-11/12 h-10 px-2 py-2 text-gray-500 focus:outline-none focus:border-2 focus:border-ps-orange border border-ps-green"
+                formControlName="number"
+                id="number"
+                required
+                [disabled]="true"
+              />
+            </td>
             <td>
               <a (click)="removeNumber(i)">
                 <i-feather
@@ -206,23 +227,13 @@
         </tbody>
       </table>
     </div>
-    <div class="flex flex-col w-[48%]">
-      <label for="email">En savoir plus sur la structure</label>
-      <input
-        type="url"
-        id="social"
-        formControlName="social"
-        class="input mt-2"
-        required
-      />
-    </div>
   </div>
   @if (structureForm.value.type !='ph') {
 
   <!-- heur douverture -->
   <div class="row" [formGroup]="hoursGroup">
     <div class="flex flex-col w-4/12">
-      <label for="openingHours">Jours d'ouverture</label>
+      <label for="openingHours">Jours d'ouverture <span class="font-bold text-red-500">*</span></label>
       <select
         class="h-[5.5vh] border border-ps-green"
         formControlName="libelle"
@@ -398,7 +409,7 @@
   <!-- activity  -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="activityGroup">
-      <label for="activity">activité de la structure</label>
+      <label for="activity">Activités de la structure <span class="font-bold text-red-500">*</span></label>
       <div
         class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
       >
@@ -421,6 +432,7 @@
         formControlName="libelle"
         id="activity"
         (keyup)="onKeyUpAc($event)"
+        required
       ></textarea>
     </div>
   </div>
@@ -428,7 +440,7 @@
   <!-- activity ph -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="activityPhGroup">
-      <label for="activity">activité phare de la structure</label>
+      <label for="activity">Activités phares de la structure <span class="font-bold text-red-500">*</span></label>
       <div
         class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
       >
@@ -451,6 +463,7 @@
         formControlName="libelle"
         id="activity"
         (keyup)="onKeyUpAcPh($event)"
+        required
       ></textarea>
     </div>
   </div>
@@ -459,7 +472,7 @@
   <div class="row">
     <div class="w-[48%]">
       <div class="w-[48%]"></div>
-      <h1>Adresses</h1>
+      <h1>Adresses <span class="font-bold text-red-500">*</span></h1>
     </div>
     <div class="w-[48%]">
       <h1>Reseaux sociaux</h1>

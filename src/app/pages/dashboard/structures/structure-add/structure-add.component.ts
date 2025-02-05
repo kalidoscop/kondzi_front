@@ -133,11 +133,11 @@ export class StructureAddComponent implements OnInit {
   structureForm = new FormGroup({
     name: new FormControl('', Validators.required),
     domaine: new FormControl('', Validators.required),
-    managerName: new FormControl('', Validators.required),
-    managerTitle: new FormControl('', Validators.required),
+    managerName: new FormControl(''),
+    managerTitle: new FormControl(''),
     tel: new FormArray([], ArrayValidators.minLength(1)),
     email: new FormControl('', [Validators.required, Validators.email]),
-    social: new FormControl('', [Validators.required]),
+    social: new FormControl(''),
     // openingHours: new FormControl('', Validators.required),
     activity: new FormControl(''),
     flagshipActivity: new FormControl(''),
@@ -146,7 +146,7 @@ export class StructureAddComponent implements OnInit {
     country: new FormControl('', Validators.required),
     isGarde: new FormControl(false),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
-    network: new FormArray([], ArrayValidators.minLength(1)),
+    network: new FormArray([], ArrayValidators.minLength(0)),
     hours: new FormArray([], ArrayValidators.minLength(1)),
   });
   get adresses(): FormArray {

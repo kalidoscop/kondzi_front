@@ -8,7 +8,7 @@ export const navbarData = [
   {
     link: '/dashboard/doctors',
     icon: 'home',
-    label: 'Médécin',
+    label: 'Agent Professionnel-le',
     open: true,
   },
   {

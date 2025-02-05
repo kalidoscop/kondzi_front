@@ -13,7 +13,7 @@
 >
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="name">Nom de la structure</label>
+      <label for="name">Nom de la structure <span class="font-bold text-red-500">*</span></label>
       <input
         type="text"
         id="name"
@@ -23,7 +23,7 @@
       />
     </div>
     <div class="flex flex-col w-[48%]">
-      <label for="damaine">Domaine de la structure</label>
+      <label for="damaine">Domaine de la structure <span class="font-bold text-red-500">*</span></label>
       <input
         type="text"
         id="damaine"
@@ -33,25 +33,15 @@
       />
     </div>
   </div>
-  <!-- pays -->
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="type">Pays</label>
-      <select
+      <label for="managerName">Nom du responsble</label>
+      <input
         type="text"
-        id="type"
-        formControlName="country"
+        id="managerName"
+        formControlName="managerName"
         class="input"
-        required
-      >
-        @for (item of countries; track $index) {
-        <option value="{{ item.translations.fra.common }} {{ item.flag }}">
-          {{ item.flag }} {{ item.translations.fra.common }}
-          {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
-        </option>
-
-        }
-      </select>
+      />
     </div>
     <div class="flex flex-col w-[48%]">
       <label for="manager-title">Titre du responsable</label>
@@ -60,14 +50,13 @@
         id="manager-title"
         formControlName="managerTitle"
         class="input"
-        required
       />
     </div>
   </div>
-  <!-- pays -->
+  
   <div class="row">
     <div class="flex flex-col w-[48%]">
-      <label for="type">Type de structure</label>
+      <label for="type">Type de structure <span class="font-bold text-red-500">*</span></label>
       <select
         type="text"
         id="type"
@@ -102,18 +91,9 @@
     }
   </div>
   <div class="row">
+    
     <div class="flex flex-col w-[48%]">
-      <label for="managerName">Nom du responsble</label>
-      <input
-        type="text"
-        id="managerName"
-        formControlName="managerName"
-        class="input"
-        required
-      />
-    </div>
-    <div class="flex flex-col w-[48%]">
-      <label for="email">Email de la structure</label>
+      <label for="email">Email de la structure <span class="font-bold text-red-500">*</span></label>
       <input
         type="email"
         id="email"
@@ -122,10 +102,42 @@
         required
       />
     </div>
+    <div class="flex flex-col w-[48%]">
+      <label for="email">En savoir plus sur la structure</label>
+      <input
+        type="url"
+        id="social"
+        formControlName="social"
+        class="input mt-2"
+      />
+    </div>
   </div>
+  <!-- pays -->
+  <div class="row">
+    <div class="flex flex-col w-[48%]">
+      <label for="type">Pays <span class="font-bold text-red-500">*</span></label>
+      <select
+        type="text"
+        id="type"
+        formControlName="country"
+        class="input"
+        required
+      >
+        @for (item of countries; track $index) {
+        <option value="{{ item.translations.fra.common }} {{ item.flag }}">
+          {{ item.flag }} {{ item.translations.fra.common }}
+          {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
+        </option>
+
+        }
+      </select>
+    </div>
+    
+  </div>
+  <!-- pays -->
   <div class="row-f">
     <div class="flex flex-col gap-2 w-[48%]" >
-      <label for="manager-name">Numéros de téléphone</label>
+      <label for="manager-name">Numéros de téléphone <span class="font-bold text-red-500">*</span></label>
       <div class="input flex justify-around items-center" [formGroup]="numberGroup">
         <select
           type="text"
@@ -206,23 +218,14 @@
         </tbody>
       </table>
     </div>
-    <div class="flex flex-col w-[48%]">
-      <label for="email">En savoir plus sur la structure</label>
-      <input
-        type="url"
-        id="social"
-        formControlName="social"
-        class="input mt-2"
-        required
-      />
-    </div>
+   
   </div>
   
   @if (structureForm.value.type !='ph') {
 
   <div class="row" [formGroup]="hoursGroup">
     <div class="flex flex-col w-4/12">
-      <label for="openingHours">Jours d'ouverture</label>
+      <label for="openingHours">Jours d'ouverture <span class="font-bold text-red-500">*</span></label>
       <select
         class="h-[5.5vh] border border-ps-green"
         formControlName="libelle"
@@ -371,7 +374,6 @@
         formControlName="libelle"
         id="assurance"
         (keyup)="onKeyUp($event)"
-        required
       >
       </textarea>
     </div>
@@ -380,7 +382,7 @@
   <!-- activity -->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="activityGroup">
-      <label for="activity">activité de la structure</label>
+      <label for="activity">Activités de la structure <span class="font-bold text-red-500">*</span></label>
       <div
         class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
       >
@@ -410,7 +412,7 @@
   <!-- activity phare-->
   <div class="row">
     <div class="flex flex-col w-11/12" [formGroup]="activityPhGroup">
-      <label for="activity">activité phare de la structure</label>
+      <label for="activity">Activités phares de la structure <span class="font-bold text-red-500">*</span></label>
       <div
         class="w-full flex justify-start items-start flex-wrap mb-3 p-1 h-auto"
       >
@@ -441,7 +443,7 @@
   <div class="row">
     <div class="w-[48%]">
       <div class="w-[48%]"></div>
-      <h1>Adresses</h1>
+      <h1>Adresses <span class="font-bold text-red-500">*</span></h1>
     </div>
     <div class="w-[48%]">
       <h1>Reseaux sociaux</h1>
