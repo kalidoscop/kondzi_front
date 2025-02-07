@@ -1,0 +1,80 @@
+<div class="flex justify-between items-center p-4">
+    <h1 class="text-3xl">Publicité</h1>
+    @if (pub.length<5) {
+        <a
+        class="flex gap-1 text-ps-green hover:text-blue-600 transition-all"
+        routerLink="/dashboard/pub/add"
+        ><i-feather name="plus-circle"></i-feather> AJOUTER UNE PUBLICITÉ</a
+      >
+    }
+   
+  </div>
+  
+  <table class="table-auto w-[98%] m-auto">
+    <thead class="w-full h-14 bg-ps-green text-left text-white">
+      <tr>
+        <th class="pl-2">Nom</th>
+        <th class="pl-2">Description</th>
+        <!-- <th class="pl-2">Specialité</th>
+        <th class="pl-2">Email</th>
+        <th class="pl-2">Téléphone</th>-->
+        <th class="pl-2">ACTION</th> 
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of pub; track $index) {
+      <tr
+        class="border-2 h-14"
+        [ngClass]="{ 'bg-red-400 text-white': data.id === deletedId }"
+      >
+        <td class="pl-2">{{ data.name }}</td>
+        <td class="pl-2">{{ data.description }}</td>
+        <td class="pl-2">
+          <!-- <a [routerLink]="['/dashboard/publicite/details', data.id]"
+            ><i-feather
+              name="edit"
+              class="hover:text-ps-orange transition-all"
+            ></i-feather
+          ></a> -->
+          <button (click)="openDeleteModal(data.id)">
+            <i-feather
+              class="hover:text-red-500 transition-all"
+              name="trash-2"
+            ></i-feather>
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  
+  @if (deletedId) {
+  <div
+    class="fixed top-0 left-0 w-screen h-screen z-10 flex justify-center items-center"
+  >
+    <div
+      (click)="closeDeleteModal()"
+      class="absolute top-0 left-0 w-full h-full bg-black opacity-30"
+    ></div>
+    <div
+      class="w-[500px] h-56 bg-white z-20 flex flex-col justify-around items-center"
+    >
+      <h1 class="text-red-500 font-bold text-3xl">Attention</h1>
+      <p class="text-lg">Voulez vous vraiment supprimer cette publicité ?</p>
+      <div class="w-full flex justify-end items-center gap-4">
+        <button
+          (click)="closeDeleteModal()"
+          class="w-24 h-10 bg-gray-500 rounded-lg text-white"
+        >
+          Annuler</button
+        ><button
+          (click)="deleteStructure(deletedId)"
+          class="w-24 h-10 bg-red-500 rounded-lg font-bold text-white mr-4 hover:shadow-lg hover:shadow-red-500 transition-all"
+        >
+          Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+  }
+  

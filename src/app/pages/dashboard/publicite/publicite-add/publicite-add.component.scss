@@ -1,0 +1,17 @@
+.row{
+    @apply w-11/12 flex justify-between items-center p-4
+}
+.input {
+    @apply border w-full border-ps-green px-2 py-2 text-gray-500 h-[5.5vh];
+  }
+  .input:focus {
+    @apply outline-none border-2 border-ps-orange;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@media print {
+	body {
+		margin: 0 !important;
+	}
+}
