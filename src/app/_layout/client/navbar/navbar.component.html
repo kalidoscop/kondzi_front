@@ -24,7 +24,8 @@
         class="w-11/12 h-4/5 flex rounded-l justify-around items-center bg-white bg-opacity-50"
         [ngClass]="{ 'inpute-opaque': navbarOpaque }"
       >
-        <div class="w-5/12 h-4/5 border-b border-black rounded-t">
+        <!-- <div class="w-5/12 h-4/5 border-b border-black rounded-t"> -->
+        <div class="w-11/12 h-4/5 border-b border-black rounded-t">
           <input
             class="w-full h-full p-4 outline-none text-gray-600 bg-gray-200"
             type="text"
@@ -32,8 +33,8 @@
             (input)="onSearchChange()"
             placeholder="Votre recherche"
           />
-          @if
-          (suggestion.length) {
+
+          @if (suggestion.length) {
           <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
           <div
             class="bg-white w-[22.3%] absolute max-h-96 overflow-y-auto z-30 sugg"
@@ -57,7 +58,7 @@
   
                 } 
                 }  -->
-               @for (item of suggestion; track $index) {
+              @for (item of suggestion; track $index) {
               <li
                 (click)="onActivityClick(item)"
                 class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
@@ -74,19 +75,19 @@
                   {{ item }}
                 </button>
               </li>
-              } 
+              }
             </ul>
           </div>
           }
         </div>
         <!-- <div class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200" id="autocomp"></div> -->
-        <input
+        <!-- <input
           class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
           type="text"
           id="search"
           formControlName="zone"
           placeholder="Votre zone"
-        />
+        /> -->
         <!-- <select
           class="w-3/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
           formControlName="type"
@@ -389,14 +390,13 @@
         (saisir les 3 premières lettres de votre recherche)
       </p>
       <input
-        class="w-full h-[60px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200"
+        class="w-full h-[60px] mb-5 p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200"
         type="text"
         formControlName="word"
         placeholder="Votre recherche"
         (input)="onSearchChange()"
       />
-      @if
-      (suggestion.length) {
+      @if (suggestion.length) {
       <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
       <div class="bg-white w-full relative max-h-96 overflow-y-auto z-30 sugg">
         <span
@@ -418,7 +418,7 @@
 
             } 
             }  -->
-           @for (item of suggestion; track $index) {
+          @for (item of suggestion; track $index) {
           <li
             (click)="onActivityClick(item)"
             class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[1px] flex justify-center items-center border-gray-300"
@@ -440,13 +440,13 @@
         </ul>
       </div>
       }
-      <input
+      <!-- <input
         class="w-full h-[60px] p-4 border-b outline-none text-xl text-gray-900 border-black rounded-t bg-gray-200 mt-5 mb-5"
         type="text"
         id="search2"
         formControlName="zone"
         placeholder="Votre zone"
-      />
+      /> -->
     </div>
   </div>
   <div

@@ -1,0 +1,180 @@
+<div
+          class="lg:min-w-[400px] lg:max-w-[500px] max-w-[600px] flex flex-col justify-start items-center"
+        >
+          <h1 class="text-2xl mt-4 text-center font-bold">
+            PRÉSENTATION KONDZI.COM
+          </h1>
+          <button class="youtube w-11/12 h-80 flex justify-center items-center">
+            <!-- <span
+          (click)="openModal()"
+          class="material-symbols-outlined text-7xl transition-all text-red-700 hover:text-9xl"
+        >
+          smart_display
+        </span> -->
+            <i-feather
+              (click)="openModal()"
+              name="play"
+              class="text-red-600 big"
+            ></i-feather>
+          </button>
+          <h1 class="text-2xl mt-4 mb-3 text-center font-bold">
+            <h1 class="text-2xl mt-4 text-center font-bold">
+              ARTICLES A LA UNE
+            </h1>
+          </h1>
+          @if (articles[0]) {
+          <div
+            class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          >
+            <div
+              class="article w-full h-24 flex justify-center items-center overflow-hidden bg-white"
+            >
+              <img
+                *ngIf="baseUrl + articles[0].image"
+                [src]="baseUrl + articles[0].image"
+                class="min-h-full min-w-full"
+              />
+            </div>
+            <div class="w-full p-4 flex flex-col">
+              <h1 class="mb-7 font-bold">
+                {{ articles[0].title }}
+              </h1>
+              <p class="text-left text-sm">
+                Publié le {{ Date(articles[0].created_at) }} <br />
+                par <strong class="font-bold">{{ articles[0].autor }}</strong>
+              </p>
+              <a
+                [routerLink]="['/article/', articles[0].id]"
+                class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+              >
+                LIRE L'ARTICLE
+              </a>
+            </div>
+          </div>
+          } @if (articles[1]) {
+          <div
+            class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          >
+            <div
+              class="article w-full h-24 flex justify-center items-center overflow-hidden"
+            >
+              <img
+                *ngIf="baseUrl + articles[1].image"
+                [src]="baseUrl + articles[1].image"
+                class="min-h-full min-w-full"
+              />
+            </div>
+            <div class="w-full p-4 flex flex-col">
+              <h1 class="mb-7 font-bold">
+                {{ articles[1].title }}
+              </h1>
+              <p class="text-left text-sm">
+                Publié le {{ Date(articles[1].created_at) }} <br />
+                par <strong class="font-bold">{{ articles[1].autor }}</strong>
+              </p>
+              <a
+                [routerLink]="['/article/', articles[1].id]"
+                class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+              >
+                LIRE L'ARTICLE
+              </a>
+            </div>
+          </div>
+          }
+          <!-- article -->
+        </div>
+        <div
+          class="lg:min-w-[400px] lg:max-w-[400px] max-w-[600px] flex flex-col justify-start items-center"
+        >
+          <h1 class="text-2xl mt-4 mb-4 font-bold">ARTICLES A LA UNE</h1>
+          <!-- article -->
+          @if (articles[2]) {
+          <div
+            class="w-11/12 rounded mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          >
+            <div
+              class="article w-full h-24 flex justify-center items-center overflow-hidden"
+            >
+              <img
+                *ngIf="baseUrl + articles[2].image"
+                [src]="baseUrl + articles[2].image"
+                class="min-h-full min-w-full"
+              />
+            </div>
+            <div class="w-full p-4 flex flex-col">
+              <h1 class="mb-7 font-bold">
+                {{ articles[2].title }}
+              </h1>
+              <p class="text-left text-sm">
+                Publié le {{ Date(articles[2].created_at) }} <br />
+                par <strong class="font-bold">{{ articles[2].autor }}</strong>
+              </p>
+              <a
+                [routerLink]="['/article/', articles[2].id]"
+                class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+              >
+                LIRE L'ARTICLE
+              </a>
+            </div>
+          </div>
+          } @if (articles[3]) {
+          <div
+            class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          >
+            <div
+              class="article w-full h-24 flex justify-center items-center overflow-hidden"
+            >
+              <img
+                *ngIf="baseUrl + articles[3].image"
+                [src]="baseUrl + articles[3].image"
+                class="min-h-full min-w-full"
+              />
+            </div>
+            <div class="w-full p-4 flex flex-col">
+              <h1 class="mb-7 font-bold">
+                {{ articles[3].title }}
+              </h1>
+              <p class="text-left text-sm">
+                Publié le {{ Date(articles[3].created_at) }} <br />
+                par <strong class="font-bold">{{ articles[3].autor }}</strong>
+              </p>
+              <a
+                [routerLink]="['/article/', articles[3].id]"
+                class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+              >
+                LIRE L'ARTICLE
+              </a>
+            </div>
+          </div>
+          } @if (articles[4]) {
+          <div
+            class="w-11/12 rounded mt-9 mb-9 shadow-lg border-[1px] border-gray-300 bg-white"
+          >
+            <div
+              class="article w-full h-24 flex justify-center items-center overflow-hidden"
+            >
+              <img
+                *ngIf="baseUrl + articles[4].image"
+                [src]="baseUrl + articles[4].image"
+                class="min-h-full min-w-full"
+              />
+            </div>
+            <div class="w-full p-4 flex flex-col">
+              <h1 class="mb-7 font-bold">
+                {{ articles[4].title }}
+              </h1>
+              <p class="text-left text-sm">
+                Publié le {{ Date(articles[4].created_at) }} <br />
+                par <strong class="font-bold">{{ articles[4].autor }}</strong>
+              </p>
+              <a
+                [routerLink]="['/article/', articles[4].id]"
+                class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+              >
+                LIRE L'ARTICLE
+              </a>
+            </div>
+          </div>
+          }
+          <!-- article -->
+        </div>

@@ -219,44 +219,6 @@
                 <!-- <p class="text-sm">Type de la structure</p> -->
               </div>
             </div>
-            @if (item.type!=='ph') { @if (item.hours.length) {
-            <div class="flex justify-start gap-2 items-center">
-              <span class="material-symbols-outlined text-xl text-ps-green">
-                schedule
-              </span>
-              <div class="flex flex-col">
-                @for (it of item.hours; track $index) { @if (it.is_h24) {
-                <p class="text-sm">{{ it.libelle }} 24H/24</p>
-                }@else {
-                <p class="text-sm">
-                  {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
-                </p>
-                } }
-              </div>
-            </div>
-            } } @else { @switch (item.is_garde) { @case (true) {
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-              </span>
-              <div
-                style="font-weight: 800"
-                class="flex flex-col pl-7 text-red-500 font-extrabold"
-              >
-                DE GARDE
-              </div>
-            </div>
-            } @case (false) {
-            <div class="flex justify-start items-start gap-2">
-              <span class="material-symbols-outlined text-2xl text-ps-green">
-              </span>
-              <div
-                style="font-weight: 800"
-                class="flex flex-col pl-7 text-ps-green-2 font-bold"
-              >
-                PAS DE GARDE
-              </div>
-            </div>
-            } } }
             <div class="flex flex-col justify-start items-start">
               <div class="flex items-center gap-1 flex-wrap">
                 <span class="material-symbols-outlined text-xl text-ps-green">
@@ -293,6 +255,44 @@
                 </span>
                 <p class="">{{ item.flagship_activity }}</p>
               </div>
+              @if (item.type!=='ph') { @if (item.hours.length) {
+                <div class="flex justify-start gap-2 items-center">
+                  <span class="material-symbols-outlined text-xl text-ps-green">
+                    schedule
+                  </span>
+                  <div class="flex flex-col">
+                    @for (it of item.hours; track $index) { @if (it.is_h24) {
+                    <p class="text-sm">{{ it.libelle }} 24H/24</p>
+                    }@else {
+                    <p class="text-sm">
+                      {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
+                    </p>
+                    } }
+                  </div>
+                </div>
+                } } @else { @switch (item.is_garde) { @case (true) {
+                <div class="flex justify-start items-start gap-2">
+                  <span class="material-symbols-outlined text-2xl text-ps-green">
+                  </span>
+                  <div
+                    style="font-weight: 800"
+                    class="flex flex-col pl-7 text-red-500 font-extrabold"
+                  >
+                    DE GARDE
+                  </div>
+                </div>
+                } @case (false) {
+                <div class="flex justify-start items-start gap-2">
+                  <span class="material-symbols-outlined text-2xl text-ps-green">
+                  </span>
+                  <div
+                    style="font-weight: 800"
+                    class="flex flex-col pl-7 text-ps-green-2 font-bold"
+                  >
+                    PAS DE GARDE
+                  </div>
+                </div>
+                } } }
             </div>
           </div>
           <div class="mt-6 w-1/6 h-1/4 gap-2 flex flex-wrap">

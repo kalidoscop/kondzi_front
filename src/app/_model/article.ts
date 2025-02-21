@@ -14,6 +14,7 @@ export class Article {
   id: string;
   title: string;
   autor: string;
+  description: string;
   content: string;
   image: string;
   created_at: string;
@@ -24,6 +25,7 @@ export class Article {
     autor: string,
     content: string,
     image: string,
+    description: string,
     created_at: string,
     updated_at: string
   ) {
@@ -31,6 +33,7 @@ export class Article {
     this.title = title;
     this.autor = autor;
     this.content = content;
+    this.description = description;
     this.image = `${environment.baseUrl}uploads/${image}`;
     this.created_at = created_at;
     this.updated_at = updated_at;
