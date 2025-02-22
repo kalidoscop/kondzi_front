@@ -36,7 +36,7 @@
             PRÉSENTATION KONDZI.COM
           </h1>
           <button
-            class="youtube w-11/12 lg:w-[900px] min-h-[400px] flex justify-center items-center"
+            class="youtube w-11/12 min-h-[230px] lg:w-[900px] md:min-h-[400px] flex justify-center items-center"
           >
             <i-feather
               (click)="openModal()"
@@ -45,16 +45,13 @@
             ></i-feather>
           </button>
         </div>
-        <h1 class="text-2xl mt-4 text-center font-bold">
-          ARTICLES A LA UNE
-        </h1>
+        <h1 class="text-2xl mt-4 text-center font-bold">ARTICLES A LA UNE</h1>
         <div
           class="w-full md:w-11/12 lg:w-[900px] flex justify-center lg:justify-between md:flex-nowrap flex-wrap gap-4"
         >
-        
           @if (articles[0]) {
-          <a 
-          [routerLink]="['/article/', articles[0].id]"
+          <a
+            [routerLink]="['/article/', articles[0].id]"
             class="w-[330px] md:w-full h-[600px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
           >
             <div
@@ -88,7 +85,7 @@
 
           } @if (articles[1]) {
           <a
-          [routerLink]="['/article/', articles[1].id]"
+            [routerLink]="['/article/', articles[1].id]"
             class="w-[330px] md:w-full h-[600px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
           >
             <div
@@ -126,11 +123,12 @@
           class="w-full md:w-11/12 lg:w-[900px] flex justify-center lg:justify-between md:flex-nowrap flex-wrap gap-4"
         >
           @if (articles[2]) {
-          <a [routerLink]="['/article/', articles[2].id]"
+          <a
+            [routerLink]="['/article/', articles[2].id]"
             class="w-[330px] md:w-full h-[600px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
           >
             <div
-              class="article w-full h-1/2 md:h-2/6  transition-all flex justify-center items-center overflow-hidden"
+              class="article w-full h-1/2 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
             >
               <img
                 *ngIf="baseUrl + articles[2].image"
@@ -159,12 +157,12 @@
           </a>
 
           } @if (articles[3]) {
-          <a 
-          [routerLink]="['/article/', articles[3].id]"
+          <a
+            [routerLink]="['/article/', articles[3].id]"
             class="w-[330px] md:w-full h-[600px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
           >
             <div
-              class="article w-full h-1/2 md:h-2/6  transition-all flex justify-center items-center overflow-hidden"
+              class="article w-full h-1/2 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
             >
               <img
                 *ngIf="baseUrl + articles[3].image"
@@ -193,8 +191,8 @@
           </a>
 
           } @if (articles[4]) {
-          <a 
-          [routerLink]="['/article/', articles[4].id]"
+          <a
+            [routerLink]="['/article/', articles[4].id]"
             class="w-[330px] md:w-full h-[600px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
           >
             <div
@@ -229,7 +227,11 @@
           }
         </div>
         <div class="w-full flex justify-center items-center">
-          <a [routerLink]="['/actualites-sante']" class="font-bold hover:text-ps-green-2 transition-all">VOIR PLUS D'ARTICLES</a>
+          <a
+            [routerLink]="['/actualites-sante']"
+            class="transition-all flex justify-center items-center p-2 gap-2"
+            ><span class="font-bold hover:text-ps-green-2 text-center">VOIR PLUS D'ARTICLES</span> <i-feather name="external-link"></i-feather
+          ></a>
         </div>
       </div>
       <div class="w-full flex flex-col justify-around md:w-11/12 lg:w-[900px]">
