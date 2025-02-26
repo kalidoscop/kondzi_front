@@ -1,9 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
-@import "ckeditor5/ckeditor5.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
+.ck-editor__editable {
+  @apply bg-white border border-gray-300 rounded-lg shadow-sm;
+}
+.ck-content {
+  all: revert;
+}
+
+// @import "";
 * {
   // font-family: "Roboto", sans-serif;
   // font-weight: 400;

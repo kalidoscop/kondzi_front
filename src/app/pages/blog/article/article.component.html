@@ -1,0 +1,21 @@
+<div class="w-full h-full">
+  <div class="w-full h-[300px] mt-[5%] flex justify-center items-center">
+    <div
+      class="w-11/12 h-full flex justify-center items-center overflow-hidden"
+    >
+      <img
+        *ngIf="baseUrl + image"
+        [src]="baseUrl + image"
+        class="min-h-full min-w-full"
+      />
+    </div>
+  </div>
+  <div class="w-full min-h-40 mt-[30%] md:mt-[5%] flex justify-center">
+    <div class="w-1/2">
+      <app-blog [content]="content"></app-blog>
+
+      <!-- <div class="prose ck-content" [innerHTML]="getSanitizedContent(content)"></div> -->
+    </div>
+  </div>
+  <app-footer></app-footer>
+</div>

@@ -43,5 +43,14 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
+  ],
+  safelist: [
+    "ck-content", "text-left", "text-right", "text-center", "text-justify",
+    "font-bold", "italic", "underline", "bg-red-500", "bg-blue-500"
   ]
+  // safelist: [
+  //   {
+  //     pattern: /ck-.*/, // Permet toutes les classes CKEditor
+  //   },
+  // ],
 };

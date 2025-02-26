@@ -5,11 +5,13 @@ import {
   Autoformat,
   AutoImage,
   Autosave,
+  Alignment,
   Base64UploadAdapter,
   BlockQuote,
   Bold,
   CloudServices,
   Essentials,
+  Font,
   Heading,
   ImageBlock,
   ImageCaption,
@@ -46,7 +48,12 @@ import {
 } from 'ckeditor5';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgClass, NgIf } from '@angular/common';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { IconsModule } from '../../../../_icons/icons.module';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArticleService } from '../../../../_services/article.service';
@@ -54,11 +61,18 @@ import { environment } from '../../../../../environments/environment';
 @Component({
   selector: 'app-article-details',
   standalone: true,
-  imports: [CKEditorModule,IconsModule, ReactiveFormsModule, RouterModule,NgIf,NgClass],
+  imports: [
+    CKEditorModule,
+    IconsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    NgIf,
+    NgClass,
+  ],
   templateUrl: './article-details.component.html',
-  styleUrl: './article-details.component.scss'
+  styleUrl: './article-details.component.scss',
 })
-export class ArticleDetailsComponent implements OnInit{
+export class ArticleDetailsComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
 
   articleId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
@@ -66,7 +80,7 @@ export class ArticleDetailsComponent implements OnInit{
 
   constructor(private changeDetector: ChangeDetectorRef) {}
   ngOnInit(): void {
-   this.loadArticleInfo()
+    this.loadArticleInfo();
   }
   public Editor = ClassicEditor;
   public config: EditorConfig = {}; // CKEditor needs the DOM tree before calculating the configuration.
@@ -79,6 +93,11 @@ export class ArticleDetailsComponent implements OnInit{
           '|',
           'heading',
           '|',
+          'fontSize',
+          'fontFamily',
+          'fontColor',
+          'fontBackgroundColor',
+          '|',
           'bold',
           'italic',
           'underline',
@@ -88,6 +107,8 @@ export class ArticleDetailsComponent implements OnInit{
           // 'mediaEmbed',
           'insertTable',
           'blockQuote',
+          '|',
+          'alignment',
           '|',
           'bulletedList',
           'numberedList',
@@ -107,6 +128,8 @@ export class ArticleDetailsComponent implements OnInit{
         Bold,
         CloudServices,
         Essentials,
+        Font,
+        Alignment,
         Heading,
         ImageBlock,
         ImageCaption,
@@ -233,8 +256,8 @@ export class ArticleDetailsComponent implements OnInit{
     this.changeDetector.detectChanges();
   }
   public isLayoutReady = false;
-  oldImageUrl: string ='';
-  imageUrl: string ='';
+  oldImageUrl: string = '';
+  imageUrl: string = '';
   fileToUpload: any;
 
   handleFileInput(e: Event) {
@@ -250,7 +273,6 @@ export class ArticleDetailsComponent implements OnInit{
       reader.readAsDataURL(this.fileToUpload);
     }
   }
-
 
   public model = {
     editorData: '',
@@ -271,24 +293,25 @@ export class ArticleDetailsComponent implements OnInit{
           autor: new FormControl(`${res.autor}`, Validators.required),
           content: new FormControl(`${res.content}`, Validators.required),
         });
-        this.oldImageUrl=`${environment.baseUrl}uploads/${res.image}`
-        this.imageUrl=this.oldImageUrl
+        this.oldImageUrl = `${environment.baseUrl}uploads/${res.image}`;
+        this.imageUrl = this.oldImageUrl;
         // console.log(this.imageUrl);
-
       });
     }
   }
 
-  onSubmit(){
+  onSubmit() {
     if (this.articleId) {
       this.articleService
-        .updateArticle(this.articleForm.value, this.articleId,this.fileToUpload as File)
+        .updateArticle(
+          this.articleForm.value,
+          this.articleId,
+          this.fileToUpload as File
+        )
         .subscribe(() => {
-          this.loadArticleInfo()
+          this.loadArticleInfo();
           // console.log(this.imageUrl);
-          
         });
     }
   }
-
 }
