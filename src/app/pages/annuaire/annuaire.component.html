@@ -225,13 +225,17 @@
               </div>
             </div>
             <div class="flex flex-col justify-start items-start">
-              <div class="flex items-center gap-1 flex-wrap">
+              <div class="flex items-center gap-1 ">
                 <span class="material-symbols-outlined text-xl text-ps-green">
                   location_on
                 </span>
-                <p class="italic">
-                  {{ item.adresse[0].nadress }} ,{{ item.country }}
-                </p>
+                <span class="flex items-center flex-wrap">
+                  <p class="italic">
+                    {{ item.adresse[0].nadress }} ,
+                  </p>
+                  <p>{{ item.country }}</p>
+
+                </span>
               </div>
               <div class="flex gap-1 items-center flex-wrap">
                 <span class="material-symbols-outlined text-xl text-ps-green">
