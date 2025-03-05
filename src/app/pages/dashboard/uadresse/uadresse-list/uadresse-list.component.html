@@ -1,0 +1,128 @@
+<div class="flex justify-between items-center p-4">
+  <h1 class="text-3xl">LIENS & ADRESSES UTILES</h1>
+  <!-- @if (uadresses.length<5) { -->
+  <button
+    class="flex gap-1 text-ps-green hover:text-blue-600 transition-all"
+    (click)="openAddModal()"
+  >
+    <i-feather name="plus-circle"></i-feather> AJOUTER
+  </button>
+  <!-- } -->
+</div>
+
+<table class="table-auto w-[98%] m-auto">
+  <thead class="w-full h-14 bg-ps-green text-left text-white">
+    <tr>
+      <th class="pl-2">Titre</th>
+      <th class="pl-2">Lien</th>
+      <!-- <th class="pl-2">Specialité</th>
+        <th class="pl-2">Email</th>
+        <th class="pl-2">Téléphone</th>-->
+      <th class="pl-2">ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (data of uadresses; track $index) {
+    <tr
+      class="border-2 h-14"
+      [ngClass]="{ 'bg-red-400 text-white': data.id === deletedId }"
+    >
+      <td class="pl-2">{{ data.title }}</td>
+      <td class="pl-2">{{ data.link }}</td>
+      <td class="pl-2">
+        <!-- <a [routerLink]="['/dashboard/publicite/details', data.id]"
+            ><i-feather
+              name="edit"
+              class="hover:text-ps-orange transition-all"
+            ></i-feather
+          ></a> -->
+        <button (click)="openDeleteModal(data.id)">
+          <i-feather
+            class="hover:text-red-500 transition-all"
+            name="trash-2"
+          ></i-feather>
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
+
+@if (deletedId) {
+<div
+  class="fixed top-0 left-0 w-screen h-screen z-10 flex justify-center items-center"
+>
+  <div
+    (click)="closeDeleteModal()"
+    class="absolute top-0 left-0 w-full h-full bg-black opacity-30"
+  ></div>
+  <div
+    class="w-[500px] h-56 bg-white z-20 flex flex-col justify-around items-center"
+  >
+    <h1 class="text-red-500 font-bold text-3xl">Attention</h1>
+    <p class="text-lg">Voulez vous vraiment supprimer cette publicité ?</p>
+    <div class="w-full flex justify-end items-center gap-4">
+      <button
+        (click)="closeDeleteModal()"
+        class="w-24 h-10 bg-gray-500 rounded-lg text-white"
+      >
+        Annuler</button
+      ><button
+        (click)="deleteUadresse(deletedId)"
+        class="w-24 h-10 bg-red-500 rounded-lg font-bold text-white mr-4 hover:shadow-lg hover:shadow-red-500 transition-all"
+      >
+        Supprimer
+      </button>
+    </div>
+  </div>
+</div>
+} @if (addModal) {
+<div
+  class="fixed top-0 left-0 w-screen h-screen z-10 flex justify-center items-center"
+>
+  <div
+    (click)="closeAddModal()"
+    class="absolute top-0 left-0 w-full h-full bg-black opacity-30"
+  ></div>
+  <form
+    (ngSubmit)="addUadresse()"
+    [formGroup]="uadresseForm"
+    class="w-[500px] p-4 bg-white z-20 flex flex-col justify-around items-center"
+  >
+    <h1 class="font-bold text-3xl">Formulaire d'ajout</h1>
+    <div class="w-full flex flex-col justify-center items-center">
+      <div class="row">
+        <div class="flex flex-col w-full">
+          <label for="title">Titre</label>
+          <input
+            type="text"
+            id="title"
+            formControlName="title"
+            class="input"
+            required
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="flex flex-col w-full">
+          <label for="link">Lien</label>
+          <input
+            type="url"
+            id="link"
+            formControlName="link"
+            class="input"
+            required
+          />
+        </div>
+      </div>
+      <button
+        type="submit"
+        [disabled]="!uadresseForm.valid"
+        class="w-[200px] h-[5vh] bg-ps-green font-bold text-2xl text-white text-center hover:shadow-md transition-all hover:shadow-ps-green hover:[text-shadow:_#FFF_1px_0_100px]"
+      >
+        Enregister
+      </button>
+    </div>
+  </form>
+</div>
+}

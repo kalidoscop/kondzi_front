@@ -42,6 +42,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./stat/stat.module').then((m) => m.StatModule),
       },
+      {
+        path: 'uadresse',
+        loadChildren: () =>
+          import('./uadresse/uadresse.module').then((m) => m.UadresseModule),
+      },
     ],
   },
 ];

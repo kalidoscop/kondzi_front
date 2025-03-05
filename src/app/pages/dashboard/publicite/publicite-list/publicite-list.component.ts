@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Publicite } from '../../../../_model/publicite';
 import { PubliciteService } from '../../../../_services/publicite.service';
 import { RouterModule } from '@angular/router';
@@ -12,7 +12,7 @@ import { NgClass } from '@angular/common';
   templateUrl: './publicite-list.component.html',
   styleUrl: './publicite-list.component.scss'
 })
-export class PubliciteListComponent {
+export class PubliciteListComponent implements OnInit {
  publiciteService = inject(PubliciteService)
   pub : Publicite[]=[]
   deletedId: string | null = null;

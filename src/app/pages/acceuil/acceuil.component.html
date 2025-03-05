@@ -230,7 +230,10 @@
           <a
             [routerLink]="['/actualites-sante']"
             class="transition-all flex justify-center items-center p-2 gap-2"
-            ><span class="font-bold hover:text-ps-green-2 text-center">VOIR PLUS D'ARTICLES</span> <i-feather name="external-link"></i-feather
+            ><span class="font-bold hover:text-ps-green-2 text-center"
+              >VOIR PLUS D'ARTICLES</span
+            >
+            <i-feather name="external-link"></i-feather
           ></a>
         </div>
       </div>
@@ -300,18 +303,20 @@
               <ul
                 class="w-11/12 h-5/6 flex flex-col items-center justify-start gap-4 overflow-auto"
               >
+                @for (item of uadresses; track $index) {
                 <li class="w-full flex flex-col">
                   <p>
-                    Ministère de la santé, de l’Hygiène Publique et de l’Accès
-                    Universel aux soins
+                    {{item.title}}
                   </p>
                   <a
                     class="text-green-600 hover:text-red-500 font-bold"
-                    href="https://sante.gouv.tg/"
-                    >https://sante.gouv.tg/</a
+                    [href]="item.link"
+                    >{{item.link}}</a
                   >
                 </li>
-                <li class="w-full flex flex-col">
+                }
+
+                <!-- <li class="w-full flex flex-col">
                   <p>OMS TOGO</p>
                   <a
                     class="text-green-600 hover:text-red-500 font-bold"
@@ -337,7 +342,7 @@
                     href="https://www.onmt.tg/"
                     >https://www.onmt.tg/</a
                   >
-                </li>
+                </li> -->
               </ul>
             </div>
           </div>

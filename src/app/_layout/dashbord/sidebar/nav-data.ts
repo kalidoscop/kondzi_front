@@ -35,4 +35,10 @@ export const navbarData = [
     label: 'Visite',
     open: true,
   },
+  {
+    link: '/dashboard/uadresse',
+    icon: 'home',
+    label: 'LIENS & ADRESSES UTILES',
+    open: true,
+  }
 ];

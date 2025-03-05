@@ -12,41 +12,55 @@ import localeFr from '@angular/common/locales/fr';
 import { environment } from '../../../environments/environment';
 import { VisiteService } from '../../_services/visite.service';
 import { IconsModule } from '../../_icons/icons.module';
+import { UadresseService } from '../../_services/uadresse.service';
+import { UtilAdresse } from '../../_model/uadresse';
 
 registerLocaleData(localeFr, 'fr');
-
-
 
 @Component({
   selector: 'app-acceuil',
   standalone: true,
-  imports: [CarouselModule,RouterLink,FooterComponent,ModalComponent,NgIf,IconsModule],
+  imports: [
+    CarouselModule,
+    RouterLink,
+    FooterComponent,
+    ModalComponent,
+    NgIf,
+    IconsModule,
+  ],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
 })
 export class AcceuilComponent implements OnInit {
-  baseUrl:string = `${environment.baseUrl}uploads/`
-  articles : Article[]=[]
-  trackingService = inject(VisiteService)
+  baseUrl: string = `${environment.baseUrl}uploads/`;
+  articles: Article[] = [];
+  uadresses: UtilAdresse[] = [];
+
+  trackingService = inject(VisiteService);
+  private uadresseService = inject(UadresseService);
+
   ngOnInit(): void {
-    this.loadArticles()
+    this.loadArticles();
+    this.loadUadresse();
     this.trackingService.getVisitorInfo().then((data) => {
       if (this.trackingService.isFirstVisit()) {
-        
         this.trackingService.sendVisitData(data).subscribe((response) => {
           console.log('Visit recorded:', response);
-          this.trackingService.markVisitAsRecorded()
+          this.trackingService.markVisitAsRecorded();
         });
       }
     });
   }
-  loadArticles(){
-    this.articleService.getArticles().subscribe((res)=>{
-      this.articles=res
+  loadUadresse() {
+    this.uadresseService.getUtilAdresses().subscribe((res) => {
+      this.uadresses = res;
+    });
+  }
+  loadArticles() {
+    this.articleService.getArticles().subscribe((res) => {
+      this.articles = res;
       console.log(this.articles);
-      
-
-    })
+    });
   }
 
   // ngOnInit(): void {
@@ -54,31 +68,30 @@ export class AcceuilComponent implements OnInit {
   //   // scriptTag.src = 'https://www.youtube.com/iframe_api'
   //   // document.body.appendChild(scriptTag)
   // }
-  scrollService = inject(ScrollService)
-  articleService = inject(ArticleService)
-  
+  scrollService = inject(ScrollService);
+  articleService = inject(ArticleService);
 
   images = [
     {
       imageSrc: 'images/image defilante.jpg',
       imageAlt: 'image1',
-      text:'Plateforme réseau N°1 des acteurs professionnels de santé en Afrique'
+      text: 'Plateforme réseau N°1 des acteurs professionnels de santé en Afrique',
     },
     {
       imageSrc: 'images/01.jpg',
       imageAlt: 'image2',
-      text:'Une urgence vitale de santé, consultez KONDZI.COM'
+      text: 'Une urgence vitale de santé, consultez KONDZI.COM',
     },
     {
       imageSrc: 'images/02.jpg',
       imageAlt: 'image3',
-      text:'Des informations en santé fiables à portée de main sur KONDZI.COM'
+      text: 'Des informations en santé fiables à portée de main sur KONDZI.COM',
     },
-    
+
     {
       imageSrc: 'images/03.jpg',
       imageAlt: 'image4',
-      text:'KONDZI.COM, des renseignements 24h/24 partout en Afrique'
+      text: 'KONDZI.COM, des renseignements 24h/24 partout en Afrique',
     },
   ];
   navbarOpaque = false;
@@ -112,6 +125,4 @@ export class AcceuilComponent implements OnInit {
     }
     return '';
   }
-
-  
 }
