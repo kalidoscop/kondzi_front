@@ -7,7 +7,7 @@ import { ScrollService } from '../../_services/scroll.service';
 import { ModalComponent } from '../component/modal/modal.component';
 import { ArticleService } from '../../_services/article.service';
 import { Article } from '../../_model/article';
-import { formatDate, NgIf, registerLocaleData } from '@angular/common';
+import { formatDate, NgClass, NgIf, registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { environment } from '../../../environments/environment';
 import { VisiteService } from '../../_services/visite.service';
@@ -27,6 +27,7 @@ registerLocaleData(localeFr, 'fr');
     ModalComponent,
     NgIf,
     IconsModule,
+    NgClass
   ],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',

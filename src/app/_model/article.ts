@@ -7,7 +7,7 @@
 //   created_at: string;
 //   updated_at: string;
 
-import { environment } from "../../environments/environment";
+import { environment } from '../../environments/environment';
 
 // }
 export class Article {
@@ -17,6 +17,10 @@ export class Article {
   description: string;
   content: string;
   image: string;
+  likesCount: string;
+  dislikesCount: string;
+  likeByHim: boolean;
+  dislikeByHim: boolean;
   created_at: string;
   updated_at: string;
   constructor(
@@ -25,6 +29,10 @@ export class Article {
     autor: string,
     content: string,
     image: string,
+    likesCount: string,
+    dislikesCount: string,
+    likeByHim: boolean,
+    dislikeByHim: boolean,
     description: string,
     created_at: string,
     updated_at: string
@@ -35,6 +43,10 @@ export class Article {
     this.content = content;
     this.description = description;
     this.image = `${environment.baseUrl}uploads/${image}`;
+    this.likesCount = likesCount;
+    this.dislikesCount = dislikesCount;
+    this.likeByHim = likeByHim;
+    this.dislikeByHim = dislikeByHim;
     this.created_at = created_at;
     this.updated_at = updated_at;
   }

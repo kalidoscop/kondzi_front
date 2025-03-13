@@ -25,6 +25,27 @@
           <option value="doc">Agent Professionnel-le</option>
         </select>
       </div>
+
+      <div class="w-full pl-8 h-16 flex justify-start items-center gap-4 mb-4">
+        <span class="material-symbols-outlined text-2xl text-ps-green">
+          location_on
+        </span>
+        <select
+          class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
+          [formControl]="countrie"
+          (change)="onFilter()"
+          type="text"
+        >
+          <option value="all">Tout les pays</option>
+          @for (item of countries; track $index) {
+            <option value="{{ item.translations.fra.common }} {{ item.flag }}">
+              {{ item.flag }} {{ item.translations.fra.common }}
+              {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
+            </option>
+    
+            }
+        </select>
+      </div>
       @if (meta) { @if (structures.length) { @if ( structures.length<25) {
       <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de

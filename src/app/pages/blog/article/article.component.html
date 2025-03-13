@@ -10,11 +10,24 @@
       />
     </div>
   </div>
-  <div class="w-full min-h-40 mt-[30%] md:mt-[5%] flex justify-center">
+  <div
+    class="w-full min-h-40 mt-[30%] md:mt-[5%] flex flex-col items-center justify-center"
+  >
     <div class="w-11/12 lg:w-1/2">
       <app-blog [content]="content"></app-blog>
 
       <!-- <div class="prose ck-content" [innerHTML]="getSanitizedContent(content)"></div> -->
+    </div>
+    <div class="w-11/12 lg:w-1/2 h-20 flex gap-2 items-end">
+      <button (click)="likeArticle()" [ngClass]="{'text-blue-500': likeByHim}" class="h-10 flex items-center justify-center gap-1">
+        <i-feather class="big" name="thumbs-up"></i-feather>
+        <span class="h-5 font-bold">{{likesCount}}</span>
+      </button>
+      <button (click)="dislikeArticle()" [ngClass]="{'text-red-500': dislikeByHim}" class=" h-10 flex items-center justify-center gap-1">
+        <i-feather class="big" name="thumbs-down"></i-feather>
+        <span class="h-5 font-bold">{{dislikesCount}}</span>
+      </button>
+
     </div>
   </div>
   <app-footer></app-footer>

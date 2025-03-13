@@ -39,6 +39,24 @@ export class ArticleService {
 
   }
 
+  likeArticle(id:string):Observable<Article>{
+    return this.http.get<Article>(`${environment.baseUrl}article/like/${id}`,{
+      headers:this.tokenService.getOption()
+    }).pipe(tap((article)=>{
+      this.log(article)
+    }),catchError((error) => this.handleError(error, [],error.error.message)))
+
+  }
+
+  dislikeArticle(id:string):Observable<Article>{
+    return this.http.get<Article>(`${environment.baseUrl}article/dislike/${id}`,{
+      headers:this.tokenService.getOption()
+    }).pipe(tap((article)=>{
+      this.log(article)
+    }),catchError((error) => this.handleError(error, [],error.error.message)))
+
+  }
+
   addArticle(newArticle:any,file:File):Observable<Article>{
     const formData = new FormData();
 

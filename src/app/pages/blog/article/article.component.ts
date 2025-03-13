@@ -4,33 +4,64 @@ import { ArticleService } from '../../../_services/article.service';
 import { ActivatedRoute } from '@angular/router';
 import { FooterComponent } from '../../component/footer/footer.component';
 import { environment } from '../../../../environments/environment';
-import { NgIf } from '@angular/common';
-import { BlogComponent } from "../../component/blog/blog.component";
+import { NgClass, NgIf } from '@angular/common';
+import { BlogComponent } from '../../component/blog/blog.component';
+import { IconsModule } from '../../../_icons/icons.module';
+import { Article } from '../../../_model/article';
 
 @Component({
   selector: 'app-article',
   standalone: true,
-  imports: [FooterComponent, NgIf, BlogComponent],
+  imports: [FooterComponent, NgIf, BlogComponent, IconsModule,NgClass],
   templateUrl: './article.component.html',
-  styleUrl: './article.component.scss'
+  styleUrl: './article.component.scss',
 })
 export class ArticleComponent implements OnInit {
-  content:string = ''
-  baseUrl:string = `${environment.baseUrl}uploads/`
-  image:string = ''
+  content: string = '';
+  baseUrl: string = `${environment.baseUrl}uploads/`;
+  image: string = '';
+  likeByHim: boolean = false;
+  dislikeByHim: boolean = false;
 
-  scrollService = inject(ScrollService)
+  dislikesCount: string = '';
+  likesCount: string = '';
+
+  scrollService = inject(ScrollService);
   articleService = inject(ArticleService);
   private activatedRoute = inject(ActivatedRoute);
 
   articleId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
-
+  // article: Article;
   ngOnInit(): void {
     this.scrollService.setNavbarOpaque(true);
+    this.loadArticle()
+  }
+
+  loadArticle(){
     if (this.articleId) {
-      this.articleService.getArticle(this.articleId).subscribe((res)=>{
-        this.content=res.content
-        this.image=res.image
+      this.articleService.getArticle(this.articleId).subscribe((res) => {
+        this.content = res.content;
+        this.image = res.image;
+        this.likesCount = res.likesCount;
+        this.dislikeByHim = res.dislikeByHim;
+        this.dislikesCount = res.dislikesCount;
+        this.likeByHim = res.likeByHim;
+      });
+    }
+  }
+
+  likeArticle(){
+    if (this.articleId) {
+      this.articleService.likeArticle(this.articleId).subscribe(()=>{
+        this.loadArticle()
+      })
+    }
+  }
+
+  dislikeArticle(){
+    if (this.articleId) {
+      this.articleService.dislikeArticle(this.articleId).subscribe(()=>{
+        this.loadArticle()
       })
     }
   }
