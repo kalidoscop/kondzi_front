@@ -18,14 +18,14 @@ import localeFr from '@angular/common/locales/fr';
   styleUrl: './article.component.scss',
 })
 export class ArticleComponent implements OnInit {
-  content: string = '';
+  // content: string = '';
   baseUrl: string = `${environment.baseUrl}uploads/`;
-  image: string = '';
-  likeByHim: boolean = false;
-  dislikeByHim: boolean = false;
+  // image: string = '';
+  // likeByHim: boolean = false;
+  // dislikeByHim: boolean = false;
 
-  dislikesCount: string = '';
-  likesCount: string = '';
+  // dislikesCount: string = '';
+  // likesCount: string = '';
 
   article : Article [] =[]
 
@@ -44,12 +44,12 @@ export class ArticleComponent implements OnInit {
     if (this.articleId) {
       this.articleService.getArticle(this.articleId).subscribe((res) => {
         this.article=[res]
-        this.content = res.content;
-        this.image = res.image;
-        this.likesCount = res.likesCount;
-        this.dislikeByHim = res.dislikeByHim;
-        this.dislikesCount = res.dislikesCount;
-        this.likeByHim = res.likeByHim;
+        // this.content = res.content;
+        // this.image = res.image;
+        // this.likesCount = res.likesCount;
+        // this.dislikeByHim = res.dislikeByHim;
+        // this.dislikesCount = res.dislikesCount;
+        // this.likeByHim = res.likeByHim;
       });
     }
   }
