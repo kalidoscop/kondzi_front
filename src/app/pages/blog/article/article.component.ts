@@ -4,11 +4,12 @@ import { ArticleService } from '../../../_services/article.service';
 import { ActivatedRoute } from '@angular/router';
 import { FooterComponent } from '../../component/footer/footer.component';
 import { environment } from '../../../../environments/environment';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass, NgIf,formatDate, registerLocaleData } from '@angular/common';
 import { BlogComponent } from '../../component/blog/blog.component';
 import { IconsModule } from '../../../_icons/icons.module';
 import { Article } from '../../../_model/article';
-
+registerLocaleData(localeFr, 'fr');
+import localeFr from '@angular/common/locales/fr';
 @Component({
   selector: 'app-article',
   standalone: true,
@@ -26,6 +27,8 @@ export class ArticleComponent implements OnInit {
   dislikesCount: string = '';
   likesCount: string = '';
 
+  article : Article [] =[]
+
   scrollService = inject(ScrollService);
   articleService = inject(ArticleService);
   private activatedRoute = inject(ActivatedRoute);
@@ -40,6 +43,7 @@ export class ArticleComponent implements OnInit {
   loadArticle(){
     if (this.articleId) {
       this.articleService.getArticle(this.articleId).subscribe((res) => {
+        this.article=[res]
         this.content = res.content;
         this.image = res.image;
         this.likesCount = res.likesCount;
@@ -65,4 +69,11 @@ export class ArticleComponent implements OnInit {
       })
     }
   }
+
+   Date(date: string | null | undefined): string {
+      if (date) {
+        return formatDate(date, 'shortDate', 'fr-FR');
+      }
+      return '';
+    }
 }

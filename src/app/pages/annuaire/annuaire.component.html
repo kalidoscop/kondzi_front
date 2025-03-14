@@ -7,44 +7,56 @@
     <div
       class="w-full md:w-8/12 mt-[360px] sm:mt-[500px] lg:w-5/12 lg:mt-[160px] mb-[8.6vw] flex flex-col items-center"
     >
-      <div class="w-full pl-8 h-16 flex justify-start items-center gap-4 mb-4">
+      <div
+        class="w-full lg:pl-8 h-16 flex justify-center lg:justify-start items-center gap-4 mb-2"
+      >
         <span class="material-symbols-outlined text-2xl text-ps-green">
           tune
         </span>
-        <select
-          class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
-          [formControl]="type"
-          (change)="onFilter()"
-          type="text"
+        <div
+          class="w-[300px] lg:w-6/12 h-4/5 flex justify-center items-center border outline-none text-gray-600 border-gray-400 rounded-3xl bg-gray-200 overflow-hidden"
         >
-          <option value="all">Tout</option>
-          <option value="ch">Centre/Structure de soins</option>
-          <option value="ph">Pharmacie</option>
-          <option value="lb">Laboratoires</option>
-          <option value="co">Centre Optique</option>
-          <option value="doc">Agent Professionnel-le</option>
-        </select>
+          <select
+            class="w-10/12 h-[90%] outline-none text-gray-600 border-black bg-gray-200"
+            [formControl]="type"
+            (change)="onFilter()"
+            type="text"
+          >
+            <option value="all">Filtrer par type de recherche</option>
+            <option value="ch">Centre/Structure de soins</option>
+            <option value="ph">Pharmacie</option>
+            <option value="lb">Laboratoires</option>
+            <option value="co">Centre Optique</option>
+            <option value="doc">Agent Professionnel-le</option>
+          </select>
+        </div>
       </div>
 
-      <div class="w-full pl-8 h-16 flex justify-start items-center gap-4 mb-4">
+      <div
+        class="w-full lg:pl-8 h-16 flex justify-center lg:justify-start items-center gap-4 mb-2"
+      >
         <span class="material-symbols-outlined text-2xl text-ps-green">
           location_on
         </span>
-        <select
-          class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
-          [formControl]="countrie"
-          (change)="onFilter()"
-          type="text"
+        <div
+          class="w-[300px] lg:w-6/12 h-4/5 flex justify-center items-center border outline-none text-gray-600 border-gray-400 rounded-3xl bg-gray-200 overflow-hidden"
         >
-          <option value="all">Tout les pays</option>
-          @for (item of countries; track $index) {
+          <select
+            class="w-10/12 h-[90%] outline-none text-gray-600 border-black bg-gray-200"
+            [formControl]="countrie"
+            (change)="onFilter()"
+            type="text"
+          >
+            <option value="all">Filtrer par pays</option>
+            @for (item of countries; track $index) {
             <option value="{{ item.translations.fra.common }} {{ item.flag }}">
               {{ item.flag }} {{ item.translations.fra.common }}
               {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
             </option>
-    
+
             }
-        </select>
+          </select>
+        </div>
       </div>
       @if (meta) { @if (structures.length) { @if ( structures.length<25) {
       <h1 class="text-3xl w-11/12 font-bold mb-4">
@@ -130,11 +142,8 @@
                     location_on
                   </span>
                   <span class="flex items-center flex-wrap">
-                    <p class="italic">
-                      {{ item.speciality }} ,
-                    </p>
+                    <p class="italic">{{ item.speciality }} ,</p>
                     <p>{{ item.country }}</p>
-
                   </span>
                 </div>
                 <div class="flex items-center gap-1 flex-wrap">
@@ -173,8 +182,7 @@
                 style="font-weight: 600"
                 target="_blank"
                 >En savoir plus... <i-feather name="external-link"></i-feather
-                  ></a
-              >
+              ></a>
               @if (item.adresse[0]) {
               <a
                 [href]="[
@@ -246,16 +254,13 @@
               </div>
             </div>
             <div class="flex flex-col justify-start items-start">
-              <div class="flex items-center gap-1 ">
+              <div class="flex items-center gap-1">
                 <span class="material-symbols-outlined text-xl text-ps-green">
                   location_on
                 </span>
                 <span class="flex items-center flex-wrap">
-                  <p class="italic">
-                    {{ item.adresse[0].nadress }} ,
-                  </p>
+                  <p class="italic">{{ item.adresse[0].nadress }} ,</p>
                   <p>{{ item.country }}</p>
-
                 </span>
               </div>
               <div class="flex gap-1 items-center flex-wrap">
@@ -286,43 +291,43 @@
                 <p class="">{{ item.flagship_activity }}</p>
               </div>
               @if (item.type!=='ph') { @if (item.hours.length) {
-                <div class="flex justify-start gap-2 items-center">
-                  <span class="material-symbols-outlined text-xl text-ps-green">
-                    schedule
-                  </span>
-                  <div class="flex flex-col">
-                    @for (it of item.hours; track $index) { @if (it.is_h24) {
-                    <p class="text-sm">{{ it.libelle }} 24H/24</p>
-                    }@else {
-                    <p class="text-sm">
-                      {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
-                    </p>
-                    } }
-                  </div>
+              <div class="flex justify-start gap-2 items-center">
+                <span class="material-symbols-outlined text-xl text-ps-green">
+                  schedule
+                </span>
+                <div class="flex flex-col">
+                  @for (it of item.hours; track $index) { @if (it.is_h24) {
+                  <p class="text-sm">{{ it.libelle }} 24H/24</p>
+                  }@else {
+                  <p class="text-sm">
+                    {{ it.libelle }} {{ it.h_start }} - {{ it.h_end }}
+                  </p>
+                  } }
                 </div>
-                } } @else { @switch (item.is_garde) { @case (true) {
-                <div class="flex justify-start items-start gap-2">
-                  <span class="material-symbols-outlined text-2xl text-ps-green">
-                  </span>
-                  <div
-                    style="font-weight: 800"
-                    class="flex flex-col pl-7 text-red-500 font-extrabold"
-                  >
-                    DE GARDE
-                  </div>
+              </div>
+              } } @else { @switch (item.is_garde) { @case (true) {
+              <div class="flex justify-start items-start gap-2">
+                <span class="material-symbols-outlined text-2xl text-ps-green">
+                </span>
+                <div
+                  style="font-weight: 800"
+                  class="flex flex-col pl-7 text-red-500 font-extrabold"
+                >
+                  DE GARDE
                 </div>
-                } @case (false) {
-                <div class="flex justify-start items-start gap-2">
-                  <span class="material-symbols-outlined text-2xl text-ps-green">
-                  </span>
-                  <div
-                    style="font-weight: 800"
-                    class="flex flex-col pl-7 text-ps-green-2 font-bold"
-                  >
-                    PAS DE GARDE
-                  </div>
+              </div>
+              } @case (false) {
+              <div class="flex justify-start items-start gap-2">
+                <span class="material-symbols-outlined text-2xl text-ps-green">
+                </span>
+                <div
+                  style="font-weight: 800"
+                  class="flex flex-col pl-7 text-ps-green-2 font-bold"
+                >
+                  PAS DE GARDE
                 </div>
-                } } }
+              </div>
+              } } }
             </div>
           </div>
           <div class="mt-6 w-1/6 h-1/4 gap-2 flex flex-wrap">
