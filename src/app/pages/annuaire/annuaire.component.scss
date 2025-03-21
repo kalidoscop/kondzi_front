@@ -1,19 +1,23 @@
-.cart-active{
-    @apply border-2 bg-gray-200
+.cart-active {
+  @apply border-2 bg-gray-200;
 }
-*{
-    font-weight: 400;
+* {
+  font-weight: 400;
 }
-h1{
-    font-weight: 600;
+h1 {
+  font-weight: 600;
+}
+.bol {
+  font-weight: 700;
+}
+.cartt-open {
+  @apply block w-11/12;
+}
+.see-active {
+  @apply h-[400px];
+}
 
-}
-.bol{
-    font-weight: 700;
-}
-.cartt-open{
-    @apply block w-11/12 
-}
-.see-active{
-    @apply h-[400px]
+.emoji {
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji",
+    sans-serif;
 }
