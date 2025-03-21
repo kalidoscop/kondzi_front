@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnInit } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,6 +20,7 @@ import { MetaData } from '../../_model/meta';
 import { DoctorService } from '../../_services/doctor.service';
 import { Doctor } from '../../_model/doctor';
 import { RestContriesService } from '../../_services/rest-contries.service';
+import { TwemojiService } from '../../_services/twemoji.service';
 
 @Component({
   selector: 'app-annuaire',
@@ -34,13 +35,16 @@ import { RestContriesService } from '../../_services/rest-contries.service';
   templateUrl: './annuaire.component.html',
   styleUrl: './annuaire.component.scss',
 })
-export class AnnuaireComponent implements OnInit {
+export class AnnuaireComponent implements OnInit,AfterViewInit {
   private activatedRoute = inject(ActivatedRoute);
   structureService = inject(StructureService);
   doctorService = inject(DoctorService);
   dataservice = inject(DataService);
   private sharedService = inject(SharedService);
   private countryService = inject(RestContriesService);
+
+  private twemojiService = inject(TwemojiService) 
+  private el = inject(ElementRef) 
 
   selectedIndex = '';
   markers: google.maps.marker.AdvancedMarkerElement[] = [];
@@ -53,6 +57,7 @@ export class AnnuaireComponent implements OnInit {
   place: google.maps.places.PlaceResult | null = null;
 
   tourStops: any = [];
+
 
   word: string | null = this.activatedRoute.snapshot.paramMap.get('word');
   // type: string | null = this.activatedRoute.snapshot.paramMap.get('type');
@@ -86,7 +91,9 @@ export class AnnuaireComponent implements OnInit {
   doctors: Doctor[] = [];
   meta: MetaData | undefined;
   scrollService = inject(ScrollService);
-
+  ngAfterViewInit() {
+    this.twemojiService.parse(this.el.nativeElement);
+  }
   async ngOnInit() {
     this.scrollService.setNavbarOpaque(true);
     this.getCountri();
