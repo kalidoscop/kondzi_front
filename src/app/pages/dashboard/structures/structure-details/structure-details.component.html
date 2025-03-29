@@ -127,7 +127,7 @@
         required
       >
         @for (item of countries; track $index) {
-        <option value="{{ item.translations.fra.common }} {{ item.flag }}">
+        <option value="{{ item.translations.fra.common }}||{{ item.flags.png }}">
           {{ item.flag }} {{ item.translations.fra.common }}
           {{ item.idd?.root || "" }}{{ item.idd?.suffixes?.[0] || '' }}
         </option>
