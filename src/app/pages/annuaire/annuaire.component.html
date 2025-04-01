@@ -158,6 +158,10 @@
                   @for (tel of item.tel; track $index) {
 
                   <p class="">({{ tel.prefix }}) {{ tel.number }}</p>
+                  @if (item.tel.length >1 && ($index+1) <item.tel.length) {
+                  <p class=""> / </p>
+                    
+                  }
                   }
                 </div>
                 <div class="flex items-center gap-1 flex-wrap">
@@ -280,6 +284,10 @@
                 @for (tel of item.tel; track $index) {
 
                 <p class="">({{ tel.prefix }}) {{ tel.number }}</p>
+                @if (item.tel.length >1 && ($index+1) <item.tel.length) {
+                  <p class=""> / </p>
+                    
+                  }
                 }
               </div>
               <div class="flex gap-1 items-center flex-wrap">

@@ -52,10 +52,10 @@
           @if (articles[0]) {
           <a
             [routerLink]="['/article/', articles[0].id]"
-            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
+            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
-              class="article w-full h-1/2 transition-all flex justify-center items-center overflow-hidden"
+              class="article w-full h-2/5 transition-all flex justify-center items-center overflow-hidden"
             >
               <img
                 *ngIf="baseUrl + articles[0].image"
@@ -74,25 +74,23 @@
               <p class="text-left text-sm">
                 Publié le {{ Date(articles[0].created_at) }} <br />
               </p>
-              <div class="w-11/12 lg:w-1/2 h-20 flex gap-2 items-end">
-                <div
-                  [ngClass]="{ 'text-blue-500': articles[0].likeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-up"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[0].likesCount
-                  }}</span>
-                </div>
-                <div
-                  [ngClass]="{ 'text-red-500': articles[0].dislikeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-down"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[0].dislikesCount
-                  }}</span>
-                </div>
+            </div>
+            <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
+              <div
+                [ngClass]="{ 'text-blue-500': articles[0].likeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-up"></i-feather>
+                <span class="h-5 font-bold">{{ articles[0].likesCount }}</span>
+              </div>
+              <div
+                [ngClass]="{ 'text-red-500': articles[0].dislikeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-down"></i-feather>
+                <span class="h-5 font-bold">{{
+                  articles[0].dislikesCount
+                }}</span>
               </div>
             </div>
           </a>
@@ -100,10 +98,10 @@
           } @if (articles[1]) {
           <a
             [routerLink]="['/article/', articles[1].id]"
-            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
+            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
-              class="article w-full h-1/2 transition-all flex justify-center items-center overflow-hidden"
+              class="article w-full h-2/5 transition-all flex justify-center items-center overflow-hidden"
             >
               <img
                 *ngIf="baseUrl + articles[1].image"
@@ -122,32 +120,30 @@
               <p class="text-left text-sm">
                 Publié le {{ Date(articles[1].created_at) }} <br />
               </p>
-              <div class="w-11/12 lg:w-1/2 h-20 flex gap-2 items-end">
-                <div
-                  [ngClass]="{ 'text-blue-500': articles[1].likeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-up"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[1].likesCount
-                  }}</span>
-                </div>
-                <div
-                  [ngClass]="{ 'text-red-500': articles[1].dislikeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-down"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[1].dislikesCount
-                  }}</span>
-                </div>
-              </div>
               <!-- <a
-                  
-                  class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
-                >
-                  LIRE L'ARTICLE
-                </a> -->
+              
+              class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
+              >
+              LIRE L'ARTICLE
+            </a> -->
+            </div>
+            <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
+              <div
+                [ngClass]="{ 'text-blue-500': articles[1].likeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-up"></i-feather>
+                <span class="h-5 font-bold">{{ articles[1].likesCount }}</span>
+              </div>
+              <div
+                [ngClass]="{ 'text-red-500': articles[1].dislikeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-down"></i-feather>
+                <span class="h-5 font-bold">{{
+                  articles[1].dislikesCount
+                }}</span>
+              </div>
             </div>
           </a>
 
@@ -159,10 +155,10 @@
           @if (articles[2]) {
           <a
             [routerLink]="['/article/', articles[2].id]"
-            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
+            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
-              class="article w-full h-1/2 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
+              class="article w-full h-2/5 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
             >
               <img
                 *ngIf="baseUrl + articles[2].image"
@@ -181,26 +177,7 @@
               <p class="text-left text-sm">
                 Publié le {{ Date(articles[2].created_at) }} <br />
               </p>
-              <div class="w-11/12 lg:w-1/2 h-20 flex gap-2 items-end">
-                <div
-                  [ngClass]="{ 'text-blue-500': articles[2].likeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-up"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[2].likesCount
-                  }}</span>
-                </div>
-                <div
-                  [ngClass]="{ 'text-red-500': articles[2].dislikeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-down"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[2].dislikesCount
-                  }}</span>
-                </div>
-              </div>
+
               <!-- <a
                 
                 class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
@@ -208,15 +185,33 @@
                 LIRE L'ARTICLE
               </a> -->
             </div>
+            <div class="w-11/12 p-4 lg:w-1/2 h-[10%] flex gap-2 items-end">
+              <div
+                [ngClass]="{ 'text-blue-500': articles[2].likeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-up"></i-feather>
+                <span class="h-5 font-bold">{{ articles[2].likesCount }}</span>
+              </div>
+              <div
+                [ngClass]="{ 'text-red-500': articles[2].dislikeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-down"></i-feather>
+                <span class="h-5 font-bold">{{
+                  articles[2].dislikesCount
+                }}</span>
+              </div>
+            </div>
           </a>
 
           } @if (articles[3]) {
           <a
             [routerLink]="['/article/', articles[3].id]"
-            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
+            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
-              class="article w-full h-1/2 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
+              class="article w-full h-2/5 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
             >
               <img
                 *ngIf="baseUrl + articles[3].image"
@@ -235,26 +230,7 @@
               <p class="text-left text-sm">
                 Publié le {{ Date(articles[3].created_at) }} <br />
               </p>
-              <div class="w-11/12 lg:w-1/2 h-20 flex gap-2 items-end">
-                <div
-                  [ngClass]="{ 'text-blue-500': articles[3].likeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-up"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[3].likesCount
-                  }}</span>
-                </div>
-                <div
-                  [ngClass]="{ 'text-red-500': articles[3].dislikeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-down"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[3].dislikesCount
-                  }}</span>
-                </div>
-              </div>
+
               <!-- <a
                   
                   class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
@@ -262,15 +238,33 @@
                   LIRE L'ARTICLE
                 </a> -->
             </div>
+            <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
+              <div
+                [ngClass]="{ 'text-blue-500': articles[3].likeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-up"></i-feather>
+                <span class="h-5 font-bold">{{ articles[3].likesCount }}</span>
+              </div>
+              <div
+                [ngClass]="{ 'text-red-500': articles[3].dislikeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-down"></i-feather>
+                <span class="h-5 font-bold">{{
+                  articles[3].dislikesCount
+                }}</span>
+              </div>
+            </div>
           </a>
 
           } @if (articles[4]) {
           <a
             [routerLink]="['/article/', articles[4].id]"
-            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg"
+            class="w-[330px] md:w-full h-[700px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
-              class="article w-full h-1/2 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
+              class="article w-full h-2/5 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
             >
               <img
                 *ngIf="baseUrl + articles[4].image"
@@ -289,32 +283,31 @@
               <p class="text-left text-sm">
                 Publié le {{ Date(articles[4].created_at) }} <br />
               </p>
-              <div class="w-11/12 lg:w-1/2 h-20 flex gap-2 items-end">
-                <div
-                  [ngClass]="{ 'text-blue-500': articles[4].likeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-up"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[4].likesCount
-                  }}</span>
-                </div>
-                <div
-                  [ngClass]="{ 'text-red-500': articles[4].dislikeByHim }"
-                  class="h-10 flex items-center justify-center gap-1"
-                >
-                  <i-feather class="big2" name="thumbs-down"></i-feather>
-                  <span class="h-5 font-bold">{{
-                    articles[4].dislikesCount
-                  }}</span>
-                </div>
-              </div>
+
               <!-- <a
                     
                     class="transition mt-4 border rounded-full border-ps-green text-ps-green w-1/2 px-4 py-4 hover:bg-ps-green hover:text-white"
                   >
                     LIRE L'ARTICLE
                   </a> -->
+            </div>
+            <div class="w-11/12 lg:w-1/2 p-4 h-[10%] flex gap-2 items-end">
+              <div
+                [ngClass]="{ 'text-blue-500': articles[4].likeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-up"></i-feather>
+                <span class="h-5 font-bold">{{ articles[4].likesCount }}</span>
+              </div>
+              <div
+                [ngClass]="{ 'text-red-500': articles[4].dislikeByHim }"
+                class="h-10 flex items-center justify-center gap-1"
+              >
+                <i-feather class="big2" name="thumbs-down"></i-feather>
+                <span class="h-5 font-bold">{{
+                  articles[4].dislikesCount
+                }}</span>
+              </div>
             </div>
           </a>
 
