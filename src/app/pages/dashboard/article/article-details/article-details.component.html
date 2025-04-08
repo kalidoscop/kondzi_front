@@ -26,8 +26,13 @@
           id="last-name"
           formControlName="title"
           class="input"
+          [ngClass]="{ 'border-red-500': !title?.valid }"
           required
         />
+        <div *ngIf="title?.errors?.['maxlength']" class="text-red-500 font-bold text-sm">
+          Le titre ne peut pas dépasser 120 caractères.
+        </div>
+      
       </div>
       <div class="flex flex-col w-[48%]">
         <label for="first-name">Auteur de l'article</label>

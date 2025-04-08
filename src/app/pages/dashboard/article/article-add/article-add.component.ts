@@ -56,7 +56,7 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { ArticleService } from '../../../../_services/article.service';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-article-add',
@@ -67,6 +67,7 @@ import { NgIf } from '@angular/common';
     ReactiveFormsModule,
     RouterModule,
     NgIf,
+    NgClass
   ],
   templateUrl: './article-add.component.html',
   styleUrl: './article-add.component.scss',
@@ -272,10 +273,14 @@ export class ArticleAddComponent {
 
   articleService = inject(ArticleService);
   articleForm = new FormGroup({
-    title: new FormControl('', Validators.required),
+    title: new FormControl('', [Validators.required,Validators.maxLength(120)]),
     autor: new FormControl('', Validators.required),
     content: new FormControl('', Validators.required),
   });
+
+  get title() {
+    return this.articleForm.get('title');
+  }
 
   onSubmit() {
     console.log(this.articleForm.value);

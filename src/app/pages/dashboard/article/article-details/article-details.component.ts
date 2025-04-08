@@ -280,16 +280,21 @@ export class ArticleDetailsComponent implements OnInit {
 
   articleService = inject(ArticleService);
   articleForm = new FormGroup({
-    title: new FormControl('', Validators.required),
+    title: new FormControl('', [Validators.required,Validators.maxLength(120)]),
     autor: new FormControl('', Validators.required),
     content: new FormControl('', Validators.required),
   });
+
+  get title() {
+    return this.articleForm.get('title');
+  }
+  
 
   loadArticleInfo() {
     if (this.articleId) {
       this.articleService.getArticle(this.articleId).subscribe((res) => {
         this.articleForm = new FormGroup({
-          title: new FormControl(`${res.title}`, Validators.required),
+          title: new FormControl(`${res.title}`, [Validators.required,Validators.maxLength(120)]),
           autor: new FormControl(`${res.autor}`, Validators.required),
           content: new FormControl(`${res.content}`, Validators.required),
         });
