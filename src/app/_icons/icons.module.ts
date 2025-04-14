@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FeatherModule } from 'angular-feather';
-import { Book, ExternalLink,CornerUpLeft, Edit, Facebook, Home, Inbox, Mail, Menu, PlusCircle, Search, Settings, Trash2, Twitter, User, UserPlus, Users, X, Youtube, ChevronRight, ArrowLeft, ArrowRight, Play, ThumbsDown, ThumbsUp } from 'angular-feather/icons';
+import { Book, ExternalLink,CornerUpLeft, Edit, Facebook, Home, Inbox, Mail, Menu, PlusCircle, Search, Settings, Trash2, Twitter, User, UserPlus, Users, X, Youtube, ChevronRight, ArrowLeft, ArrowRight, Play, ThumbsDown, ThumbsUp, Share2 } from 'angular-feather/icons';
 
 const icons = {
   User,
@@ -29,7 +29,8 @@ const icons = {
   ArrowRight,
   Play,
   ThumbsDown,
-  ThumbsUp
+  ThumbsUp,
+  Share2
 };
 
 @NgModule({

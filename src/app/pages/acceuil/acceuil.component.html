@@ -50,9 +50,9 @@
           class="w-full md:w-11/12 lg:w-[900px] flex justify-center lg:justify-between md:flex-nowrap flex-wrap gap-4"
         >
           @if (articles[0]) {
-          <a
-            [routerLink]="['/article/', articles[0].id]"
-            class="w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
+          <div
+            (click)="goToArticle(articles[0].id)"
+            class="cursor-pointer w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
               class="article w-full h-2/5 transition-all flex justify-center items-center overflow-hidden"
@@ -75,6 +75,12 @@
                 Publié le {{ Date(articles[0].created_at) }} <br />
               </p>
             </div>
+            <button
+              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[0], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[0].likeByHim }"
@@ -83,6 +89,7 @@
                 <i-feather class="big2" name="thumbs-up"></i-feather>
                 <span class="h-5 font-bold">{{ articles[0].likesCount }}</span>
               </div>
+
               <div
                 [ngClass]="{ 'text-red-500': articles[0].dislikeByHim }"
                 class="h-10 flex items-center justify-center gap-1"
@@ -93,12 +100,12 @@
                 }}</span>
               </div>
             </div>
-          </a>
+          </div>
 
           } @if (articles[1]) {
-          <a
-            [routerLink]="['/article/', articles[1].id]"
-            class="w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
+          <div
+            (click)="goToArticle(articles[1].id)"
+            class="cursor-pointer w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
               class="article w-full h-2/5 transition-all flex justify-center items-center overflow-hidden"
@@ -127,6 +134,12 @@
               LIRE L'ARTICLE
             </a> -->
             </div>
+            <button
+              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[1], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[1].likeByHim }"
@@ -145,7 +158,7 @@
                 }}</span>
               </div>
             </div>
-          </a>
+          </div>
 
           }
         </div>
@@ -153,9 +166,9 @@
           class="w-full md:w-11/12 lg:w-[900px] flex justify-center lg:justify-between md:flex-nowrap flex-wrap gap-4"
         >
           @if (articles[2]) {
-          <a
-            [routerLink]="['/article/', articles[2].id]"
-            class="w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
+          <div
+            (click)="goToArticle(articles[2].id)"
+            class="cursor-pointer w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
               class="article w-full h-2/5 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
@@ -185,6 +198,12 @@
                 LIRE L'ARTICLE
               </a> -->
             </div>
+            <button
+              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[2], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             <div class="w-11/12 p-4 lg:w-1/2 h-[10%] flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[2].likeByHim }"
@@ -203,12 +222,12 @@
                 }}</span>
               </div>
             </div>
-          </a>
+          </div>
 
           } @if (articles[3]) {
-          <a
-            [routerLink]="['/article/', articles[3].id]"
-            class="w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
+          <div
+            (click)="goToArticle(articles[3].id)"
+            class="cursor-pointer w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
               class="article w-full h-2/5 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
@@ -238,6 +257,12 @@
                   LIRE L'ARTICLE
                 </a> -->
             </div>
+            <button
+              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[3], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[3].likeByHim }"
@@ -256,12 +281,12 @@
                 }}</span>
               </div>
             </div>
-          </a>
+          </div>
 
           } @if (articles[4]) {
-          <a
-            [routerLink]="['/article/', articles[4].id]"
-            class="w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
+          <div
+            (click)="goToArticle(articles[4].id)"
+            class="cursor-pointer w-[330px] md:w-full h-[600px] md:h-[500px] hover:shadow-xl hover:border-2 border-gray-300 transition-all bg-white shadow-lg flex flex-col justify-between"
           >
             <div
               class="article w-full h-2/5 md:h-2/6 transition-all flex justify-center items-center overflow-hidden"
@@ -291,6 +316,12 @@
                     LIRE L'ARTICLE
                   </a> -->
             </div>
+            <button
+              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[4], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             <div class="w-11/12 lg:w-1/2 p-4 h-[10%] flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[4].likeByHim }"
@@ -309,7 +340,7 @@
                 }}</span>
               </div>
             </div>
-          </a>
+          </div>
 
           }
         </div>

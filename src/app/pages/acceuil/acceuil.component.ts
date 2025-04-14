@@ -1,7 +1,7 @@
 import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { CarouselModule } from '../component/carousel/carousel.module';
 // import { Youtube } from 'angular-feather/icons';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FooterComponent } from '../component/footer/footer.component';
 import { ScrollService } from '../../_services/scroll.service';
 import { ModalComponent } from '../component/modal/modal.component';
@@ -14,6 +14,7 @@ import { VisiteService } from '../../_services/visite.service';
 import { IconsModule } from '../../_icons/icons.module';
 import { UadresseService } from '../../_services/uadresse.service';
 import { UtilAdresse } from '../../_model/uadresse';
+import { AlerteService } from '../../_services/alerte.service';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -27,7 +28,7 @@ registerLocaleData(localeFr, 'fr');
     ModalComponent,
     NgIf,
     IconsModule,
-    NgClass
+    NgClass,
   ],
   templateUrl: './acceuil.component.html',
   styleUrl: './acceuil.component.scss',
@@ -39,6 +40,8 @@ export class AcceuilComponent implements OnInit {
 
   trackingService = inject(VisiteService);
   private uadresseService = inject(UadresseService);
+  private alertService = inject(AlerteService);
+  private router = inject(Router)
 
   ngOnInit(): void {
     this.loadArticles();
@@ -118,6 +121,42 @@ export class AcceuilComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
+  }
+
+  goToArticle(id: string) {
+    this.router.navigate(['/article/', id])
+  }
+
+  shareArticle(article: any,event: MouseEvent) {
+    event.stopPropagation();
+    const url = `${window.location.origin}/article/${article.id}`;
+
+    try {
+      navigator
+        .share({
+          title: article.title,
+          text: 'Découvre cet article incroyable !',
+          url: url,
+        })
+        .then(() => {
+          console.log('Partagé avec succès');
+        })
+        .catch((error) => {
+          console.error('Erreur de partage', error);
+        });
+    } catch (error) {
+      // alert("Le partage n'est pas supporté sur ce navigateur.")
+      navigator.clipboard.writeText(url).then(() => {
+        this.alertService.creatAlert('success', 'Lien copié dans le presse-papiers !', 3000);
+      });
+    }
+
+    // if (navigator.share) {
+
+    // } else {
+    //   // Fallback si la Web Share API n’est pas supportée
+
+    // }
   }
 
   Date(date: string | null | undefined): string {
