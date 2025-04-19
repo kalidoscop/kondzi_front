@@ -1,11 +1,19 @@
 <div class="w-screen h-screen lg:flex flex-row justify-center items-center">
   <!-- left -->
-  <div class="lg:h-full lg:w-1/2 flex justify-center items-center overflow-hidden lefter">
-    <a [routerLink]="['/acceuil']" routerLinkActive="router-link-active"  class="absolute top-6 left-6 flex text-white"><i-feather name="corner-up-left" class="h-full mr-2"></i-feather>Retour</a>
+  <div
+    class="lg:h-full lg:w-1/2 flex justify-center items-center overflow-hidden lefter"
+  >
+    <a
+      [routerLink]="['/acceuil']"
+      routerLinkActive="router-link-active"
+      class="absolute top-6 left-6 flex text-white"
+      ><i-feather name="corner-up-left" class="h-full mr-2"></i-feather
+      >Retour</a
+    >
     <!-- <img class="absolute left-0 h-[150vh] -z-10" src="images/image_espace professionnel.jpg" alt=""> -->
     <div class="h-1/4 w-11/12 hidden lg:flex justify-start items-center">
       <p class="text-5xl font-bold text-white">
-        BIENVENUE SUR VOTRE ESPACE<br>PROFESSIONNEL
+        BIENVENUE SUR VOTRE ESPACE<br />PROFESSIONNEL
       </p>
     </div>
   </div>
@@ -14,15 +22,26 @@
   <div
     class="h-full w-full lg:w-1/2 flex flex-col gap-4 justify-center items-center bg-white"
   >
+    <a
+      [routerLink]="['/acceuil']"
+      routerLinkActive="router-link-active"
+      class="fixed top-6 left-6 flex lg:hidden"
+      ><i-feather name="corner-up-left" class="h-full mr-2"></i-feather
+      >Retour</a
+    >
     <!-- <div class=" bg-red-400"></div> -->
     <div class="h-50 w-11/12 flex flex-col justify-center items-center">
       <img class="w-3/6 h-auto" src="images/logo kondzi-04.png" alt="" />
-      <p class="mb-0 text-sm sm:text-base text-center">Plateforme réseau N°1 d'acteurs professionnels de santé en Afrique</p>
+      <p class="mb-0 text-sm sm:text-base text-center">
+        Plateforme réseau N°1 d'acteurs professionnels de santé en Afrique
+      </p>
     </div>
     <div class="h-120 w-11/12 p-2 flex flex-col justify-center items-center">
       <header class="w-11/12 sm:w-96">
         <h1 class="text-xl font-bold text-gray-800">SE CONNECTER</h1>
-        <p class="w-full text-xs">La connexion au site est réservée aux professionnels.</p>
+        <p class="w-full text-xs">
+          La connexion au site est réservée aux professionnels.
+        </p>
       </header>
       <!-- FORM -->
       <form
@@ -67,7 +86,14 @@
       </form>
     </div>
     <div class="h-auto w-11/12 mt-4 flex justify-center items-center">
-      <p class="w-1/2 text-[10px] text-justify">Le traitement de vos données à caractère personnel est soumis à la loi n° 2019-014 du 29 octobre 2019 relative à la protection des données à caractère personnel en République du Togo. Cependant la plateforme kondzi.com décline toute responsabilité quant à l’utilisation par un tiers inconnu, des données qui seront rendues publiques. Avant la création de votre compte, nous vous invitons à consulter les conditions générales d'utilisation et la politique de confidentialité de kondzi.com.</p>
+      <p class="w-2/3 lg:w-1/2 text-[10px] text-justify">
+        L'utilisation de la plateforme KONDZI.COM est régie par des règles de
+        confiance et de sécurité envers notre communauté d'utilisateurs. Toute
+        faute ou préjudice commis dans le cadre numérique est passible de
+        poursuites judiciaires et des sanctions civiles et pénales. Nous vous
+        prions de consulter nos <a class="underline font-bold" [routerLink]="['/conditions-generales-utilisation']">Conditions Générales d'Utilisation</a> et notre
+        <a class="underline font-bold" [routerLink]="['/politique-de-confidentialite']">Politique de Confidentialité</a>.
+      </p>
     </div>
   </div>
   <!-- right -->
