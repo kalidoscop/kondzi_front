@@ -20,7 +20,7 @@ import { ArticleComponent } from './pages/blog/article/article.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: '/acceuil', pathMatch: 'full' },
+  // { path: '', redirectTo: '/', pathMatch: 'full' },
   // { path: 'annuaire', component:  },
   {
     path: 'annuaire',
@@ -31,7 +31,7 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'acceuil',
+    path: '',
     component:BaseComponent,
     children: [
       { path: '', component: AcceuilComponent },
