@@ -135,7 +135,8 @@ export class AcceuilComponent implements OnInit {
       navigator
         .share({
           title: article.title,
-          text: 'Découvre cet article incroyable !',
+          text:`${article.title}
+          `,
           url: url,
         })
         .then(() => {
