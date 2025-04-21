@@ -13,7 +13,11 @@
   <div
     class="w-full min-h-40 mt-8 md:mt-[5%] flex flex-col items-center justify-center"
   >
-    <h1 class=" w-11/12 lg:w-1/2 text-center text-2xl lg:text-3xl font-bold mb-4">{{ article[0].title }}</h1>
+    <h1
+      class="w-11/12 lg:w-1/2 text-center text-2xl lg:text-3xl font-bold mb-4"
+    >
+      {{ article[0].title }}
+    </h1>
     <p class="text-left text-sm mb-6">
       Publié le {{ Date(article[0].created_at) }} <br />
     </p>
@@ -38,6 +42,13 @@
       >
         <i-feather class="big" name="thumbs-down"></i-feather>
         <span class="h-5 font-bold">{{ article[0].dislikesCount }}</span>
+      </button>
+
+      <button
+        class="ml-8 h-10  flex items-center justify-center hover:text-ps-orange transition-all"
+        (click)="shareArticle(article[0], $event)"
+      >
+        <i-feather name="share-2"></i-feather>
       </button>
     </div>
   </div>

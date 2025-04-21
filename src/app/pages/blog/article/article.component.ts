@@ -10,6 +10,7 @@ import { IconsModule } from '../../../_icons/icons.module';
 import { Article } from '../../../_model/article';
 registerLocaleData(localeFr, 'fr');
 import localeFr from '@angular/common/locales/fr';
+import { AlerteService } from '../../../_services/alerte.service';
 @Component({
   selector: 'app-article',
   standalone: true,
@@ -31,6 +32,8 @@ export class ArticleComponent implements OnInit {
 
   scrollService = inject(ScrollService);
   articleService = inject(ArticleService);
+    private alertService = inject(AlerteService);
+  
   private activatedRoute = inject(ActivatedRoute);
 
   articleId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
@@ -69,6 +72,40 @@ export class ArticleComponent implements OnInit {
       })
     }
   }
+
+  shareArticle(article: any,event: MouseEvent) {
+    event.stopPropagation();
+    const url = `${window.location.origin}/article/${article.id}`;
+
+    try {
+      navigator
+        .share({
+          title: article.title,
+          text:`${article.title}
+          `,
+          url: url,
+        })
+        .then(() => {
+          console.log('Partagé avec succès');
+        })
+        .catch((error) => {
+          console.error('Erreur de partage', error);
+        });
+    } catch (error) {
+      // alert("Le partage n'est pas supporté sur ce navigateur.")
+      navigator.clipboard.writeText(url).then(() => {
+        this.alertService.creatAlert('success', 'Lien copié dans le presse-papiers !', 3000);
+      });
+    }
+
+    // if (navigator.share) {
+
+    // } else {
+    //   // Fallback si la Web Share API n’est pas supportée
+
+    // }
+  }
+
 
    Date(date: string | null | undefined): string {
       if (date) {

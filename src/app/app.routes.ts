@@ -88,13 +88,13 @@ export const routes: Routes = [
       { path: '', component: MediaSanteComponent },
     ],
   },
-  {
-    path: 'accessibilite-conformite-partielle',
-    component:BaseComponent,
-    children: [
-      { path: '', component: AccessibiliteConformitePartielleComponent },
-    ],
-  },
+  // {
+  //   path: 'accessibilite-conformite-partielle',
+  //   component:BaseComponent,
+  //   children: [
+  //     { path: '', component: AccessibiliteConformitePartielleComponent },
+  //   ],
+  // },
   {
     path: 'conditions-generales-utilisation',
     component:BaseComponent,
