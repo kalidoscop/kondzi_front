@@ -45,7 +45,10 @@ nav::before{
     @apply bg-ps-green border-none
 }
 .nav-opaque{
-    @apply bg-opacity-100
+    @apply bg-opacity-100 bg-white
+}
+.search-block{
+    @apply flex
 }
 .nav-opaque::after{
     width: 50%;

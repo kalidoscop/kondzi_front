@@ -44,6 +44,7 @@ export class AcceuilComponent implements OnInit {
   private router = inject(Router)
 
   ngOnInit(): void {
+    this.scrollService.setNavbarOpaque(false);
     this.loadArticles();
     this.loadUadresse();
     this.trackingService.getVisitorInfo().then((data) => {

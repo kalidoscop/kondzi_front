@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       text: 'KONDZI.COM, des renseignements 24h/24 partout en Afrique',
     },
   ];
-  place: google.maps.places.PlaceResult | null = null;
+  // place: google.maps.places.PlaceResult | null = null;
 
   dataservice = inject(DataService);
   scrollService = inject(ScrollService);
@@ -97,38 +97,38 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.scrollSubscription = this.scrollService.navbarOpaque$.subscribe(
       (isOpaque) => (this.navbarOpaque = isOpaque)
     );
-    const center = { lat: 50.064192, lng: -130.605469 };
-    const defaultBounds = {
-      north: center.lat + 0.1,
-      south: center.lat - 0.1,
-      east: center.lng + 0.1,
-      west: center.lng - 0.1,
-    };
-    const input = document.getElementById('search') as HTMLInputElement;
-    const input2 = document.getElementById('search2') as HTMLInputElement;
-    // console.log(input);
+    // const center = { lat: 50.064192, lng: -130.605469 };
+    // const defaultBounds = {
+    //   north: center.lat + 0.1,
+    //   south: center.lat - 0.1,
+    //   east: center.lng + 0.1,
+    //   west: center.lng - 0.1,
+    // };
+    // const input = document.getElementById('search') as HTMLInputElement;
+    // const input2 = document.getElementById('search2') as HTMLInputElement;
+    // // console.log(input);
 
-    const options = {
-      bounds: defaultBounds,
-      componentRestrictions: { country: 'tg' },
-      fields: ['address_components', 'geometry', 'icon', 'name'],
-      strictBounds: false,
-    };
-    const autocompletes = await new google.maps.places.Autocomplete(
-      input,
-      options
-    );
-    const autocompletes2 = await new google.maps.places.Autocomplete(
-      input2,
-      options
-    );
-    autocompletes.addListener('place_changed', () => {
-      console.log('coucou');
-      // console.log(autocomplete.)
-      const place = autocompletes.getPlace();
-      this.place = place;
-      console.log(place);
-    });
+    // const options = {
+    //   bounds: defaultBounds,
+    //   componentRestrictions: { country: 'tg' },
+    //   fields: ['address_components', 'geometry', 'icon', 'name'],
+    //   strictBounds: false,
+    // };
+    // const autocompletes = await new google.maps.places.Autocomplete(
+    //   input,
+    //   options
+    // );
+    // const autocompletes2 = await new google.maps.places.Autocomplete(
+    //   input2,
+    //   options
+    // );
+    // autocompletes.addListener('place_changed', () => {
+    //   console.log('coucou');
+    //   // console.log(autocomplete.)
+    //   const place = autocompletes.getPlace();
+    //   this.place = place;
+    //   console.log(place);
+    // });
     // autocompletes2.addListener('place_changed', () => {
     //   console.log('coucou');
     //   // console.log(autocomplete.)
@@ -168,32 +168,36 @@ export class NavbarComponent implements OnInit, OnDestroy {
   // type: new FormControl(''),
 
   async onSubmit() {
-    if (this.place) {
-      const newLink = `/annuaire/${this.search.value.word?.trim()}/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
-        ?.getSouthWest()
-        .lng()}/${this.place.geometry?.viewport
-        ?.getNorthEast()
-        .lng()}/${this.place.geometry?.viewport
-        ?.getSouthWest()
-        .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
-      this.router.navigate(['/']).then(() => {
-        this.router.navigate([newLink]);
-      });
-    } else {
-      console.log('coucou');
+    // if (this.place) {
+    //   const newLink = `/annuaire/${this.search.value.word?.trim()}/${this.search.value.zone?.trim()}/${this.place.geometry?.viewport
+    //     ?.getSouthWest()
+    //     .lng()}/${this.place.geometry?.viewport
+    //     ?.getNorthEast()
+    //     .lng()}/${this.place.geometry?.viewport
+    //     ?.getSouthWest()
+    //     .lat()}/${this.place.geometry?.viewport?.getNorthEast().lat()}`;
+    //   this.router.navigate(['/']).then(() => {
+    //     this.router.navigate([newLink]);
+    //   });
+    // } else {
+    //   console.log('coucou');
 
-      const newLink = `/annuaire/${this.search.value.word?.trim()}`;
+    //   const newLink = `/annuaire/${this.search.value.word?.trim()}`;
+    //   this.router.navigate(['/']).then(() => {
+    //     this.router.navigate([newLink]);
+    //   });
+    //   // this.router.navigate([
+    //   //   '/annuaire',
+    //   //   `${this.search.value.word?.trim()}`,
+    //   //   `${this.search.value.type}`,
+    //   // ]);
+    //   // this.refreshSchearchList()
+    //   // console.log(2);
+    // }
+    const newLink = `/annuaire/${this.search.value.word?.trim()}`;
       this.router.navigate(['/']).then(() => {
         this.router.navigate([newLink]);
       });
-      // this.router.navigate([
-      //   '/annuaire',
-      //   `${this.search.value.word?.trim()}`,
-      //   `${this.search.value.type}`,
-      // ]);
-      // this.refreshSchearchList()
-      // console.log(2);
-    }
     // console.log(this.search.value);
   }
   openMenu() {
