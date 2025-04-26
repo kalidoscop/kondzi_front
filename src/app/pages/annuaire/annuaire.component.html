@@ -116,7 +116,7 @@
       <!-- medecini -->
       @for (item of doctors; track $index) {
       <div
-        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white transition-all hover:bg-gray-200 border-ps-green shadow-lg"
+        class="w-11/12 sm:w-[400px] md:w-[93%] text-[13px] xl:w-11/12 h-auto flex flex-col items-center bg-white transition-all hover:bg-gray-200 border-ps-green shadow-lg"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
@@ -130,7 +130,7 @@
                   person
                 </span>
                 <div>
-                  <h1 class="text-xl underline font-bold text-ps-green">
+                  <h1 class="text-[18px] underline font-bold text-ps-green">
                     {{ item.last_name }} {{ item.first_name }}
                   </h1>
                   <!-- <p class="text-sm">Type de la structure</p> -->
@@ -138,7 +138,7 @@
               </div>
               <div class="flex flex-col justify-start items-start">
                 <div class="flex items-center gap-1">
-                  <span class="material-symbols-outlined text-xl text-ps-green">
+                  <span class="material-symbols-outlined text-[18px] text-ps-green">
                     location_on
                   </span>
                   <span class="flex items-center flex-wrap">
@@ -152,7 +152,7 @@
                   </span>
                 </div>
                 <div class="flex items-center gap-1 flex-wrap">
-                  <span class="material-symbols-outlined text-xl text-ps-green">
+                  <span class="material-symbols-outlined text-[18px] text-ps-green">
                     call
                   </span>
                   @for (tel of item.tel; track $index) {
@@ -165,7 +165,7 @@
                   }
                 </div>
                 <div class="flex items-center gap-1 flex-wrap">
-                  <span class="material-symbols-outlined text-xl text-ps-green">
+                  <span class="material-symbols-outlined text-[18px] text-ps-green">
                     mail
                   </span>
                   <p class="underline">{{ item.email }}</p>
@@ -245,7 +245,7 @@
       <!--structure -->
       @for (item of structures; track $index) {
       <div
-        class="w-11/12 sm:w-[400px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white border-ps-green transition-all hover:bg-gray-200"
+        class="w-11/12 sm:w-[400px] text-[13px] md:w-[93%] xl:w-11/12 h-auto flex flex-col items-center bg-white border-ps-green transition-all hover:bg-gray-200"
         [ngClass]="{ 'cart-active': selectedIndex === item.id }"
         [id]="'structure-' + item.id"
       >
@@ -256,7 +256,7 @@
                 domain
               </span>
               <div>
-                <h1 class="text-xl underline font-bold text-ps-green">
+                <h1 class="text-[18px] underline font-bold text-ps-green">
                   {{ item.name }}
                 </h1>
                 <!-- <p class="text-sm">Type de la structure</p> -->
@@ -264,7 +264,7 @@
             </div>
             <div class="flex flex-col justify-start items-start">
               <div class="flex items-center gap-1">
-                <span class="material-symbols-outlined text-xl text-ps-green">
+                <span class="material-symbols-outlined text-[18px] text-ps-green">
                   location_on
                 </span>
                 <span class="flex items-center flex-wrap">
@@ -278,7 +278,7 @@
                 </span>
               </div>
               <div class="flex gap-1 items-center flex-wrap">
-                <span class="material-symbols-outlined text-xl text-ps-green">
+                <span class="material-symbols-outlined text-[18px] text-ps-green">
                   call
                 </span>
                 @for (tel of item.tel; track $index) {
@@ -291,26 +291,26 @@
                 }
               </div>
               <div class="flex gap-1 items-center flex-wrap">
-                <span class="material-symbols-outlined text-xl text-ps-green">
+                <span class="material-symbols-outlined text-[18px] text-ps-green">
                   mail
                 </span>
                 <p class="underline">{{ item.email }}</p>
               </div>
               <div class="flex gap-1 items-center flex-wrap">
-                <span class="material-symbols-outlined text-xl text-ps-green">
+                <span class="material-symbols-outlined text-[18px] text-ps-green">
                   credit_card
                 </span>
                 <p class="italic">{{ item.assurance }}</p>
               </div>
               <div class="flex gap-1 items-center flex-wrap">
-                <span class="material-symbols-outlined text-xl text-ps-green">
+                <span class="material-symbols-outlined text-[18px] text-ps-green">
                   add_box
                 </span>
                 <p class="">{{ item.flagship_activity }}</p>
               </div>
               @if (item.type!=='ph') { @if (item.hours.length) {
               <div class="flex justify-start gap-2 items-center">
-                <span class="material-symbols-outlined text-xl text-ps-green">
+                <span class="material-symbols-outlined text-[18px] text-ps-green">
                   schedule
                 </span>
                 <div class="flex flex-col">
