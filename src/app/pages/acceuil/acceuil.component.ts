@@ -76,6 +76,13 @@ export class AcceuilComponent implements OnInit {
   scrollService = inject(ScrollService);
   articleService = inject(ArticleService);
 
+  // constructor(private breakpointObserver: BreakpointObserver) {
+  //   this.breakpointObserver.observe([Breakpoints.Handset])
+  //     .subscribe(result => {
+  //       this.imagesToShow = result.matches ? this.imagesMobile : this.imagesDesktop;
+  //     });
+  // }
+
   images = [
     {
       imageSrc: 'images/image defilante.jpg',
@@ -99,6 +106,30 @@ export class AcceuilComponent implements OnInit {
       text: 'KONDZI.COM, des renseignements 24h/24 partout en Afrique',
     },
   ];
+
+  imagesMobile = [
+    {
+      imageSrc: 'images/image phone1.jpg',
+      imageAlt: 'image1',
+      text: 'Plateforme réseau N°1 des acteurs professionnels de santé en Afrique',
+    },
+    {
+      imageSrc: 'images/image phone2.jpg',
+      imageAlt: 'image2',
+      text: 'Une urgence vitale de santé, consultez KONDZI.COM',
+    },
+    {
+      imageSrc: 'images/image phone3.jpg',
+      imageAlt: 'image3',
+      text: 'Des informations en santé fiables à portée de main sur KONDZI.COM',
+    },
+
+    {
+      imageSrc: 'images/image phone4.jpg',
+      imageAlt: 'image4',
+      text: 'KONDZI.COM, des renseignements 24h/24 partout en Afrique',
+    },
+  ]
   navbarOpaque = false;
 
   @HostListener('window:scroll', [])

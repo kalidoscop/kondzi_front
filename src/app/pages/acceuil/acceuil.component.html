@@ -21,7 +21,8 @@
       </div> -->
     <!-- </div> -->
     <!-- <app-carousel></app-carousel> -->
-    <app-carousel [images]="images"></app-carousel>
+    <app-carousel class="hidden lg:block" [images]="images"></app-carousel>
+    <app-carousel class="block lg:hidden" [images]="imagesMobile"></app-carousel>
   </div>
   <!-- body -->
   <div class="w-full top-full lg:top-[600px] absolute" id="trigger-div">
