@@ -435,7 +435,7 @@
   [ngClass]="{ inblox: showModal == true }"
 >
   <div
-    class="w-full transition-all min-h-2/5 max-h-1/2 bg-ps-green flex flex-col items-center gap-2 p-10"
+    class="w-full transition-all min-h-2/5 max-h-1/2 bg-ps-green flex flex-col items-center gap-2 p-5"
   >
     <h1
       (click)="closeModal()"
@@ -447,7 +447,7 @@
       QUE SOUHAITEZ-VOUS RECHERCHER ?
     </p>
     <div class="w-full h-20 flex justify-center items-center gap-2">
-      <div class="w-8/12 h-[45px] md:h-[50px]">
+      <div class="w-[80%] h-[45px] md:h-[50px]">
         <input
           class="w-full h-full mb-2 p-4 outline-none text-gray-600 bg-gray-200 rounded-full italic text-sm"
           type="text"
@@ -459,7 +459,7 @@
         @if (suggestion.length) {
         <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
         <div
-          class="bg-white w-8/12 rounded-2xl absolute max-h-96 overflow-y-auto z-30 sugg"
+          class="bg-white w-[80%] rounded-2xl absolute max-h-96 overflow-y-auto z-30 sugg"
         >
           <span
             class="fixed w-screen h-screen -z-20 top-0 left-0"
