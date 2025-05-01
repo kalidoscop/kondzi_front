@@ -114,12 +114,12 @@ export class AcceuilComponent implements OnInit {
       text: 'Plateforme réseau N°1 des acteurs professionnels de santé en Afrique',
     },
     {
-      imageSrc: 'images/image phone2.jpg',
+      imageSrc: 'images/image phone3.jpg',
       imageAlt: 'image2',
       text: 'Une urgence vitale de santé, consultez KONDZI.COM',
     },
     {
-      imageSrc: 'images/image phone3.jpg',
+      imageSrc: 'images/image phone2.jpg',
       imageAlt: 'image3',
       text: 'Des informations en santé fiables à portée de main sur KONDZI.COM',
     },
@@ -167,8 +167,7 @@ export class AcceuilComponent implements OnInit {
       navigator
         .share({
           title: article.title,
-          text:`${article.title}
-          `,
+          text:`${article.title}/n`,
           url: url,
         })
         .then(() => {

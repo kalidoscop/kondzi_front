@@ -76,12 +76,6 @@
                 Publié le {{ Date(articles[0].created_at) }} <br />
               </p>
             </div>
-            <button
-              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
-              (click)="shareArticle(articles[0], $event)"
-            >
-              <i-feather name="share-2"></i-feather>
-            </button>
             <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[0].likeByHim }"
@@ -100,6 +94,12 @@
                   articles[0].dislikesCount
                 }}</span>
               </div>
+              <button
+              class="ml-2 h-10 flex items-center justify-center gap-1 hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[0], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             </div>
           </div>
 
@@ -135,12 +135,6 @@
               LIRE L'ARTICLE
             </a> -->
             </div>
-            <button
-              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
-              (click)="shareArticle(articles[1], $event)"
-            >
-              <i-feather name="share-2"></i-feather>
-            </button>
             <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[1].likeByHim }"
@@ -158,6 +152,12 @@
                   articles[1].dislikesCount
                 }}</span>
               </div>
+              <button
+              class="ml-2 h-10 flex items-center justify-center gap-1 hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[1], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             </div>
           </div>
 
@@ -199,12 +199,6 @@
                 LIRE L'ARTICLE
               </a> -->
             </div>
-            <button
-              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
-              (click)="shareArticle(articles[2], $event)"
-            >
-              <i-feather name="share-2"></i-feather>
-            </button>
             <div class="w-11/12 p-4 lg:w-1/2 h-[10%] flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[2].likeByHim }"
@@ -222,6 +216,12 @@
                   articles[2].dislikesCount
                 }}</span>
               </div>
+              <button
+              class="ml-2 h-10 flex items-center justify-center gap-1 hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[2], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             </div>
           </div>
 
@@ -258,12 +258,6 @@
                   LIRE L'ARTICLE
                 </a> -->
             </div>
-            <button
-              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
-              (click)="shareArticle(articles[3], $event)"
-            >
-              <i-feather name="share-2"></i-feather>
-            </button>
             <div class="w-11/12 lg:w-1/2 h-[10%] p-4 flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[3].likeByHim }"
@@ -281,6 +275,12 @@
                   articles[3].dislikesCount
                 }}</span>
               </div>
+              <button
+              class="ml-2 h-10 flex items-center justify-center gap-1 hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[3], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             </div>
           </div>
 
@@ -317,12 +317,6 @@
                     LIRE L'ARTICLE
                   </a> -->
             </div>
-            <button
-              class="w-full p-4 flex justify-start hover:text-ps-orange transition-all"
-              (click)="shareArticle(articles[4], $event)"
-            >
-              <i-feather name="share-2"></i-feather>
-            </button>
             <div class="w-11/12 lg:w-1/2 p-4 h-[10%] flex gap-2 items-end">
               <div
                 [ngClass]="{ 'text-blue-500': articles[4].likeByHim }"
@@ -340,6 +334,12 @@
                   articles[4].dislikesCount
                 }}</span>
               </div>
+              <button
+              class="ml-2 h-10 flex items-center justify-center gap-1 hover:text-ps-orange transition-all"
+              (click)="shareArticle(articles[4], $event)"
+            >
+              <i-feather name="share-2"></i-feather>
+            </button>
             </div>
           </div>
 

@@ -15,7 +15,7 @@
       />
     </a>
     <!-- recherche -->
-    <form
+    <!-- <form
       class="w-7/12 h-full hidden lg:flex items-center"
       (ngSubmit)="onSubmit()"
       [formGroup]="search"
@@ -24,7 +24,7 @@
         class="w-11/12 h-4/5 flex rounded-l justify-around items-center bg-white bg-opacity-50"
         [ngClass]="{ 'inpute-opaque': navbarOpaque }"
       >
-        <!-- <div class="w-5/12 h-4/5 border-b border-black rounded-t"> -->
+        <div class="w-5/12 h-4/5 border-b border-black rounded-t">
         <div class="w-11/12 h-4/5 border-b border-black rounded-t">
           <input
             class="w-full h-full p-4 outline-none text-gray-600 bg-gray-200"
@@ -35,7 +35,7 @@
           />
 
           @if (suggestion.length) {
-          <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
+          <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span>
           <div
             class="bg-white w-[22.3%] absolute max-h-96 overflow-y-auto z-30 sugg"
           >
@@ -44,7 +44,7 @@
               (click)="closeSuggestion()"
             ></span>
             <ul class="w-full flex flex-col justify-start items-center">
-              <!-- @if (otherSuggestions.length) { 
+              @if (otherSuggestions.length) { 
                   @for (item of otherSuggestions;
                 track $index) {
                 <li
@@ -57,7 +57,7 @@
                 </li>
   
                 } 
-                }  -->
+                } 
               @for (item of suggestion; track $index) {
               <li
                 (click)="onActivityClick(item)"
@@ -80,15 +80,15 @@
           </div>
           }
         </div>
-        <!-- <div class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200" id="autocomp"></div> -->
-        <!-- <input
+        <div class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200" id="autocomp"></div>
+        <input
           class="w-5/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
           type="text"
           id="search"
           formControlName="zone"
           placeholder="Votre zone"
-        /> -->
-        <!-- <select
+        />
+        <select
           class="w-3/12 h-4/5 p-4 border-b outline-none text-gray-600 border-black rounded-t bg-gray-200"
           formControlName="type"
           type="text"
@@ -100,7 +100,7 @@
           <option value="lb">Laboratoires</option>
           <option value="co">Centre Optique</option>
           <option value="doc">Médécins</option>
-        </select> -->
+        </select>
       </div>
       <button
         type="submit"
@@ -110,8 +110,76 @@
       >
         <i-feather name="search" class="text-white transition-all"></i-feather>
       </button>
-    </form>
+    </form> -->
+    <form
+    class="w-7/12 h-full hidden lg:flex items-center"
+    (ngSubmit)="onSubmit()"
+    [formGroup]="search"
+  >
+    <div class="w-full h-20 flex justify-center items-center gap-2">
+      <div class="w-8/12  h-[45px] md:h-[50px]">
+        <input
+          class="w-full h-full mb-2 p-4 outline-none text-gray-600 bg-gray-200 rounded-full italic text-sm"
+          type="text"
+          formControlName="word"
+          (input)="onSearchChange()"
+          placeholder="Médecin, une Adresse, un Spécialiste, un thème...."
+        />
 
+        @if (suggestion.length) {
+        <!-- <span class="bg-green-500 absolute w-screen h-screen  top-0 left-0" (click)="closeSuggestion()"></span> -->
+        <div
+          class="bg-white w-full rounded-2xl max-h-96 overflow-y-auto z-30 sugg"
+        >
+          <span
+            class="fixed w-screen h-screen -z-20 top-0 left-0"
+            (click)="closeSuggestion()"
+          ></span>
+          <ul class="w-full flex flex-col justify-start items-center">
+            <!-- @if (otherSuggestions.length) { 
+                @for (item of otherSuggestions;
+              track $index) {
+              <li
+                (click)="onActivityClick(item.domaine)"
+                class="w-full min-h-10 border-b-2 flex justify-center items-center border-gray-500"
+              >
+                <button type="button" class="w-full h-full  text-start pl-4">
+                  {{ item.domaine }}
+                </button>
+              </li>
+    
+              } 
+              }  -->
+            @for (item of suggestion; track $index) {
+            <li
+              (click)="onActivityClick(item)"
+              class="w-11/12 hover:bg-gray-200 min-h-10 border-b-[0.2px] flex justify-center items-center border-gray-300"
+            >
+              <button
+                type="button"
+                class="w-full flex font-bold text-gray-500 justify-start gap-3 items-center h-full text-start"
+              >
+                <i-feather
+                  name="search"
+                  class="text-gray-500 font-bold w-full h-full text-center transition-all"
+                ></i-feather>
+                {{ item }}
+              </button>
+            </li>
+            }
+          </ul>
+        </div>
+        }
+      </div>
+      <button
+        type="submit"
+        [disabled]="!search.valid"
+        class="w-[50px] h-[50px] rounded-full bg-ps-green flex justify-center items-center font-bold"
+      >
+        <i-feather name="search" class="text-white transition-all"></i-feather>
+      </button>
+    </div>
+  </form>
     <!-- recher button  -->
     <div
       class="lg:border-l-[2px] lg:border-r-[2px] lg:hidden transition-all border-ps-orange h-full w-[70px] lg:w-[7%]"
