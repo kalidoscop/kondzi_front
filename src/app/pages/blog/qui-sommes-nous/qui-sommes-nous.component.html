@@ -1,6 +1,15 @@
 <div class="w-full h-full">
-    <div class="w-full min-h-40 mt-[30%] md:mt-[10%] flex justify-center">
-        <div class="w-11/12 lg:w-1/2">
+    <button
+            class="youtube mt-[30%] md:mt-[10%] w-full min-h-[230px] lg:w-full md:min-h-[400px] flex justify-center items-center"
+          >
+            <i-feather
+              (click)="openModal()"
+              name="play"
+              class="text-red-600 big"
+            ></i-feather>
+          </button>
+    <div class="w-full min-h-40 mt-6 flex justify-center">
+        <div class="w-11/12 lg:w-4/5">
             <app-blog [content]="content"></app-blog>
 
             <!-- <div class="prose ck-content" [innerHTML]="getSanitizedContent(content)"></div> -->
@@ -8,3 +17,23 @@
     </div>
     <app-footer></app-footer>
 </div>
+@if (showModal) {
+    <app-modal (close)="closeModal()">
+      <div class="h-full w-full flex justify-center items-center absolute">
+        <div
+          class="absolute w-full h-full z-30 top-0 left-0"
+          (click)="closeModal()"
+        ></div>
+        <iframe
+          class="z-40"
+          width="95%"
+          height="50%"
+          src="https://www.youtube.com/embed/C0ixVKHtsus?autoplay=1"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          frameborder="0"
+        >
+        </iframe>
+      </div>
+    </app-modal>
+    }

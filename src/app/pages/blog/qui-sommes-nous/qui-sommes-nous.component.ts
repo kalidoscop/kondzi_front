@@ -5,11 +5,13 @@ import { ScrollService } from '../../../_services/scroll.service';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BlogComponent } from '../../component/blog/blog.component';
+import { IconsModule } from '../../../_icons/icons.module';
+import { ModalComponent } from '../../component/modal/modal.component';
 
 @Component({
   selector: 'app-qui-sommes-nous',
   standalone: true,
-  imports: [FooterComponent,CKEditorModule,BlogComponent],
+  imports: [FooterComponent,CKEditorModule,BlogComponent,IconsModule,ModalComponent],
   templateUrl: './qui-sommes-nous.component.html',
   styleUrl: './qui-sommes-nous.component.scss'
 })
@@ -23,5 +25,12 @@ export class QuiSommesNousComponent {
     this.pageService.getPage("qui-sommes-nous").subscribe((res)=>{
       this.content=res.page
     })
+  }
+  showModal = false;
+  openModal() {
+    this.showModal = true;
+  }
+  closeModal() {
+    this.showModal = false;
   }
 }

@@ -168,7 +168,7 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
                       this.auLocations.push(coord);
                     }
                   }
-                  // this.initMap('map');
+                  this.initMap('map');
                 } else {
                   //console.log('none');
   
@@ -176,7 +176,7 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
                   this.loadStructure2(undefined, false);
   
                   this.auLocations = [];
-                  // this.initMap('map');
+                  this.initMap('map');
                 }
               });
           } else {
@@ -209,13 +209,13 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
                       this.auLocations.push(coord);
                     }
                   }
-                  // this.initMap('map');
+                  this.initMap('map');
                 } else {
                   //console.log('none');
                   this.type.setValue('all');
                   this.loadStructure2(undefined, false);
                   this.auLocations = [];
-                  // this.initMap('map');
+                  this.initMap('map');
                 }
               });
           }
@@ -259,14 +259,14 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
                       this.auLocations.push(coord);
                     }
                   }
-                  // this.initMap('map');
+                  this.initMap('map');
                 } else {
                   if (lodDoc) {
                     this.type.setValue('doc');
                     this.loadStructure2();
                   } else {
                     this.auLocations = [];
-                    // this.initMap('map');
+                    this.initMap('map');
                   }
                 }
               });
@@ -299,14 +299,14 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
                       this.auLocations.push(coord);
                     }
                   }
-                  // this.initMap('map');
+                  this.initMap('map');
                 } else {
                   if (lodDoc) {
                     this.type.setValue('doc');
                     this.loadStructure2();
                   } else {
                     this.auLocations = [];
-                    // this.initMap('map');
+                    this.initMap('map');
                   }
                 }
               });
@@ -318,7 +318,101 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
     
   }
 
-  // loadStructure(page?: string, lodDoc: boolean = true) {
+ 
+  type = new FormControl('all');
+  countrie = new FormControl('all');
+  onFilter() {
+    //console.log(this.type.value);
+
+    this.loadStructure2();
+  }
+
+  auLocations: any[] = [];
+
+  async initMap(mapName: string) {
+    const { Map, InfoWindow } = (await google.maps.importLibrary(
+      'maps'
+    )) as google.maps.MapsLibrary;
+    const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+      'marker'
+    )) as google.maps.MarkerLibrary;
+
+    const map = new Map(document.getElementById(mapName) as HTMLElement, {
+      // center: { lat: 8, lng: 1.259029 },
+      center: { lat: 16, lng: 7 },
+      zoom: 3,
+      mapId: '4504f8b37365c3d0',
+    });
+    const infoWindow = new InfoWindow();
+    //console.log(this.auLocations);
+
+    for (let i = 0; i < this.auLocations.length; i++) {
+      const { position, title, structure } = this.auLocations[i];
+      const marker = new AdvancedMarkerElement({
+        map,
+        position,
+        title,
+        gmpClickable: true,
+      });
+      marker.addListener('click', ({}) => {
+        // //console.log(structure);
+
+        this.scrollToStudent(structure.id);
+        this.selectedIndex = structure.id;
+        infoWindow.close();
+        infoWindow.setContent(marker.title);
+        infoWindow.open(marker.map, marker);
+      });
+    }
+  }
+  scrollToStudent(studentId: string) {
+    const element = document.querySelector(`#structure-${studentId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+  cart = true;
+
+  opencart() {
+    this.cart = !this.cart;
+  }
+
+  showModal = false;
+  async openAll() {
+    await this.openModal();
+    this.initMap('map2');
+  }
+
+  openModal() {
+    this.showModal = true;
+    this.initMap('map2');
+  }
+
+  closeModal() {
+    this.showModal = false;
+  }
+
+  next(page: string) {
+    //console.log(this.activatedRoute.url);
+
+    this.loadStructure2(page);
+  }
+
+  see: number = -1;
+
+  seeMore(i: number) {
+    if (this.see === i) {
+      this.see = -1;
+    } else {
+      this.see = i;
+    }
+  }
+}
+
+
+
+
+ // loadStructure(page?: string, lodDoc: boolean = true) {
   //   this.doctors = [];
   //   this.structures = [];
 
@@ -360,14 +454,14 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //   //                 this.auLocations.push(coord);
   //   //               }
   //   //             }
-  //   //             this.initMap('map');
+    //             this.initMap('map');
   //   //           } else {
   //   //             if (lodDoc) {
   //   //               this.type.setValue('doc');
   //   //               this.loadStructure();
   //   //             } else {
   //   //               this.auLocations = [];
-  //   //               this.initMap('map');
+    //               this.initMap('map');
   //   //             }
   //   //           }
   //   //         });
@@ -401,14 +495,14 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //   //                 this.auLocations.push(coord);
   //   //               }
   //   //             }
-  //   //             this.initMap('map');
+    //             this.initMap('map');
   //   //           } else {
   //   //             if (lodDoc) {
   //   //               this.type.setValue('doc');
   //   //               this.loadStructure();
   //   //             } else {
   //   //               this.auLocations = [];
-  //   //               this.initMap('map');
+    //               this.initMap('map');
   //   //             }
   //   //           }
   //   //         });
@@ -457,7 +551,7 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //                   this.auLocations.push(coord);
   //                 }
   //               }
-  //               this.initMap('map');
+                // this.initMap('map');
   //             } else {
   //               //console.log('none');
 
@@ -465,7 +559,7 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //               this.loadStructure(undefined, false);
 
   //               this.auLocations = [];
-  //               this.initMap('map');
+                // this.initMap('map');
   //             }
   //           });
   //       } else {
@@ -498,13 +592,13 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //                   this.auLocations.push(coord);
   //                 }
   //               }
-  //               this.initMap('map');
+                // this.initMap('map');
   //             } else {
   //               //console.log('none');
   //               this.type.setValue('all');
   //               this.loadStructure(undefined, false);
   //               this.auLocations = [];
-  //               this.initMap('map');
+                // this.initMap('map');
   //             }
   //           });
   //       }
@@ -548,14 +642,14 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //                   this.auLocations.push(coord);
   //                 }
   //               }
-  //               this.initMap('map');
+                // this.initMap('map');
   //             } else {
   //               if (lodDoc) {
   //                 this.type.setValue('doc');
   //                 this.loadStructure();
   //               } else {
   //                 this.auLocations = [];
-  //                 this.initMap('map');
+                  // this.initMap('map');
   //               }
   //             }
   //           });
@@ -588,14 +682,14 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //                   this.auLocations.push(coord);
   //                 }
   //               }
-  //               this.initMap('map');
+                // this.initMap('map');
   //             } else {
   //               if (lodDoc) {
   //                 this.type.setValue('doc');
   //                 this.loadStructure();
   //               } else {
   //                 this.auLocations = [];
-  //                 this.initMap('map');
+                  // this.initMap('map');
   //               }
   //             }
   //           });
@@ -603,92 +697,3 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   //     }
   //   }
   // }
-  type = new FormControl('all');
-  countrie = new FormControl('all');
-  onFilter() {
-    //console.log(this.type.value);
-
-    this.loadStructure2();
-  }
-
-  auLocations: any[] = [];
-
-  // async initMap(mapName: string) {
-  //   const { Map, InfoWindow } = (await google.maps.importLibrary(
-  //     'maps'
-  //   )) as google.maps.MapsLibrary;
-  //   const { AdvancedMarkerElement } = (await google.maps.importLibrary(
-  //     'marker'
-  //   )) as google.maps.MarkerLibrary;
-
-  //   const map = new Map(document.getElementById(mapName) as HTMLElement, {
-  //     // center: { lat: 8, lng: 1.259029 },
-  //     center: { lat: 16, lng: 7 },
-  //     zoom: 3,
-  //     mapId: '4504f8b37365c3d0',
-  //   });
-  //   const infoWindow = new InfoWindow();
-  //   //console.log(this.auLocations);
-
-  //   for (let i = 0; i < this.auLocations.length; i++) {
-  //     const { position, title, structure } = this.auLocations[i];
-  //     const marker = new AdvancedMarkerElement({
-  //       map,
-  //       position,
-  //       title,
-  //       gmpClickable: true,
-  //     });
-  //     marker.addListener('click', ({}) => {
-  //       // //console.log(structure);
-
-  //       this.scrollToStudent(structure.id);
-  //       this.selectedIndex = structure.id;
-  //       infoWindow.close();
-  //       infoWindow.setContent(marker.title);
-  //       infoWindow.open(marker.map, marker);
-  //     });
-  //   }
-  // }
-  scrollToStudent(studentId: string) {
-    const element = document.querySelector(`#structure-${studentId}`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }
-  cart = true;
-
-  opencart() {
-    this.cart = !this.cart;
-  }
-
-  showModal = false;
-  async openAll() {
-    await this.openModal();
-    // this.initMap('map2');
-  }
-
-  openModal() {
-    this.showModal = true;
-    // this.initMap('map2');
-  }
-
-  closeModal() {
-    this.showModal = false;
-  }
-
-  next(page: string) {
-    //console.log(this.activatedRoute.url);
-
-    this.loadStructure2(page);
-  }
-
-  see: number = -1;
-
-  seeMore(i: number) {
-    if (this.see === i) {
-      this.see = -1;
-    } else {
-      this.see = i;
-    }
-  }
-}
