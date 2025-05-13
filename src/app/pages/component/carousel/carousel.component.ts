@@ -1,7 +1,8 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { StructureService } from '../../../_services/structure.service';
 import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
 
 interface CarouselImage {
   imageSrc: string;
@@ -13,9 +14,11 @@ interface CarouselImage {
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.scss',
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit,AfterViewInit {
   @Input() images: CarouselImage[] = [];
   @Input() simple: boolean = false;
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  
   structureService = inject(StructureService);
     private router = inject(Router);
   
@@ -68,13 +71,22 @@ export class CarouselComponent implements OnInit {
     
     // console.log(this.search.value);
   }
+   ngAfterViewInit(): void {
+      if (isPlatformBrowser(this.platformId)) {
+         
+        setInterval(() => {
+          this.deroule();
+          // console.log(this.selectedIndex);
+        }, 4000);
+      }
+    }
   ngOnInit(): void {
     // console.log(this.images);
-
-    setInterval(() => {
-      this.deroule();
-      // console.log(this.selectedIndex);
-    }, 4000);
+    // console.log('CarouselComponent initialisé');
+    // setInterval(() => {
+    //   // console.log(this.selectedIndex);
+    // }, 4000);
+    // this.deroule();
 
     // throw new Error('Method not implemented.');
   }

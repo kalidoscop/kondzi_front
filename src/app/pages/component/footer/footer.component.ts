@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { IconsModule } from '../../../_icons/icons.module';
 // import { CarouselModule } from '../carousel/carousel.module';
 import { NgClass, NgOptimizedImage } from '@angular/common';
@@ -6,6 +6,9 @@ import { RouterModule } from '@angular/router';
 import { PubliciteService } from '../../../_services/publicite.service';
 import { Publicite } from '../../../_model/publicite';
 import { environment } from '../../../../environments/environment';
+import { isPlatformBrowser } from '@angular/common';
+import { After } from 'v8';
+
 
 interface publi {
   imageSrc: string;
@@ -19,7 +22,17 @@ interface publi {
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit, AfterViewInit {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+       
+      setInterval(() => {
+        this.deroule();
+        // console.log(this.selectedIndex);
+      }, 4000);
+    }
+  }
   publiciteService = inject(PubliciteService);
   pub: Publicite[] = [];
   baseUrl: string = `${environment.baseUrl}uploads/`;
@@ -64,12 +77,14 @@ export class FooterComponent implements OnInit {
   selectedIndex = 0;
 
   ngOnInit(): void {
+    // console.log('FooterComponent initialisé');
     // console.log(this.images);
 
     // setInterval(() => {
     //   this.deroule();
     //   // console.log(this.selectedIndex);
     // }, 4000);
+     
     this.loadPub();
     // throw new Error('Method not implemented.');
   }
@@ -80,10 +95,7 @@ export class FooterComponent implements OnInit {
         const pub = res[i];
         this.images.push({imageAlt:pub.name,imageSrc:`${this.baseUrl}${pub.image}`})
       }
-      setInterval(() => {
-        this.deroule();
-        // console.log(this.selectedIndex);
-      }, 4000);
+     
     });
   }
 

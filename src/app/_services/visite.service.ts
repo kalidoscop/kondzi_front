@@ -5,6 +5,9 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { VsiteMouth } from '../_model/visite';
 import { AlerteService } from './alerte.service';
+import { isPlatformBrowser, } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
+
 
 interface ipInt {
   country: string;
@@ -18,7 +21,7 @@ export class VisiteService {
   };
   
 
-  constructor(private alertService: AlerteService,private tokenService: TokenService, private http: HttpClient) {}
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,private alertService: AlerteService,private tokenService: TokenService, private http: HttpClient) {}
 
   getIp(): any {
     this.http.get<any>(`http://ip-api.com/json`).pipe(
@@ -30,39 +33,51 @@ export class VisiteService {
   }
 
   async getVisitorInfo() {
-    const browser = `${navigator.appName} ${navigator.appVersion}`;
-    const hostname = await this.getHostname();
-    const ipInfo = await this.http
-      .get<ipInt>('http://ip-api.com/json')
-      .toPromise();
-    const visitTime = new Date().toISOString();
-    if (ipInfo) {
+    if (isPlatformBrowser(this.platformId)) {
+      const browser = `${navigator.appName} ${navigator.appVersion}`;
+      const hostname = await this.getHostname();
+      const ipInfo = await this.http
+        .get<ipInt>('http://ip-api.com/json')
+        .toPromise();
+      const visitTime = new Date().toISOString();
+      if (ipInfo) {
+        return {
+          browser,
+          hostname,
+          country: ipInfo['country'],
+          visitTime,
+        };
+      }
       return {
         browser,
         hostname,
-        country: ipInfo['country'],
+        country: 'no country',
         visitTime,
       };
-    }
-    return {
-      browser,
-      hostname,
-      country: 'no country',
-      visitTime,
-    };
+        } 
+        return {
+        }
+    
   }
   isFirstVisit(): boolean {
-    const visitRecorded = sessionStorage.getItem('visitRecorded');
-    return !visitRecorded; // Retourne true si aucune visite enregistrée
+    if (isPlatformBrowser(this.platformId)) {
+      const visitRecorded = sessionStorage.getItem('visitRecorded');
+      return !visitRecorded; // Retourne true si aucune visite enregistrée
+    }
+    return false
   }
 
   markVisitAsRecorded(): void {
-    sessionStorage.setItem('visitRecorded', 'true');
+    if (isPlatformBrowser(this.platformId)) {
+      sessionStorage.setItem('visitRecorded', 'true');
+    }
   }
 
   private async getHostname(): Promise<string> {
     return new Promise((resolve) => {
+    if (isPlatformBrowser(this.platformId)) {
       resolve(window.location.hostname);
+    }
     });
   }
 

@@ -7,7 +7,7 @@
 </div> -->
 <!-- <ckeditor [editor]="Editor" [config]="config" data="<p>Hello, world!</p>"></ckeditor> -->
 <div class="flex justify-center items-start">
-  <div class="main-container">
+  <div *ngIf="isBrowser && Editor" class="main-container mb-4">
     <div
       class="prose editor-container editor-container_classic-editor"
       #editorContainerElement

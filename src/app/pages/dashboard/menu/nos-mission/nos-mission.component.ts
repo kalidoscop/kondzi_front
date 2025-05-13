@@ -1,54 +1,14 @@
-import { NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { isPlatformBrowser, NgIf } from '@angular/common';
+import {
+  ChangeDetectorRef,
+  Component,
+  Inject,
+  inject,
+  OnInit,
+  PLATFORM_ID,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import {
-  ClassicEditor,
-  AccessibilityHelp,
-  Autoformat,
-  AutoImage,
-  Autosave,
-  Alignment,
-  Base64UploadAdapter,
-  BlockQuote,
-  Bold,
-  CloudServices,
-  Essentials,
-  Font,
-  Heading,
-  ImageBlock,
-  ImageCaption,
-  ImageInline,
-  ImageInsert,
-  ImageInsertViaUrl,
-  ImageResize,
-  ImageStyle,
-  ImageTextAlternative,
-  ImageToolbar,
-  ImageUpload,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  LinkImage,
-  List,
-  ListProperties,
-  MediaEmbed,
-  Paragraph,
-  PasteFromOffice,
-  SelectAll,
-  Table,
-  TableCaption,
-  TableCellProperties,
-  TableColumnResize,
-  TableProperties,
-  TableToolbar,
-  TextTransformation,
-  TodoList,
-  Underline,
-  Undo,
-  type EditorConfig,
-} from 'ckeditor5';
 import { PageService } from '../../../../_services/page.service';
 
 @Component({
@@ -59,7 +19,14 @@ import { PageService } from '../../../../_services/page.service';
   styleUrl: './nos-mission.component.scss',
 })
 export class NosMissionComponent implements OnInit {
-  constructor(private changeDetector: ChangeDetectorRef) {}
+  isBrowser = false;
+
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
   public model = {
     editorData: '',
   };
@@ -70,9 +37,62 @@ export class NosMissionComponent implements OnInit {
   public isLayoutReady = false;
   pageService = inject(PageService);
 
-  public Editor = ClassicEditor;
-  public config: EditorConfig = {}; // CKEditor needs the DOM tree before calculating the configuration.
+  public Editor : any=null;
+  public config: any = {}; // CKEditor needs the DOM tree before calculating the configuration.
   public ngAfterViewInit(): void {
+    this.loadCkeditor();
+  }
+  async loadCkeditor() {
+    const {
+      ClassicEditor,
+      AccessibilityHelp,
+      Autoformat,
+      AutoImage,
+      Autosave,
+      Alignment,
+      Base64UploadAdapter,
+      BlockQuote,
+      Bold,
+      CloudServices,
+      Essentials,
+      Font,
+      Heading,
+      ImageBlock,
+      ImageCaption,
+      ImageInline,
+      ImageInsert,
+      ImageInsertViaUrl,
+      ImageResize,
+      ImageStyle,
+      ImageTextAlternative,
+      ImageToolbar,
+      ImageUpload,
+      Indent,
+      IndentBlock,
+      Italic,
+      Link,
+      LinkImage,
+      List,
+      ListProperties,
+      MediaEmbed,
+      Paragraph,
+      PasteFromOffice,
+      SelectAll,
+      Table,
+      TableCaption,
+      TableCellProperties,
+      TableColumnResize,
+      TableProperties,
+      TableToolbar,
+      TextTransformation,
+      TodoList,
+      Underline,
+      Undo,
+    } = await import('ckeditor5');
+    // import { CKEditorModule } from ;
+
+    this.Editor = ClassicEditor;
+
     this.config = {
       toolbar: {
         items: [

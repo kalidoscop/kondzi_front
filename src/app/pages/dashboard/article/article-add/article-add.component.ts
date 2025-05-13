@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { IconsModule } from '../../../../_icons/icons.module';
 import {
   FormControl,
@@ -7,63 +7,22 @@ import {
   Validators,
 } from '@angular/forms';
 import {
-  ClassicEditor,
-  AccessibilityHelp,
-  Autoformat,
-  AutoImage,
-  Autosave,
-  Alignment,
-  Base64UploadAdapter,
-  BlockQuote,
-  Bold,
-  CloudServices,
-  Essentials,
-  Font,
-  Heading,
-  ImageBlock,
-  ImageCaption,
-  ImageInline,
-  ImageInsert,
-  ImageInsertViaUrl,
-  ImageResize,
-  ImageStyle,
-  ImageTextAlternative,
-  ImageToolbar,
-  ImageUpload,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  LinkImage,
-  List,
-  ListProperties,
-  MediaEmbed,
-  Paragraph,
-  PasteFromOffice,
-  SelectAll,
-  Table,
-  TableCaption,
-  TableCellProperties,
-  TableColumnResize,
-  TableProperties,
-  TableToolbar,
-  TextTransformation,
-  TodoList,
-  Underline,
-  Undo,
-  type EditorConfig,
+  
 } from 'ckeditor5';
 import { Router, RouterModule } from '@angular/router';
 import { ArticleService } from '../../../../_services/article.service';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgClass, NgIf } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+
+
 
 @Component({
   selector: 'app-article-add',
   standalone: true,
   imports: [
-    CKEditorModule,
     IconsModule,
+    CKEditorModule,
     ReactiveFormsModule,
     RouterModule,
     NgIf,
@@ -72,182 +31,20 @@ import { NgClass, NgIf } from '@angular/common';
   templateUrl: './article-add.component.html',
   styleUrl: './article-add.component.scss',
 })
-export class ArticleAddComponent {
+export class ArticleAddComponent   {
   private router = inject(Router);
+  isBrowser = false;
 
-  constructor(private changeDetector: ChangeDetectorRef) {}
-  public Editor = ClassicEditor;
-  public config: EditorConfig = {}; // CKEditor needs the DOM tree before calculating the configuration.
-  public ngAfterViewInit(): void {
-    this.config = {
-      toolbar: {
-        items: [
-          'undo',
-          'redo',
-          '|',
-          'heading',
-          '|',
-          'fontSize',
-          'fontFamily',
-          'fontColor',
-          'fontBackgroundColor',
-          '|',
-          'bold',
-          'italic',
-          'underline',
-          '|',
-          'link',
-          'insertImage',
-          // 'mediaEmbed',
-          'insertTable',
-          'blockQuote',
-          '|',
-          'alignment',
-          '|',
-          'bulletedList',
-          'numberedList',
-          'todoList',
-          'outdent',
-          'indent',
-        ],
-        shouldNotGroupWhenFull: false,
-      },
-      plugins: [
-        AccessibilityHelp,
-        Autoformat,
-        AutoImage,
-        Autosave,
-        Base64UploadAdapter,
-        BlockQuote,
-        Bold,
-        CloudServices,
-        Essentials,
-        Font,
-        Alignment,
-        Heading,
-        ImageBlock,
-        ImageCaption,
-        ImageInline,
-        ImageInsert,
-        ImageInsertViaUrl,
-        ImageResize,
-        ImageStyle,
-        ImageTextAlternative,
-        ImageToolbar,
-        ImageUpload,
-        Indent,
-        IndentBlock,
-        Italic,
-        Link,
-        LinkImage,
-        List,
-        ListProperties,
-        MediaEmbed,
-        Paragraph,
-        PasteFromOffice,
-        SelectAll,
-        Table,
-        TableCaption,
-        TableCellProperties,
-        TableColumnResize,
-        TableProperties,
-        TableToolbar,
-        TextTransformation,
-        TodoList,
-        Underline,
-        Undo,
-      ],
-      heading: {
-        options: [
-          {
-            model: 'paragraph',
-            title: 'Paragraph',
-            class: 'ck-heading_paragraph',
-          },
-          {
-            model: 'heading1',
-            view: 'h1',
-            title: 'Heading 1',
-            class: 'ck-heading_heading1',
-          },
-          {
-            model: 'heading2',
-            view: 'h2',
-            title: 'Heading 2',
-            class: 'ck-heading_heading2',
-          },
-          {
-            model: 'heading3',
-            view: 'h3',
-            title: 'Heading 3',
-            class: 'ck-heading_heading3',
-          },
-          {
-            model: 'heading4',
-            view: 'h4',
-            title: 'Heading 4',
-            class: 'ck-heading_heading4',
-          },
-          {
-            model: 'heading5',
-            view: 'h5',
-            title: 'Heading 5',
-            class: 'ck-heading_heading5',
-          },
-          {
-            model: 'heading6',
-            view: 'h6',
-            title: 'Heading 6',
-            class: 'ck-heading_heading6',
-          },
-        ],
-      },
-      image: {
-        toolbar: [
-          'toggleImageCaption',
-          'imageTextAlternative',
-          '|',
-          'imageStyle:inline',
-          'imageStyle:wrapText',
-          'imageStyle:breakText',
-          '|',
-          'resizeImage',
-        ],
-      },
-      link: {
-        addTargetToExternalLinks: true,
-        defaultProtocol: 'https://',
-        decorators: {
-          toggleDownloadable: {
-            mode: 'manual',
-            label: 'Downloadable',
-            attributes: {
-              download: 'file',
-            },
-          },
-        },
-      },
-      list: {
-        properties: {
-          styles: true,
-          startIndex: true,
-          reversed: true,
-        },
-      },
-      placeholder: 'Type or paste your content here!',
-      table: {
-        contentToolbar: [
-          'tableColumn',
-          'tableRow',
-          'mergeTableCells',
-          'tableProperties',
-          'tableCellProperties',
-        ],
-      },
-    };
 
-    this.isLayoutReady = true;
-    this.changeDetector.detectChanges();
+  constructor(private changeDetector: ChangeDetectorRef,@Inject(PLATFORM_ID) private platformId: Object) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
+  public Editor:any = null;
+  public config: any = {}; // CKEditor needs the DOM tree before calculating the configuration.
+  public ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadCkeditor();
+    }
   }
   public isLayoutReady = false;
   imageUrl: any;
@@ -265,6 +62,225 @@ export class ArticleAddComponent {
       };
       reader.readAsDataURL(this.fileToUpload);
     }
+  }
+  async loadCkeditor(){
+    const { ClassicEditor,
+      AccessibilityHelp,
+      Autoformat,
+      AutoImage,
+      Autosave,
+      Alignment,
+      Base64UploadAdapter,
+      BlockQuote,
+      Bold,
+      CloudServices,
+      Essentials,
+      Font,
+      Heading,
+      ImageBlock,
+      ImageCaption,
+      ImageInline,
+      ImageInsert,
+      ImageInsertViaUrl,
+      ImageResize,
+      ImageStyle,
+      ImageTextAlternative,
+      ImageToolbar,
+      ImageUpload,
+      Indent,
+      IndentBlock,
+      Italic,
+      Link,
+      LinkImage,
+      List,
+      ListProperties,
+      MediaEmbed,
+      Paragraph,
+      PasteFromOffice,
+      SelectAll,
+      Table,
+      TableCaption,
+      TableCellProperties,
+      TableColumnResize,
+      TableProperties,
+      TableToolbar,
+      TextTransformation,
+      TodoList,
+      Underline,
+      Undo } = await import('ckeditor5')
+// import { CKEditorModule } from ;
+
+      this.Editor = ClassicEditor;
+      
+      this.config = {
+        toolbar: {
+          items: [
+            'undo',
+            'redo',
+            '|',
+            'heading',
+            '|',
+            'fontSize',
+            'fontFamily',
+            'fontColor',
+            'fontBackgroundColor',
+            '|',
+            'bold',
+            'italic',
+            'underline',
+            '|',
+            'link',
+            'insertImage',
+            // 'mediaEmbed',
+            'insertTable',
+            'blockQuote',
+            '|',
+            'alignment',
+            '|',
+            'bulletedList',
+            'numberedList',
+            'todoList',
+            'outdent',
+            'indent',
+          ],
+          shouldNotGroupWhenFull: false,
+        },
+        plugins: [
+          AccessibilityHelp,
+          Autoformat,
+          AutoImage,
+          Autosave,
+          Base64UploadAdapter,
+          BlockQuote,
+          Bold,
+          CloudServices,
+          Essentials,
+          Font,
+          Alignment,
+          Heading,
+          ImageBlock,
+          ImageCaption,
+          ImageInline,
+          ImageInsert,
+          ImageInsertViaUrl,
+          ImageResize,
+          ImageStyle,
+          ImageTextAlternative,
+          ImageToolbar,
+          ImageUpload,
+          Indent,
+          IndentBlock,
+          Italic,
+          Link,
+          LinkImage,
+          List,
+          ListProperties,
+          MediaEmbed,
+          Paragraph,
+          PasteFromOffice,
+          SelectAll,
+          Table,
+          TableCaption,
+          TableCellProperties,
+          TableColumnResize,
+          TableProperties,
+          TableToolbar,
+          TextTransformation,
+          TodoList,
+          Underline,
+          Undo,
+        ],
+        heading: {
+          options: [
+            {
+              model: 'paragraph',
+              title: 'Paragraph',
+              class: 'ck-heading_paragraph',
+            },
+            {
+              model: 'heading1',
+              view: 'h1',
+              title: 'Heading 1',
+              class: 'ck-heading_heading1',
+            },
+            {
+              model: 'heading2',
+              view: 'h2',
+              title: 'Heading 2',
+              class: 'ck-heading_heading2',
+            },
+            {
+              model: 'heading3',
+              view: 'h3',
+              title: 'Heading 3',
+              class: 'ck-heading_heading3',
+            },
+            {
+              model: 'heading4',
+              view: 'h4',
+              title: 'Heading 4',
+              class: 'ck-heading_heading4',
+            },
+            {
+              model: 'heading5',
+              view: 'h5',
+              title: 'Heading 5',
+              class: 'ck-heading_heading5',
+            },
+            {
+              model: 'heading6',
+              view: 'h6',
+              title: 'Heading 6',
+              class: 'ck-heading_heading6',
+            },
+          ],
+        },
+        image: {
+          toolbar: [
+            'toggleImageCaption',
+            'imageTextAlternative',
+            '|',
+            'imageStyle:inline',
+            'imageStyle:wrapText',
+            'imageStyle:breakText',
+            '|',
+            'resizeImage',
+          ],
+        },
+        link: {
+          addTargetToExternalLinks: true,
+          defaultProtocol: 'https://',
+          decorators: {
+            toggleDownloadable: {
+              mode: 'manual',
+              label: 'Downloadable',
+              attributes: {
+                download: 'file',
+              },
+            },
+          },
+        },
+        list: {
+          properties: {
+            styles: true,
+            startIndex: true,
+            reversed: true,
+          },
+        },
+        placeholder: 'Type or paste your content here!',
+        table: {
+          contentToolbar: [
+            'tableColumn',
+            'tableRow',
+            'mergeTableCells',
+            'tableProperties',
+            'tableCellProperties',
+          ],
+        },
+      };
+  
+      this.isLayoutReady = true;
+      this.changeDetector.detectChanges();
   }
 
   public model = {

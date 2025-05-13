@@ -38,13 +38,13 @@ export class PageService {
 
 
   private log(object: any, message?: string) {
-    // if (environment.isDevEnv) {
+    if (environment.isDevEnv) {
       if (object instanceof Array) {
         console.table(object);
       } else {
         console.log(object);
       }
-    // }
+    }
     if (message) {
       this.alertService.creatAlert('success', message, 3000);
     }

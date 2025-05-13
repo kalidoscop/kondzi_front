@@ -4,12 +4,29 @@
 @tailwind utilities;
 
 
+
 .ck-editor__editable {
   @apply bg-white border border-gray-300 rounded-lg shadow-sm;
 }
 .ck-content {
   all: revert;
 }
+
+@font-face {
+	font-family: 'Lato';
+	font-style: normal;
+	font-weight: 400;
+	src: url('/assets/font/lato-v24-latin-regular.woff2') format('woff2');
+	font-display: swap;
+  }
+
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/assets/font/Montserrat-VariableFont_wght.ttf');
+    font-display: swap;
+    }
 
 // @import "";
 * {

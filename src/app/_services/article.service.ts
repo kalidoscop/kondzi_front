@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, TransferState,PLATFORM_ID, Inject, makeStateKey } from '@angular/core';
 import { TokenService } from './token.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AlerteService } from './alerte.service';
@@ -8,7 +8,7 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { Response } from '../_model/response';
 
 
-
+const PUBS_KEY = makeStateKey<any>('publicites');
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +19,25 @@ export class ArticleService {
   constructor(
     private tokenService: TokenService,
     private alertService: AlerteService,
-    private http: HttpClient
+    private state: TransferState,
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   getArticles():Observable<Article[]>{
+    // if (this.state.hasKey(PUBS_KEY)) {
+    //   const data = this.state.get(PUBS_KEY, null);
+    //   this.state.remove(PUBS_KEY);
+    //   return of(data); // Ne fait pas d’appel HTTP
+    // } else {
+    //   return this.http.get('https://api.exemple.com/publicites').pipe(
+    //     tap(data => {
+    //       if (isPlatformServer(this.platformId)) {
+    //         this.state.set(PUBS_KEY, data);
+    //       }
+    //     })
+    //   );
+    // }
     return this.http.get<Article[]>(`${environment.baseUrl}article/`,{
       headers:this.tokenService.getOption()
     }).pipe(tap((articles)=>{

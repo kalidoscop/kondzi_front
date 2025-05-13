@@ -79,9 +79,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   zone: string | null = this.activatedRoute.snapshot.paramMap.get('zone');
 
   async ngOnInit() {
-    console.log('cooooo');
+    // console.log('cooooo');
+    // console.log('NavebarComponent initialisé');
 
-    console.log(this.activatedRoute.url);
+    // console.log(this.activatedRoute.url);
     if (this.word && this.zone) {
       this.search = new FormGroup({
         word: new FormControl(this.word, Validators.required),

@@ -5,10 +5,10 @@ FROM --platform=$BUILDPLATFORM node:latest as builder
 RUN mkdir /project
 WORKDIR /project
 
-RUN npm install -g @angular/cli@13
+# RUN npm install -g @angular/cli@13
 
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm install --force
 
 COPY . .
 RUN chmod +x ./entrypoint.sh

@@ -15,7 +15,8 @@ import { IconsModule } from '../../_icons/icons.module';
 import { UadresseService } from '../../_services/uadresse.service';
 import { UtilAdresse } from '../../_model/uadresse';
 import { AlerteService } from '../../_services/alerte.service';
-
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID, Inject } from '@angular/core';
 registerLocaleData(localeFr, 'fr');
 
 @Component({
@@ -42,19 +43,16 @@ export class AcceuilComponent implements OnInit {
   private uadresseService = inject(UadresseService);
   private alertService = inject(AlerteService);
   private router = inject(Router)
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
+    // console.log('HomeComponent initialisé');
     this.scrollService.setNavbarOpaque(false);
     this.loadArticles();
     this.loadUadresse();
-    this.trackingService.getVisitorInfo().then((data) => {
-      if (this.trackingService.isFirstVisit()) {
-        this.trackingService.sendVisitData(data).subscribe((response) => {
-          console.log('Visit recorded:', response);
-          this.trackingService.markVisitAsRecorded();
-        });
-      }
-    });
+    this.getVisitor()
+    // if (isPlatformBrowser(this.platformId)) {
+    // }
   }
   loadUadresse() {
     this.uadresseService.getUtilAdresses().subscribe((res) => {
@@ -64,7 +62,18 @@ export class AcceuilComponent implements OnInit {
   loadArticles() {
     this.articleService.getArticles().subscribe((res) => {
       this.articles = res;
-      console.log(this.articles);
+      // console.log(this.articles);
+    });
+  }
+
+  getVisitor(){
+    this.trackingService.getVisitorInfo().then((data) => {
+      if (this.trackingService.isFirstVisit()) {
+        this.trackingService.sendVisitData(data).subscribe((response) => {
+          // console.log('Visit recorded:', response);
+          this.trackingService.markVisitAsRecorded();
+        });
+      }
     });
   }
 

@@ -1,53 +1,6 @@
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import {
-  ClassicEditor,
-  AccessibilityHelp,
-  Autoformat,
-  AutoImage,
-  Autosave,
-  Alignment,
-  Base64UploadAdapter,
-  BlockQuote,
-  Bold,
-  CloudServices,
-  Essentials,
-  Font,
-  Heading,
-  ImageBlock,
-  ImageCaption,
-  ImageInline,
-  ImageInsert,
-  ImageInsertViaUrl,
-  ImageResize,
-  ImageStyle,
-  ImageTextAlternative,
-  ImageToolbar,
-  ImageUpload,
-  Indent,
-  IndentBlock,
-  Italic,
-  Link,
-  LinkImage,
-  List,
-  ListProperties,
-  MediaEmbed,
-  Paragraph,
-  PasteFromOffice,
-  SelectAll,
-  Table,
-  TableCaption,
-  TableCellProperties,
-  TableColumnResize,
-  TableProperties,
-  TableToolbar,
-  TextTransformation,
-  TodoList,
-  Underline,
-  Undo,
-  type EditorConfig,
-} from 'ckeditor5';
+import { ChangeDetectorRef, Component, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { NgClass, NgIf } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgIf } from '@angular/common';
 import {
   FormControl,
   FormGroup,
@@ -76,15 +29,73 @@ export class ArticleDetailsComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
 
   articleId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
-  private router = inject(Router);
+  // private router = inject(Router);
+  isBrowser = false;
 
-  constructor(private changeDetector: ChangeDetectorRef) {}
+
+  constructor(private changeDetector: ChangeDetectorRef,@Inject(PLATFORM_ID) private platformId: Object) {
+     this.isBrowser = isPlatformBrowser(this.platformId);
+  }
   ngOnInit(): void {
     this.loadArticleInfo();
   }
-  public Editor = ClassicEditor;
-  public config: EditorConfig = {}; // CKEditor needs the DOM tree before calculating the configuration.
+  public Editor : any = null;
+  public config: any = {}; // CKEditor needs the DOM tree before calculating the configuration.
   public ngAfterViewInit(): void {
+    this.loadCkeditor();
+  }
+
+  async loadCkeditor() {
+    const {
+      ClassicEditor,
+      AccessibilityHelp,
+      Autoformat,
+      AutoImage,
+      Autosave,
+      Alignment,
+      Base64UploadAdapter,
+      BlockQuote,
+      Bold,
+      CloudServices,
+      Essentials,
+      Font,
+      Heading,
+      ImageBlock,
+      ImageCaption,
+      ImageInline,
+      ImageInsert,
+      ImageInsertViaUrl,
+      ImageResize,
+      ImageStyle,
+      ImageTextAlternative,
+      ImageToolbar,
+      ImageUpload,
+      Indent,
+      IndentBlock,
+      Italic,
+      Link,
+      LinkImage,
+      List,
+      ListProperties,
+      MediaEmbed,
+      Paragraph,
+      PasteFromOffice,
+      SelectAll,
+      Table,
+      TableCaption,
+      TableCellProperties,
+      TableColumnResize,
+      TableProperties,
+      TableToolbar,
+      TextTransformation,
+      TodoList,
+      Underline,
+      Undo,
+    } = await import('ckeditor5');
+    // import { CKEditorModule } from ;
+
+    this.Editor = ClassicEditor;
+
     this.config = {
       toolbar: {
         items: [
@@ -280,7 +291,10 @@ export class ArticleDetailsComponent implements OnInit {
 
   articleService = inject(ArticleService);
   articleForm = new FormGroup({
-    title: new FormControl('', [Validators.required,Validators.maxLength(120)]),
+    title: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(120),
+    ]),
     autor: new FormControl('', Validators.required),
     content: new FormControl('', Validators.required),
   });
@@ -288,13 +302,15 @@ export class ArticleDetailsComponent implements OnInit {
   get title() {
     return this.articleForm.get('title');
   }
-  
 
   loadArticleInfo() {
     if (this.articleId) {
       this.articleService.getArticle(this.articleId).subscribe((res) => {
         this.articleForm = new FormGroup({
-          title: new FormControl(`${res.title}`, [Validators.required,Validators.maxLength(120)]),
+          title: new FormControl(`${res.title}`, [
+            Validators.required,
+            Validators.maxLength(120),
+          ]),
           autor: new FormControl(`${res.autor}`, Validators.required),
           content: new FormControl(`${res.content}`, Validators.required),
         });
