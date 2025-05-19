@@ -58,7 +58,7 @@
           </select>
         </div>
       </div>
-      @if (meta) { @if (structures.length) { @if ( structures.length<25) {
+      @if (meta) { @if (structures.length) { @if ( structures.length<20) {
       <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
         {{ meta.total - structures.length + 1 }} à {{ meta.total }} sur
@@ -67,11 +67,11 @@
       } @else {
       <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
-        {{ meta.current_page * 25 - (structures.length - 1) }} à
-        {{ meta.current_page * 25 }} sur {{ meta.total }}
+        {{ meta.current_page * 20 - (structures.length - 1) }} à
+        {{ meta.current_page * 20 }} sur {{ meta.total }}
       </h1>
 
-      } } @else if (doctors.length) { @if ( doctors.length<25) {
+      } } @else if (doctors.length) { @if ( doctors.length<20) {
       <h1 class="text-xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de {{ meta.total - doctors.length + 1 }} à
         {{ meta.total }} sur
@@ -80,8 +80,8 @@
       } @else {
       <h1 class="text-3xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
-        {{ meta.current_page * 25 - (doctors.length - 1) }} à
-        {{ meta.current_page * 25 }} sur {{ meta.total }}
+        {{ meta.current_page * 20 - (doctors.length - 1) }} à
+        {{ meta.current_page * 20 }} sur {{ meta.total }}
       </h1>
 
       } }
