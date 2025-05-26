@@ -59,13 +59,13 @@
         </div>
       </div>
       @if (meta) { @if (structures.length) { @if ( structures.length<20) {
-      <h1 class="text-3xl w-11/12 font-bold mb-4">
+      <h1 class="text-xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
         {{ meta.total - structures.length + 1 }} à {{ meta.total }} sur
         {{ meta.total }}
       </h1>
       } @else {
-      <h1 class="text-3xl w-11/12 font-bold mb-4">
+      <h1 class="text-xl w-11/12 font-bold mb-4">
         Résultats pour <<{{ word }}>> de
         {{ meta.current_page * 20 - (structures.length - 1) }} à
         {{ meta.current_page * 20 }} sur {{ meta.total }}
