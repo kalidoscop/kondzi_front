@@ -1,18 +1,19 @@
-# syntax=docker/dockerfile:1.4
-
-FROM --platform=$BUILDPLATFORM node:latest as builder
+# FROM --platform=$BUILDPLATFORM node:latest as builder
+FROM node:20-alpine as builder
 
 RUN mkdir /project
 WORKDIR /project
 
-# RUN npm install -g @angular/cli@13
-
-COPY package.json package-lock.json ./
-RUN npm install --force
-
 COPY . .
-RUN chmod +x ./entrypoint.sh
-ENTRYPOINT [ "sh","./entrypoint.sh" ]
+RUN npm install --force
+RUN npm run build
+
+EXPOSE 4000
+CMD ["npm", "run", "serve:ssr:kondzi_front"]
+
+# COPY . .
+# RUN chmod +x ./entrypoint.sh
+# ENTRYPOINT [ "sh","./entrypoint.sh" ]
 # CMD ["ng", "serve", "--host", "0.0.0.0"]
 
 # FROM builder as prod-envs

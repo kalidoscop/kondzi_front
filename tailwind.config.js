@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,ts}"],
+  content: ["./src/**/*.{html,ts}", "./node_modules/daisyui/**/*.js"],
   theme: {
     // colors: {
     //   'ps-green':'#014040',
@@ -36,17 +36,13 @@ module.exports = {
       rose: colors.rose,
       "ps-green": "#014040",
       "ps-green-2": "#03A678",
-      "ps-orange":"#F27405",
-      "ps-orange-2":"#731702"
+      "ps-orange": "#F27405",
+      "ps-orange-2": "#731702",
     }),
     extend: {},
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('daisyui'),
-  ],
+  // plugins: [require("daisyui")],
   daisyui: {
-
     themes: true,
 
     styled: true,
@@ -60,15 +56,23 @@ module.exports = {
     logs: true,
 
     rtl: false,
-
   },
   safelist: [
-    "ck-content", "text-left", "text-right", "text-center", "text-justify",
-    "font-bold", "italic", "underline", "bg-red-500", "bg-blue-500"
-  ]
-  // safelist: [
-  //   {
-  //     pattern: /ck-.*/, // Permet toutes les classes CKEditor
-  //   },
-  // ],
+    "ck-content",
+    "text-left",
+    "text-right",
+    "text-center",
+    "text-justify",
+    "font-bold",
+    "italic",
+    "underline",
+    "bg-red-500",
+    "bg-blue-500",
+    "menu",
+    "menu-active",
+    "menu-md",
+    "menu-lg", // DaisyUI classes à conserver :
+    "bg-base-200", // DaisyUI classes à conserver :
+    "rounded-box", // DaisyUI classes à conserver :
+  ],
 };
