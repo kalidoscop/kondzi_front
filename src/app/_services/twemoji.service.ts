@@ -1,17 +1,17 @@
-import { Injectable } from '@angular/core';
-import twemoji from 'twemoji';
+// import { Injectable } from '@angular/core';
+// import twemoji from 'twemoji';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class TwemojiService {
+// @Injectable({
+//   providedIn: 'root'
+// })
+// export class TwemojiService {
 
-  constructor() { }
+//   constructor() { }
 
-  parse(element: HTMLElement) {
-    twemoji.parse(element, {
-      folder: 'svg',
-      ext: '.svg',
-    });
-  }
-}
+//   parse(element: HTMLElement) {
+//     twemoji.parse(element, {
+//       folder: 'svg',
+//       ext: '.svg',
+//     });
+//   }
+// }

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import {  Component, ElementRef, Inject, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -20,7 +20,7 @@ import { MetaData } from '../../_model/meta';
 import { DoctorService } from '../../_services/doctor.service';
 import { Doctor } from '../../_model/doctor';
 import { RestContriesService } from '../../_services/rest-contries.service';
-import { TwemojiService } from '../../_services/twemoji.service';
+// import { TwemojiService } from '../../_services/twemoji.service';
 import { isPlatformBrowser } from '@angular/common';
 
 
@@ -37,7 +37,7 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './annuaire.component.html',
   styleUrl: './annuaire.component.scss',
 })
-export class AnnuaireComponent implements OnInit,AfterViewInit {
+export class AnnuaireComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   structureService = inject(StructureService);
   doctorService = inject(DoctorService);
@@ -45,12 +45,12 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   private sharedService = inject(SharedService);
   private countryService = inject(RestContriesService);
 
-  private twemojiService = inject(TwemojiService) 
+  // private twemojiService = inject(TwemojiService) 
   private el = inject(ElementRef) 
 
   selectedIndex = '';
-  markers: google.maps.marker.AdvancedMarkerElement[] = [];
-  geocoder = new google.maps.Geocoder();
+  // markers: google.maps.marker.AdvancedMarkerElement[] = [];
+  // geocoder = new google.maps.Geocoder();
 
   loader = new Loader({
     apiKey: 'AIzaSyA3L1IdT9OeeN2GXjJGkTUVVuNFr7AEWx8',
@@ -95,9 +95,6 @@ export class AnnuaireComponent implements OnInit,AfterViewInit {
   scrollService = inject(ScrollService);
     constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
   
-  ngAfterViewInit() {
-    this.twemojiService.parse(this.el.nativeElement);
-  }
   async ngOnInit() {
     this.scrollService.setNavbarOpaque(true);
     this.getCountri();
