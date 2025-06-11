@@ -88,24 +88,24 @@
 
       <!-- } -->
       @if (meta.previous_page_url||meta.next_page_url) {
-      <div class="w-full pl-8 h-16 flex justify-start gap-4 items-center mb-4">
+      <div class="w-full lg:pl-8 h-16 flex justify-around lg:justify-start lg:gap-4 items-center mb-4">
         @if (meta.previous_page_url) {
 
         <button
           (click)="next(meta.previous_page_url)"
-          class="w-40 h-14 bg-ps-green rounded-2xl flex justify-center gap-2 items-center font-bold text-xl text-white"
+          class="w-44 h-10 bg-ps-green rounded-3xl flex justify-center gap-2 items-center font-bold text-lg text-center text-white"
         >
-          <i-feather name="arrow-left"></i-feather>
+          <i-feather name="chevron-left"></i-feather>
           precedent
         </button>
         } @if (meta.next_page_url) {
 
         <button
           (click)="next(meta.next_page_url)"
-          class="w-32 h-14 bg-ps-green rounded-2xl flex justify-center gap-2 items-center font-bold text-xl text-white"
+          class="w-44 h-10 bg-ps-green rounded-3xl flex justify-center gap-2 items-center font-bold text-lg text-center text-white"
         >
-          suivant
-          <i-feather name="arrow-right"></i-feather>
+          page suivante
+          <i-feather name="chevron-right"></i-feather>
         </button>
         }
       </div>
