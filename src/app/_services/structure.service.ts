@@ -23,9 +23,21 @@ export class StructureService {
     private http: HttpClient
   ) {}
 
-  getStructures(): Observable<Structure[]> {
+  getStructures(page?:string): Observable<StructureQuery> {
+    if (page) {
+      return this.http
+      .get<StructureQuery>(`${environment.baseUrl}structure${page}`, {
+        headers: this.tokenService.getOption(),
+      })
+      .pipe(
+        tap((structures) => {
+          this.log(structures);
+        }),
+        catchError((error) => this.handleError(error, [],error.error.message))
+      );
+    }
     return this.http
-      .get<Structure[]>(`${environment.baseUrl}structure/`, {
+      .get<StructureQuery>(`${environment.baseUrl}structure/`, {
         headers: this.tokenService.getOption(),
       })
       .pipe(

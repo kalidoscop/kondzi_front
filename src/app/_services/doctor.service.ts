@@ -22,8 +22,15 @@ export class DoctorService {
     private http: HttpClient
   ) {}
 
-  getDotors():Observable<Doctor[]>{
-    return this.http.get<Doctor[]>(`${environment.baseUrl}doctor/`,{
+  getDotors(page?:string):Observable<DoctorQuery>{
+    if (page) {
+      return this.http.get<DoctorQuery>(`${environment.baseUrl}doctor${page}`,{
+        headers:this.tokenService.getOption()
+      }).pipe(tap((docotrs)=>{
+        this.log(docotrs)
+      }),catchError((error) => this.handleError(error, [],error.error.message)))
+    }
+    return this.http.get<DoctorQuery>(`${environment.baseUrl}doctor/`,{
       headers:this.tokenService.getOption()
     }).pipe(tap((docotrs)=>{
       this.log(docotrs)

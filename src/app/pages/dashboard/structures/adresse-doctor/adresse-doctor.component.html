@@ -79,6 +79,28 @@
         </tr>
         }
       </tbody>
+      @if (meta) {
+
+      <tfoot class="w-full h-16 flex justify-end gap-4 items-center">
+        @if (meta.previous_page_url) {
+        <button
+          (click)="next(meta.previous_page_url)"
+          class="w-32 h-10 bg-ps-green rounded-3xl flex justify-center gap-2 items-center font-bold text-lg text-center text-white"
+        >
+          <i-feather name="chevron-left"></i-feather>
+          Prev
+        </button>
+        } @if (meta.next_page_url) {
+        <button
+          (click)="next(meta.next_page_url)"
+          class="w-32 h-10 bg-ps-green rounded-3xl flex justify-center gap-2 items-center font-bold text-lg text-center text-white"
+        >
+          next
+          <i-feather name="chevron-right"></i-feather>
+        </button>
+        }
+      </tfoot>
+      }
     </table>
 
     }

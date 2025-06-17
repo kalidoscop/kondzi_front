@@ -4,6 +4,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Doctor } from '../../../../_model/doctor';
 import { StructureService } from '../../../../_services/structure.service';
 import { DoctorService } from '../../../../_services/doctor.service';
+import { MetaData } from '../../../../_model/meta';
 
 @Component({
   selector: 'app-adresse-doctor',
@@ -19,6 +20,8 @@ export class AdresseDoctorComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   adresseDoctors: Doctor[] = [];
   doctors: Doctor[] = [];
+    meta: MetaData | undefined;
+  
   adresseId: string | null = this.activatedRoute.snapshot.paramMap.get('id');
   ngOnInit(): void {
     this.loadAdresseDoctor()
@@ -40,10 +43,17 @@ export class AdresseDoctorComponent implements OnInit {
     }
   }
 
-  loadDoctor() {
-    this.doctorService.getDotors().subscribe((res) => {
-      this.doctors = res;
+  loadDoctor(page?: string) {
+    this.doctorService.getDotors(page).subscribe((res) => {
+      this.doctors = res.data;
+      this.meta = res.meta
     });
+  }
+
+   next(page: string) {
+    //console.log(this.activatedRoute.url);
+
+    this.loadDoctor(page);
   }
 
   attachDoctor(id: string, doctorId: string) {

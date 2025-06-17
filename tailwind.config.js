@@ -42,37 +42,7 @@ module.exports = {
     extend: {},
   },
   // plugins: [require("daisyui")],
-  daisyui: {
-    themes: true,
-
-    styled: true,
-
-    themes: true,
-
-    base: true,
-
-    utils: true,
-
-    logs: true,
-
-    rtl: false,
-  },
   safelist: [
     "ck-content",
-    "text-left",
-    "text-right",
-    "text-center",
-    "text-justify",
-    "font-bold",
-    "italic",
-    "underline",
-    "bg-red-500",
-    "bg-blue-500",
-    "menu",
-    "menu-active",
-    "menu-md",
-    "menu-lg", // DaisyUI classes à conserver :
-    "bg-base-200", // DaisyUI classes à conserver :
-    "rounded-box", // DaisyUI classes à conserver :
   ],
 };

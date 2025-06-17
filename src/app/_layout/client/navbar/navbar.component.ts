@@ -8,17 +8,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgClass, NgOptimizedImage } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { DataService } from '../../../_services/data.service';
 import { ScrollService } from '../../../_services/scroll.service';
 import { Subscription } from 'rxjs';
 import { SharedService } from '../../../_services/shared.service';
-import { algoliasearch } from 'algoliasearch';
-import { autocomplete } from '@algolia/autocomplete-js';
-import { createQuerySuggestionsPlugin } from '@algolia/autocomplete-plugin-query-suggestions';
 
 import '@algolia/autocomplete-theme-classic';
-import { ModalComponent } from '../../../pages/component/modal/modal.component';
 import { CarouselModule } from '../../../pages/component/carousel/carousel.module';
 
 @Component({
