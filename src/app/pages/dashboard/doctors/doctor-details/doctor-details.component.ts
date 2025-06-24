@@ -42,6 +42,7 @@ export class DoctorDetailsComponent implements OnInit {
     activity: new FormControl(''),
     email: new FormControl('', [Validators.required, Validators.email]),
     social: new FormControl('', [Validators.required]),
+    city: new FormControl(''),
   });
   get tels(): FormArray {
     return this.doctorForm.get('tel') as FormArray;
@@ -81,7 +82,7 @@ export class DoctorDetailsComponent implements OnInit {
           country: new FormControl(`${res.country}`, Validators.required),
           secteur: new FormControl(`${res.secteur}`, Validators.required),
           activity: new FormControl(' '),
-
+          city: new FormControl(res.city),
           email: new FormControl(`${res.email}`, [
             Validators.required,
             Validators.email,

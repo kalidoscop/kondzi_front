@@ -46,6 +46,7 @@ export class DoctorAddComponent implements OnInit{
     secteur: new FormControl('pub', Validators.required),
     activity: new FormControl(''),
     country: new FormControl('',Validators.required),
+    city: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     social: new FormControl('', [Validators.required]),
   });

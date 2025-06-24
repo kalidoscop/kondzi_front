@@ -9,6 +9,7 @@ export interface Doctor {
   email: string;
   tel: Tel[];
   country: string;
+  city: string;
   secteur:string;
   activity:string;
   social:string;

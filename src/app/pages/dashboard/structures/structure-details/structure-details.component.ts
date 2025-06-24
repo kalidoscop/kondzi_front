@@ -143,6 +143,7 @@ export class StructureDetailsComponent implements OnInit {
     flagshipActivity: new FormControl(''),
     type: new FormControl(''),
     country: new FormControl(''),
+    city: new FormControl(''),
     isGarde: new FormControl(),
     assurance: new FormControl('', Validators.required),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
@@ -196,7 +197,7 @@ export class StructureDetailsComponent implements OnInit {
           flagshipActivity: new FormControl(''),
           activity: new FormControl(``),
           isGarde: new FormControl(res.is_garde),
-
+          city: new FormControl(res.city),
           type: new FormControl(`${res.type}`, Validators.required),
           adresse: new FormArray([], ArrayValidators.minLength(0)),
           network: new FormArray([], ArrayValidators.minLength(0)),

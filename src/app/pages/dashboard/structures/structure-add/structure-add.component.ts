@@ -144,6 +144,7 @@ export class StructureAddComponent implements OnInit {
     type: new FormControl('', Validators.required),
     assurance: new FormControl(''),
     country: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
     isGarde: new FormControl(false),
     adresse: new FormArray([], ArrayValidators.minLength(1)),
     network: new FormArray([], ArrayValidators.minLength(0)),

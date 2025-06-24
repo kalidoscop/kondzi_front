@@ -18,6 +18,7 @@ export interface Structure {
   social:string;
   type: string;
   country: string;
+  city: string;
   assurance:string;
   flagship_activity:string;
   is_garde:boolean;

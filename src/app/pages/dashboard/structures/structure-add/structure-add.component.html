@@ -120,7 +120,7 @@
         type="text"
         id="type"
         formControlName="country"
-        class="input"
+        class="input mt-2"
         required
       >
         @for (item of countries; track $index) {
@@ -131,6 +131,15 @@
 
         }
       </select>
+    </div>
+    <div class="flex flex-col w-[48%]">
+      <label for="city">Ville <span class="font-bold text-red-500">*</span></label>
+      <input
+        type="text"
+        id="city"
+        formControlName="city"
+        class="input mt-2"
+      />
     </div>
     
   </div>

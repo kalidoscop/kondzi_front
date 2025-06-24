@@ -43,7 +43,7 @@
       <th class="pl-2">Prenom</th>
       <th class="pl-2">Specialité</th>
       <th class="pl-2">Email</th>
-      <!-- <th class="pl-2">Téléphone</th> -->
+      <th class="pl-2">Viller</th>
       <th class="pl-2">ACTION</th>
     </tr>
   </thead>
@@ -57,7 +57,7 @@
       <td class="pl-2">{{ data.first_name }}</td>
       <td class="pl-2">{{ data.speciality }}</td>
       <td class="pl-2">{{ data.email }}</td>
-      <!-- <td class="pl-2">{{ data.tel }}</td> -->
+      <td class="pl-2">{{ data.city }}</td>
       <td class="pl-2">
         <a [routerLink]="['/dashboard/doctors/details', data.id]"
           ><i-feather
