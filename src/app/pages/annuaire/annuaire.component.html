@@ -155,6 +155,7 @@
                   <span class="material-symbols-outlined text-[18px] text-ps-green">
                     call
                   </span>
+                  <p class="">{{item.city}}</p>
                   @for (tel of item.tel; track $index) {
 
                   <p class="">({{ tel.prefix }}) {{ tel.number }}</p>
@@ -281,6 +282,7 @@
                 <span class="material-symbols-outlined text-[18px] text-ps-green">
                   call
                 </span>
+                <p class="">{{item.city}}</p>
                 @for (tel of item.tel; track $index) {
 
                 <p class="">({{ tel.prefix }}) {{ tel.number }}</p>
