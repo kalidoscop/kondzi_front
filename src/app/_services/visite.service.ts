@@ -5,9 +5,8 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { VsiteMouth } from '../_model/visite';
 import { AlerteService } from './alerte.service';
-import { isPlatformBrowser, } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { Inject, PLATFORM_ID } from '@angular/core';
-
 
 interface ipInt {
   country: string;
@@ -19,9 +18,13 @@ export class VisiteService {
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
   };
-  
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,private alertService: AlerteService,private tokenService: TokenService, private http: HttpClient) {}
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private alertService: AlerteService,
+    private tokenService: TokenService,
+    private http: HttpClient
+  ) {}
 
   getIp(): any {
     this.http.get<any>(`http://ip-api.com/json`).pipe(
@@ -54,17 +57,15 @@ export class VisiteService {
         country: 'no country',
         visitTime,
       };
-        } 
-        return {
-        }
-    
+    }
+    return {};
   }
   isFirstVisit(): boolean {
     if (isPlatformBrowser(this.platformId)) {
       const visitRecorded = sessionStorage.getItem('visitRecorded');
       return !visitRecorded; // Retourne true si aucune visite enregistrée
     }
-    return false
+    return false;
   }
 
   markVisitAsRecorded(): void {
@@ -75,9 +76,9 @@ export class VisiteService {
 
   private async getHostname(): Promise<string> {
     return new Promise((resolve) => {
-    if (isPlatformBrowser(this.platformId)) {
-      resolve(window.location.hostname);
-    }
+      if (isPlatformBrowser(this.platformId)) {
+        resolve(window.location.hostname);
+      }
     });
   }
 
@@ -94,7 +95,7 @@ export class VisiteService {
         tap((structures) => {
           this.log(structures);
         }),
-        catchError((error) => this.handleError(error, [],error.error.message))
+        catchError((error) => this.handleError(error, [], error.error.message))
       );
   }
 

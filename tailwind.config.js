@@ -41,7 +41,7 @@ module.exports = {
     }),
     extend: {},
   },
-  // plugins: [require("daisyui")],
+  plugins: [require("daisyui")],
   safelist: [
     "ck-content",
   ],
