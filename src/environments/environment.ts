@@ -1,4 +1,4 @@
 export const environment = {
-  baseUrl: 'https://api.kondzi.com/',
+  baseUrl: 'https://mydomaine.com',
   isDevEnv: false,
 };
